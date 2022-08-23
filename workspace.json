@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "geo-ar": "apps/geo-ar",
+    "geo-ar-e2e": "apps/geo-ar-e2e"
+  }
+}

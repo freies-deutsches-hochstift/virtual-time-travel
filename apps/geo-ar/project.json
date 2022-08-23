@@ -1,0 +1,80 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/geo-ar/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/geo-ar",
+        "index": "apps/geo-ar/src/index.html",
+        "baseHref": "/",
+        "main": "apps/geo-ar/src/main.tsx",
+        "polyfills": "apps/geo-ar/src/polyfills.ts",
+        "tsConfig": "apps/geo-ar/tsconfig.app.json",
+        "assets": ["apps/geo-ar/src/favicon.ico", "apps/geo-ar/src/assets"],
+        "styles": ["apps/geo-ar/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/geo-ar/src/environments/environment.ts",
+              "with": "apps/geo-ar/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "geo-ar:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "geo-ar:build:development"
+        },
+        "production": {
+          "buildTarget": "geo-ar:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/geo-ar/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/geo-ar"],
+      "options": {
+        "jestConfig": "apps/geo-ar/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
