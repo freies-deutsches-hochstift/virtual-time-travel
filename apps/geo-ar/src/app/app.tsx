@@ -1,13 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
-import NxWelcome from './nx-welcome';
 
 export function App() {
   return (
-    <>
-      <NxWelcome title="geo-ar" />
-      <div />
-    </>
+    <h1>Welcome geo-ar 👍</h1>
   );
 }
 
