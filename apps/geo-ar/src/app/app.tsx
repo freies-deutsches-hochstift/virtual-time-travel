@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
+import './app.scss';
 
 export function App() {
   return (
-    <h1>Welcome geo-ar 👍</h1>
+    <h1>Welcome geo-ar <span role="img" aria-label="Thumb-up">👍</span></h1>
   );
 }
 
