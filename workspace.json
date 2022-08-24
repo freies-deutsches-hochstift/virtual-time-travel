@@ -5,6 +5,7 @@
     "geo-ar": "apps/geo-ar",
     "geo-ar-e2e": "apps/geo-ar-e2e",
     "location-geo": "libs/location-geo",
+    "location-orientation": "libs/location-orientation",
     "location-qr": "libs/location-qr"
   }
 }

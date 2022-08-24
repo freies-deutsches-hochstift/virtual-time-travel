@@ -2,6 +2,7 @@
 import './app.scss'
 import { locationGeo } from '@virtual-time-travel/location-geo'
 import { locationQr } from '@virtual-time-travel/location-qr'
+import { locationOrientation } from '@virtual-time-travel/location-orientation'
 
 export function App() {
   return (
@@ -16,6 +17,7 @@ export function App() {
       <ul>
         <li className="lib">{locationGeo()}</li>
         <li className="lib">{locationQr()}</li>
+        <li className="lib">{locationOrientation()}</li>
       </ul>
     </>
   );
