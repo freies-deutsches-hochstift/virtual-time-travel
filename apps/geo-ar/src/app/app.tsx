@@ -23,6 +23,11 @@ export function App() {
         <li className="lib">{camera()}</li>
         <li className="lib">{data()}</li>
       </ul>
+      <div className="redux">Redux slices (@see redux dev tool):</div>
+      <ul>
+        <li className="slice">general</li>
+        <li className="slice">geo</li>
+      </ul>
     </>
   );
 }

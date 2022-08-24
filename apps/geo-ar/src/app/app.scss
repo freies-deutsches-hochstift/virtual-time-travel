@@ -1,9 +1,9 @@
 /* Your styles goes here. */
 h1 {
-    text-align: center;
+    margin-left: 1rem;
 }
 
-.lib {
+.lib, .slice {
     color:crimson;
     &:hover {
         color:blueviolet;
