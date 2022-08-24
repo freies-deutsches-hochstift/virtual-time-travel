@@ -4,6 +4,7 @@
   "projects": {
     "geo-ar": "apps/geo-ar",
     "geo-ar-e2e": "apps/geo-ar-e2e",
-    "location-geo": "libs/location-geo"
+    "location-geo": "libs/location-geo",
+    "location-qr": "libs/location-qr"
   }
 }

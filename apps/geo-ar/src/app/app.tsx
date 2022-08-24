@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import './app.scss'
 import { locationGeo } from '@virtual-time-travel/location-geo'
+import { locationQr } from '@virtual-time-travel/location-qr'
 
 export function App() {
   return (
@@ -11,7 +12,11 @@ export function App() {
           👍
         </span>
       </h1>
-      <div className="geo">{locationGeo()}</div>
+      <div className="import">Imported Libs from local workspace:</div>
+      <ul>
+        <li className="lib">{locationGeo()}</li>
+        <li className="lib">{locationQr()}</li>
+      </ul>
     </>
   );
 }
