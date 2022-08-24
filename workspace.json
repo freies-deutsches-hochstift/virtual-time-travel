@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "geo-ar": "apps/geo-ar",
-    "geo-ar-e2e": "apps/geo-ar-e2e"
+    "geo-ar-e2e": "apps/geo-ar-e2e",
+    "location-geo": "libs/location-geo"
   }
 }
