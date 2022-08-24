@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@virtual-time-travel/camera": ["libs/camera/src/index.ts"],
+      "@virtual-time-travel/data": ["libs/data/src/index.ts"],
       "@virtual-time-travel/location-geo": ["libs/location-geo/src/index.ts"],
       "@virtual-time-travel/location-orientation": [
         "libs/location-orientation/src/index.ts"

@@ -4,6 +4,7 @@ import { locationGeo } from '@virtual-time-travel/location-geo'
 import { locationQr } from '@virtual-time-travel/location-qr'
 import { locationOrientation } from '@virtual-time-travel/location-orientation'
 import { camera } from '@virtual-time-travel/camera'
+import { data } from '@virtual-time-travel/data'
 
 export function App() {
   return (
@@ -20,6 +21,7 @@ export function App() {
         <li className="lib">{locationQr()}</li>
         <li className="lib">{locationOrientation()}</li>
         <li className="lib">{camera()}</li>
+        <li className="lib">{data()}</li>
       </ul>
     </>
   );
