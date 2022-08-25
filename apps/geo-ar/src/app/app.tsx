@@ -1,10 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import './app.scss'
-import { locationGeo } from '@virtual-time-travel/location-geo'
-import { locationQr } from '@virtual-time-travel/location-qr'
-import { locationOrientation } from '@virtual-time-travel/location-orientation'
-import { camera } from '@virtual-time-travel/camera'
-import { data } from '@virtual-time-travel/data'
+import './app.scss';
+import { locationQr } from '@virtual-time-travel/location-qr';
+import { camera } from '@virtual-time-travel/camera';
+import { data } from '@virtual-time-travel/data';
+import { SpatialExample } from '@virtual-time-travel/spatial';
 
 export function App() {
   return (
@@ -17,12 +16,14 @@ export function App() {
       </h1>
       <div className="import">Imported Libs from local workspace:</div>
       <ul>
-        <li className="lib">{locationGeo()}</li>
         <li className="lib">{locationQr()}</li>
-        <li className="lib">{locationOrientation()}</li>
         <li className="lib">{camera()}</li>
         <li className="lib">{data()}</li>
+        <li className="lib">
+          <SpatialExample />
+        </li>
       </ul>
+
       <div className="redux">Redux slices (@see redux dev tool):</div>
       <ul>
         <li className="slice">general</li>
