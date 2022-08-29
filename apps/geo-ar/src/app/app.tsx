@@ -3,7 +3,7 @@ import './app.scss';
 import { locationQr } from '@virtual-time-travel/location-qr';
 import { camera } from '@virtual-time-travel/camera';
 import { data } from '@virtual-time-travel/data';
-import { SpatialExample } from '@virtual-time-travel/spatial';
+import { Link } from 'react-router-dom';
 
 export function App() {
   return (
@@ -20,7 +20,7 @@ export function App() {
         <li className="lib">{camera()}</li>
         <li className="lib">{data()}</li>
         <li className="lib">
-          <SpatialExample />
+          <Link to="/spatialexample">Spatial Geolocation Library</Link>
         </li>
       </ul>
 
@@ -29,6 +29,7 @@ export function App() {
         <li className="slice">general</li>
         <li className="slice">geo</li>
       </ul>
+      <br />
     </>
   );
 }
