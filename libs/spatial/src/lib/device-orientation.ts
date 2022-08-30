@@ -2,47 +2,60 @@
  * A wrapper for DeviceOrientationEvent handling feature availability and permissions gracefully
  */
 
-/**
- * Possible permission states
- */
-type PermissionState = 'unknown' | 'denied' | 'granted';
+import { useMemo, useState } from 'react';
+
 /**
  * Extend native Web API DeviceOrientationEvent event for iOS devices
  * https://stackoverflow.com/questions/60640018/devicemotionevent-request-permission-with-typescript
  */
-interface DeviceOrientationEventiOS extends DeviceOrientationEvent {
+export interface DeviceOrientationEventiOS extends DeviceOrientationEvent {
+  webkitCompassAccuracy?: number | undefined;
+  webkitCompassHeading?: number | undefined;
   requestPermission?: () => Promise<'granted' | 'denied'>;
 }
 
-export class DeviceOrientation {
-  #permissionState: PermissionState;
+export function useDeviceOrientation() {
+  type State = 'unknown' | 'denied' | 'granted' | 'unavailable';
+  const [state, setState] = useState<State>('unknown');
+  const [rawData, setRawData] = useState<
+    DeviceOrientationEventiOS | undefined
+  >();
+  const available = typeof DeviceOrientationEvent !== 'undefined';
 
-  constructor() {
-    this.#permissionState = 'unknown';
-  }
+  const compassHeading = useMemo(() => {
+    if (rawData) {
+      return rawData.webkitCompassHeading;
+    } else {
+      return undefined;
+    }
+  }, [rawData]);
 
-  request() {
-    console.log('typeof DeviceOrientationEvent', typeof DeviceOrientationEvent);
-    const orientationAvailable = typeof DeviceOrientationEvent !== 'undefined';
-    console.log('orientationAvailable', orientationAvailable);
-    if (orientationAvailable) {
+  /**
+   * Request access to DeviceOrientationEvents
+   * Warning : This usually needs to be requested via a user interaction
+   * ie. via a onClick
+   * @date 8/30/2022 - 2:20:03 PM
+   */
+  function request() {
+    if (available) {
       const requestPermission = (
         DeviceOrientationEvent as unknown as DeviceOrientationEventiOS
       ).requestPermission;
+
       const iOS = typeof requestPermission === 'function';
       //iOS 13+
       if (iOS) {
         requestPermission()
-          .then((permissionState: PermissionState) => {
+          .then((permissionState: State) => {
             console.log(`permissionState ${permissionState}`);
+            setState(permissionState);
             if (permissionState === 'granted') {
-              this.#permissionState = 'granted';
-              window.addEventListener('deviceorientation', (data) => {
-                // TODO Split off addEventListener to bind function to be called after requesting
-                console.log(data);
-              });
-            } else if (permissionState === 'denied') {
-              this.#permissionState = 'denied';
+              window.addEventListener(
+                'deviceorientation',
+                (data: DeviceOrientationEventiOS) => {
+                  setRawData(data);
+                }
+              );
             }
           })
           .catch(console.error);
@@ -54,7 +67,11 @@ export class DeviceOrientation {
         // handle regular non iOS 13+ devices
       }
     } else {
-      console.warn('DeviceOrientationEvent not available on this device!');
+      console.warn(
+        'DeviceOrientationEvent not available on this device! Check availability before requesting with orientationAvailable'
+      );
     }
   }
+
+  return { state, available, request, compassHeading, rawData };
 }

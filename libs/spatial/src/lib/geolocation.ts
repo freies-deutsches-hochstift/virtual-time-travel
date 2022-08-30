@@ -5,13 +5,17 @@
 /**
  * Possible permission states
  */
-type PermissionState = 'unknown' | 'denied' | 'granted';
+type State = 'unknown' | 'denied' | 'granted';
 
 export class Geolocation {
-  #permissionState: PermissionState;
+  #state: State;
 
   constructor() {
-    this.#permissionState = 'unknown';
+    this.#state = 'unknown';
+  }
+
+  get state() {
+    return this.#state;
   }
 
   // TODO Split request and event binding
@@ -35,14 +39,14 @@ export class Geolocation {
   #handlePositionError = (error: GeolocationPositionError) => {
     switch (error.code) {
       case 1:
-        this.#permissionState = 'denied';
+        this.#state = 'denied';
         break;
       case 2:
         console.warn(
           'Acquisition of the geolocation failed because at least one internal source of position returned an internal error.',
           error
         );
-        this.#permissionState = 'unknown';
+        this.#state = 'unknown';
         break;
       case 3:
         // TODO Should we warn the user if we loose GPS?
@@ -53,7 +57,7 @@ export class Geolocation {
         break;
       default:
         console.warn('Unknown location error : ', error);
-        this.#permissionState = 'unknown';
+        this.#state = 'unknown';
         break;
     }
   };

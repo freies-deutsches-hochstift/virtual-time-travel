@@ -1,34 +1,41 @@
 import * as geolib from 'geolib';
-import { DeviceOrientation } from './device-orientation';
+import { useDeviceOrientation } from './device-orientation';
 import { Geolocation } from './geolocation';
 import { GeolibGeoJSONPoint } from 'geolib/es/types';
+import { useState } from 'react';
 
 export interface poi {
-  id: number;
+  id: string;
   coordinate: GeolibGeoJSONPoint;
 }
 
-export class Spatial {
-  #someString = 'I am quite a string';
-  #userPos: GeolibGeoJSONPoint;
-  #deviceOrientation: DeviceOrientation;
-  #geolocation: Geolocation;
+export function useSpatial() {
+  const [userPos, setUserPos] = useState<GeolibGeoJSONPoint | undefined>();
+  const orientation = useDeviceOrientation();
+  // #deviceOrientation: DeviceOrientation;
+  // #geolocation: Geolocation;
 
-  constructor() {
-    this.#deviceOrientation = new DeviceOrientation();
-    this.#geolocation = new Geolocation();
-    this.#userPos = [0, 0];
-  }
+  // constructor() {
+  //   this.#deviceOrientation = new DeviceOrientation();
+  //   this.#geolocation = new Geolocation();
+  //   this.#userPos = [0, 0];
+  // }
 
-  requestOrientation() {
-    this.#deviceOrientation.request();
-  }
+  // requestOrientation() {
+  //   console.log('Doing all the things1!!1');
+  //   // console.log('this.#deviceOrientation.request', this.#deviceOrientation);
+  //   this.#deviceOrientation.request();
+  // }
 
-  get someString() {
-    return this.#someString;
-  }
+  // get orientationState() {
+  //   return this.#deviceOrientation.state;
+  // }
 
-  updateDistance = (target: GeolibGeoJSONPoint) => {
-    return geolib.getDistance(this.#userPos, target);
+  // updateDistance = (target: GeolibGeoJSONPoint) => {
+  //   return geolib.getDistance(this.#userPos, target);
+  // };
+
+  return {
+    orientation,
   };
 }
