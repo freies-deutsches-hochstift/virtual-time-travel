@@ -1,69 +1,43 @@
-export function camera(): string {
-  return 'camera';
-}
+import { useState } from 'react';
 
-/**
- * Possible permission states
- */
-type PermissionState = 'unknown' | 'denied' | 'granted';
+export function useCamera() {
+  type State = 'unknown' | 'denied' | 'granted' | 'unavailable';
+  const [state, setState] = useState<State>('unknown');
 
-export class Camera {
-  #permissionState: PermissionState;
-  #cameraConstraints: MediaStreamConstraints;
+  const available = true; // TODO Implement constraint based checker
 
-  /**
-   *
-   * @param constraints MediaStreamConstraints
-   * Constraints placed on the media stream request for the audio and video streams.
-   * Default is
-   *     { audio: false, video: { facingMode: { ideal: 'environment' }}}
-   */
-  constructor(constraints?: MediaStreamConstraints) {
-    this.#permissionState = 'unknown';
-    this.#cameraConstraints = constraints ?? {
+  function request(
+    element?: HTMLVideoElement | null,
+    constraints: MediaStreamConstraints = {
       audio: false,
       video: {
         facingMode: { ideal: 'environment' },
       },
-    };
-  }
-
-  get permissionState(): PermissionState {
-    return this.#permissionState;
-  }
-
-  get permissionGranted(): boolean {
-    return this.#permissionState === 'granted';
-  }
-
-  /**
-   * Bind the video stream to an HTML Video element.
-   * Note, this needs to be called by a user interaction event
-   * Otherwise some browsers will deny permission
-   * If you are not ready to show the stream, hide the element
-   * @param {HTMLVideoElement} element
-   * @param {Function} [errorCallback] Optional, callback for custom error function
-   */
-  bind(element: HTMLVideoElement, errorCallback?: () => void) {
-    //TODO Think about having events for granted
+    }
+  ) {
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
-        .getUserMedia(this.#cameraConstraints)
-        // .then(function (stream) {
-        // not 100% how scoping works here... this is shadowed by local scope if I use
-        // a function declaration, but not if I use arrow. Needs testing
+        .getUserMedia(constraints)
         .then((stream) => {
-          element.srcObject = stream;
-          this.#permissionState = 'granted';
+          setState('granted');
+          console.log('typeof element', typeof element);
+
+          // typeof element == 'HTMLVideoElement'
+          if (element) {
+            element.srcObject = stream;
+          }
         })
-        .catch(errorCallback ?? this.#bindErrorCallback);
+        .catch((error) => {
+          setState('denied');
+          console.warn(`Failed to bind UserMedia stream to HTML Video Element`);
+          console.warn(error);
+        });
     }
   }
 
-  #bindErrorCallback = (error: unknown) => {
-    //TODO Not sure if this should be a warn or an error.
-    this.#permissionState = 'denied';
-    console.warn(`Failed to bind UserMedia stream to HTML Video Element`);
-    console.warn(error);
+  return {
+    state,
+    available,
+    request,
   };
 }
