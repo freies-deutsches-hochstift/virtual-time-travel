@@ -22,11 +22,11 @@ export function useDeviceOrientation() {
   >();
   const available = typeof DeviceOrientationEvent !== 'undefined';
 
-  const compassHeading = useMemo(() => {
+  const [compassHeading, compassAccuracy] = useMemo(() => {
     if (rawData) {
-      return rawData.webkitCompassHeading;
+      return [rawData.webkitCompassHeading, rawData.webkitCompassAccuracy];
     } else {
-      return undefined;
+      return [undefined, undefined];
     }
   }, [rawData]);
 
@@ -73,5 +73,12 @@ export function useDeviceOrientation() {
     }
   }
 
-  return { state, available, request, compassHeading, rawData };
+  return {
+    state,
+    available,
+    request,
+    compassHeading,
+    compassAccuracy,
+    rawData,
+  };
 }
