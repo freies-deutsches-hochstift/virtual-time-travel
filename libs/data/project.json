@@ -2,22 +2,13 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/data/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
-    "build": {
-      "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/data",
-        "main": "libs/data/src/index.ts",
-        "tsConfig": "libs/data/tsconfig.lib.json",
-        "assets": ["libs/data/*.md"]
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/data/**/*.ts"]
+        "lintFilePatterns": ["libs/data/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
@@ -28,6 +19,5 @@
         "passWithNoTests": true
       }
     }
-  },
-  "tags": []
+  }
 }
