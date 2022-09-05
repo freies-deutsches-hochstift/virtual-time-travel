@@ -1,14 +1,13 @@
-import styles from './data.module.scss';
-
 /* eslint-disable-next-line */
-export interface DataProps {}
+export interface useDataProps {}
 
-export function Data(props: DataProps) {
-  return (
-    <div className={styles['container']}>
-      <h1>Welcome to Data!</h1>
-    </div>
-  );
+export function useData(props?: useDataProps) {
+  // type State = 'not-ready' | 'loading' | 'granted' | 'unavailable';
+  const dataMode = process.env?.['NX_DATA_MODE'];
+
+  // const [state, setState] = useState()
+
+  return { dataMode };
 }
 
-export default Data;
+export default useData;
