@@ -1,10 +1,11 @@
 import { render } from '@testing-library/react';
 
-import Data from './data';
+import useData from './data';
 
 describe('Data', () => {
-  it('should render successfully', () => {
-    const { baseElement } = render(<Data />);
-    expect(baseElement).toBeTruthy();
+  it('should have a mode of remote or cache', () => {
+    const data = useData();
+    // const { baseElement } = render(<Data />);
+    expect(data.dataMode === 'remote' || data.dataMode === 'cache');
   });
 });

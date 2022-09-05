@@ -13,6 +13,7 @@ export function DataExample(props: DataExampleProps) {
         <div>
           Data mode is set to <b>{data.dataMode}</b> in the .env file
         </div>
+        <div>{JSON.stringify(data?.fences)}</div>
       </fieldset>
     </>
   );
