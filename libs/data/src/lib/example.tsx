@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { JSONTree } from 'react-json-tree';
 import useData from './data';
 
 /* eslint-disable-next-line */
@@ -7,7 +8,7 @@ export interface DBExampleProps {}
 export function DBExample(props: DBExampleProps) {
   const db = useData();
   useEffect(() => {
-    console.log('data:', db?.fences?.data);
+    console.log('data:', db);
   }, [db]);
 
   return (
@@ -35,45 +36,13 @@ export function DBExample(props: DBExampleProps) {
 
         <fieldset>
           <legend>Fences DB</legend>
-          <div>Fences State : {db?.fences?.state}</div>
-          <div>Loaded {db.fences.data?.length} fences</div>
-          <ul>
-            {db?.fences?.state === 'loaded'
-              ? db?.fences?.data?.map((fence, index) => (
-                  <li key={index}>
-                    {fence?.['id']} : {fence?.['Title']}
-                  </li>
-                ))
-              : ''}
-          </ul>
-        </fieldset>
-        <fieldset>
-          <legend>Pages DB</legend>
-          <div>Fences State : {db?.pages?.state}</div>
-          <div>Loaded {db.pages.data?.length} pages</div>
-          <ul>
-            {db?.pages?.state === 'loaded'
-              ? db?.pages?.data?.map((pages, index) => (
-                  <li key={index}>
-                    {pages?.['id']} : {pages?.['Title']}
-                  </li>
-                ))
-              : ''}
-          </ul>
+          <div>Loaded {db.fences?.length} fences</div>
+          <JSONTree data={db.fences} />
         </fieldset>
         <fieldset>
           <legend>POVs DB</legend>
-          <div>POVs State : {db?.povs?.state}</div>
-          <div>Loaded {db.fences.data?.length} povs</div>
-          <ul>
-            {db?.povs?.state === 'loaded'
-              ? db?.povs?.data?.map((pov, index) => (
-                  <li key={index}>
-                    {pov?.['id']} : {pov?.['Title']}
-                  </li>
-                ))
-              : ''}
-          </ul>
+          <div>Loaded {db.povs?.length} povs</div>
+          <JSONTree data={db.povs} />
         </fieldset>
       </fieldset>
     </>
@@ -81,3 +50,5 @@ export function DBExample(props: DBExampleProps) {
 }
 
 export default DBExample;
+
+//berlin_parks_povs_berlin_parks_fences
