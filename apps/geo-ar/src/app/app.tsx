@@ -19,7 +19,10 @@ export function App() {
           <Link to="/cameraexample">Camera Library</Link>
         </li>
         <li className="lib">
-          <Link to="/dataexample">Data Library</Link>
+          <Link to="/apiexample">API Library</Link>
+        </li>
+        <li className="lib">
+          <Link to="/dbexample">Database Library</Link>
         </li>
         <li className="lib">
           <Link to="/spatialexample">Spatial Geolocation Library</Link>

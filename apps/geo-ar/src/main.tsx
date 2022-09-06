@@ -11,7 +11,7 @@ import { SpatialExample } from '@virtual-time-travel/spatial';
 import { GENERAL_FEATURE_KEY, generalReducer } from './app/state/general.slice';
 import { GEO_FEATURE_KEY, geoReducer } from './app/state/geo.slice';
 import { CameraExample } from '@virtual-time-travel/camera';
-import { DataExample } from '@virtual-time-travel/data';
+import { APIExample, DBExample } from '@virtual-time-travel/data';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -38,7 +38,8 @@ root.render(
           <Route path="/" element={<App />} />
           <Route path="/spatialexample" element={<SpatialExample />} />
           <Route path="/cameraexample" element={<CameraExample />} />
-          <Route path="/dataexample" element={<DataExample />} />
+          <Route path="/apiexample" element={<APIExample />} />
+          <Route path="/dbexample" element={<DBExample />} />
         </Routes>
       </BrowserRouter>
     </StrictMode>
