@@ -38,7 +38,11 @@ export function useAPI(
         })
         .then((data) => {
           setState('loaded');
-          setData(data.data);
+          if (data.data && Object.keys(data).length === 1) {
+            setData(data.data);
+          } else {
+            setData(data);
+          }
         })
         .catch((error) => {
           setState('failed');

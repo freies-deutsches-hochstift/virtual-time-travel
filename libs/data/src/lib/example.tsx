@@ -7,9 +7,6 @@ export interface DBExampleProps {}
 
 export function DBExample(props: DBExampleProps) {
   const db = useData();
-  useEffect(() => {
-    console.log('data:', db);
-  }, [db]);
 
   return (
     <>
@@ -43,6 +40,11 @@ export function DBExample(props: DBExampleProps) {
           <legend>POVs DB</legend>
           <div>Loaded {db.povs?.length} povs</div>
           <JSONTree data={db.povs} />
+        </fieldset>
+        <fieldset>
+          <legend>Relationship DB</legend>
+          <div>Loaded {db.relationships?.length} povs</div>
+          <JSONTree data={db.relationships} />
         </fieldset>
       </fieldset>
     </>

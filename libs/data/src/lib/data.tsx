@@ -27,8 +27,6 @@ export function useData(props?: useDataProps) {
   useEffect(() => {
     // TODO If module was to be more generic this should be a function populateRelationships()
     if (fencesDb.data && povsDb.data && relationshipsDb.data) {
-      console.warn('Doing relationship calculation');
-
       //Populate fences with relationship references
       const fencesWithRelation = [] as any;
       for (let i = 0; i < fencesDb.data.length; i++) {
@@ -62,7 +60,7 @@ export function useData(props?: useDataProps) {
     }
   }, [fencesDb.data, povsDb.data, relationshipsDb.data]);
 
-  return { fences, povs };
+  return { fences, povs, relationships: relationshipsDb.data };
 }
 
 export default useData;
