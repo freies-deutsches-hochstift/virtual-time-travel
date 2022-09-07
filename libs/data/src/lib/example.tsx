@@ -41,11 +41,6 @@ export function DBExample(props: DBExampleProps) {
           <div>Loaded {db.povs?.length} povs</div>
           <JSONTree data={db.povs} />
         </fieldset>
-        <fieldset>
-          <legend>Relationship DB</legend>
-          <div>Loaded {db.relationships?.length} povs</div>
-          <JSONTree data={db.relationships} />
-        </fieldset>
       </fieldset>
     </>
   );
