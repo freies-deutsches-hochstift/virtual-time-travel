@@ -1,34 +1,40 @@
 import { parse } from 'csv-parse/browser/esm/sync';
 import { useState } from 'react';
+import { csvtojson } from 'libs/csvtojson/src';
 
 export interface useAPIProps {
   root: string;
   api: string;
-  endPoint?: string;
-  token?: string;
-  tokenFormat?: string;
+  options: {
+    endPoint?: string;
+    token?: string;
+    tokenFormat?: string;
+    mode?: 'json' | 'csv';
+    template?: any;
+  };
 }
 
 export function useAPI(
   root: string,
   api: string,
-  endPoint?: string,
-  token?: string,
-  tokenFormat = `?access_token=`
+  options: {
+    endPoint?: string;
+    token?: string;
+    tokenFormat?: `?access_token=`;
+    mode?: 'json' | 'csv';
+    template?: any;
+  }
 ) {
   let url = `${root}/${api}`;
-  if (endPoint) {
-    url += `/${endPoint}`;
+  if (options.endPoint) {
+    url += `/${options.endPoint}`;
   }
-  if (token) {
-    url += `${tokenFormat}${token}`;
+  if (options.token) {
+    url += `${options.tokenFormat}${options.token}`;
   }
   const [state, setState] = useState<'idle' | 'loading' | 'loaded' | 'failed'>(
     'idle'
   );
-
-  // TODO move to config library
-  const dataMode = 'csv'; //process.env?.['NX_DATA_MODE'];
 
   // TODO Clarify how to parse JSON without any in TypeScript
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -43,7 +49,7 @@ export function useAPI(
           return response.text();
         })
         .then((data) => {
-          if (dataMode === 'json') {
+          if (mode === 'json') {
             try {
               const json = JSON.parse(data);
               if (json.data && Object.keys(json).length === 1) {
@@ -57,14 +63,10 @@ export function useAPI(
               console.error('Failed to parse API response as JSON', error);
             }
           }
-          if (dataMode === 'csv') {
+          if (mode === 'csv') {
             try {
               const csv = parse(data, { columns: true });
-              for (let i = 0; i < Object.keys(csv[0]).length; i++) {
-                const key = Object.keys(csv[0])[i];
-                console.log('key', key);
-              }
-              setData(csv);
+              setData(template ? csvtojson(csv, template) : csv);
               setState('loaded');
             } catch (error) {
               setState('failed');

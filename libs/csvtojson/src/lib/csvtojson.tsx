@@ -1,14 +1,12 @@
-import styles from './csvtojson.module.scss';
+export function csvtojson(csv: any, template: object) {
+  for (let i = 0; i < csv.length; i++) {
+    const element = csv[i];
+    for (let j = 0; j < Object.keys(element).length; j++) {
+      const prop = Object.keys(element)[j];
+    }
+  }
 
-/* eslint-disable-next-line */
-export interface CsvtojsonProps {}
-
-export function Csvtojson(props: CsvtojsonProps) {
-  return (
-    <div className={styles['container']}>
-      <h1>Welcome to Csvtojson!</h1>
-    </div>
-  );
+  return [];
 }
 
-export default Csvtojson;
+export default csvtojson;
