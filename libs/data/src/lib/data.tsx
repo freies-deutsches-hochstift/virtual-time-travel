@@ -11,34 +11,45 @@ export function useData(props?: useDataProps) {
   const apiToken = process.env?.['NX_API_TOKEN'] as string;
   console.log('apiRoot', apiRoot);
 
-  const fenceTemplate = {
-    id: 'id',
-    status: 'status',
-    sort: 'sort',
-    fence: { type: 'fence.type', coordinates: 'fence.coordinates' },
+  const fenceMapper = (data: any) => {
+    return {
+      id: data.id,
+      status: data.status,
+      sort: data.sort,
+      fence: {
+        type: data['fence.type'],
+        coordinates: JSON.parse(data['fence.coordinates']),
+      },
+    };
   };
-  const povsTemplate = {
-    id: 'id',
-    status: 'status',
-    sort: 'sort',
-    title: 'title',
-    full_text: 'full_text',
-    sub_title: 'sub_title',
-    short_text: 'short_text',
-    position: { type: 'position.type', coordinates: 'position.coordinates' },
+
+  const povsMapper = (data: any) => {
+    return {
+      id: data.id,
+      status: data.status,
+      sort: data.sort,
+      title: data.title,
+      full_text: data.full_text,
+      sub_title: data.sub_title,
+      short_text: data.short_text,
+      position: {
+        type: data['position.type'],
+        coordinates: JSON.parse(data['position.coordinates']),
+      },
+    };
   };
 
   const fencesDb = useAPI(apiRoot, `items`, {
     endPoint: `berlin_parks_fences`,
     token: apiToken,
     mode: dataMode,
-    template: fenceTemplate,
+    mapper: fenceMapper,
   });
   const povsDb = useAPI(apiRoot, `items`, {
     endPoint: `berlin_parks_povs`,
     token: apiToken,
     mode: dataMode,
-    template: povsTemplate,
+    mapper: povsMapper,
   });
 
   return { fences: fencesDb?.data, povs: povsDb.data };
