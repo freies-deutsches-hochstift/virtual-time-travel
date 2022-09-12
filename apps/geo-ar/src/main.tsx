@@ -12,6 +12,8 @@ import { GENERAL_FEATURE_KEY, generalReducer } from './app/state/general.slice';
 import { GEO_FEATURE_KEY, geoReducer } from './app/state/geo.slice';
 import { CameraExample } from '@virtual-time-travel/camera';
 import { APIExample, DBExample } from '@virtual-time-travel/data';
+import { QrRouterExample } from '@virtual-time-travel/qrrouter';
+import { CsvToJSONExample } from '@virtual-time-travel/csvtojson';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -40,6 +42,8 @@ root.render(
           <Route path="/cameraexample" element={<CameraExample />} />
           <Route path="/apiexample" element={<APIExample />} />
           <Route path="/dbexample" element={<DBExample />} />
+          <Route path="/csvtojsonexample" element={<CsvToJSONExample />} />
+          <Route path="/qrrouterexample" element={<QrRouterExample />} />
         </Routes>
       </BrowserRouter>
     </StrictMode>

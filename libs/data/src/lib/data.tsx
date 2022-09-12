@@ -9,7 +9,6 @@ export function useData(props?: useDataProps) {
   const dataMode = process.env?.['NX_DATA_MODE'] as 'json' | 'csv';
   const apiRoot = process.env?.['NX_API_ROOT'] as string;
   const apiToken = process.env?.['NX_API_TOKEN'] as string;
-  console.log('apiRoot', apiRoot);
 
   const fenceMapper = (data: any) => {
     return {
@@ -40,13 +39,13 @@ export function useData(props?: useDataProps) {
   };
 
   const fencesDb = useAPI(apiRoot, `items`, {
-    endPoint: `berlin_parks_fences`,
+    endPoint: `fences`,
     token: apiToken,
     mode: dataMode,
     mapper: fenceMapper,
   });
   const povsDb = useAPI(apiRoot, `items`, {
-    endPoint: `berlin_parks_povs`,
+    endPoint: `povs`,
     token: apiToken,
     mode: dataMode,
     mapper: povsMapper,
