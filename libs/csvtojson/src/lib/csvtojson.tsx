@@ -2,11 +2,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function csvtojson(csv: any, mapper: Function) {
   for (let i = 0; i < csv.length; i++) {
-    // const element = csv[i];
     csv[i] = mapper(csv[i]);
   }
-
   return csv;
 }
-
 export default csvtojson;

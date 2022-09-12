@@ -15,7 +15,15 @@
         "main": "apps/geo-ar/src/main.tsx",
         "polyfills": "apps/geo-ar/src/polyfills.ts",
         "tsConfig": "apps/geo-ar/tsconfig.app.json",
-        "assets": ["apps/geo-ar/src/favicon.ico", "apps/geo-ar/src/assets"],
+        "assets": [
+          "apps/geo-ar/src/favicon.ico",
+          "apps/geo-ar/src/assets",
+          {
+            "input": "apps/geo-ar/assets/items",
+            "glob": "*.csv",
+            "output": "./items"
+          }
+        ],
         "styles": ["apps/geo-ar/src/styles.scss"],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack",

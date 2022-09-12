@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import './app.scss';
-import { locationQr } from '@virtual-time-travel/location-qr';
 import { Link } from 'react-router-dom';
 
 export function App() {
@@ -14,7 +13,6 @@ export function App() {
       </h1>
       <div className="import">Imported Libs from local workspace:</div>
       <ul>
-        <li className="lib">{locationQr()}</li>
         <li className="lib">
           <Link to="/cameraexample">Camera Library</Link>
         </li>
@@ -26,6 +24,9 @@ export function App() {
         </li>
         <li className="lib">
           <Link to="/spatialexample">Spatial Geolocation Library</Link>
+        </li>
+        <li className="lib">
+          <Link to="/csvtojsonexample">CSV to JSON Library</Link>
         </li>
       </ul>
 

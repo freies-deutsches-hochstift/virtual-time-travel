@@ -32,6 +32,11 @@ export function useAPI(
   if (options?.token) {
     url += `${options.tokenFormat}${options.token}`;
   }
+  if (options?.mode === 'csv') {
+    url += `.csv`;
+  }
+
+  console.log('API url', url);
   const [state, setState] = useState<'idle' | 'loading' | 'loaded' | 'failed'>(
     'idle'
   );

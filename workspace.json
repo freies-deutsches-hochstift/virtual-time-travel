@@ -7,7 +7,7 @@
     "data": "libs/data",
     "geo-ar": "apps/geo-ar",
     "geo-ar-e2e": "apps/geo-ar-e2e",
-    "location-qr": "libs/location-qr",
+    "qrrouter": "libs/qrrouter",
     "spatial": "libs/spatial"
   }
 }
