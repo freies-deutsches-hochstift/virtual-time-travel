@@ -29,7 +29,10 @@ The application can ingest data from a JSON API or directly from locally hosted 
 ```bash
 NX_DATA_MODE=json
 NX_API_ROOT=https://mysever.com
+NX_API_TOKEN=myTokenFromMyAPI
 ```
+
+the token is passed by default with a format of
 
 #### To use CSV
 
@@ -58,9 +61,11 @@ and is packed when building by the core application build script configured in `
 
 ## Geofence data
 
-The Geofence data base expects
+TODO take Maths format.
 
 ## POV data
+
+TODO take Maths format.
 
 ## Project page
 
