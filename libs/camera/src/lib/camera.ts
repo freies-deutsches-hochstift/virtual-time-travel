@@ -1,43 +1,40 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { CaptureOptions, CameraStatus } from './types';
 
-export function useCamera() {
-  type State = 'unknown' | 'denied' | 'granted' | 'unavailable';
-  const [state, setState] = useState<State>('unknown');
+const defaultOptions: CaptureOptions = {
+  audio: false,
+  video: { facingMode: 'environment' },
+};
 
-  const available = true; // TODO Implement constraint based checker
+export const useUserMedia = (options = defaultOptions) => {
+  const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
+  const [status, setStatus] = useState<CameraStatus>(CameraStatus.Unknown);
 
-  function request(
-    element?: HTMLVideoElement | null,
-    constraints: MediaStreamConstraints = {
-      audio: false,
-      video: {
-        facingMode: { ideal: 'environment' },
-      },
+  // const available = true; // TODO Implement constraint based checker
+
+  const requestVideoStream = useCallback(async () => {
+    if (mediaStream) return;
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia(options);
+      setStatus(CameraStatus.Granted);
+      setMediaStream(stream);
+    } catch (error) {
+      setStatus(CameraStatus.Denied);
+      console.warn(`Failed to bind UserMedia stream to HTML Video Element`);
+      console.warn(error);
     }
-  ) {
-    if (navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices
-        .getUserMedia(constraints)
-        .then((stream) => {
-          setState('granted');
-          console.log('typeof element', typeof element);
+  }, [mediaStream, options]);
 
-          // typeof element == 'HTMLVideoElement'
-          if (element) {
-            element.srcObject = stream;
-          }
-        })
-        .catch((error) => {
-          setState('denied');
-          console.warn(`Failed to bind UserMedia stream to HTML Video Element`);
-          console.warn(error);
+  useEffect(() => {
+    requestVideoStream();
+    return () => {
+      if (mediaStream)
+        mediaStream.getTracks().forEach((track) => {
+          track.stop();
         });
-    }
-  }
+    };
+  }, [mediaStream, requestVideoStream]);
 
-  return {
-    state,
-    available,
-    request,
-  };
-}
+  return { mediaStream, status };
+};

@@ -1,7 +1,7 @@
-import { camera } from './camera';
+import { useUserMedia } from './camera';
 
-describe('camera', () => {
+describe('useUserMedia', () => {
   it('should work', () => {
-    expect(camera()).toEqual('camera');
+    expect(useUserMedia()).toEqual('useUserMedia');
   });
 });

@@ -3,7 +3,7 @@ import { useSpatial } from './lib/spatial';
 import styles from './example.module.scss';
 
 /* eslint-disable-next-line */
-export interface SpatialExampleProps {}
+export interface SpatialExampleProps { }
 
 export function SpatialExample(props: SpatialExampleProps) {
   const spatial = useSpatial();
@@ -98,18 +98,14 @@ export function SpatialExample(props: SpatialExampleProps) {
                 <td>↕️</td>
                 <td>Latitude</td>
                 <td>
-                  {spatial?.location?.geolocationPosition?.coords?.latitude?.toFixed(
-                    2
-                  )}
+                  {spatial?.location?.geolocationPosition?.coords?.latitude}
                 </td>
               </tr>
               <tr>
                 <td>↔️</td>
                 <td>Longitude</td>
                 <td>
-                  {spatial?.location?.geolocationPosition?.coords?.longitude?.toFixed(
-                    2
-                  )}
+                  {spatial?.location?.geolocationPosition?.coords?.longitude}
                 </td>
               </tr>
               <tr>
