@@ -14,6 +14,7 @@ import { CameraExample } from '@virtual-time-travel/camera';
 import { APIExample, DBExample } from '@virtual-time-travel/data';
 import { QrRouterExample } from '@virtual-time-travel/qrrouter';
 import { CsvToJSONExample } from '@virtual-time-travel/csvtojson';
+import Examples from './app/examples/examples';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -38,12 +39,17 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/spatialexample" element={<SpatialExample />} />
-          <Route path="/cameraexample" element={<CameraExample />} />
-          <Route path="/apiexample" element={<APIExample />} />
-          <Route path="/dbexample" element={<DBExample />} />
-          <Route path="/csvtojsonexample" element={<CsvToJSONExample />} />
-          <Route path="/qrrouterexample" element={<QrRouterExample />} />
+
+          {/** 
+           * TODO group examples into single page
+           */}
+          <Route path="/examples" element={<Examples />} />
+          <Route path="/examples/spatial" element={<SpatialExample />} />
+          <Route path="/examples/camera" element={<CameraExample />} />
+          <Route path="/examples/api" element={<APIExample />} />
+          <Route path="/examples/db" element={<DBExample />} />
+          <Route path="/examples/cvstojson" element={<CsvToJSONExample />} />
+          <Route path="/examples/qrrouter" element={<QrRouterExample />} />
         </Routes>
       </BrowserRouter>
     </StrictMode>
