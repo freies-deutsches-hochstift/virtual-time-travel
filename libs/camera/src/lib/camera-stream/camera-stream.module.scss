@@ -1,7 +1,25 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.camera-stream {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.camera-stream__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.camera-stream__debug {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  padding: 20px;
+  font-size: 12px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
