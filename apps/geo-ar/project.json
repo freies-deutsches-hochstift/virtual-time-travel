@@ -9,6 +9,7 @@
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
+        "webpackConfig": "webpackConfig.js",
         "outputPath": "dist/apps/geo-ar",
         "index": "apps/geo-ar/src/index.html",
         "baseHref": "/",
@@ -26,7 +27,6 @@
         ],
         "styles": ["apps/geo-ar/src/styles.scss"],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack",
         "crossOrigin": "anonymous"
       },
       "configurations": {
@@ -57,7 +57,8 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "geo-ar:build",
-        "hmr": true
+        "hmr": true,
+        "webpackConfig": "webpackConfig.js"
       },
       "configurations": {
         "development": {
