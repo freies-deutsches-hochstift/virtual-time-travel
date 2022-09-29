@@ -1,11 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
-import styles from './examples.module.scss';
+import styles from './examples.module.scss'
 
 /* eslint-disable-next-line */
 export interface ExamplesProps { }
 
 export function Examples(props: ExamplesProps) {
+
   return (
     <div className={styles['container']}>
 
@@ -42,7 +43,7 @@ export function Examples(props: ExamplesProps) {
 
 
     </div>
-  );
+  )
 }
 
-export default Examples;
+export default Examples

@@ -16,6 +16,8 @@ export function useSpatial() {
   /**
    * A shorthand to location.geolocationPosition.coords in GeoJSON format
    */
+
+  
   const position: GeolibGeoJSONPoint | undefined = [
     location.geolocationPosition?.coords.latitude ?? 0,
     location.geolocationPosition?.coords.longitude ?? 0,

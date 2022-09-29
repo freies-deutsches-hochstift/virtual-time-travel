@@ -1,87 +1,43 @@
-import {
-  createAsyncThunk,
-  createEntityAdapter,
-  createSelector,
-  createSlice,
-  EntityState,
-  PayloadAction,
-} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { RootState } from '../../main';
 
 export const GEO_FEATURE_KEY = 'geo';
 
-/*
- * Update these interfaces according to your requirements.
- */
-export interface GeoEntity {
-  id: number;
+export interface StatePosition {
+  coords: [number, number];
+  accuracy: number;
 }
 
-export interface GeoState extends EntityState<GeoEntity> {
-  loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
-  error: string;
+export interface GeoState {
+  position: StatePosition | null;
+  orientation: DeviceOrientationEvent | null;
 }
 
-export const geoAdapter = createEntityAdapter<GeoEntity>();
-
-/**
- * Export an effect using createAsyncThunk from
- * the Redux Toolkit: https://redux-toolkit.js.org/api/createAsyncThunk
- *
- * e.g.
- * ```
- * import React, { useEffect } from 'react';
- * import { useDispatch } from 'react-redux';
- *
- * // ...
- *
- * const dispatch = useDispatch();
- * useEffect(() => {
- *   dispatch(fetchGeo())
- * }, [dispatch]);
- * ```
- */
-export const fetchGeo = createAsyncThunk(
-  'geo/fetchStatus',
-  async (_, thunkAPI) => {
-    /**
-     * Replace this with your custom fetch call.
-     * For example, `return myApi.getGeos()`;
-     * Right now we just return an empty array.
-     */
-    return Promise.resolve([]);
-  }
-);
-
-export const initialGeoState: GeoState = geoAdapter.getInitialState({
-  loadingStatus: 'not loaded',
-  error: '',
-});
+export const initialGeoState: GeoState = {
+  position: null,
+  orientation: null,
+};
 
 export const geoSlice = createSlice({
   name: GEO_FEATURE_KEY,
   initialState: initialGeoState,
   reducers: {
-    add: geoAdapter.addOne,
-    remove: geoAdapter.removeOne,
-    // ...
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchGeo.pending, (state: GeoState) => {
-        state.loadingStatus = 'loading';
-      })
-      .addCase(
-        fetchGeo.fulfilled,
-        (state: GeoState, action: PayloadAction<GeoEntity[]>) => {
-          geoAdapter.setAll(state, action.payload);
-          state.loadingStatus = 'loaded';
-        }
-      )
-      .addCase(fetchGeo.rejected, (state: GeoState, action) => {
-        state.loadingStatus = 'error';
-        state.error = action.error.message || '';
-      });
+    updateLocation(
+      state: GeoState,
+      action: PayloadAction<StatePosition | null>
+    ) {
+      const { payload } = action;
+      state.position = payload;
+    },
+
+    updateOrientation(
+      state: GeoState,
+      action: PayloadAction<DeviceOrientationEvent | null>
+    ) {
+      const { payload } = action;
+      state.orientation = payload;
+    },
   },
 });
 
@@ -124,11 +80,6 @@ export const geoActions = geoSlice.actions;
  *
  * See: https://react-redux.js.org/next/api/hooks#useselector
  */
-const { selectAll, selectEntities } = geoAdapter.getSelectors();
 
 export const getGeoState = (rootState: RootState): GeoState =>
   rootState[GEO_FEATURE_KEY];
-
-export const selectAllGeo = createSelector(getGeoState, selectAll);
-
-export const selectGeoEntities = createSelector(getGeoState, selectEntities);

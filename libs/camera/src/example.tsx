@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { DeviceResponsePermission } from '@virtual-time-travel/util-device'
+import { useState } from 'react'
 
 
-import { CaptureOptions, CameraStream } from "./";
+import { CaptureOptions, CameraStream } from "./"
 
 interface CameraExampleProps {
   captureOptions?: CaptureOptions
@@ -10,21 +11,25 @@ interface CameraExampleProps {
 export function CameraExample(props: CameraExampleProps) {
   const [enableCamera, setEnableCamera] = useState<boolean>(true)
 
-
   const toggleCamera = () => {
     setEnableCamera((e) => !e)
   }
 
+  const onRequestCameraComplete = (res: DeviceResponsePermission) => {
+    console.log('onRequestCameraComplete', res)
+  }
+
   return <>
-    <h1>Camera Demo</h1>
-
-    {enableCamera && <CameraStream debug />}
-
     <div>
+      <h1>Camera Demo</h1>
       <button onClick={toggleCamera}>
         {enableCamera ? 'Disable' : 'Enable'}
       </button>
     </div>
+
+    {enableCamera && <CameraStream {...{ onRequestCameraComplete }} />}
+
+
 
     <div>
       Note : Most devices want you to request hardware access via a user

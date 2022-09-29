@@ -5,9 +5,11 @@
     "camera": "libs/camera",
     "csvtojson": "libs/csvtojson",
     "data": "libs/data",
+    "geo": "libs/geo",
     "geo-ar": "apps/geo-ar",
     "geo-ar-e2e": "apps/geo-ar-e2e",
     "qrrouter": "libs/qrrouter",
-    "spatial": "libs/spatial"
+    "spatial": "libs/spatial",
+    "util-device": "libs/util-device"
   }
 }

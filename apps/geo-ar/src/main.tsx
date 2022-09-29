@@ -1,4 +1,7 @@
-import { StrictMode } from 'react';
+// TODO
+// import { StrictMode } from 'react'; 
+// Effects firing twice in <React.StrictMode /> was added in React 18.
+
 import * as ReactDOM from 'react-dom/client';
 
 import App from './app/app';
@@ -16,12 +19,15 @@ import { QrRouterExample } from '@virtual-time-travel/qrrouter';
 import { CsvToJSONExample } from '@virtual-time-travel/csvtojson';
 import Examples from './app/examples/examples';
 
+import { DEVICE_FEATURE_KEY, deviceReducer } from './app/state/device.slice';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 const store = configureStore({
   reducer: {
+    [DEVICE_FEATURE_KEY]: deviceReducer,
     [GEO_FEATURE_KEY]: geoReducer,
     [GENERAL_FEATURE_KEY]: generalReducer,
   },
@@ -35,14 +41,11 @@ export type RootState = ReturnType<typeof store.getState>;
 
 root.render(
   <Provider store={store}>
-    <StrictMode>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} />
 
-          {/** 
-           * TODO group examples into single page
-           */}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/"  >
+          <Route index element={<App />} />
           <Route path="/examples" element={<Examples />} />
           <Route path="/examples/spatial" element={<SpatialExample />} />
           <Route path="/examples/camera" element={<CameraExample />} />
@@ -50,8 +53,12 @@ root.render(
           <Route path="/examples/db" element={<DBExample />} />
           <Route path="/examples/cvstojson" element={<CsvToJSONExample />} />
           <Route path="/examples/qrrouter" element={<QrRouterExample />} />
-        </Routes>
-      </BrowserRouter>
-    </StrictMode>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </Provider>
 );
+
+
+
+/*  */

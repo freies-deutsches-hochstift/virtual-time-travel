@@ -18,8 +18,10 @@
       "@virtual-time-travel/camera": ["libs/camera/src/index.ts"],
       "@virtual-time-travel/csvtojson": ["libs/csvtojson/src/index.ts"],
       "@virtual-time-travel/data": ["libs/data/src/index.ts"],
+      "@virtual-time-travel/geo": ["libs/geo/src/index.ts"],
       "@virtual-time-travel/qrrouter": ["libs/qrrouter/src/index.ts"],
-      "@virtual-time-travel/spatial": ["libs/spatial/src/index.ts"]
+      "@virtual-time-travel/spatial": ["libs/spatial/src/index.ts"],
+      "@virtual-time-travel/util-device": ["libs/util-device/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
