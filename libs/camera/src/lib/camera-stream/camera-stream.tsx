@@ -1,7 +1,6 @@
+import { memo,useCallback, useEffect, useRef, useState } from 'react'
 import { DeviceResponsePermission } from '@virtual-time-travel/util-device'
-import { useRef, useEffect, useCallback, useState, memo } from 'react'
 import { camera, CameraResponsePermission, CaptureOptions } from '../camera'
-
 import styles from './camera-stream.module.scss'
 
 export interface CameraStreamProps {

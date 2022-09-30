@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-
+import { createSelector,createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   DeviceFeatures,
   DevicePermission,
@@ -7,7 +6,6 @@ import {
   initialDeviceResponse,
   PermissionStatus,
 } from '@virtual-time-travel/util-device';
-
 import { RootState } from '../../main';
 
 export const DEVICE_FEATURE_KEY = 'device';

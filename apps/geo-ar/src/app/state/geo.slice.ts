@@ -1,6 +1,5 @@
-import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-import { StatePosition, StateOrientation } from '@virtual-time-travel/geo';
-
+import { createSelector,createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { StateOrientation,StatePosition } from '@virtual-time-travel/geo';
 import { RootState } from '../../main';
 
 export const GEO_FEATURE_KEY = 'geo';

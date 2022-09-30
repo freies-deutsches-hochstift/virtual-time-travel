@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-
 import styles from './examples.module.scss'
 
 /* eslint-disable-next-line */

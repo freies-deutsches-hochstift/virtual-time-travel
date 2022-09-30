@@ -1,5 +1,5 @@
-import { GeoDebug } from '@virtual-time-travel/geo'
 import { useSelector } from 'react-redux'
+import { GeoDebug } from '@virtual-time-travel/geo'
 import styled from 'styled-components'
 // import { selectCanAr } from '../state/device.slice'
 import { selectOrientation, selectPosition } from '../state/geo.slice'

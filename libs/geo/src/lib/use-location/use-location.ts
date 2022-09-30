@@ -2,13 +2,11 @@
  * A wrapper for navigator.geolocation handling feature availability and permissions gracefully
  */
 
-import { useState, useCallback, useEffect } from 'react';
-
+import { useCallback, useEffect,useState } from 'react';
 import {
   DeviceResponsePermission,
   PermissionStatus,
 } from '@virtual-time-travel/util-device';
-
 import {
   DeviceLocationEventRes,
   geolocation,

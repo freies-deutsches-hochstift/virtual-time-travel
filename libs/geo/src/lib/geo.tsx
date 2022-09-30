@@ -1,25 +1,19 @@
 
 
 import { useCallback, useEffect, useState } from 'react'
-
+import { Dialog } from '@virtual-time-travel/ui'
 import {
   DeviceResponsePermission,
   PermissionStatus,
 } from '@virtual-time-travel/util-device'
-
-
-
-import { Dialog } from '@virtual-time-travel/ui'
-
+import styled from 'styled-components'
+import useLocation from './use-location/use-location'
+import useOrientation from './use-orientation/use-orientation'
 import {
   DeviceLocationEventRes,
   DeviceOrientationEventRes,
   LocationOptions,
 } from './utils'
-
-import styled from 'styled-components'
-import useLocation from './use-location/use-location'
-import useOrientation from './use-orientation/use-orientation'
 
 
 

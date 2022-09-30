@@ -3,27 +3,21 @@
 // Effects firing twice in <React.StrictMode /> was added in React 18.
 
 import * as ReactDOM from 'react-dom/client';
-
-import App from './app/app';
-
+import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
-import { SpatialExample } from '@virtual-time-travel/spatial';
-
-import { GENERAL_FEATURE_KEY, generalReducer } from './app/state/general.slice';
-import { GEO_FEATURE_KEY, geoReducer } from './app/state/geo.slice';
 import { CameraExample } from '@virtual-time-travel/camera';
+import { CsvToJSONExample } from '@virtual-time-travel/csvtojson';
 import { APIExample, DBExample } from '@virtual-time-travel/data';
 import { QrRouterExample } from '@virtual-time-travel/qrrouter';
-import { CsvToJSONExample } from '@virtual-time-travel/csvtojson';
+import { SpatialExample } from '@virtual-time-travel/spatial';
+import App from './app/app';
 import Examples from './app/examples/examples';
-
 import { DEVICE_FEATURE_KEY, deviceReducer } from './app/state/device.slice';
-
-import { POVS_FEATURE_KEY, povsReducer } from './app/state/povs.slice';
-
 import { FENCES_FEATURE_KEY, fencesReducer } from './app/state/fences.slice';
+import { GENERAL_FEATURE_KEY, generalReducer } from './app/state/general.slice';
+import { GEO_FEATURE_KEY, geoReducer } from './app/state/geo.slice';
+import { POVS_FEATURE_KEY, povsReducer } from './app/state/povs.slice';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

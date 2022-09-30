@@ -1,6 +1,5 @@
-import * as geolib from 'geolib';
-
 import { PermissionStatus } from '@virtual-time-travel/util-device';
+import * as geolib from 'geolib';
 
 /**
  * Extend native Web API DeviceOrientationEvent event for iOS devices

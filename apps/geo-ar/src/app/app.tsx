@@ -1,20 +1,16 @@
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
+import { AnyAction, Dispatch } from '@reduxjs/toolkit'
 import { CameraStream } from '@virtual-time-travel/camera'
-import { DeviceResponsePermission, DeviceFeatures } from '@virtual-time-travel/util-device'
-import { DeviceLocationEventRes, DeviceOrientationEventRes, Geo } from '@virtual-time-travel/geo'
 import { useData } from '@virtual-time-travel/fetch-api'
-
-
+import { DeviceLocationEventRes, DeviceOrientationEventRes, Geo } from '@virtual-time-travel/geo'
+import { DeviceFeatures, DeviceResponsePermission } from '@virtual-time-travel/util-device'
+import ArUi from './ar-ui/ar-ui'
 import { deviceActions } from './state/device.slice'
+import { fetchFences } from './state/fences.slice'
 import { geoActions } from './state/geo.slice'
 import { fetchPovs } from './state/povs.slice'
-import { AnyAction, Dispatch } from '@reduxjs/toolkit'
-import { fetchFences } from './state/fences.slice'
-import ArUi from './ar-ui/ar-ui'
-
 import './app.scss'
-
 
 export function App() {
 

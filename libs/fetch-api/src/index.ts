@@ -4,6 +4,6 @@
  * is fully re-defined
  */
 
-export * from './lib/use-data/use-data';
 export * from './lib/cvs-to-json/cvs-to-json';
 export * from './lib/fetch-api';
+export * from './lib/use-data/use-data';

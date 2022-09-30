@@ -1,8 +1,6 @@
-import { DeviceResponsePermission } from '@virtual-time-travel/util-device'
 import { useState } from 'react'
-
-
-import { CaptureOptions, CameraStream } from "./"
+import { DeviceResponsePermission } from '@virtual-time-travel/util-device'
+import { CameraStream,CaptureOptions } from "./"
 
 interface CameraExampleProps {
   captureOptions?: CaptureOptions
