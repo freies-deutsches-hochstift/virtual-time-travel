@@ -20,8 +20,8 @@
           "apps/geo-ar/src/favicon.ico",
           "apps/geo-ar/src/assets",
           {
-            "input": "apps/geo-ar/assets/items",
-            "glob": "*.csv",
+            "input": "apps/geo-ar/assets/items/",
+            "glob": "**/*",
             "output": "./items"
           }
         ],

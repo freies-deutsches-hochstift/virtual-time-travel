@@ -1,5 +1,5 @@
 // TODO
-// import { StrictMode } from 'react'; 
+// import { StrictMode } from 'react';
 // Effects firing twice in <React.StrictMode /> was added in React 18.
 
 import * as ReactDOM from 'react-dom/client';
@@ -21,12 +21,18 @@ import Examples from './app/examples/examples';
 
 import { DEVICE_FEATURE_KEY, deviceReducer } from './app/state/device.slice';
 
+import { POVS_FEATURE_KEY, povsReducer } from './app/state/povs.slice';
+
+import { FENCES_FEATURE_KEY, fencesReducer } from './app/state/fences.slice';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 const store = configureStore({
   reducer: {
+    [FENCES_FEATURE_KEY]: fencesReducer,
+    [POVS_FEATURE_KEY]: povsReducer,
     [DEVICE_FEATURE_KEY]: deviceReducer,
     [GEO_FEATURE_KEY]: geoReducer,
     [GENERAL_FEATURE_KEY]: generalReducer,
@@ -41,10 +47,9 @@ export type RootState = ReturnType<typeof store.getState>;
 
 root.render(
   <Provider store={store}>
-
     <BrowserRouter>
       <Routes>
-        <Route path="/"  >
+        <Route path="/">
           <Route index element={<App />} />
           <Route path="/examples" element={<Examples />} />
           <Route path="/examples/spatial" element={<SpatialExample />} />
@@ -58,7 +63,5 @@ root.render(
     </BrowserRouter>
   </Provider>
 );
-
-
 
 /*  */

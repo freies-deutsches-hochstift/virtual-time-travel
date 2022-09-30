@@ -5,6 +5,7 @@
     "camera": "libs/camera",
     "csvtojson": "libs/csvtojson",
     "data": "libs/data",
+    "fetch-api": "libs/fetch-api",
     "geo": "libs/geo",
     "geo-ar": "apps/geo-ar",
     "geo-ar-e2e": "apps/geo-ar-e2e",
