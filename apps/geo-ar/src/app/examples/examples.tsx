@@ -18,19 +18,19 @@ export function Examples(props: ExamplesProps) {
       <div className="import">Imported Libs from local workspace:</div>
       <ul>
         <li className="lib">
-          <Link to="/examples/camera">Camera Library</Link>
+          <Link to="/examples-camera">Camera Library</Link>
         </li>
         <li className="lib">
-          <Link to="/examples/api">API Library</Link>
+          <Link to="/examples-api">API Library</Link>
         </li>
         <li className="lib">
-          <Link to="/examples/db">Database Library</Link>
+          <Link to="/examples-db">Database Library</Link>
         </li>
         <li className="lib">
-          <Link to="/examples/spatial">Spatial Geolocation Library</Link>
+          <Link to="/examples-spatial">Spatial Geolocation Library</Link>
         </li>
         <li className="lib">
-          <Link to="/examples/cvstojson">CSV to JSON Library</Link>
+          <Link to="/examples-cvstojson">CSV to JSON Library</Link>
         </li>
       </ul>
 
