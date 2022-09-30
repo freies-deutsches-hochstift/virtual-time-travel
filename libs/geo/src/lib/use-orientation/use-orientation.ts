@@ -1,40 +1,76 @@
-import { useCallback, useEffect } from 'react';
+/**
+ * A wrapper for DeviceOrientationEvent handling feature availability and permissions gracefully
+ *
+ * TODO: DEBOUNCE ORIENTATION EVENT!!!
+ */
+
+import { useCallback, useEffect, useState } from 'react';
 
 import {
   DeviceResponsePermission,
   PermissionStatus,
 } from '@virtual-time-travel/util-device';
+import {
+  DeviceOrientationEventExtended,
+  DeviceOrientationEventRes,
+  geolocation,
+} from '../utils';
 
 export function useOrientation(
-  onChange: (event: DeviceOrientationEvent) => void,
+  onChange: (event: DeviceOrientationEventRes) => void,
   onRequestComplete?: (res: DeviceResponsePermission) => void
 ) {
-  const handleOrientation = useCallback(
-    (event: DeviceOrientationEvent) => {
-      onChange(event);
-      if (onRequestComplete)
-        onRequestComplete({ status: PermissionStatus.Granted, error: null });
-    },
-    [onRequestComplete, onChange]
+  const [permissionStatus, setPermissionStatus] = useState<PermissionStatus>(
+    PermissionStatus.Unknown
   );
 
-  useEffect(() => {
-    if (!window.ondeviceorientation) {
+  const handleOrientation = useCallback(
+    (event: DeviceOrientationEventExtended) => {
+      console.debug('DeviceOrientationEvent::Changed', event);
+      onChange(geolocation.getOrientationEventRes(event));
+    },
+    [onChange]
+  );
+
+  const requestOrientation = useCallback(() => {
+    const requestPermission = (
+      DeviceOrientationEvent as unknown as DeviceOrientationEventExtended
+    ).requestPermission;
+
+    const canRequestPermission = typeof requestPermission === 'function';
+
+    if (!canRequestPermission) {
       if (onRequestComplete)
         onRequestComplete({
           status: PermissionStatus.Unavailable,
-          error: null,
+          error: 'Device orientation not supported',
         });
+
       return;
     }
 
+    requestPermission().then((status) => {
+      if (status === 'denied') {
+        setPermissionStatus(PermissionStatus.Denied);
+        if (onRequestComplete)
+          onRequestComplete({ status: PermissionStatus.Denied, error: null });
+        return;
+      }
+      setPermissionStatus(PermissionStatus.Granted);
+      if (onRequestComplete)
+        onRequestComplete({ status: PermissionStatus.Granted, error: null });
+    });
+  }, [onRequestComplete]);
+
+  useEffect(() => {
+    if (permissionStatus === PermissionStatus.Denied) return;
     window.addEventListener('deviceorientation', handleOrientation);
     return () => {
       window.removeEventListener('deviceorientation', handleOrientation);
     };
-  }, [handleOrientation, onRequestComplete]);
+  }, [permissionStatus, handleOrientation]);
 
-  return {};
+  return { requestOrientation };
 }
 
 export default useOrientation;

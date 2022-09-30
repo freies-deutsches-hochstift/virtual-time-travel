@@ -2,7 +2,32 @@ import * as geolib from 'geolib';
 
 import { PermissionStatus } from '@virtual-time-travel/util-device';
 
-export type Position = GeolocationPosition | null | undefined;
+/**
+ * Extend native Web API DeviceOrientationEvent event for iOS devices
+ * https://stackoverflow.com/questions/60640018/devicemotionevent-request-permission-with-typescript
+ */
+export interface DeviceOrientationEventExtended extends DeviceOrientationEvent {
+  webkitCompassAccuracy?: number | undefined;
+  webkitCompassHeading?: number | undefined;
+  requestPermission?: () => Promise<'granted' | 'denied'>;
+}
+
+export interface DeviceOrientationEventRes {
+  absolute: boolean;
+  alpha: number | null;
+  beta: number | null;
+  gamma: number | null;
+  compassHeading: number | null;
+  compassAccuracy: number | null;
+}
+
+export interface DeviceLocationEventRes {
+  coords: [number, number];
+  accuracy: number;
+}
+
+export type StatePosition = DeviceLocationEventRes | null;
+export type StateOrientation = DeviceOrientationEventRes | null;
 
 export interface LocationOptions {
   enableHighAccuracy: boolean;
@@ -21,7 +46,7 @@ export const geolocationErrors = [PermissionStatus.Denied];
 export const handleGeolocationError = (error: GeolocationPositionError) => {
   return {
     status: geolocationErrors[error.code] || PermissionStatus.Unavailable,
-    error,
+    error: error.message,
   };
 };
 
@@ -76,6 +101,37 @@ const getBearingDeltaUnit = (startBearing: number, endBearing: number) => {
   }
 };
 
+/**
+ * type DeviceOrientationEvent is not serializable
+ * therefore we need to convert it in order to be fully usable
+ */
+
+const getOrientationEventRes = (event: DeviceOrientationEventExtended) => {
+  const { alpha, beta, gamma, webkitCompassHeading, webkitCompassAccuracy } =
+    event;
+  return {
+    alpha,
+    beta,
+    gamma,
+    compassHeading: webkitCompassHeading,
+    compassAccuracy: webkitCompassAccuracy,
+  } as DeviceOrientationEventRes;
+};
+
+/**
+ * type GeolocationPosition is not serializable
+ * therefore we need to convert it in order to be fully usable
+ */
+
+const getPositionEventRes = (position: GeolocationPosition) => {
+  if (!position?.coords) return null;
+
+  return {
+    coords: [position.coords.latitude, position.coords.longitude],
+    accuracy: position.coords.accuracy,
+  } as DeviceLocationEventRes;
+};
+
 export const geolocation = {
   requestPermission,
   clearRequest,
@@ -83,4 +139,6 @@ export const geolocation = {
   isPointInPolygon: geolib.isPointInPolygon,
   getBearingDelta,
   getBearingDeltaUnit,
+  getOrientationEventRes,
+  getPositionEventRes,
 };

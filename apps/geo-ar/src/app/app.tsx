@@ -1,7 +1,6 @@
-// import { useState } from 'react'
 import { CameraStream } from '@virtual-time-travel/camera'
-import { DeviceResponsePermission, Devices } from '@virtual-time-travel/util-device'
-import { Position, useLocation, useOrientation } from '@virtual-time-travel/geo'
+import { DeviceResponsePermission, DeviceFeatures } from '@virtual-time-travel/util-device'
+import { DeviceLocationEventRes, DeviceOrientationEventRes, Geo } from '@virtual-time-travel/geo'
 
 
 import { useDispatch } from 'react-redux'
@@ -9,6 +8,7 @@ import { deviceActions } from './state/device.slice'
 import { geoActions } from './state/geo.slice'
 
 import './app.scss'
+import ArUi from './ar-ui/ar-ui'
 
 
 export function App() {
@@ -16,34 +16,29 @@ export function App() {
   const dispatch = useDispatch()
 
   const onRequestCameraComplete = (res: DeviceResponsePermission) => {
-    dispatch(deviceActions.handlePermissionEvent({ permission: Devices.Camera, ...res }))
+    dispatch(deviceActions.handlePermissionEvent({ permission: DeviceFeatures.Camera, ...res }))
   }
 
   const onRequestGeolocationComplete = (res: DeviceResponsePermission) => {
-    dispatch(deviceActions.handlePermissionEvent({ permission: Devices.Geolocation, ...res }))
+    dispatch(deviceActions.handlePermissionEvent({ permission: DeviceFeatures.Geolocation, ...res }))
   }
 
   const onRequestOrientationComplete = (res: DeviceResponsePermission) => {
-    dispatch(deviceActions.handlePermissionEvent({ permission: Devices.Orientation, ...res }))
+    dispatch(deviceActions.handlePermissionEvent({ permission: DeviceFeatures.Orientation, ...res }))
   }
 
-  function onChangePosition(position: Position) {
-    if (position?.coords) dispatch(geoActions.updateLocation({
-      coords: [position.coords.latitude, position.coords.longitude],
-      accuracy: position.coords.accuracy
-    }))
+  function onChangePosition(position: DeviceLocationEventRes) {
+    if (position?.coords) dispatch(geoActions.updateLocation(position))
   }
 
-  function onChangeOrientation(event: DeviceOrientationEvent) {
-    console.log(event)
+  function onChangeOrientation(event: DeviceOrientationEventRes) {
+    dispatch(geoActions.updateOrientation(event))
   }
-
-  useLocation(onChangePosition, onRequestGeolocationComplete)
-  useOrientation(onChangeOrientation, onRequestOrientationComplete)
 
   return (
     <>
-      {/* <Geo {...{ onRequestGeolocationComplete }} /> */}
+      <ArUi />
+      <Geo {...{ onChangePosition, onRequestGeolocationComplete, onChangeOrientation, onRequestOrientationComplete }} />
       <CameraStream {...{ onRequestCameraComplete }} />
     </>
   )

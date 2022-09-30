@@ -1,17 +1,13 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
+import { StatePosition, StateOrientation } from '@virtual-time-travel/geo';
 
 import { RootState } from '../../main';
 
 export const GEO_FEATURE_KEY = 'geo';
 
-export interface StatePosition {
-  coords: [number, number];
-  accuracy: number;
-}
-
 export interface GeoState {
-  position: StatePosition | null;
-  orientation: DeviceOrientationEvent | null;
+  position: StatePosition;
+  orientation: StateOrientation;
 }
 
 export const initialGeoState: GeoState = {
@@ -33,7 +29,7 @@ export const geoSlice = createSlice({
 
     updateOrientation(
       state: GeoState,
-      action: PayloadAction<DeviceOrientationEvent | null>
+      action: PayloadAction<StateOrientation | null>
     ) {
       const { payload } = action;
       state.orientation = payload;
@@ -83,3 +79,13 @@ export const geoActions = geoSlice.actions;
 
 export const getGeoState = (rootState: RootState): GeoState =>
   rootState[GEO_FEATURE_KEY];
+
+export const selectPosition = createSelector(
+  getGeoState,
+  ({ position }) => position
+);
+
+export const selectOrientation = createSelector(
+  getGeoState,
+  ({ orientation }) => orientation
+);

@@ -10,6 +10,7 @@
     "geo-ar-e2e": "apps/geo-ar-e2e",
     "qrrouter": "libs/qrrouter",
     "spatial": "libs/spatial",
+    "ui": "libs/ui",
     "util-device": "libs/util-device"
   }
 }

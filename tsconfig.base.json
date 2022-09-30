@@ -21,6 +21,7 @@
       "@virtual-time-travel/geo": ["libs/geo/src/index.ts"],
       "@virtual-time-travel/qrrouter": ["libs/qrrouter/src/index.ts"],
       "@virtual-time-travel/spatial": ["libs/spatial/src/index.ts"],
+      "@virtual-time-travel/ui": ["libs/ui/src/index.ts"],
       "@virtual-time-travel/util-device": ["libs/util-device/src/index.ts"]
     }
   },

@@ -1,25 +1,27 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
+
 import {
-  Devices,
+  DeviceFeatures,
   DevicePermission,
   DeviceResponsePermission,
   initialDeviceResponse,
+  PermissionStatus,
 } from '@virtual-time-travel/util-device';
 
 import { RootState } from '../../main';
 
 export const DEVICE_FEATURE_KEY = 'device';
 
-export interface DevicesState {
-  [Devices.Camera]: DeviceResponsePermission;
-  [Devices.Geolocation]: DeviceResponsePermission;
-  [Devices.Orientation]: DeviceResponsePermission;
+export interface DeviceState {
+  [DeviceFeatures.Camera]: DeviceResponsePermission;
+  [DeviceFeatures.Geolocation]: DeviceResponsePermission;
+  [DeviceFeatures.Orientation]: DeviceResponsePermission;
 }
 
-export const initialDevicesState: DevicesState = {
-  [Devices.Camera]: initialDeviceResponse,
-  [Devices.Geolocation]: initialDeviceResponse,
-  [Devices.Orientation]: initialDeviceResponse,
+export const initialDevicesState: DeviceState = {
+  [DeviceFeatures.Camera]: initialDeviceResponse,
+  [DeviceFeatures.Geolocation]: initialDeviceResponse,
+  [DeviceFeatures.Orientation]: initialDeviceResponse,
 };
 
 export const deviceSlice = createSlice({
@@ -27,7 +29,7 @@ export const deviceSlice = createSlice({
   initialState: initialDevicesState,
   reducers: {
     handlePermissionEvent(
-      state: DevicesState,
+      state: DeviceState,
       action: PayloadAction<DevicePermission>
     ) {
       const { permission, status, error } = action.payload;
@@ -76,5 +78,26 @@ export const deviceActions = deviceSlice.actions;
  * See: https://react-redux.js.org/next/api/hooks#useselector
  */
 
-export const getDevicesState = (rootState: RootState): DevicesState =>
+export const getDevicesState = (rootState: RootState): DeviceState =>
   rootState[DEVICE_FEATURE_KEY];
+
+// TODO
+// export const selectShouldRequestGeoPermissions = createSelector(
+//   getDevicesState,
+//   (state) => {
+//
+//     return true;
+//   }
+// );
+
+export const selectCanAr = createSelector(getDevicesState, (state) => {
+  const mandatory = [
+    state[DeviceFeatures.Geolocation],
+    state[DeviceFeatures.Orientation],
+  ];
+
+  return (
+    mandatory.filter((m) => m.status === PermissionStatus.Granted).length ===
+    mandatory.length
+  );
+});

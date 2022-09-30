@@ -1,4 +1,4 @@
-export enum Devices {
+export enum DeviceFeatures {
   Camera = 'camera',
   Geolocation = 'geolocation',
   Orientation = 'orientation',
@@ -22,7 +22,7 @@ export const initialDeviceResponse = {
 };
 
 export interface DevicePermission extends DeviceResponsePermission {
-  permission: Devices;
+  permission: DeviceFeatures;
 }
 
 export function utilDevice(): string {
