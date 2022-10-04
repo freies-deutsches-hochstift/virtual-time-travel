@@ -2,6 +2,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/geo-ar/src",
   "projectType": "application",
+  "tailwind-preset": "libs/tailwind-preset",
   "targets": {
     "build": {
       "executor": "@nrwl/web:webpack",
@@ -9,7 +10,6 @@
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
-        "webpackConfig": "webpackConfig.js",
         "outputPath": "dist/apps/geo-ar",
         "index": "apps/geo-ar/src/index.html",
         "baseHref": "/",
@@ -20,14 +20,15 @@
           "apps/geo-ar/src/favicon.ico",
           "apps/geo-ar/src/assets",
           {
-            "input": "apps/geo-ar/assets/items/",
+            "input": "apps/geo-ar/assets/",
             "glob": "**/*",
-            "output": "./items"
+            "output": "./assets"
           }
         ],
-        "styles": ["apps/geo-ar/src/styles.scss"],
+        "styles": [],
         "scripts": [],
-        "crossOrigin": "anonymous"
+        "webpackConfig": "webpackConfig.js",
+        "postcssConfig": "apps/geo-ar/postcss.config.js"
       },
       "configurations": {
         "development": {

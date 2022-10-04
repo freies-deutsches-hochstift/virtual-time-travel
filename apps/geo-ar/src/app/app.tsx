@@ -10,7 +10,7 @@ import { deviceActions } from './state/device.slice'
 import { fetchFences } from './state/fences.slice'
 import { geoActions } from './state/geo.slice'
 import { fetchPovs } from './state/povs.slice'
-import './app.scss'
+
 
 export function App() {
 

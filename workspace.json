@@ -12,6 +12,7 @@
     "qrrouter": "libs/qrrouter",
     "spatial": "libs/spatial",
     "ui": "libs/ui",
-    "util-device": "libs/util-device"
+    "util-device": "libs/util-device",
+    "tailwind-preset": "libs/tailwind-preset"
   }
 }
