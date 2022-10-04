@@ -1,5 +1,6 @@
 import { PermissionStatus } from '@virtual-time-travel/util-device';
 import * as geolib from 'geolib';
+import { GeolibGeoJSONPoint, GeolibInputCoordinates } from 'geolib/es/types';
 
 /**
  * Extend native Web API DeviceOrientationEvent event for iOS devices
@@ -21,7 +22,7 @@ export interface DeviceOrientationEventRes {
 }
 
 export interface DeviceLocationEventRes {
-  coords: [number, number];
+  coordinates: GeolibGeoJSONPoint;
   accuracy: number;
 }
 
@@ -49,7 +50,7 @@ export const handleGeolocationError = (error: GeolocationPositionError) => {
   };
 };
 
-const requestPermission = (
+const requestGeolocationPermission = (
   options: LocationOptions,
   onSuccess: PositionCallback,
   onError: PositionErrorCallback
@@ -57,7 +58,7 @@ const requestPermission = (
   return navigator.geolocation.watchPosition(onSuccess, onError, options);
 };
 
-const clearRequest = (watchId: number) => {
+const clearGeolocationRequest = (watchId: number) => {
   navigator.geolocation.clearWatch(watchId);
 };
 
@@ -109,12 +110,12 @@ const getOrientationEventRes = (event: DeviceOrientationEventExtended) => {
   const { alpha, beta, gamma, webkitCompassHeading, webkitCompassAccuracy } =
     event;
   return {
-    alpha,
-    beta,
-    gamma,
-    compassHeading: webkitCompassHeading,
-    compassAccuracy: webkitCompassAccuracy,
-  } as DeviceOrientationEventRes;
+    alpha: alpha?.toFixed(1),
+    beta: beta?.toFixed(1),
+    gamma: gamma?.toFixed(1),
+    compassHeading: Math.floor(webkitCompassHeading || 0),
+    compassAccuracy: Math.floor(webkitCompassAccuracy || 0),
+  } as unknown as DeviceOrientationEventRes;
 };
 
 /**
@@ -126,16 +127,60 @@ const getPositionEventRes = (position: GeolocationPosition) => {
   if (!position?.coords) return null;
 
   return {
-    coords: [position.coords.latitude, position.coords.longitude],
+    coordinates: [position.coords.longitude, position.coords.latitude],
     accuracy: position.coords.accuracy,
   } as DeviceLocationEventRes;
 };
 
+/**
+ * Get pov bearing distance
+ * A compass bearing is the clockwise angle measurement between a given point and true north on a compass.
+ * see also https://www.movable-type.co.uk/scripts/latlong.html
+ */
+
+const getBearingDistance = (
+  lonlatA: GeolibGeoJSONPoint,
+  lonlatB: GeolibGeoJSONPoint
+) => {
+  const toDegrees = (radians: number) => {
+    return radians * (180 / Math.PI);
+  };
+
+  const toRadians = (degrees: number) => {
+    return degrees * (Math.PI / 180);
+  };
+
+  const latA = toRadians(lonlatA[1] as number);
+  const latB = toRadians(lonlatB[1] as number);
+  const lonDelta = toRadians((lonlatB[0] as number) - (lonlatA[0] as number));
+
+  // prevent double sin/cos calculations
+  const sinlatA = Math.sin(latA);
+  const coslatA = Math.cos(latA);
+  const sinlatB = Math.sin(latB);
+  const coslatB = Math.cos(latB);
+  const coslonDelta = Math.cos(lonDelta);
+
+  // distance
+  // const R = 6371e3 // earth radius in meters
+  // const distance = Math.acos(sinlatA * sinlatB + coslatA * coslatB * coslonDelta) * R
+
+  // initial bearing
+  const y = Math.sin(lonDelta) * coslatB;
+  const x = coslatA * sinlatB - sinlatA * coslatB * coslonDelta;
+  let bearing = toDegrees(Math.atan2(y, x));
+
+  if (bearing < 0) bearing += 360;
+
+  return bearing;
+};
+
 export const geolocation = {
-  requestPermission,
-  clearRequest,
+  requestGeolocationPermission,
+  clearGeolocationRequest,
   getDistance: geolib.getDistance,
   isPointInPolygon: geolib.isPointInPolygon,
+  getBearingDistance,
   getBearingDelta,
   getBearingDeltaUnit,
   getOrientationEventRes,

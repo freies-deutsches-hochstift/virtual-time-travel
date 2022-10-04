@@ -43,7 +43,7 @@ export function App() {
   }
 
   function onChangePosition(position: DeviceLocationEventRes) {
-    if (position?.coords) dispatch(geoActions.updateLocation(position))
+    if (position?.coordinates) dispatch(geoActions.updateLocation(position))
   }
 
   function onChangeOrientation(event: DeviceOrientationEventRes) {

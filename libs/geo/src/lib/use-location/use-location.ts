@@ -2,7 +2,7 @@
  * A wrapper for navigator.geolocation handling feature availability and permissions gracefully
  */
 
-import { useCallback, useEffect,useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   DeviceResponsePermission,
   PermissionStatus,
@@ -61,7 +61,11 @@ export function useLocation(
         });
     }
 
-    const wId = geolocation.requestPermission(options, onSuccess, onError);
+    const wId = geolocation.requestGeolocationPermission(
+      options,
+      onSuccess,
+      onError
+    );
     console.debug('Watching geolocation id', wId, 'with options: ', options);
     setWatchId(wId);
   }, [onSuccess, onError, onRequestComplete, options]);
@@ -69,7 +73,7 @@ export function useLocation(
   useEffect(() => {
     return () => {
       if (watchId) {
-        geolocation.clearRequest(watchId);
+        geolocation.clearGeolocationRequest(watchId);
         console.debug('Stop Watching geolocation id', watchId);
       }
     };

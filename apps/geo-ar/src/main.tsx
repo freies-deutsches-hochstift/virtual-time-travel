@@ -41,21 +41,19 @@ export type RootState = ReturnType<typeof store.getState>
 
 root.render(
   <Provider store={store}>
-    <HashRouter>
+    <HashRouter basename="/">
       <Routes>
-        <Route path="/">
-          <Route index element={<App />} />
-          <Route path="/examples" element={<Examples />} />
-          <Route path="/examples-spatial" element={<SpatialExample />} />
-          <Route path="/examples-camera" element={<CameraExample />} />
-          <Route path="/examples-api" element={<APIExample />} />
-          <Route path="/examples-db" element={<DBExample />} />
-          <Route path="/examples-cvstojson" element={<CsvToJSONExample />} />
-          <Route path="/examples-qrrouter" element={<QrRouterExample />} />
-        </Route>
+        <Route path='/' element={<App />} />
+        <Route path="/examples" element={<Examples />} />
+        <Route path="/examples-spatial" element={<SpatialExample />} />
+        <Route path="/examples-camera" element={<CameraExample />} />
+        <Route path="/examples-api" element={<APIExample />} />
+        <Route path="/examples-db" element={<DBExample />} />
+        <Route path="/examples-cvstojson" element={<CsvToJSONExample />} />
+        <Route path="/examples-qrrouter" element={<QrRouterExample />} />
       </Routes>
     </HashRouter>
   </Provider>
 );
 
-/*  */
+

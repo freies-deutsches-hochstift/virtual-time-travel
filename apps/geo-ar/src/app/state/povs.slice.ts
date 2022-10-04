@@ -1,14 +1,15 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
 import { GeolibGeoJSONPoint } from 'geolib/es/types';
-import { DATA_POVS_TYPE,FETCH_POVS_URL } from '../../config';
+import { DATA_POVS_TYPE, FETCH_POVS_URL } from '../../config';
 import { RootState } from '../../main';
 
 export const POVS_FEATURE_KEY = 'povs';
 
 export interface PovId {
-  id: string;
-  coordinate: GeolibGeoJSONPoint;
+  id: string | number;
+  coordinates: GeolibGeoJSONPoint;
+  fenceId: string | number;
 }
 
 export interface PovsState {

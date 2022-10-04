@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
 import { GeolibGeoJSONPoint } from 'geolib/es/types';
-import { DATA_FENCES_TYPE,FETCH_FENCES_URL } from '../../config';
+import { DATA_FENCES_TYPE, FETCH_FENCES_URL } from '../../config';
 import { RootState } from '../../main';
 
 export const FENCES_FEATURE_KEY = 'fences';
 
 export interface FenceId {
-  id: string;
+  id: string | number;
   title: string;
-  geometry: Array<GeolibGeoJSONPoint>;
+  geometry: Array<Array<GeolibGeoJSONPoint>>;
 }
 
 export interface FencesState {
@@ -25,7 +25,7 @@ export const initialFencesState: FencesState = {
 };
 
 export const fetchFences = createAsyncThunk(
-  'povs/fetchFences',
+  'fences/fetchFences',
   async (_, thunkAPI) => {
     const { data } = await fetchApi(FETCH_FENCES_URL, DATA_FENCES_TYPE);
 
@@ -46,7 +46,19 @@ export const fencesSlice = createSlice({
 
     builder.addCase(fetchFences.fulfilled, (state, action) => {
       state.loadingStatus = 'loaded';
-      state.entries = action.payload;
+
+      const entries = action.payload;
+
+      state.entries = entries;
+      // entries
+
+      // entries.map((e) => ({
+      //   ...e,
+      //   geometry: geolocation.normalizeGeometryCoords(
+      //     e.geometry
+      //   ),
+      // }));
+
       state.error = null;
     });
 

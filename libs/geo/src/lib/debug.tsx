@@ -33,14 +33,14 @@ export function GeoDebug(props: GeoDebugProps) {
             <td>↕️</td>
             <td>Latitude</td>
             <td>
-              {position?.coords?.[0]}
+              {position?.coordinates?.[1]}
             </td>
           </tr>
           <tr>
             <td>↔️</td>
             <td>Longitude</td>
             <td>
-              {position?.coords?.[1]}
+              {position?.coordinates?.[0]}
             </td>
           </tr>
           <tr>
@@ -71,16 +71,12 @@ export function GeoDebug(props: GeoDebugProps) {
             <td>Gamma</td>
             <td>{orientation?.gamma}</td>
           </tr>
-          {/* <tr>
-                <td>📐</td>
-                <td>Compass Accuracy</td>
-                <td>{spatial?.orientation?.compassAccuracy?.toFixed(2)}</td>
-              </tr>
-              <tr>
-                <td>🧭</td>
-                <td>Compass Heading</td>
-                <td>{spatial?.orientation?.compassHeading?.toFixed(2)}</td>
-              </tr> */}
+          <tr>
+            <td>📐</td>
+            <td>Heading</td>
+            <td>{orientation?.compassHeading}</td>
+          </tr>
+
         </tbody>
       </table>
     </StyledDebug>
