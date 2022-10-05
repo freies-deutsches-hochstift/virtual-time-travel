@@ -18,6 +18,8 @@ export function IntroScreen() {
   return (
     <Page>
       <Markdown {...{ id: 'intro', baseUrl: '/assets/items/pages/locales/de' }} />
+
+      <Markdown {...{ id: 'list', baseUrl: '/assets/items/pages/locales/de' }} />
     </Page>
 
   )
