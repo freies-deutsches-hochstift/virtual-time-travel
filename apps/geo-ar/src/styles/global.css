@@ -26,7 +26,7 @@ body {
   /* TODO: HOW THE BG SHOULD BE COMPOSED style or img or both ? */
   background: var(--primary-gradient);
   font-size: 1em;
-  line-height: 1.8em;
+  line-height: 1.65em;
 }
 
 /* TODO  these are just generic values */

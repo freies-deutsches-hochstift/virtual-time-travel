@@ -18,7 +18,6 @@ import {
 
 
 // TODO actual styling
-const StyledGeo = styled.div``
 
 const StyledGeoFeedback = styled.div`
   position: absolute;
@@ -71,10 +70,10 @@ export function Geo(props: GeoProps) {
   }, [onRequestOrientationComplete, onRequestGeolocationComplete])
 
   return (
-    <StyledGeo>
+    <>
       {showDialog && <Dialog {...{ onCancel, onConfirm, title: "Geo location permission", content: "Curabitur aliquet quam id dui posuere blandit. Proin eget tortor risus." }} />}
       {!showDialog && !authorized && <StyledGeoFeedback>Location Unauthorized!</StyledGeoFeedback>}
-    </StyledGeo>
+    </>
   )
 }
 

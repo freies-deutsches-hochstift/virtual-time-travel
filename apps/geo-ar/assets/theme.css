@@ -59,6 +59,10 @@
   --secondary: #0ea5e9;
   --secondary-dark: #0369a1;
 
+  /* Sizes */
+
+  --app-max-width: 768px;
+
   /* libs/Ui/MainNav */
   --ui-nav-bg: var(--primary-dark);
   --ui-nav-link: var(--primary-light);
@@ -66,10 +70,19 @@
 
   --ui-nav-size: 3rem;
   --ui-nav-padding: 0.5rem 0;
+  --ui-nav-links-gap: 1rem;
 
   /* libs/Ui/Dialog */
+  --ui-dialog-overlay: rgb(17, 28, 78, 0.7);
+  --ui-dialog-bg: #fff;
+
   --ui-dialog-primary: #111c4e;
-  --ui-dialog-primary-dark: #0a1232;
+  --ui-dialog-primary-v2: #0a1232;
   --ui-dialog-secondary: #fff;
-  --ui-dialog-secondary-dark: #94a3d8;
+  --ui-dialog-secondary-v2: #94a3d8;
+
+  --ui-dialog-max-width: 480px;
+  --ui-dialog-padding: 1rem;
+
+  --ui-dialog-filter: drop-shadow(0 0.5rem 0.5rem rgb(0 0 0 / 0.4));
 }

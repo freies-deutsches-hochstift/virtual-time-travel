@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
+import tw from "twin.macro"
 import Button from '../button/button'
 
 export interface DialogProps {
@@ -8,31 +9,29 @@ export interface DialogProps {
   onCancel: (event: unknown) => unknown
 }
 
+const StyledDialog = styled.div(tw`
+  absolute inset-0 z-max
+  bg-ui-dialog-overlay
+  text-ui-dialog-primary
+  flex items-center justify-center
+`)
 
-// TODO actual styling
-const StyledDialog = styled.div`
-  position: absolute;
-  z-index: 999;
-  inset: 0;
-  background: rgba(0,0,0,.3);
-  display: flex;
-`
+const StyledDialogInner = styled.div([
+  tw`
+    w-5/6 max-w-ui-dialog
+    bg-ui-dialog-bg
+    p-ui-dialog
+    flex flex-col
+  `,
+  `
+    filter: var(--ui-dialog-filter)
+  `
+])
 
-const StyledDialogInner = styled.div`
-  width: 75%;
-  max-width: 16rem;
-  margin: auto;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  gap: 2em;
-  padding: 1em;
-`
 
-const StyledDialogActions = styled.div`
-  display: flex;
-  gap: 1em;
-`
+const StyledDialogActions = styled.div(tw`
+  flex gap-ui-dialog
+`)
 
 export function Dialog(props: DialogProps) {
 
@@ -44,6 +43,7 @@ export function Dialog(props: DialogProps) {
         <div onClick={onCancel}>x</div>
 
         <h3>{title}</h3>
+
         <div dangerouslySetInnerHTML={{ __html: content }} />
 
         <StyledDialogActions>

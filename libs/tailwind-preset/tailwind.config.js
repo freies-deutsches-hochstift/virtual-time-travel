@@ -30,14 +30,15 @@ const sharedTheme = {
 
         /* Dialog */
         dialog: {
-          bg: 'var(--main-nav-bg)',
+          overlay: 'var(--ui-dialog-overlay)',
+          bg: 'var(--ui-dialog-bg)',
           primary: {
-            DEFAULT: 'var(--secondary)',
-            v2: 'var(--secondary-light)',
+            DEFAULT: 'var(--ui-dialog-primary)',
+            v2: 'var(--ui-dialog-primary-v2)',
           },
           secondary: {
-            DEFAULT: 'var(--secondary)',
-            v2: 'var(--secondary-light)',
+            DEFAULT: 'var(--ui-dialog-secondary)',
+            v2: 'var(--ui-dialog-secondary-v2)',
           },
         },
       },
@@ -46,7 +47,7 @@ const sharedTheme = {
     extend: {
       gap: {
         ui: {
-          nav: '1rem',
+          nav: 'var(--ui-nav-links-gap)',
         },
       },
 
@@ -59,11 +60,19 @@ const sharedTheme = {
       padding: {
         ui: {
           nav: 'var(--ui-nav-padding)',
+          dialog: 'var(--ui-dialog-padding)',
         },
       },
 
       maxWidth: {
-        app: '768px',
+        app: 'var(--app-max-width)',
+        ui: {
+          dialog: 'var(--ui-dialog-max-width)',
+        },
+      },
+
+      zIndex: {
+        max: '999',
       },
     },
   },
