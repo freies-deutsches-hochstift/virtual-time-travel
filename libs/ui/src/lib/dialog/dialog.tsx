@@ -1,10 +1,12 @@
 import styled from '@emotion/styled'
+import { getDialogsContentBaseUrl } from '@virtual-time-travel/app-config'
+import { Markdown } from '@virtual-time-travel/markdown'
 import tw from "twin.macro"
 import Button from '../button/button'
 
 export interface DialogProps {
-  title: string,
-  content: string,
+  contentId: string,
+  locale: string,
   onConfirm: (event: unknown) => unknown,
   onCancel: (event: unknown) => unknown
 }
@@ -30,21 +32,19 @@ const StyledDialogInner = styled.div([
 
 
 const StyledDialogActions = styled.div(tw`
-  flex gap-ui-dialog
+  flex 
 `)
 
 export function Dialog(props: DialogProps) {
 
-  const { title, content, onCancel, onConfirm } = props
+  const { contentId, locale, onCancel, onConfirm } = props
 
   return (
     <StyledDialog>
       <StyledDialogInner>
         <div onClick={onCancel}>x</div>
 
-        <h3>{title}</h3>
-
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <Markdown {...{ id: contentId, baseUrl: getDialogsContentBaseUrl(locale) }} />
 
         <StyledDialogActions>
           <Button label="cancel" onClick={onCancel} />

@@ -1,5 +1,5 @@
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from '@reduxjs/toolkit'
 import { CameraStream } from '@virtual-time-travel/camera'
 import { DeviceLocationEventRes, DeviceOrientationEventRes, Geo } from '@virtual-time-travel/geo'
@@ -7,9 +7,12 @@ import { DeviceFeatures, DeviceResponsePermission } from '@virtual-time-travel/u
 import ArUi from '../ar-ui/ar-ui'
 import { deviceActions } from '../state/device.slice'
 import { geoActions } from '../state/geo.slice'
+import { selectCurrentLocale } from '../state/locales.slice'
 
 
 export function Ar() {
+
+  const locale = useSelector(selectCurrentLocale)
 
   const dispatch = useDispatch<Dispatch>()
 
@@ -36,7 +39,7 @@ export function Ar() {
   return (
     <div>
       <ArUi />
-      <Geo {...{ onChangePosition, onRequestGeolocationComplete, onChangeOrientation, onRequestOrientationComplete }} />
+      <Geo {...{ onChangePosition, onRequestGeolocationComplete, onChangeOrientation, onRequestOrientationComplete, locale }} />
       <CameraStream {...{ onRequestCameraComplete }} />
     </div>
   )

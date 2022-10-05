@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "app-config": "libs/app-config",
     "camera": "libs/camera",
     "csvtojson": "libs/csvtojson",
     "data": "libs/data",

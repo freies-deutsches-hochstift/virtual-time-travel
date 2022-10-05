@@ -4,8 +4,8 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit';
+import { getPagesFetchParams } from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
-import { DATA_PAGES_TYPE, FETCH_PAGES_URL } from '../../config';
 import { RootState } from '../../main';
 
 export const PAGES_FEATURE_KEY = 'pages';
@@ -33,7 +33,7 @@ export const initialPagesState: PagesState = {
 export const fetchPages = createAsyncThunk(
   'pages/fetchPages',
   async (_, thunkAPI) => {
-    const { data } = await fetchApi(FETCH_PAGES_URL, DATA_PAGES_TYPE);
+    const { data } = await fetchApi(getPagesFetchParams());
 
     return data as Array<PageEntry> | null;
   }
@@ -59,7 +59,7 @@ export const pagesSlice = createSlice({
     builder.addCase(fetchPages.rejected, (state) => {
       state.loadingStatus = 'error';
       state.entries = null;
-      state.error = 'Could not fetch povs';
+      state.error = 'Could not fetch pages';
     });
   },
 });

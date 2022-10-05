@@ -32,16 +32,17 @@ const StyledGeoFeedback = styled.div`
 
 
 export interface GeoProps {
-  onChangePosition: (pos: DeviceLocationEventRes) => void,
-  onRequestGeolocationComplete?: (res: DeviceResponsePermission) => void,
-  locationOptions?: LocationOptions,
-  onChangeOrientation: (event: DeviceOrientationEventRes) => void,
+  locale: string
+  onChangePosition: (pos: DeviceLocationEventRes) => void
+  onRequestGeolocationComplete?: (res: DeviceResponsePermission) => void
+  locationOptions?: LocationOptions
+  onChangeOrientation: (event: DeviceOrientationEventRes) => void
   onRequestOrientationComplete?: (res: DeviceResponsePermission) => void
 }
 
 export function Geo(props: GeoProps) {
 
-  const { onChangePosition, onRequestGeolocationComplete, locationOptions, onChangeOrientation, onRequestOrientationComplete } = props
+  const { onChangePosition, onRequestGeolocationComplete, locationOptions, onChangeOrientation, onRequestOrientationComplete, locale } = props
 
   // TODO proper dialog logic and feedbacks!!
   const [showDialog, setShowDialog] = useState<boolean>(true)
@@ -71,7 +72,7 @@ export function Geo(props: GeoProps) {
 
   return (
     <>
-      {showDialog && <Dialog {...{ onCancel, onConfirm, title: "Geo location permission", content: "Curabitur aliquet quam id dui posuere blandit. Proin eget tortor risus." }} />}
+      {showDialog && <Dialog {...{ onCancel, onConfirm, locale, contentId: 'geolocation' }} />}
       {!showDialog && !authorized && <StyledGeoFeedback>Location Unauthorized!</StyledGeoFeedback>}
     </>
   )

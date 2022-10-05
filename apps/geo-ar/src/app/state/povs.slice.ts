@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getPovsFetchParams } from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
 import { GeolibGeoJSONPoint } from 'geolib/es/types';
-import { DATA_POVS_TYPE, FETCH_POVS_URL } from '../../config';
 import { RootState } from '../../main';
 
 export const POVS_FEATURE_KEY = 'povs';
@@ -44,7 +44,7 @@ export const initialPovsState: PovsState = {
 export const fetchPovs = createAsyncThunk(
   'povs/fetchPovs',
   async (_, thunkAPI) => {
-    const { data } = await fetchApi(FETCH_POVS_URL, DATA_POVS_TYPE);
+    const { data } = await fetchApi(getPovsFetchParams());
     return data as Array<PovId> | null;
   }
 );

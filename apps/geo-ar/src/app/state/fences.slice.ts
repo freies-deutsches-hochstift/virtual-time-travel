@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getFencesFetchParams } from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
 import { GeolibGeoJSONPoint } from 'geolib/es/types';
-import { DATA_FENCES_TYPE, FETCH_FENCES_URL } from '../../config';
 import { RootState } from '../../main';
 
 export const FENCES_FEATURE_KEY = 'fences';
@@ -27,7 +27,7 @@ export const initialFencesState: FencesState = {
 export const fetchFences = createAsyncThunk(
   'fences/fetchFences',
   async (_, thunkAPI) => {
-    const { data } = await fetchApi(FETCH_FENCES_URL, DATA_FENCES_TYPE);
+    const { data } = await fetchApi(getFencesFetchParams());
     return data as Array<FenceId> | null;
   }
 );
@@ -52,7 +52,7 @@ export const fencesSlice = createSlice({
     builder.addCase(fetchFences.rejected, (state) => {
       state.loadingStatus = 'error';
       state.entries = null;
-      state.error = 'Could not fetch povs';
+      state.error = 'Could not fetch fences';
     });
   },
 });

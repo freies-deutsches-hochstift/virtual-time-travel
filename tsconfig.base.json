@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@virtual-time-travel/app-config": ["libs/app-config/src/index.ts"],
       "@virtual-time-travel/camera": ["libs/camera/src/index.ts"],
       "@virtual-time-travel/csvtojson": ["libs/csvtojson/src/index.ts"],
       "@virtual-time-travel/data": ["libs/data/src/index.ts"],
