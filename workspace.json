@@ -9,6 +9,7 @@
     "geo": "libs/geo",
     "geo-ar": "apps/geo-ar",
     "geo-ar-e2e": "apps/geo-ar-e2e",
+    "markdown": "libs/markdown",
     "qrrouter": "libs/qrrouter",
     "spatial": "libs/spatial",
     "tailwind-preset": "libs/tailwind-preset",

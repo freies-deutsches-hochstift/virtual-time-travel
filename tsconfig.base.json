@@ -20,6 +20,7 @@
       "@virtual-time-travel/data": ["libs/data/src/index.ts"],
       "@virtual-time-travel/fetch-api": ["libs/fetch-api/src/index.ts"],
       "@virtual-time-travel/geo": ["libs/geo/src/index.ts"],
+      "@virtual-time-travel/markdown": ["libs/markdown/src/index.ts"],
       "@virtual-time-travel/qrrouter": ["libs/qrrouter/src/index.ts"],
       "@virtual-time-travel/spatial": ["libs/spatial/src/index.ts"],
       "@virtual-time-travel/ui": ["libs/ui/src/index.ts"],

@@ -4,10 +4,8 @@
 
 import * as ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { HashRouter, Route, Routes } from 'react-router-dom'
 import { configureStore } from '@reduxjs/toolkit'
 import App from './app/app'
-import Layout from './app/layout/layout'
 import { DEVICE_FEATURE_KEY, deviceReducer } from './app/state/device.slice'
 import { FENCES_FEATURE_KEY, fencesReducer } from './app/state/fences.slice'
 import { GENERAL_FEATURE_KEY, generalReducer } from './app/state/general.slice'
@@ -16,6 +14,7 @@ import { LOCALES_FEATURE_KEY, localesReducer } from './app/state/locales.slice'
 import { PAGES_FEATURE_KEY, pagesReducer } from './app/state/pages.slice'
 import { POVS_FEATURE_KEY, povsReducer } from './app/state/povs.slice'
 import './styles/global.css'
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -41,22 +40,6 @@ export type RootState = ReturnType<typeof store.getState>
 
 root.render(
   <Provider store={store}>
-    <HashRouter>
-      <Layout>
-        {/* <Route path="/" element={<App />} /> */}
-
-        {/* <Route
-            path="*"
-            element={
-
-              <p>404</p>
-
-            }
-          /> */}
-
-      </Layout>
-
-
-    </HashRouter>
+    <App />
   </Provider>
 )

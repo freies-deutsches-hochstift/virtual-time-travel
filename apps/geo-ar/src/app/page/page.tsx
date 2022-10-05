@@ -1,18 +1,26 @@
-import styled from '@emotion/styled';
+import { ReactNode } from 'react'
+import styled from '@emotion/styled'
+import tw from "twin.macro"
 
-/* eslint-disable-next-line */
-export interface PageProps {}
-
-const StyledPage = styled.div`
-  color: pink;
-`;
-
-export function Page(props: PageProps) {
-  return (
-    <StyledPage>
-      <h1>Welcome to Page!</h1>
-    </StyledPage>
-  );
+export interface PageProps {
+  children: ReactNode
 }
 
-export default Page;
+const StyledPage = styled.div(tw`
+  w-full h-full
+  p-16
+  max-w-app
+`)
+
+export function Page(props: PageProps) {
+  const { children } = props
+
+
+  return (
+    <StyledPage>
+      {children}
+    </StyledPage>
+  )
+}
+
+export default Page

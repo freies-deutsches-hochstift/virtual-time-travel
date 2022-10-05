@@ -1,12 +1,19 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+  PayloadAction,
+} from '@reduxjs/toolkit';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
 import { DATA_PAGES_TYPE, FETCH_PAGES_URL } from '../../config';
 import { RootState } from '../../main';
 
 export const PAGES_FEATURE_KEY = 'pages';
 
-export interface PageId {
-  id: string | number;
+export type PageId = string | number;
+
+export interface PageEntry {
+  id: PageId;
   subpages: Array<string | number>;
   [key: string]: unknown;
 }
@@ -14,7 +21,7 @@ export interface PageId {
 export interface PagesState {
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
   error: string | null;
-  entries: Array<PageId> | null;
+  entries: Array<PageEntry> | null;
 }
 
 export const initialPagesState: PagesState = {
@@ -28,7 +35,7 @@ export const fetchPages = createAsyncThunk(
   async (_, thunkAPI) => {
     const { data } = await fetchApi(FETCH_PAGES_URL, DATA_PAGES_TYPE);
 
-    return data as Array<PageId> | null;
+    return data as Array<PageEntry> | null;
   }
 );
 
@@ -63,3 +70,12 @@ export const pagesActions = pagesSlice.actions;
 
 export const getPagesState = (rootState: RootState): PagesState =>
   rootState[PAGES_FEATURE_KEY];
+
+export const usePageById = () => {
+  return createSelector(
+    [getPagesState, (_, pageId) => pageId],
+    (state, pageId) => {
+      return state.entries?.find((p: PageEntry) => p.id === pageId);
+    }
+  );
+};
