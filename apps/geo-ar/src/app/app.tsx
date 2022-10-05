@@ -8,7 +8,7 @@ import ArUi from './ar-ui/ar-ui'
 import { useStateData } from './hooks/useStateData'
 import { deviceActions } from './state/device.slice'
 import { geoActions } from './state/geo.slice'
-import './styles/global.css'
+
 
 
 export function App() {

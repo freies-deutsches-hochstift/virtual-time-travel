@@ -19,6 +19,8 @@ body,
 
 body {
   @apply font-body;
+  /* TODO: HOW THE BG SHOULD BE COMPOSED style or img or both ? */
+  background: var(--primary-gradient);
 }
 
 h1,

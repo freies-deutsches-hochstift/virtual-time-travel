@@ -50,18 +50,19 @@
   --font-body: 'noto_sans';
 
   /* Colors */
-  --primary-light: #5eead4;
+  --primary-light: #94a3d8;
   --primary: #14b8a6;
-  --primary-dark: #0f766e;
+  --primary-dark: #11172c;
+  --primary-gradient: linear-gradient(var(--primary-dark), var(--primary));
+
   --secondary-light: #bae6fd;
   --secondary: #0ea5e9;
   --secondary-dark: #0369a1;
-  --white: #ffffff;
-  --black: #000000;
 
-  /* Spacing */
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
+  /* MainNav */
+  --main-nav-bg: var(--primary-dark);
+  --main-nav-link: var(--primary-light);
+  --main-nav-link-active: var(--primary);
+  --main-nav-size: 3rem;
+  --main-nav-padding: 0.5rem 0;
 }

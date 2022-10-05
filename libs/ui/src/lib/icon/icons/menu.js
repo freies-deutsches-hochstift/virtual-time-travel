@@ -1,0 +1,11 @@
+export function MenuIcon() {
+  return (
+    <svg viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="3" cy="11" r="3" fill="currentColor" />
+      <circle cx="15" cy="11" r="3" fill="currentColor" />
+      <circle cx="27" cy="11" r="3" fill="currentColor" />
+    </svg>
+  );
+}
+
+export default MenuIcon;
