@@ -28,7 +28,6 @@ export const fetchFences = createAsyncThunk(
   'fences/fetchFences',
   async (_, thunkAPI) => {
     const { data } = await fetchApi(FETCH_FENCES_URL, DATA_FENCES_TYPE);
-
     return data as Array<FenceId> | null;
   }
 );
@@ -46,19 +45,7 @@ export const fencesSlice = createSlice({
 
     builder.addCase(fetchFences.fulfilled, (state, action) => {
       state.loadingStatus = 'loaded';
-
-      const entries = action.payload;
-
-      state.entries = entries;
-      // entries
-
-      // entries.map((e) => ({
-      //   ...e,
-      //   geometry: geolocation.normalizeGeometryCoords(
-      //     e.geometry
-      //   ),
-      // }));
-
+      state.entries = action.payload;
       state.error = null;
     });
 
@@ -72,7 +59,7 @@ export const fencesSlice = createSlice({
 
 export const fencesReducer = fencesSlice.reducer;
 
-export const povsActions = fencesSlice.actions;
+export const fencesActions = fencesSlice.actions;
 
 export const getFencesState = (rootState: RootState): FencesState =>
   rootState[FENCES_FEATURE_KEY];

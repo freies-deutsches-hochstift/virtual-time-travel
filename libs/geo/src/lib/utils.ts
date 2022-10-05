@@ -1,6 +1,6 @@
 import { PermissionStatus } from '@virtual-time-travel/util-device';
 import * as geolib from 'geolib';
-import { GeolibGeoJSONPoint, GeolibInputCoordinates } from 'geolib/es/types';
+import { GeolibGeoJSONPoint } from 'geolib/es/types';
 
 /**
  * Extend native Web API DeviceOrientationEvent event for iOS devices

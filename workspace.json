@@ -11,8 +11,8 @@
     "geo-ar-e2e": "apps/geo-ar-e2e",
     "qrrouter": "libs/qrrouter",
     "spatial": "libs/spatial",
+    "tailwind-preset": "libs/tailwind-preset",
     "ui": "libs/ui",
-    "util-device": "libs/util-device",
-    "tailwind-preset": "libs/tailwind-preset"
+    "util-device": "libs/util-device"
   }
 }

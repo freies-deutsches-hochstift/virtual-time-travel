@@ -1,5 +1,10 @@
 module.exports = {
   theme: {
+    fontFamily: {
+      headline: 'var(--font-headline)',
+      body: 'var(--font-body)',
+    },
+
     colors: {
       primary: {
         light: 'var(--primary-light)',
