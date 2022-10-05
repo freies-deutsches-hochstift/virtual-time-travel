@@ -34,11 +34,11 @@ export function Ar() {
   }
 
   return (
-    <>
+    <div>
       <ArUi />
       <Geo {...{ onChangePosition, onRequestGeolocationComplete, onChangeOrientation, onRequestOrientationComplete }} />
       <CameraStream {...{ onRequestCameraComplete }} />
-    </>
+    </div>
   )
 }
 

@@ -16,24 +16,50 @@ const sharedTheme = {
         DEFAULT: 'var(--secondary)',
         dark: 'var(--secondary-dark)',
       },
-      'main-nav-bg': 'var(--main-nav-bg)',
-      'main-nav-link': {
-        DEFAULT: 'var(--secondary)',
-        active: 'var(--secondary-light)',
+
+      /* libs/Ui */
+      ui: {
+        /* MainNav */
+        nav: {
+          bg: 'var(--ui-nav-bg)',
+          link: {
+            DEFAULT: 'var(--ui-nav-link)',
+            active: 'var(--ui-nav-link-active)',
+          },
+        },
+
+        /* Dialog */
+        dialog: {
+          bg: 'var(--main-nav-bg)',
+          primary: {
+            DEFAULT: 'var(--secondary)',
+            v2: 'var(--secondary-light)',
+          },
+          secondary: {
+            DEFAULT: 'var(--secondary)',
+            v2: 'var(--secondary-light)',
+          },
+        },
       },
     },
 
     extend: {
       gap: {
-        'main-nav': '1rem',
+        ui: {
+          nav: '1rem',
+        },
       },
 
       height: {
-        'main-nav': 'var(--main-nav-size)',
+        ui: {
+          nav: 'var(--ui-nav-size)',
+        },
       },
 
       padding: {
-        'main-nav': 'var(--main-nav-padding)',
+        ui: {
+          nav: 'var(--ui-nav-padding)',
+        },
       },
 
       maxWidth: {

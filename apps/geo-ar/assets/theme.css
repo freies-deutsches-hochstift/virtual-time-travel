@@ -59,10 +59,17 @@
   --secondary: #0ea5e9;
   --secondary-dark: #0369a1;
 
-  /* MainNav */
-  --main-nav-bg: var(--primary-dark);
-  --main-nav-link: var(--primary-light);
-  --main-nav-link-active: var(--primary);
-  --main-nav-size: 3rem;
-  --main-nav-padding: 0.5rem 0;
+  /* libs/Ui/MainNav */
+  --ui-nav-bg: var(--primary-dark);
+  --ui-nav-link: var(--primary-light);
+  --ui-nav-link-active: var(--primary);
+
+  --ui-nav-size: 3rem;
+  --ui-nav-padding: 0.5rem 0;
+
+  /* libs/Ui/Dialog */
+  --ui-dialog-primary: #111c4e;
+  --ui-dialog-primary-dark: #0a1232;
+  --ui-dialog-secondary: #fff;
+  --ui-dialog-secondary-dark: #94a3d8;
 }

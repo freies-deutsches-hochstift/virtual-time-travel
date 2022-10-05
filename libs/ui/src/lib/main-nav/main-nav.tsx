@@ -23,17 +23,17 @@ export interface MainNavButtonProps {
 
 const StyledMainNav = styled.nav(tw`
   w-full 
-  bg-main-nav-bg
-  text-main-nav-link
+  bg-ui-nav-bg
+  text-ui-nav-link
   flex items-center justify-center
 `)
 
 const StyledMainNavInner = styled.nav([
   tw`
     w-full 
-    h-main-nav
-    p-main-nav
-    flex items-center justify-between gap-main-nav
+    h-ui-nav
+    p-ui-nav
+    flex items-center justify-between gap-ui-nav
     w-11/12
     max-w-app
   `,
@@ -63,7 +63,7 @@ export function MainNav(props: MainNavProps) {
 const StyledMainNavLink = styled.span((props: MainNavButtonStyleProps) => [
   tw`
     h-full w-full
-    text-main-nav-link
+    text-ui-nav-link 
     flex items-center justify-center
     cursor-pointer
   `,
@@ -75,7 +75,7 @@ const StyledMainNavLink = styled.span((props: MainNavButtonStyleProps) => [
       user-select: none;
     }
   `,
-  props.active && tw`text-main-nav-link-active`,
+  props.active && tw`text-ui-nav-link-active`,
   props.disabled && tw`opacity-50 pointer-events-none`
 ])
 
