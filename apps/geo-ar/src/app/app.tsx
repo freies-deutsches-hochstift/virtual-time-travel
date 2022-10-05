@@ -2,9 +2,13 @@
 import { useSelector } from 'react-redux'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import { useStateData } from './hooks/useStateData'
-import IntroScreen from './intro-screen/intro-screen'
 import Layout from './layout/layout'
-import SplashScreen from './splash-screen/splash-screen'
+import ArScreen from './screens/ar/ar-screen'
+import IntroScreen from './screens/intro/intro-screen'
+import ListScreen from './screens/list/list-screen'
+import MenuScreen from './screens/menu/menu-screen'
+import QrScreen from './screens/qr/qr-screen'
+import SplashScreen from './screens/splash/splash-screen'
 import { selectAppIsReady } from './state/general.slice'
 
 
@@ -20,10 +24,10 @@ export function App() {
         <Routes>
           <Route path="/" element={<SplashScreen />} />
           <Route path="/intro" element={<IntroScreen />} />
-          {/* <Route path="/intro" element={<Page id="intro" />} />
-          <Route path="/qr" element={<Page id="qr" />} />
-          <Route path="/list" element={<Page id="list" />} />
-          <Route path="/menu" element={<Page id="menu" />} /> */}
+          <Route path="/ar" element={<ArScreen />} />
+          <Route path="/qr" element={<QrScreen />} />
+          <Route path="/list" element={<ListScreen />} />
+          <Route path="/menu" element={<MenuScreen />} />
         </Routes>
       </Layout>
     </HashRouter>

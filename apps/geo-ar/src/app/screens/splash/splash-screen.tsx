@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom"
 import { Markdown } from '@virtual-time-travel/markdown'
-import Page from '../page/page'
+import Page from "../../page/page"
 
 
 
