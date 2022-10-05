@@ -1,14 +1,8 @@
-import Page from "../../page/page"
-
+import Ar from "../../ar/ar"
 
 
 export function ArScreen() {
-  return (
-    <Page>
-      <p>TODO AR</p>
-    </Page>
-
-  )
+  return <Ar />
 }
 
 export default ArScreen

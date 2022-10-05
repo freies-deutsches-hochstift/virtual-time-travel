@@ -4,21 +4,14 @@ import { Dispatch } from '@reduxjs/toolkit'
 import { CameraStream } from '@virtual-time-travel/camera'
 import { DeviceLocationEventRes, DeviceOrientationEventRes, Geo } from '@virtual-time-travel/geo'
 import { DeviceFeatures, DeviceResponsePermission } from '@virtual-time-travel/util-device'
-import ArUi from './ar-ui/ar-ui'
-import { useStateData } from './hooks/useStateData'
-import { deviceActions } from './state/device.slice'
-import { geoActions } from './state/geo.slice'
+import ArUi from '../ar-ui/ar-ui'
+import { deviceActions } from '../state/device.slice'
+import { geoActions } from '../state/geo.slice'
 
 
-
-export function App() {
+export function Ar() {
 
   const dispatch = useDispatch<Dispatch>()
-
-  useStateData()
-
-
-
 
   const onRequestCameraComplete = (res: DeviceResponsePermission) => {
     dispatch(deviceActions.handlePermissionEvent({ permission: DeviceFeatures.Camera, ...res }))
@@ -49,4 +42,4 @@ export function App() {
   )
 }
 
-export default App
+export default Ar
