@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export interface ButtonProps {
   label: string,
-  onClick: (event: unknown) => unknown
+  onClick: (event: unknown) => unknown | undefined
 }
 
 const StyledButton = styled.div`

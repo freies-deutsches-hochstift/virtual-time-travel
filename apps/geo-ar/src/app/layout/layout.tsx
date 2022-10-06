@@ -16,7 +16,7 @@ const StyledLayout = styled.div(tw`
 
 const StyledMain = styled.main(tw`
     w-full h-full
-    flex justify-center
+    flex justify-center relative
 `)
 
 export function Layout(props: LayoutProps) {

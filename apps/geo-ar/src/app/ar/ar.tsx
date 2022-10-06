@@ -1,47 +1,33 @@
 
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch } from '@reduxjs/toolkit'
-import { CameraStream } from '@virtual-time-travel/camera'
-import { DeviceLocationEventRes, DeviceOrientationEventRes, Geo } from '@virtual-time-travel/geo'
-import { DeviceFeatures, DeviceResponsePermission } from '@virtual-time-travel/util-device'
-import ArUi from '../ar-ui/ar-ui'
-import { deviceActions } from '../state/device.slice'
-import { geoActions } from '../state/geo.slice'
+import { useSelector } from 'react-redux'
+import styled from '@emotion/styled'
+import { WithDevicePermissions } from '@virtual-time-travel/ui'
+import tw from "twin.macro"
+import { selectHasArPermissions, selectHasCameraPermission } from '../state/device.slice'
 import { selectCurrentLocale } from '../state/locales.slice'
+import ArCamera from './camera'
+import ArGeo from './geo'
 
+const StyledAr = styled.div(tw`
+  w-full h-full
+`)
 
 export function Ar() {
-
   const locale = useSelector(selectCurrentLocale)
-
-  const dispatch = useDispatch<Dispatch>()
-
-  const onRequestCameraComplete = (res: DeviceResponsePermission) => {
-    dispatch(deviceActions.handlePermissionEvent({ permission: DeviceFeatures.Camera, ...res }))
-  }
-
-  const onRequestGeolocationComplete = (res: DeviceResponsePermission) => {
-    dispatch(deviceActions.handlePermissionEvent({ permission: DeviceFeatures.Geolocation, ...res }))
-  }
-
-  const onRequestOrientationComplete = (res: DeviceResponsePermission) => {
-    dispatch(deviceActions.handlePermissionEvent({ permission: DeviceFeatures.Orientation, ...res }))
-  }
-
-  function onChangePosition(position: DeviceLocationEventRes) {
-    if (position?.coordinates) dispatch(geoActions.updateLocation(position))
-  }
-
-  function onChangeOrientation(event: DeviceOrientationEventRes) {
-    dispatch(geoActions.updateOrientation(event))
-  }
+  const hasAllPermissions = useSelector(selectHasArPermissions)
+  /*
+   * camera nad geo have separated custom request permission dialogs
+   * and we want to display them one at the time
+   */
+  const hasCameraPermission = useSelector(selectHasCameraPermission)
 
   return (
-    <div>
-      <ArUi />
-      <Geo {...{ onChangePosition, onRequestGeolocationComplete, onChangeOrientation, onRequestOrientationComplete, locale }} />
-      <CameraStream {...{ onRequestCameraComplete }} />
-    </div>
+    <WithDevicePermissions {...{ hasAllPermissions, permissionsFeedContentId: 'missing-ar-permissions', locale }}>
+      <StyledAr>
+        {hasCameraPermission && <ArGeo />}
+        <ArCamera />
+      </StyledAr>
+    </WithDevicePermissions>
   )
 }
 

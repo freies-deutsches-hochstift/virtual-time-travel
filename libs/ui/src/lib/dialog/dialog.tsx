@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import styled from '@emotion/styled'
 import { getDialogsContentBaseUrl } from '@virtual-time-travel/app-config'
 import { Markdown } from '@virtual-time-travel/markdown'
@@ -7,8 +8,8 @@ import Button from '../button/button'
 export interface DialogProps {
   contentId: string,
   locale: string,
-  onConfirm: (event: unknown) => unknown,
-  onCancel: (event: unknown) => unknown
+  onConfirm?: (event: unknown) => unknown,
+  onCancel?: (event: unknown) => unknown
 }
 
 const StyledDialog = styled.div(tw`
@@ -39,17 +40,19 @@ export function Dialog(props: DialogProps) {
 
   const { contentId, locale, onCancel, onConfirm } = props
 
+  const withConfirm = useMemo(() => typeof onConfirm === 'function', [onConfirm])
+  const withCancel = useMemo(() => typeof onCancel === 'function', [onCancel])
+
   return (
     <StyledDialog>
       <StyledDialogInner>
-        <div onClick={onCancel}>x</div>
+        {withCancel && <div onClick={onCancel}>x</div>}
 
         <Markdown {...{ id: contentId, baseUrl: getDialogsContentBaseUrl(locale) }} />
 
-        <StyledDialogActions>
-          <Button label="cancel" onClick={onCancel} />
-          <Button label="confirm" onClick={onConfirm} />
-        </StyledDialogActions>
+        {withConfirm && (<StyledDialogActions>
+          {!!onConfirm && <Button label="confirm" onClick={onConfirm} />}
+        </StyledDialogActions>)}
 
       </StyledDialogInner>
     </StyledDialog>

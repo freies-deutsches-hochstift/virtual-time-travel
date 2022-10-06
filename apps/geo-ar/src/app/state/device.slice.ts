@@ -1,4 +1,4 @@
-import { createSelector,createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   DeviceFeatures,
   DevicePermission,
@@ -61,41 +61,31 @@ export const deviceReducer = deviceSlice.reducer;
  */
 export const deviceActions = deviceSlice.actions;
 
-/*
- * Export selectors to query state. For use with the `useSelector` hook.
- *
- * e.g.
- * ```
- * import { useSelector } from 'react-redux';
- *
- * // ...
- *
- * const entities = useSelector(selectAllDevice);
- * ```
- *
- * See: https://react-redux.js.org/next/api/hooks#useselector
- */
-
 export const getDevicesState = (rootState: RootState): DeviceState =>
   rootState[DEVICE_FEATURE_KEY];
 
-// TODO
-// export const selectShouldRequestGeoPermissions = createSelector(
-//   getDevicesState,
-//   (state) => {
-//
-//     return true;
-//   }
-// );
+export const selectHasArPermissions = createSelector(
+  getDevicesState,
+  (state) => {
+    const mandatory = [
+      state[DeviceFeatures.Geolocation],
+      state[DeviceFeatures.Orientation],
+      state[DeviceFeatures.Camera],
+    ];
 
-export const selectCanAr = createSelector(getDevicesState, (state) => {
-  const mandatory = [
-    state[DeviceFeatures.Geolocation],
-    state[DeviceFeatures.Orientation],
-  ];
+    return (
+      mandatory.filter((m) =>
+        [PermissionStatus.Denied, PermissionStatus.Unavailable].find(
+          (s) => s === m.status
+        )
+      ).length === 0
+    );
+  }
+);
 
-  return (
-    mandatory.filter((m) => m.status === PermissionStatus.Granted).length ===
-    mandatory.length
-  );
-});
+export const selectHasCameraPermission = createSelector(
+  getDevicesState,
+  (state) => {
+    return state[DeviceFeatures.Camera].status === PermissionStatus.Granted;
+  }
+);
