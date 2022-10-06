@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 import styled from '@emotion/styled'
 import { WithDevicePermissions } from '@virtual-time-travel/ui'
 import tw from "twin.macro"
-import { selectHasArPermissions, selectHasCameraPermission } from '../state/device.slice'
-import { selectCurrentLocale } from '../state/locales.slice'
+import { selectHasArPermissions, selectHasCameraPermission } from '../../store/device.slice'
+import { selectCurrentLocale } from '../../store/locales.slice'
 import ArCamera from './camera'
 import ArGeo from './geo'
 

@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 import { getPagesFetchParams } from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
-import { RootState } from '../../main';
+import { RootState } from '../main';
 
 export const PAGES_FEATURE_KEY = 'pages';
 

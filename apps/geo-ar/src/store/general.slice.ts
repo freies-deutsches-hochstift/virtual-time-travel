@@ -1,5 +1,5 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../main';
+import { RootState } from '../main';
 import { getFencesState } from './fences.slice';
 import { getLocalesState } from './locales.slice';
 import { getPagesState } from './pages.slice';

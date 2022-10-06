@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from '@reduxjs/toolkit'
 import { CameraStream } from '@virtual-time-travel/camera'
 import { DeviceFeatures, DeviceResponsePermission } from '@virtual-time-travel/util-device'
-import { deviceActions, selectCameraPermission } from '../state/device.slice'
-import { selectCurrentLocale } from '../state/locales.slice'
+import { deviceActions, selectCameraPermission } from '../../store/device.slice'
+import { selectCurrentLocale } from '../../store/locales.slice'
 
 
 

@@ -8,7 +8,7 @@
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { CurrentPov, selectCurrentGeoFence, selectOrientation } from '../state/geo.slice'
+import { CurrentPov, selectCurrentGeoFence, selectOrientation } from '../../store/geo.slice'
 
 /* eslint-disable-next-line */
 export interface PovsProps { }

@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from '@reduxjs/toolkit'
 import { DeviceLocationEventRes, DeviceOrientationEventRes, Geo } from '@virtual-time-travel/geo'
 import { DeviceFeatures, DeviceResponsePermission } from '@virtual-time-travel/util-device'
+import { deviceActions, selectGeoPermissions } from '../../store/device.slice'
+import { geoActions } from '../../store/geo.slice'
+import { selectCurrentLocale } from '../../store/locales.slice'
 import ArUi from '../ar-ui/ar-ui'
-import { deviceActions, selectGeoPermissions } from '../state/device.slice'
-import { geoActions } from '../state/geo.slice'
-import { selectCurrentLocale } from '../state/locales.slice'
 
 export function ArGeo() {
 

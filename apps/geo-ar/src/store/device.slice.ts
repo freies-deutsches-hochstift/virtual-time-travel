@@ -6,7 +6,7 @@ import {
   initialDeviceResponse,
   PermissionStatus,
 } from '@virtual-time-travel/util-device';
-import { RootState } from '../../main';
+import { RootState } from '../main';
 
 export const DEVICE_FEATURE_KEY = 'device';
 

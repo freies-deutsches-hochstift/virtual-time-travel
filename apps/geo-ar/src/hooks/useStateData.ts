@@ -2,10 +2,10 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { useData } from '@virtual-time-travel/fetch-api';
-import { fetchFences } from '../state/fences.slice';
-import { fetchLocales } from '../state/locales.slice';
-import { fetchPages } from '../state/pages.slice';
-import { fetchPovs } from '../state/povs.slice';
+import { fetchFences } from '../store/fences.slice';
+import { fetchLocales } from '../store/locales.slice';
+import { fetchPages } from '../store/pages.slice';
+import { fetchPovs } from '../store/povs.slice';
 
 export const useStateData = () => {
   const dispatch = useDispatch<Dispatch>();

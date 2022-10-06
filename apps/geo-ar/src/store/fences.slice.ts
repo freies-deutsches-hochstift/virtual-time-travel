@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getFencesFetchParams } from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
 import { GeolibGeoJSONPoint } from 'geolib/es/types';
-import { RootState } from '../../main';
+import { RootState } from '../main';
 
 export const FENCES_FEATURE_KEY = 'fences';
 

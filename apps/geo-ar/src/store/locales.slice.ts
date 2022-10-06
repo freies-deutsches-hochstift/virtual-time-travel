@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 import { getLocalesFetchParams } from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
-import { RootState } from '../../main';
+import { RootState } from '../main';
 
 export const LOCALES_FEATURE_KEY = 'locales';
 

@@ -4,7 +4,7 @@ import {
   StateOrientation,
   StatePosition,
 } from '@virtual-time-travel/geo';
-import { RootState } from '../../main';
+import { RootState } from '../main';
 import { FenceId, getFencesState } from './fences.slice';
 import { getPovsState, PovId } from './povs.slice';
 
