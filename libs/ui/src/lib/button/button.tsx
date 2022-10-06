@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react'
 import styled from '@emotion/styled'
 import tw from "twin.macro"
 
@@ -31,9 +32,15 @@ const StyledButton = styled.span((props: StyledButtonStyleProps) => [
 
 export function Button(props: ButtonProps) {
   const { label, onClick, secondary, disabled } = props
+  const [triggered, setTriggered] = useState(false)
+
+  const handleClick = useCallback(() => {
+    onClick()
+    setTriggered(true)
+  }, [onClick])
 
   return (
-    <StyledButton onClick={onClick} secondary={secondary} disabled={disabled}>
+    <StyledButton onClick={handleClick} secondary={secondary} disabled={disabled || triggered}>
       {label}
     </StyledButton>
   )

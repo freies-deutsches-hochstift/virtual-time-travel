@@ -7,7 +7,6 @@ import {
   initialDeviceResponse,
   PermissionStatus,
 } from '@virtual-time-travel/util-device';
-
 import { RootState } from '../main';
 
 const canUseDeviceOrientation = getUseOrientation();
