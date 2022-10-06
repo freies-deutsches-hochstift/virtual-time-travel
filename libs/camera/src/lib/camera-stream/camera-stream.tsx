@@ -1,8 +1,9 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
+import styled from '@emotion/styled'
 import { WithDevicePermissionDialog } from '@virtual-time-travel/ui'
 import { DeviceResponsePermission, PermissionStatus } from '@virtual-time-travel/util-device'
+import tw from "twin.macro"
 import { camera, CameraResponsePermission, CaptureOptions } from '../camera'
-import styles from './camera-stream.module.scss'
 
 export interface CameraStreamProps {
   captureOptions?: CaptureOptions
@@ -10,6 +11,17 @@ export interface CameraStreamProps {
   locale: string
   devicePermissionsStatus: Array<PermissionStatus>
 }
+
+
+const StyledCameraWrapper = styled.div(tw`
+  w-full h-full relative overflow-hidden
+`)
+
+
+const StyledCameraVideo = styled.video(tw`
+  block w-full h-full object-cover
+`)
+
 
 export const CameraStream = memo((props: CameraStreamProps) => {
   const { captureOptions, onRequestCameraComplete, locale, devicePermissionsStatus } = props
@@ -48,9 +60,11 @@ export const CameraStream = memo((props: CameraStreamProps) => {
   return (
     <>
       <WithDevicePermissionDialog {...{ onConfirm: requestStream, dialogContentId: 'camera', locale, devicePermissionsStatus }} />
-      <div className={styles['camera-stream']}>
-        <video className={styles['camera-stream__video']} ref={videoElRef} autoPlay playsInline muted />
-      </div>
+
+      {/* videoElRef needs to be always avail */}
+      <StyledCameraWrapper>
+        <StyledCameraVideo ref={videoElRef} autoPlay playsInline muted />
+      </StyledCameraWrapper>
     </>
   )
 })

@@ -22,7 +22,7 @@ export interface MainNavButtonProps {
 }
 
 const StyledMainNav = styled.nav(tw`
-  w-full 
+  w-full h-ui-nav flex-shrink-0
   bg-ui-nav-bg
   text-ui-nav-link
   flex items-center justify-center
@@ -31,7 +31,7 @@ const StyledMainNav = styled.nav(tw`
 const StyledMainNavInner = styled.nav([
   tw`
     w-full 
-    h-ui-nav
+    h-full
     p-ui-nav
     flex items-center justify-between gap-ui-nav
     w-11/12

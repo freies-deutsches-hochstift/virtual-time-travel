@@ -15,7 +15,7 @@ const StyledLayout = styled.div(tw`
 `)
 
 const StyledMain = styled.main(tw`
-    w-full h-full
+    w-full flex-1 overflow-hidden
     flex justify-center relative
 `)
 
