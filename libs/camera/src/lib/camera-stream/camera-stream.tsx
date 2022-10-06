@@ -57,6 +57,7 @@ export const CameraStream = memo((props: CameraStreamProps) => {
     }
   }, [mediaStream])
 
+
   return (
     <>
       <WithDevicePermissionDialog {...{ onConfirm: requestStream, dialogContentId: 'camera', locale, devicePermissionsStatus }} />

@@ -5,14 +5,14 @@
  * permission request to the user interaction (to avoid browser security policy)
  */
 
-import { ReactNode } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { PermissionStatus } from "@virtual-time-travel/util-device"
 import Dialog from "../dialog/dialog"
 
 
 export interface WithDevicePermissionDialogProps {
-  onConfirm: (event: unknown) => unknown,
-  onCancel?: (event: unknown) => unknown
+  onConfirm: (event?: unknown) => unknown,
+  onCancel?: (event?: unknown) => unknown
   dialogContentId: string
   locale: string
   devicePermissionsStatus: Array<PermissionStatus>
@@ -21,8 +21,16 @@ export interface WithDevicePermissionDialogProps {
 
 
 export function WithDevicePermissionDialog({ onConfirm, onCancel, dialogContentId, locale, devicePermissionsStatus, children }: WithDevicePermissionDialogProps) {
+
+  const [hasAlreadyPermissions] = useState(devicePermissionsStatus.filter(s => s === PermissionStatus.Granted).length === devicePermissionsStatus.length)
+
+
+  useEffect(() => {
+    if (hasAlreadyPermissions) onConfirm()
+  }, [hasAlreadyPermissions, onConfirm])
+
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (devicePermissionsStatus.find(s => s !== PermissionStatus.Unknown)) return <>{children}</>
+  if (devicePermissionsStatus.find(s => s !== PermissionStatus.Unknown) || hasAlreadyPermissions) return <>{children}</>
 
   return <Dialog {...{ onCancel, onConfirm, locale, contentId: dialogContentId }} />
 }
