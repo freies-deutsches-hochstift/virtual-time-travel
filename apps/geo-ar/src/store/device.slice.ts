@@ -12,6 +12,11 @@ import { RootState } from '../main';
 const canUseDeviceOrientation = getUseOrientation();
 export const DEVICE_FEATURE_KEY = 'device';
 
+if (!canUseDeviceOrientation)
+  console.warn(
+    'DEVICE ORIENTATION REQUEST DISABLED!! If this is not wanted check NX_DISABLE_ORIENTATION in your env file'
+  );
+
 export interface DeviceState {
   [DeviceFeatures.Camera]: DeviceResponsePermission;
   [DeviceFeatures.Geolocation]: DeviceResponsePermission;

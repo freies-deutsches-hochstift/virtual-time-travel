@@ -39,8 +39,6 @@ export const getDataRoot = () => DATA_ROOT;
 // you might want to switch device orientation off since is not avail on most pcs
 export const getUseOrientation = () => !DISABLE_ORIENTATION;
 
-console.log(DISABLE_ORIENTATION);
-
 export const getFencesFetchParams = () =>
   getDataFetchParams(DATA_FENCES, DATA_FENCES_TYPE);
 
