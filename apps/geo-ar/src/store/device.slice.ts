@@ -1,4 +1,5 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getUseOrientation } from '@virtual-time-travel/app-config';
 import {
   DeviceFeatures,
   DevicePermission,
@@ -6,8 +7,10 @@ import {
   initialDeviceResponse,
   PermissionStatus,
 } from '@virtual-time-travel/util-device';
+
 import { RootState } from '../main';
 
+const canUseDeviceOrientation = getUseOrientation();
 export const DEVICE_FEATURE_KEY = 'device';
 
 export interface DeviceState {
@@ -65,12 +68,13 @@ export const getDevicesState = (rootState: RootState): DeviceState =>
   rootState[DEVICE_FEATURE_KEY];
 
 export const selectGeoPermissions = createSelector(getDevicesState, (state) => {
-  const mandatory = [
-    state[DeviceFeatures.Geolocation],
-    state[DeviceFeatures.Orientation],
-  ];
+  const mandatory = [state[DeviceFeatures.Geolocation]];
 
-  return mandatory.map((m) => m.status);
+  if (canUseDeviceOrientation) {
+    mandatory.push(state[DeviceFeatures.Orientation]);
+  }
+
+  return mandatory.map((m) => m?.status);
 });
 
 export const selectHasArPermissions = createSelector(
@@ -78,14 +82,17 @@ export const selectHasArPermissions = createSelector(
   (state) => {
     const mandatory = [
       state[DeviceFeatures.Geolocation],
-      state[DeviceFeatures.Orientation],
       state[DeviceFeatures.Camera],
     ];
+
+    if (canUseDeviceOrientation) {
+      mandatory.push(state[DeviceFeatures.Orientation]);
+    }
 
     return (
       mandatory.filter((m) =>
         [PermissionStatus.Denied, PermissionStatus.Unavailable].find(
-          (s) => s === m.status
+          (s) => s === m?.status
         )
       ).length === 0
     );

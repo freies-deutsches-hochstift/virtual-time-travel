@@ -14,6 +14,9 @@ const DATA_LOCALES_TYPE = process.env?.['NX_DATA_LOCALES_TYPE'] || 'csv';
 
 const DATA_DIALOGS = process.env?.['NX_DATA_DIALOGS'] || 'dialogs';
 
+const DISABLE_ORIENTATION =
+  process.env?.['NX_DISABLE_ORIENTATION'] === 'true' || false;
+
 export interface DataFetchParamsRes {
   url: string;
   type: string;
@@ -31,6 +34,12 @@ const getDataContentBaseUrl = (scope: string, locale: string): string =>
   [DATA_ROOT, scope, 'locales', locale].join('/');
 
 export const getDataRoot = () => DATA_ROOT;
+
+// for development purpose
+// you might want to switch device orientation off since is not avail on most pcs
+export const getUseOrientation = () => !DISABLE_ORIENTATION;
+
+console.log(DISABLE_ORIENTATION);
 
 export const getFencesFetchParams = () =>
   getDataFetchParams(DATA_FENCES, DATA_FENCES_TYPE);
