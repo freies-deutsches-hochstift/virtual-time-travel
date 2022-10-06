@@ -39,12 +39,12 @@ export function useOrientation(
     const canRequestPermission = typeof requestPermission === 'function';
 
     if (!canRequestPermission) {
-      if (onRequestComplete)
+      if (onRequestComplete) {
         onRequestComplete({
           status: PermissionStatus.Unavailable,
           error: 'Device orientation not supported',
         });
-
+      }
       return;
     }
 

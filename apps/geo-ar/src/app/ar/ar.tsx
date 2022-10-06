@@ -16,13 +16,13 @@ export function Ar() {
   const locale = useSelector(selectCurrentLocale)
   const hasAllPermissions = useSelector(selectHasArPermissions)
   /*
-   * camera nad geo have separated custom request permission dialogs
+   * camera and geo have separated custom request permission dialogs
    * and we want to display them one at the time
    */
   const hasCameraPermission = useSelector(selectHasCameraPermission)
 
   return (
-    <WithDevicePermissions {...{ hasAllPermissions, permissionsFeedContentId: 'missing-ar-permissions', locale }}>
+    <WithDevicePermissions {...{ hasAllPermissions, permissionsFeedContentId: 'can-not-ar', locale }}>
       <StyledAr>
         {hasCameraPermission && <ArGeo />}
         <ArCamera />

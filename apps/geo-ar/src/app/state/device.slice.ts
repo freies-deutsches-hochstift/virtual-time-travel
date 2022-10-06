@@ -64,6 +64,15 @@ export const deviceActions = deviceSlice.actions;
 export const getDevicesState = (rootState: RootState): DeviceState =>
   rootState[DEVICE_FEATURE_KEY];
 
+export const selectGeoPermissions = createSelector(getDevicesState, (state) => {
+  const mandatory = [
+    state[DeviceFeatures.Geolocation],
+    state[DeviceFeatures.Orientation],
+  ];
+
+  return mandatory.map((m) => m.status);
+});
+
 export const selectHasArPermissions = createSelector(
   getDevicesState,
   (state) => {
@@ -83,9 +92,12 @@ export const selectHasArPermissions = createSelector(
   }
 );
 
-export const selectHasCameraPermission = createSelector(
+export const selectCameraPermission = createSelector(
   getDevicesState,
-  (state) => {
-    return state[DeviceFeatures.Camera].status === PermissionStatus.Granted;
-  }
+  (state) => state[DeviceFeatures.Camera].status
+);
+
+export const selectHasCameraPermission = createSelector(
+  selectCameraPermission,
+  (status) => status === PermissionStatus.Granted
 );
