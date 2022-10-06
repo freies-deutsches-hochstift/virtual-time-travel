@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import { getDialogsContentBaseUrl } from '@virtual-time-travel/app-config'
 import { Markdown } from '@virtual-time-travel/markdown'
 import tw from "twin.macro"
+import { ActionsGroup } from '../actions-group/actions-group'
 import Button from '../button/button'
 
 export interface DialogProps {
@@ -24,17 +25,32 @@ const StyledDialogInner = styled.div([
     w-5/6 max-w-ui-dialog
     bg-ui-dialog-bg
     p-ui-dialog
-    flex flex-col
+    flex flex-col text-center
+    rounded-ui-dialog
   `,
   `
-    filter: var(--ui-dialog-filter)
+    filter: var(--ui-dialog-filter);
+
+    & img {
+      max-height: 35vh;
+      margin: auto;
+      object-fit: contain;
+    }
+
+    & h1, & h2 {
+      font-size: 2rem;
+      line-height: 1.25em;
+      margin: 0 0 1rem 0;
+    }
+
+    & h3 {
+      font-size: 1.5rem;
+      line-height: 1.6em;
+      margin: 0 0 1rem 0;
+    }
   `
 ])
 
-
-const StyledDialogActions = styled.div(tw`
-  flex 
-`)
 
 export function Dialog(props: DialogProps) {
 
@@ -50,9 +66,9 @@ export function Dialog(props: DialogProps) {
 
         <Markdown {...{ id: contentId, baseUrl: getDialogsContentBaseUrl(locale) }} />
 
-        {withConfirm && (<StyledDialogActions>
+        {withConfirm && (<ActionsGroup>
           {!!onConfirm && <Button label="confirm" onClick={onConfirm} />}
-        </StyledDialogActions>)}
+        </ActionsGroup>)}
 
       </StyledDialogInner>
     </StyledDialog>

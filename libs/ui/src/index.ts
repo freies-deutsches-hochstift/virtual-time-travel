@@ -1,3 +1,4 @@
+export * from './lib/actions-group/actions-group';
 export * from './lib/button/button';
 export * from './lib/dialog/dialog';
 export * from './lib/icon/icon';

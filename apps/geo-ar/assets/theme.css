@@ -55,9 +55,9 @@
   --primary-dark: #11172c;
   --primary-gradient: linear-gradient(var(--primary-dark), var(--primary));
 
-  --secondary-light: #bae6fd;
-  --secondary: #0ea5e9;
-  --secondary-dark: #0369a1;
+  --secondary-light: #bdb2f6;
+  --secondary: #fff;
+  --secondary-dark: #7b61ff;
 
   /* Sizes */
 
@@ -85,4 +85,18 @@
   --ui-dialog-padding: 1rem;
 
   --ui-dialog-filter: drop-shadow(0 0.5rem 0.5rem rgb(0 0 0 / 0.4));
+  --ui-dialog-radius: 0;
+
+  /* libs/Ui/Button */
+  --ui-button-primary: var(--primary);
+  --ui-button-primary-bg: var(--primary-dark);
+
+  --ui-button-secondary: var(--secondary);
+  --ui-button-secondary-bg: var(--secondary-dark);
+
+  --ui-button-disabled: rgba(255, 255, 255, 0.5);
+  --ui-button-disabled-bg: rgba(0, 0, 0, 0.5);
+
+  --ui-button-radius: 0.2rem;
+  --ui-button-filter: none;
 }

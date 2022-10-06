@@ -41,6 +41,24 @@ const sharedTheme = {
             v2: 'var(--ui-dialog-secondary-v2)',
           },
         },
+
+        /* Button */
+        button: {
+          primary: {
+            DEFAULT: 'var(--ui-button-primary)',
+            bg: 'var(--ui-button-primary-bg)',
+          },
+
+          secondary: {
+            DEFAULT: 'var(--ui-button-secondary)',
+            bg: 'var(--ui-button-secondary-bg)',
+          },
+
+          disabled: {
+            DEFAULT: 'var(--ui-button-disabled)',
+            bg: 'var(--ui-button-disabled-bg)',
+          },
+        },
       },
     },
 
@@ -73,6 +91,13 @@ const sharedTheme = {
 
       zIndex: {
         max: '999',
+      },
+
+      borderRadius: {
+        ui: {
+          button: 'var(--ui-button-radius)',
+          dialog: 'var(--ui-dialog-radius)',
+        },
       },
     },
   },
