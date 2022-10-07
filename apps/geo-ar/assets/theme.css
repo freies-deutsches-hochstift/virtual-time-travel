@@ -101,8 +101,12 @@
   --ui-button-filter: none;
 
   /* libs/Ui/Geo */
-  --ui-pov-size: 5rem;
-  --ui-pov-primary: #ff7a00;
-  --ui-pov-wave-size: 12rem;
-  --ui-pov-waves: radial-gradient(var(--ui-pov-primary), transparent);
+  --ui-pov-size: clamp(1rem, 10vw, 2rem);
+  --ui-pov-wave-size: clamp(5rem, 90vw, 30rem);
+  --ui-pov-primary: rgb(255, 122, 0);
+  --ui-pov-waves: radial-gradient(rgba(255, 122, 0, 0.3), rgba(255, 122, 0, 0));
+  --ui-pov-waves-inview: radial-gradient(
+    rgba(255, 122, 0, 0.6),
+    rgba(255, 122, 0, 0)
+  );
 }

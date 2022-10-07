@@ -14,7 +14,7 @@ export interface PovMarkerProps {
 
 
 export function PovMarker({ pov, compassScaleFactor }: PovMarkerProps) {
-  const { id, bearingDistance, distance, orientation = 0, bearingViewportOrientation } = pov
+  const { id, bearingDistance, distance, inView, bearingViewportOrientation } = pov
 
   const scale = useMemo(() => {
 
@@ -50,8 +50,8 @@ export function PovMarker({ pov, compassScaleFactor }: PovMarkerProps) {
 
 
   return (
-    <StyledPovMarker  {...{ left, scale }}>
-      <StyledPovWave {...{ bearingViewportOrientation }} />
+    <StyledPovMarker  {...{ left }}>
+      <StyledPovWave {...{ scale, inView, bearingViewportOrientation }} />
       <StyledPovInner>
         <p>{distance}</p>
       </StyledPovInner>
@@ -63,16 +63,14 @@ export function PovMarker({ pov, compassScaleFactor }: PovMarkerProps) {
 export default PovMarker
 
 type StyledPovMarkerProps = {
-  scale: number
   left: number
 }
 
-const StyledPovMarker = styled.div(({ scale, left }: StyledPovMarkerProps) =>
+const StyledPovMarker = styled.div(({ left }: StyledPovMarkerProps) =>
   [
     tw`
       absolute top-0
     `,
-    scale && `transform: scale(${scale});`,
     left && `left: ${left}px;`,
 
   ]
@@ -90,16 +88,23 @@ const StyledPovInner = styled.div([
 
 type StyledPovWaveProps = {
   bearingViewportOrientation: number
+  scale: number
+  inView: boolean
 }
 
-const StyledPovWave = styled.div(({ bearingViewportOrientation }: StyledPovWaveProps) => [
+const StyledPovWave = styled.div(({ bearingViewportOrientation, scale, inView }: StyledPovWaveProps) => [
   tw`
-    absolute top-ui-pov  w-ui-pov-wave h-ui-pov-wave rounded-full
+    absolute top-ui-pov w-ui-pov-wave h-ui-pov-wave rounded-full
   `,
-  `
-    transform: translate(-50%, -50%) rotate(${bearingViewportOrientation}deg);
-    transform-origin: center;
+
+  inView && `
+    transform: translate(-50%, -50%) scale(${scale}) rotate(${bearingViewportOrientation}deg) ;
     background: var(--ui-pov-waves);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 85% 100%, 50% 50%, 15% 100%, 0% 100%);
+  `,
+
+  !inView && `
+    transform: translate(-50%, -50%) scale(${scale});
+    background: var(--ui-pov-waves);
   `
 ])

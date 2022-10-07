@@ -5,6 +5,7 @@ import styled from '@emotion/styled'
 import { CurrentGeoFence, CurrentPov, StateOrientation } from '@virtual-time-travel/geo-types'
 import tw from "twin.macro"
 import { PovMarker } from './pov-marker'
+import useResizeObserver from "use-resize-observer"
 
 export interface PovsOverlayProps {
   currentGeoFence: CurrentGeoFence | null
@@ -34,9 +35,9 @@ export function PovsOverlay({ currentGeoFence, orientation }: PovsOverlayProps) 
 
   const { povs } = currentGeoFence || {}
   const { compassHeading } = orientation || { compassHeading: 0 }
+  const { ref: ctnRef, width: ctnWidth } = useResizeObserver()
 
-  // TODO onWinResize
-  const centerStartPosition = -circumference + (0.5 * window.innerWidth)
+  const centerStartPosition = useMemo(() => -circumference + (0.5 * (ctnWidth || 0)), [ctnWidth])
 
   const compassPosition = useMemo(() => centerStartPosition - ((compassHeading || 0) * compassScaleFactor), [centerStartPosition, compassHeading])
 
@@ -45,7 +46,7 @@ export function PovsOverlay({ currentGeoFence, orientation }: PovsOverlayProps) 
 
   return (
 
-    <StyledPovsOverlay>
+    <StyledPovsOverlay ref={ctnRef}>
       <StyledPovsWrapper style={{ width: wrapperWidth, transform: `translateX(${compassPosition}px)` }}>
         {sectorsKeys.map(k => <Povs {...{ povs }} key={k} />)}
       </StyledPovsWrapper>
@@ -72,7 +73,7 @@ const StyledPovsOverlay = styled.div([
     flex
   `,
   `
-    top: 33vh;
+    top: 15vh;
   `
 ])
 

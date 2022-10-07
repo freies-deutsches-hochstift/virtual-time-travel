@@ -81,20 +81,25 @@ export const selectCurrentGeoFence = createSelector(
           pov.fence === currentFence?.id &&
           pov.geometry.coordinates.length === 2
       )
-      .map((pov) => ({
-        ...pov,
-        distance: geolocation.getDistance(
-          currentPosition,
-          geolocation.getLongLat(pov.geometry.coordinates)
-        ),
-        bearingDistance: geolocation.getBearingDistance(
-          position.coordinates,
-          pov.geometry.coordinates
-        ),
+      .map((pov) => {
+        const bearingViewportOrientation =
+          (orientation?.compassHeading || 0) - (pov.orientation || 0);
 
-        bearingViewportOrientation:
-          (orientation?.compassHeading || 0) - (pov.orientation || 0),
-      }));
+        return {
+          ...pov,
+          distance: geolocation.getDistance(
+            currentPosition,
+            geolocation.getLongLat(pov.geometry.coordinates)
+          ),
+          bearingDistance: geolocation.getBearingDistance(
+            position.coordinates,
+            pov.geometry.coordinates
+          ),
+
+          bearingViewportOrientation,
+          inView: Math.abs(bearingViewportOrientation) < 20,
+        };
+      });
 
     // TODO !!! ???
     // if there are no points in view show directions to clostest one?

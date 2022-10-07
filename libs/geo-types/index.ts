@@ -70,6 +70,7 @@ export interface CurrentPov extends PovId {
   distance: number | null;
   bearingDistance: number | null;
   bearingViewportOrientation: number;
+  inView: boolean;
 }
 
 export interface CurrentGeoFence {
