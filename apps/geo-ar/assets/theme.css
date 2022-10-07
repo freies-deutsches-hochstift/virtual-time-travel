@@ -68,7 +68,7 @@
   --ui-nav-link: var(--primary-light);
   --ui-nav-link-active: var(--primary);
 
-  --ui-nav-size: 3rem;
+  --ui-nav-size: 3.5rem;
   --ui-nav-padding: 0.5rem 0;
   --ui-nav-links-gap: 1rem;
 
@@ -99,4 +99,10 @@
 
   --ui-button-radius: 0.2rem;
   --ui-button-filter: none;
+
+  /* libs/Ui/Geo */
+  --ui-pov-size: 5rem;
+  --ui-pov-primary: #ff7a00;
+  --ui-pov-wave-size: 12rem;
+  --ui-pov-waves: radial-gradient(transparent, var(--ui-pov-primary));
 }

@@ -20,6 +20,7 @@ const StyledDialog = styled.div(tw`
   flex items-center justify-center
 `)
 
+
 const StyledDialogInner = styled.div([
   tw`
     w-5/6 max-w-ui-dialog
@@ -29,6 +30,7 @@ const StyledDialogInner = styled.div([
     rounded-ui-dialog
   `,
   `
+    height: 70vh;
     filter: var(--ui-dialog-filter);
 
     & img {
@@ -51,6 +53,10 @@ const StyledDialogInner = styled.div([
   `
 ])
 
+const StyledDialogContent = styled.div(tw`
+  flex-1
+`)
+
 
 export function Dialog(props: DialogProps) {
 
@@ -63,9 +69,9 @@ export function Dialog(props: DialogProps) {
     <StyledDialog>
       <StyledDialogInner>
         {withCancel && <div onClick={onCancel}>x</div>}
-
-        <Markdown {...{ id: contentId, baseUrl: getDialogsContentBaseUrl(locale) }} />
-
+        <StyledDialogContent>
+          <Markdown {...{ id: contentId, baseUrl: getDialogsContentBaseUrl(locale) }} />
+        </StyledDialogContent>
         {withConfirm && (<ActionsGroup>
           {!!onConfirm && <Button label="confirm" onClick={onConfirm} />}
         </ActionsGroup>)}

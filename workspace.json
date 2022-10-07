@@ -8,6 +8,7 @@
     "data": "libs/data",
     "fetch-api": "libs/fetch-api",
     "geo": "libs/geo",
+    "geo-types": "libs/geo-types",
     "geo-ar": "apps/geo-ar",
     "geo-ar-e2e": "apps/geo-ar-e2e",
     "markdown": "libs/markdown",

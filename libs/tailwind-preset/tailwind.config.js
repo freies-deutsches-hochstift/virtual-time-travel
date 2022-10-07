@@ -59,6 +59,10 @@ const sharedTheme = {
             bg: 'var(--ui-button-disabled-bg)',
           },
         },
+
+        pov: {
+          DEFAULT: 'var(--ui-pov-primary)',
+        },
       },
     },
 
@@ -69,9 +73,30 @@ const sharedTheme = {
         },
       },
 
+      width: {
+        ui: {
+          pov: {
+            DEFAULT: 'var(--ui-pov-size)',
+            wave: 'var(--ui-pov-wave-size)',
+          },
+        },
+      },
+
       height: {
         ui: {
           nav: 'var(--ui-nav-size)',
+          pov: {
+            DEFAULT: 'var(--ui-pov-size)',
+            wave: 'var(--ui-pov-wave-size)',
+          },
+        },
+      },
+
+      inset: {
+        ui: {
+          pov: {
+            DEFAULT: 'var(--ui-pov-wave-size)',
+          },
         },
       },
 
@@ -91,6 +116,7 @@ const sharedTheme = {
 
       zIndex: {
         max: '999',
+        top: '99',
       },
 
       borderRadius: {

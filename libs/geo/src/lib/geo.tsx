@@ -1,6 +1,11 @@
 
 
-import { ReactNode, useCallback, useEffect } from 'react'
+import { ReactNode, useCallback } from 'react'
+import {
+  DeviceLocationEventRes,
+  DeviceOrientationEventRes,
+  LocationOptions,
+} from '@virtual-time-travel/geo-types'
 import { WithDevicePermissionDialog } from '@virtual-time-travel/ui'
 import {
   DeviceResponsePermission,
@@ -8,12 +13,6 @@ import {
 } from '@virtual-time-travel/util-device'
 import useLocation from './use-location/use-location'
 import useOrientation from './use-orientation/use-orientation'
-import {
-  DeviceLocationEventRes,
-  DeviceOrientationEventRes,
-  LocationOptions,
-} from './utils'
-
 
 
 export interface GeoProps {

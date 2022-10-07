@@ -1,39 +1,12 @@
+import {
+  DeviceLocationEventRes,
+  DeviceOrientationEventExtended,
+  DeviceOrientationEventRes,
+  GeolibGeoJSONPoint,
+  LocationOptions,
+} from '@virtual-time-travel/geo-types';
 import { PermissionStatus } from '@virtual-time-travel/util-device';
 import * as geolib from 'geolib';
-import { GeolibGeoJSONPoint } from 'geolib/es/types';
-
-/**
- * Extend native Web API DeviceOrientationEvent event for iOS devices
- * https://stackoverflow.com/questions/60640018/devicemotionevent-request-permission-with-typescript
- */
-export interface DeviceOrientationEventExtended extends DeviceOrientationEvent {
-  webkitCompassAccuracy?: number | undefined;
-  webkitCompassHeading?: number | undefined;
-  requestPermission?: () => Promise<'granted' | 'denied'>;
-}
-
-export interface DeviceOrientationEventRes {
-  absolute: boolean;
-  alpha: number | null;
-  beta: number | null;
-  gamma: number | null;
-  compassHeading: number | null;
-  compassAccuracy: number | null;
-}
-
-export interface DeviceLocationEventRes {
-  coordinates: GeolibGeoJSONPoint;
-  accuracy: number;
-}
-
-export type StatePosition = DeviceLocationEventRes | null;
-export type StateOrientation = DeviceOrientationEventRes | null;
-
-export interface LocationOptions {
-  enableHighAccuracy: boolean;
-  timeout: number;
-  maximumAge: number;
-}
 
 export const geolocationDefaultOptions: LocationOptions = {
   enableHighAccuracy: true,

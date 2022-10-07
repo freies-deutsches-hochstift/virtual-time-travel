@@ -4,17 +4,18 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import {
+  DeviceLocationEventRes,
+  LocationOptions,
+} from '@virtual-time-travel/geo-types';
+import {
   DeviceResponsePermission,
   PermissionStatus,
 } from '@virtual-time-travel/util-device';
 import {
-  DeviceLocationEventRes,
   geolocation,
   geolocationDefaultOptions,
   handleGeolocationError,
-  LocationOptions,
 } from '../utils';
-
 /**
  * to avoid re-renders we do not want to return position and request status directly from the hook
  * update callbacks

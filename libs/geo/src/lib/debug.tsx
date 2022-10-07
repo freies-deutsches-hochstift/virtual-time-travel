@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/accessible-emoji */ // rule is depreciated https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/bbae2c46ab4ae94122be6c898f2ef313c6154c27/docs/rules/accessible-emoji.md
 
+import { StateOrientation, StatePosition } from '@virtual-time-travel/geo-types'
 import styled from 'styled-components'
-import { StateOrientation, StatePosition } from './utils'
 
 const StyledDebug = styled.div`
   position: absolute;

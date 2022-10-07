@@ -6,14 +6,14 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import {
+  DeviceOrientationEventExtended,
+  DeviceOrientationEventRes,
+} from '@virtual-time-travel/geo-types';
+import {
   DeviceResponsePermission,
   PermissionStatus,
 } from '@virtual-time-travel/util-device';
-import {
-  DeviceOrientationEventExtended,
-  DeviceOrientationEventRes,
-  geolocation,
-} from '../utils';
+import { geolocation } from '../utils';
 
 export function useOrientation(
   onChange: (event: DeviceOrientationEventRes) => void,

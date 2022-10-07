@@ -1,67 +1,38 @@
 import { useSelector } from 'react-redux'
+import styled from '@emotion/styled'
 import { GeoDebug } from '@virtual-time-travel/geo'
-import styled from 'styled-components'
-// import { selectCanAr } from '../state/device.slice'
-import { selectOrientation, selectPosition } from '../../store/geo.slice'
-import Povs from '../povs/povs'
+import { Dialog, Fence } from '@virtual-time-travel/ui'
+import tw from "twin.macro"
+import { selectCurrentGeoFence, selectOrientation, selectPosition } from '../../store/geo.slice'
+import { selectCurrentLocale } from '../../store/locales.slice'
+import { ArOverlay } from './overlay/overlay'
 
 
 /* eslint-disable-next-line */
 export interface ArUiProps { }
 
-const StyledArUi = styled.div`
-position: relative;
-`
+
+const StyledArUi = styled.div(tw`
+  absolute inset-0 z-top
+`)
+
+
 
 export function ArUi(props: ArUiProps) {
 
-  const position = useSelector(selectPosition)
-  const orientation = useSelector(selectOrientation)
+  const currentGeoFence = useSelector(selectCurrentGeoFence)
+  const locale = useSelector(selectCurrentLocale)
 
-
-  // const canAr = useSelector(selectCanAr)
+  if (!currentGeoFence?.fence) return <Dialog locale={locale} contentId='out-of-geofence' />
 
   return (
     <StyledArUi>
 
-      <GeoDebug {...{ position, orientation }} />
-      <Povs />
+      {/* <GeoDebug {...{ position, orientation }} /> */}
+      <Fence {...{ fenceTitle: currentGeoFence?.fence.title }} />
+      <ArOverlay />
     </StyledArUi>
   )
 }
 
 export default ArUi
-
-
-
-
-// function getAngle() {
-//   const p1 = {
-//     x: center[0],
-//     y: center[1],
-//   };
-
-//   const p2 = {
-//     x: poi[0],
-//     y: poi[1],
-//   };
-
-//   // angle in radians
-//   return Math.atan2(p2.y - p1.y, p2.x - p1.x);
-
-//   // angle in degrees
-//   // return (Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180) / Math.PI;
-// }
-
-// function getNormalizedCords({
-//   radius,
-//   angle,
-// }: {
-//   radius: number;
-//   angle: number;
-// }) {
-//   const x = radius * Math.cos(angle);
-//   const y = radius * Math.sin(angle);
-//   return [x, y];
-// }
-

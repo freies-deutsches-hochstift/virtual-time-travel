@@ -1,16 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getFencesFetchParams } from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
-import { GeolibGeoJSONPoint } from 'geolib/es/types';
+import { FenceId } from '@virtual-time-travel/geo-types';
 import { RootState } from '../main';
 
 export const FENCES_FEATURE_KEY = 'fences';
-
-export interface FenceId {
-  id: string | number;
-  title: string;
-  geometry: Array<Array<GeolibGeoJSONPoint>>;
-}
 
 export interface FencesState {
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
