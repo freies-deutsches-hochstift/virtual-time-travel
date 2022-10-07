@@ -1,12 +1,14 @@
 // TODO as actually lib, currently we just quickly need data
 // warning do not use in production!
 
+import { LocalizedKey } from '@virtual-time-travel/localization';
+
 export interface CvsToJsonRes {
   data: Array<unknown> | null;
 }
 
 interface IObjectKeys {
-  [key: string]: string | number;
+  [key: string]: string | number | LocalizedKey;
 }
 
 export function cvsToJson(data: string, delimiter?: string): CvsToJsonRes {
@@ -22,12 +24,24 @@ export function cvsToJson(data: string, delimiter?: string): CvsToJsonRes {
     .split('\n')
     .map((v) => {
       const values = v.replace(/"/g, '').split(keyDelimeter);
-      return keys.reduce(
-        (obj: IObjectKeys, key: string, index) => (
-          (obj[key] = plainOrParsed(values, index)), obj
-        ),
-        {}
-      );
+
+      return keys.reduce((obj: IObjectKeys, key: string, index) => {
+        const [baseKey, locale] = key.split(':');
+
+        if (locale) {
+          let localisedObj = obj[baseKey] as LocalizedKey;
+
+          const localisedValue = {
+            [locale]: values[index],
+          } as LocalizedKey;
+
+          localisedObj = { ...localisedObj, ...localisedValue };
+
+          return (obj[baseKey] = localisedObj), obj;
+        }
+
+        return (obj[baseKey] = plainOrParsed(values, index)), obj;
+      }, {});
     });
 
   return { data: json };

@@ -6,15 +6,9 @@ export interface PageProps {
   children: ReactNode
 }
 
-const StyledPage = styled.div(tw`
-  w-full h-full
-  p-16
-  max-w-app
-`)
 
 export function Page(props: PageProps) {
   const { children } = props
-
 
   return (
     <StyledPage>
@@ -24,3 +18,11 @@ export function Page(props: PageProps) {
 }
 
 export default Page
+
+
+const StyledPage = styled.div(tw`
+  w-full h-full
+  p-16
+  max-w-app
+  overflow-y-auto
+`)

@@ -1,5 +1,5 @@
-id|fenceId|title|coordinates
-1|1|Grundschule Köppern|[8.645855765050953,50.273970806972216]
-2|1|Sv Teutonia Köppern|[8.6456772293823,50.27570200861072]
-3|1|Cinema|[8.650663895243099,50.2742325997815]
-4|1|Wiener Straße|[8.650338956603946,50.27207006423191]
+id|fenceId|coordinates|cover|title:de|title:en
+1|1|[8.645855765050953,50.273970806972216]|/assets/items/povs/images/1.jpg|Grundschule Köppern de|Grundschule Köppern en
+2|1|[8.6456772293823,50.27570200861072]|/assets/items/povs/images/2.jpg|Sv Teutonia Köppern de|Sv Teutonia Köppern en
+3|1|[8.650663895243099,50.2742325997815]|/assets/items/povs/images/3.jpg|Cinema de|Cinema en
+4|1|[8.650338956603946,50.27207006423191]|/assets/items/povs/images/4.jpg|Wiener Straße de|Wiener Straße en

@@ -1,4 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+  PayloadAction,
+} from '@reduxjs/toolkit';
 import { getPovsFetchParams } from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
 import { PovId } from '@virtual-time-travel/geo-types';
@@ -55,3 +60,8 @@ export const povsReducer = povsSlice.reducer;
 
 export const getPovsState = (rootState: RootState): PovsState =>
   rootState[POVS_FEATURE_KEY];
+
+export const selectAllPovs = createSelector(
+  getPovsState,
+  ({ entries }) => entries
+);

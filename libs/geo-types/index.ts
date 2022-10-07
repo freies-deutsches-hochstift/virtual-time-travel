@@ -1,4 +1,5 @@
 import { GeolibGeoJSONPoint } from 'geolib/es/types';
+import { LocalizedKey } from '@virtual-time-travel/localization';
 
 export interface LocationOptions {
   enableHighAccuracy: boolean;
@@ -43,6 +44,8 @@ export interface PovId {
   id: string | number;
   coordinates: GeolibGeoJSONPoint;
   fenceId: string | number;
+  cover: string | null;
+  title: string | null | LocalizedKey;
 }
 
 export interface FenceId {
