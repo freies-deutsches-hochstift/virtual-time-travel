@@ -10,14 +10,11 @@ export interface PovMarkerProps {
   compassScaleFactor: number
 }
 
-type StyledPovMarkerProps = {
-  scale: number
-  left: number
-}
+
 
 
 export function PovMarker({ pov, compassScaleFactor }: PovMarkerProps) {
-  const { id, bearingDistance, distance } = pov
+  const { id, bearingDistance, distance, orientation = 0, bearingViewportOrientation } = pov
 
   const scale = useMemo(() => {
 
@@ -54,7 +51,7 @@ export function PovMarker({ pov, compassScaleFactor }: PovMarkerProps) {
 
   return (
     <StyledPovMarker  {...{ left, scale }}>
-      <StyledPovWave />
+      <StyledPovWave {...{ bearingViewportOrientation }} />
       <StyledPovInner>
         <p>{distance}</p>
       </StyledPovInner>
@@ -65,6 +62,10 @@ export function PovMarker({ pov, compassScaleFactor }: PovMarkerProps) {
 
 export default PovMarker
 
+type StyledPovMarkerProps = {
+  scale: number
+  left: number
+}
 
 const StyledPovMarker = styled.div(({ scale, left }: StyledPovMarkerProps) =>
   [
@@ -87,12 +88,18 @@ const StyledPovInner = styled.div([
   `
 ])
 
-const StyledPovWave = styled.div([
+type StyledPovWaveProps = {
+  bearingViewportOrientation: number
+}
+
+const StyledPovWave = styled.div(({ bearingViewportOrientation }: StyledPovWaveProps) => [
   tw`
     absolute top-ui-pov  w-ui-pov-wave h-ui-pov-wave rounded-full
   `,
   `
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) rotate(${bearingViewportOrientation}deg);
+    transform-origin: center;
     background: var(--ui-pov-waves);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 85% 100%, 50% 50%, 15% 100%, 0% 100%);
   `
 ])

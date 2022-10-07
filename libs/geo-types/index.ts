@@ -22,7 +22,7 @@ export interface DeviceOrientationEventRes {
   alpha: number | null;
   beta: number | null;
   gamma: number | null;
-  compassHeading: number | null;
+  compassHeading: number;
   compassAccuracy: number | null;
 }
 
@@ -52,6 +52,7 @@ export interface PovId {
   fence: string | number;
   cover?: string | null;
   title: string | null | LocalizedKey;
+  orientation?: number | null;
 }
 
 export interface FenceGeometry {
@@ -68,6 +69,7 @@ export interface FenceId {
 export interface CurrentPov extends PovId {
   distance: number | null;
   bearingDistance: number | null;
+  bearingViewportOrientation: number;
 }
 
 export interface CurrentGeoFence {

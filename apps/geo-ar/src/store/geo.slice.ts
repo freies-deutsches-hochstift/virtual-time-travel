@@ -59,7 +59,7 @@ export const selectOrientation = createSelector(
 export const selectCurrentGeoFence = createSelector(
   [getGeoState, getFencesState, getPovsState],
   (
-    { position },
+    { position, orientation },
     { entries: fences },
     { entries: povs }
   ): CurrentGeoFence | null => {
@@ -91,6 +91,9 @@ export const selectCurrentGeoFence = createSelector(
           position.coordinates,
           pov.geometry.coordinates
         ),
+
+        bearingViewportOrientation:
+          (orientation?.compassHeading || 0) - (pov.orientation || 0),
       }));
 
     // TODO !!! ???

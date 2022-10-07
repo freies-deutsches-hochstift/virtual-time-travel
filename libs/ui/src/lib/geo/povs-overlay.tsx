@@ -33,7 +33,7 @@ const sectorsKeys = Array.from({ length: sectors }, (x, i) => `${i}_key`)
 export function PovsOverlay({ currentGeoFence, orientation }: PovsOverlayProps) {
 
   const { povs } = currentGeoFence || {}
-  const { compassHeading } = orientation || {}
+  const { compassHeading } = orientation || { compassHeading: 0 }
 
   // TODO onWinResize
   const centerStartPosition = -circumference + (0.5 * window.innerWidth)
