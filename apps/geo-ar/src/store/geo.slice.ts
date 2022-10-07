@@ -65,37 +65,31 @@ export const selectCurrentGeoFence = createSelector(
   ): CurrentGeoFence | null => {
     if (!position) return null;
 
+    const currentPosition = geolocation.getLongLat(position.coordinates);
+
     const currentFence = fences?.find(
       (fence) =>
-        !!fence.geometry?.find(
-          (g) =>
-            !!geolocation.isPointInPolygon(
-              {
-                longitude: position.coordinates[0],
-                latitude: position.coordinates[1],
-              },
-              g
-            )
+        !!fence.geometry.coordinates.find(
+          (geometry) =>
+            !!geolocation.isPointInPolygon(currentPosition, geometry)
         )
     );
 
     const currentPovs = (povs || [])
       .filter(
         (pov) =>
-          pov.fenceId === currentFence?.id && pov.coordinates.length === 2
+          pov.fence === currentFence?.id &&
+          pov.geometry.coordinates.length === 2
       )
       .map((pov) => ({
         ...pov,
         distance: geolocation.getDistance(
-          {
-            longitude: position.coordinates[0],
-            latitude: position.coordinates[1],
-          },
-          { longitude: pov.coordinates[0], latitude: pov.coordinates[1] }
+          currentPosition,
+          geolocation.getLongLat(pov.geometry.coordinates)
         ),
         bearingDistance: geolocation.getBearingDistance(
           position.coordinates,
-          pov.coordinates
+          pov.geometry.coordinates
         ),
       }));
 

@@ -1,5 +1,7 @@
-id|fenceId|coordinates|cover|title:de|title:en
-1|1|[8.645855765050953,50.273970806972216]|/assets/items/povs/images/1.jpg|Grundschule Köppern de|Grundschule Köppern en
-2|1|[8.6456772293823,50.27570200861072]|/assets/items/povs/images/2.jpg|Sv Teutonia Köppern de|Sv Teutonia Köppern en
-3|1|[8.650663895243099,50.2742325997815]|/assets/items/povs/images/3.jpg|Cinema de|Cinema en
-4|1|[8.650338956603946,50.27207006423191]|/assets/items/povs/images/4.jpg|Wiener Straße de|Wiener Straße en
+"id","geometry.type","geometry.coordinates","fence","title.de","title.en"
+1,"Point","[8.645751388330268,50.27396182110553]",1,"Grundschule köppern","Grundschule köppern en"
+2,"Point","[8.648859550787279,50.275477233818776]",1,"Rewe","Rewe en"
+3,"Point","[8.646855329605984,50.27504791242191]",1,"Feuerwehr Köppern","Feuerwehr Köppern en"
+4,"Point","[8.64856720104936,50.27325277513853]",1,"Pfingstweidstraße 10-24","Pfingstweidstraße 10-24 en"
+5,"Point","[8.647944096880451,50.274208478567374]",1,"Amselweg 3-1","Amselweg 3-1 en"
+6,"Point","[8.649634291375179,50.272457315120505]",1,"Köpperner Str. 46B","Köpperner Str. 46B en"

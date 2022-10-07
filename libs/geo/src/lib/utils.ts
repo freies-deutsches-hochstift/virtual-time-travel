@@ -148,6 +148,11 @@ const getBearingDistance = (
   return bearing;
 };
 
+const getLongLat = (coordinates: GeolibGeoJSONPoint) => ({
+  longitude: coordinates[0],
+  latitude: coordinates[1],
+});
+
 export const geolocation = {
   requestGeolocationPermission,
   clearGeolocationRequest,
@@ -158,4 +163,5 @@ export const geolocation = {
   getBearingDeltaUnit,
   getOrientationEventRes,
   getPositionEventRes,
+  getLongLat,
 };

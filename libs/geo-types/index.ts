@@ -40,18 +40,29 @@ export interface GeoState {
   orientation: StateOrientation;
 }
 
+// TODO, verify there should be a better type
+export interface PovGeometry {
+  type: 'Point';
+  coordinates: GeolibGeoJSONPoint;
+}
+
 export interface PovId {
   id: string | number;
-  coordinates: GeolibGeoJSONPoint;
-  fenceId: string | number;
-  cover: string | null;
+  geometry: PovGeometry;
+  fence: string | number;
+  cover?: string | null;
   title: string | null | LocalizedKey;
+}
+
+export interface FenceGeometry {
+  type: 'Polygon';
+  coordinates: Array<Array<GeolibGeoJSONPoint>>;
 }
 
 export interface FenceId {
   id: string | number;
   title: string;
-  geometry: Array<Array<GeolibGeoJSONPoint>>;
+  geometry: FenceGeometry;
 }
 
 export interface CurrentPov extends PovId {

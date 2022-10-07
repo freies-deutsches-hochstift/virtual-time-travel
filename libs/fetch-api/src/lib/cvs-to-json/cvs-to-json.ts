@@ -1,50 +1,47 @@
-// TODO as actually lib, currently we just quickly need data
-// warning do not use in production!
-
-import { LocalizedKey } from '@virtual-time-travel/localization';
-
 export interface CvsToJsonRes {
   data: Array<unknown> | null;
 }
 
-interface IObjectKeys {
-  [key: string]: string | number | LocalizedKey;
+interface VariableObjectKeys {
+  [key: string]: string | number | VariableObjectKeys;
 }
 
-export function cvsToJson(data: string, delimiter?: string): CvsToJsonRes {
-  const keyDelimeter = delimiter || '|';
+const commaRegex = /,(?=(?:[^"]*"[^"]*")*[^"]*$)/g;
+const quotesRegex = /^"(.*)"$/g;
 
-  const keys = data
-    .slice(0, data.indexOf('\n'))
-    .replace(/"/g, '')
-    .split(keyDelimeter);
+export function cvsToJson(csv: string): CvsToJsonRes {
+  const keys = csv
+    .slice(0, csv.indexOf('\n'))
+    .split(commaRegex)
+    .map((h) => h.replace(quotesRegex, '$1'));
 
-  const json = data
-    .slice(data.indexOf('\n') + 1)
+  const values = csv
+    .slice(csv.indexOf('\n') + 1)
     .split('\n')
-    .map((v) => {
-      const values = v.replace(/"/g, '').split(keyDelimeter);
+    .map((v) => v.split(commaRegex).map((h) => h.replace(quotesRegex, '$1')));
 
-      return keys.reduce((obj: IObjectKeys, key: string, index) => {
-        const [baseKey, locale] = key.split(':');
+  const data = values.map((value) => {
+    return keys.reduce((obj: VariableObjectKeys, key: string, index) => {
+      // TODO !! this can cover only one level deep!
+      const [baseKey, subKey] = key.split('.');
 
-        if (locale) {
-          let localisedObj = obj[baseKey] as LocalizedKey;
+      if (subKey) {
+        let localisedObj = obj[baseKey] as VariableObjectKeys;
 
-          const localisedValue = {
-            [locale]: values[index],
-          } as LocalizedKey;
+        const localisedValue = {
+          [subKey]: plainOrParsed(value, index),
+        } as VariableObjectKeys;
 
-          localisedObj = { ...localisedObj, ...localisedValue };
+        localisedObj = { ...localisedObj, ...localisedValue };
 
-          return (obj[baseKey] = localisedObj), obj;
-        }
+        return (obj[baseKey] = localisedObj), obj;
+      }
 
-        return (obj[baseKey] = plainOrParsed(values, index)), obj;
-      }, {});
-    });
+      return (obj[baseKey] = plainOrParsed(value, index)), obj;
+    }, {});
+  });
 
-  return { data: json };
+  return { data };
 }
 
 /**
