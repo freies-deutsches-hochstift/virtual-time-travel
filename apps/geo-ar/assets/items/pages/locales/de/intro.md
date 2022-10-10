@@ -4,4 +4,4 @@ An einigen Orten in Frankfurt befinden sich Blickwinkel, an denen du mehr über 
 
 Begebe dich zu einem dieser Orte um die Blickwinkel anzusehen.
 
-![image](/assets/items/pages/images/intro.jpg)
+![image](/assets/items/pages/medias/intro.jpg)

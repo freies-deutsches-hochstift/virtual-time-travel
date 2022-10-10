@@ -22,7 +22,13 @@ export default Page
 
 const StyledPage = styled.div(tw`
   w-full h-full
-  p-16
+  py-16 px-12
   max-w-app
   overflow-y-auto
+`)
+
+
+export const StyledPageGroup = styled.div(tw`
+  w-full
+  pt-16
 `)

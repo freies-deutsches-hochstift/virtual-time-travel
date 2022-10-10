@@ -1,4 +1,4 @@
-![image](/assets/items/dialogs/images/camera.png)
+![image](/assets/items/dialogs/medias/camera.png)
 
 ### Kamera
 

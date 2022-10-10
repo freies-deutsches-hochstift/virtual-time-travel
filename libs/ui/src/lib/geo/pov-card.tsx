@@ -1,26 +1,32 @@
+import { useMemo } from "react"
+import { getPovsAssetsBaseUrl } from "@virtual-time-travel/app-config"
 import { PovId } from "@virtual-time-travel/geo-types"
 import { AvailLocales, getLocalizedField } from "@virtual-time-travel/localization"
-import { useMemo } from "react"
 import { StyledCard, StyledCardContent, StyledCardCover } from "../ui"
+import { getAssetUrl } from "../utils"
 
 export interface PovCardProps {
   pov: PovId
 }
 
 
+
+
 export function PovCard({ pov }: PovCardProps) {
   const { id, cover, title } = pov
-
   const label = useMemo(() => getLocalizedField(title, AvailLocales.de), [title])
 
-
+  const coverSrc = useMemo(() => {
+    return getAssetUrl(getPovsAssetsBaseUrl(), cover)
+  }, [cover])
 
   return <StyledCard>
     <StyledCardCover>
-      {!!cover && <img src={cover as unknown as string} alt={id as unknown as string} />}
+      {!!coverSrc && <img src={coverSrc} alt={label} />}
     </StyledCardCover>
+
     <StyledCardContent>
-      <p>{label}</p>
+      <h3>{label}</h3>
     </StyledCardContent>
   </StyledCard>
 }

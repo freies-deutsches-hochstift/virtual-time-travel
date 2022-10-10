@@ -50,22 +50,26 @@
   --font-body: 'noto_sans';
 
   /* Colors */
-  --primary-light: #94a3d8;
   --primary: #fff;
-  --primary-dark: #11172c;
-  --primary-gradient: linear-gradient(var(--primary-dark), var(--primary));
+  --primary-a: #94a3d8;
+  --primary-b: #11172c;
+
+  --primary-gradient: linear-gradient(var(--primary-b), var(--primary-a));
 
   --secondary-light: #bdb2f6;
   --secondary: #fff;
   --secondary-dark: #7b61ff;
+
+  --highlight: rgb(255, 122, 0);
+  --highlight-a: rgba(255, 122, 0, 0.6);
 
   /* Sizes */
 
   --app-max-width: 768px;
 
   /* libs/Ui/MainNav */
-  --ui-nav-bg: var(--primary-dark);
-  --ui-nav-link: var(--primary-light);
+  --ui-nav-bg: var(--primary-b);
+  --ui-nav-link: var(--primary-a);
   --ui-nav-link-active: var(--primary);
 
   --ui-nav-size: 3.5rem;
@@ -74,7 +78,7 @@
 
   /* libs/Ui/Dialog */
   --ui-dialog-overlay: rgb(17, 28, 78, 0.7);
-  --ui-dialog-bg: #fff;
+  --ui-dialog-bg: var(--primary);
 
   --ui-dialog-primary: #111c4e;
   --ui-dialog-primary-v2: #0a1232;
@@ -89,7 +93,7 @@
 
   /* libs/Ui/Button */
   --ui-button-primary: var(--primary);
-  --ui-button-primary-bg: var(--primary-dark);
+  --ui-button-primary-bg: var(--primary-b);
 
   --ui-button-secondary: var(--secondary);
   --ui-button-secondary-bg: var(--secondary-dark);
@@ -103,10 +107,15 @@
   /* libs/Ui/Geo */
   --ui-pov-size: clamp(1rem, 10vw, 2rem);
   --ui-pov-wave-size: clamp(5rem, 90vw, 30rem);
-  --ui-pov-primary: rgb(255, 122, 0);
-  --ui-pov-waves: radial-gradient(rgba(255, 122, 0, 0.3), rgba(255, 122, 0, 0));
-  --ui-pov-waves-inview: radial-gradient(
-    rgba(255, 122, 0, 0.6),
-    rgba(255, 122, 0, 0)
-  );
+  --ui-pov-primary: var(----highlight);
+  --ui-pov-waves: radial-gradient(var(--highlight-a), rgba(0, 0, 0, 0));
+  --ui-pov-waves-inview: radial-gradient(var(--highlight-a), rgba(0, 0, 0, 0));
+
+  /* libs/Ui/Cards */
+  --ui-cards-bg: var(--primary);
+  --ui-cards-border: thin solid var(--primary);
+  --ui-cards-filter: drop-shadow(0 0.5rem 0.5rem rgb(0 0 0 / 0.4));
+  --ui-cards-text: var(--primary-b);
+  --ui-cards-highlight: var(--highlight);
+  --ui-cards-highlight-a: var(--highlight-a);
 }

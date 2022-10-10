@@ -7,21 +7,39 @@ export const StyledCards = styled.div(tw`
 `)
 
 
-export const StyledCard = styled.div(tw`
-  flex gap-2 p-2
-`)
+export const StyledCard = styled.div([
+  tw`
+    flex gap-2 p-2 
+    bg-ui-cards-bg text-ui-cards
+    text-xs
+  `,
+  `
+    border: var(--ui-cards-border);
+    filter: var(--ui-catds-filter);
+  `
+])
 
-export const StyledCardContent = styled.div(tw`
-
-`)
+export const StyledCardContent = styled.div([
+  tw`
+    flex-1
+  `,
+  `
+    > h3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;  
+      overflow: hidden;
+      margin: 0;
+    }
+  `
+])
 
 export const StyledCardCover = styled.div([
   tw`
-    w-1/3
+    w-1/3 bg-ui-cards-highlight-a
   `,
   `
     aspect-ratio: 1/1;
-
     & img {
       width: 100%;
       height: 100%;

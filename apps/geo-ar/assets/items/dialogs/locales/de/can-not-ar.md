@@ -1,4 +1,4 @@
-![image](/assets/items/dialogs/images/geolocation.png)
+![image](/assets/items/dialogs/medias/geolocation.png)
 
 ### !! Ups can not AR !!
 

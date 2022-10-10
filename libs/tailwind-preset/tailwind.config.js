@@ -7,9 +7,9 @@ const sharedTheme = {
 
     colors: {
       primary: {
-        light: 'var(--primary-light)',
+        a: 'var(--primary-a)',
         DEFAULT: 'var(--primary)',
-        dark: 'var(--primary-dark)',
+        b: 'var(--primary-b)',
       },
       secondary: {
         light: 'var(--secondary-light)',
@@ -62,6 +62,16 @@ const sharedTheme = {
 
         pov: {
           DEFAULT: 'var(--ui-pov-primary)',
+        },
+
+        /* Cards */
+        cards: {
+          DEFAULT: 'var(--ui-cards-text)',
+          bg: 'var(--ui-cards-bg)',
+          highlight: {
+            DEFAULT: 'var(--ui-cards-highlight)',
+            a: 'var(--ui-cards-highlight-a)',
+          },
         },
       },
     },

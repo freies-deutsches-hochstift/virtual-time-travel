@@ -1,31 +1,27 @@
-const DATA_ROOT = process.env?.['NX_DATA_ROOT'] || '/assets/items';
+// TODO !!
+const DATA_ROOT = '/assets/items';
 
-const DATA_FENCES = process.env?.['NX_DATA_FENCES'] || 'fences';
-const DATA_FENCES_TYPE = process.env?.['NX_DATA_FENCES_TYPE'] || 'csv';
+const DATA_FENCES = 'fences';
+const DATA_FENCES_TYPE = 'csv';
 
-const DATA_POVS = process.env?.['NX_DATA_POVS'] || 'povs';
-const DATA_POVS_TYPE = process.env?.['NX_DATA_POVS_TYPE'] || 'csv';
+const DATA_POVS = 'povs';
+const DATA_POVS_TYPE = 'csv';
 
-const DATA_PAGES = process.env?.['NX_DATA_PAGES'] || 'pages';
-const DATA_PAGES_TYPE = process.env?.['NX_DATA_PAGES_TYPE'] || 'csv';
+const DATA_PAGES = 'pages';
+const DATA_PAGES_TYPE = 'csv';
 
-const DATA_LOCALES = process.env?.['NX_DATA_LOCALES'] || 'locales';
-const DATA_LOCALES_TYPE = process.env?.['NX_DATA_LOCALES_TYPE'] || 'csv';
+const DATA_LOCALES = 'locales';
+const DATA_LOCALES_TYPE = 'csv';
 
-const DATA_DIALOGS = process.env?.['NX_DATA_DIALOGS'] || 'dialogs';
+const DATA_DIALOGS = 'dialogs';
 
-const DISABLE_ORIENTATION =
-  process.env?.['NX_DISABLE_ORIENTATION'] === 'true' || false;
+const DISABLE_ORIENTATION = false;
 
-const DISABLE_QR = process.env?.['NX_DISABLE_QR'] === 'true' || false;
+const DISABLE_QR = false;
 
-const INVIEW_THRESHOLD_ANGLE = parseInt(
-  process.env?.['NX_INVIEW_THRESHOLD_ANGLE'] || '20'
-);
+const INVIEW_THRESHOLD_ANGLE = parseInt('20');
 
-const INVIEW_THRESHOLD_DISTANCE = parseInt(
-  process.env?.['NX_INVIEW_THRESHOLD_DISTANCE'] || '100'
-);
+const INVIEW_THRESHOLD_DISTANCE = parseInt('100');
 
 export interface DataFetchParamsRes {
   url: string;
@@ -42,6 +38,9 @@ const getDataFetchParams = (
 
 const getDataContentBaseUrl = (scope: string, locale: string): string =>
   [DATA_ROOT, scope, 'locales', locale].join('/');
+
+const getDataAssetsBaseUrl = (scope: string): string =>
+  [DATA_ROOT, scope, 'medias'].join('/');
 
 export const getDataRoot = () => DATA_ROOT;
 
@@ -64,6 +63,8 @@ export const getPovsFetchParams = () =>
 
 export const getPovsContentBaseUrl = (locale: string) =>
   getDataContentBaseUrl(DATA_POVS, locale);
+
+export const getPovsAssetsBaseUrl = () => getDataAssetsBaseUrl(DATA_POVS);
 
 export const getLocalesFetchParams = () =>
   getDataFetchParams(DATA_LOCALES, DATA_LOCALES_TYPE);
