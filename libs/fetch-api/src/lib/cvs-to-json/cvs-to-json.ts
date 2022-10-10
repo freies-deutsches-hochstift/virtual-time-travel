@@ -9,7 +9,9 @@ interface VariableObjectKeys {
 const commaRegex = /,(?=(?:[^"]*"[^"]*")*[^"]*$)/g;
 const quotesRegex = /^"(.*)"$/g;
 
-export function cvsToJson(csv: string): CvsToJsonRes {
+export function cvsToJson(text: string): CvsToJsonRes {
+  const csv = text.trim();
+
   const keys = csv
     .slice(0, csv.indexOf('\n'))
     .split(commaRegex)

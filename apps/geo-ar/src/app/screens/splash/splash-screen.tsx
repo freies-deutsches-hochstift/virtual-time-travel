@@ -2,17 +2,16 @@
 
 import { useSelector } from 'react-redux'
 import { Link } from "react-router-dom"
-import { getPagesContentBaseUrl } from '@virtual-time-travel/app-config'
 import { Markdown } from '@virtual-time-travel/markdown'
-import { selectCurrentLocale } from '../../../store/locales.slice'
 import Page from "../../page/page"
+import { selectSplashPageContent } from '../../store/pages.slice'
 
 export function SplashScreen() {
-  const locale = useSelector(selectCurrentLocale)
+  const splashPageContent = useSelector(selectSplashPageContent)
   return (
     <Link to="/intro">
       <Page>
-        <Markdown {...{ id: 'splash', baseUrl: getPagesContentBaseUrl(locale) }} />
+        <Markdown {...{ contentUrl: splashPageContent }} />
       </Page>
     </Link>
   )

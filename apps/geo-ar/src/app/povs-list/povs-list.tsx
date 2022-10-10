@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { PovsCards } from "@virtual-time-travel/ui"
-import { selectAllPovs } from "../../store/povs.slice"
+import { selectAllPovs } from "../store/povs.slice"
 
 
 export function PovsList() {

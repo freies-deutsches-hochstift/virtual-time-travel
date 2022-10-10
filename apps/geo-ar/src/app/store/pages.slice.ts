@@ -2,13 +2,16 @@ import {
   createAsyncThunk,
   createSelector,
   createSlice,
-  PayloadAction,
 } from '@reduxjs/toolkit';
-import { getPagesFetchParams } from '@virtual-time-travel/app-config';
+import {
+  AppConfigOptions,
+  ConfigDataItems,
+} from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
-import { RootState } from '../main';
+import { RootState } from '../../main';
+import { getPagesConfig } from './config.slice';
 
-export const PAGES_FEATURE_KEY = 'pages';
+export const PAGES_FEATURE_KEY = ConfigDataItems.PAGES;
 
 export type PageId = string | number;
 
@@ -32,9 +35,9 @@ export const initialPagesState: PagesState = {
 
 export const fetchPages = createAsyncThunk(
   'pages/fetchPages',
-  async (_, thunkAPI) => {
-    const { data } = await fetchApi(getPagesFetchParams());
-
+  async (config: AppConfigOptions, thunkAPI) => {
+    const fetchParams = config[ConfigDataItems.PAGES].fetchParams;
+    const { data } = await fetchApi(fetchParams);
     return data as Array<PageEntry> | null;
   }
 );
@@ -79,3 +82,24 @@ export const usePageById = () => {
     }
   );
 };
+
+export const selectSplashPageContent = createSelector(
+  [getPagesConfig],
+  ({ contentUrl }) => {
+    return [contentUrl, 'splash.md'].join('/');
+  }
+);
+
+export const selectIntroPageContent = createSelector(
+  [getPagesConfig],
+  ({ contentUrl }) => {
+    return [contentUrl, 'intro.md'].join('/');
+  }
+);
+
+export const selectListPageContent = createSelector(
+  [getPagesConfig],
+  ({ contentUrl }) => {
+    return [contentUrl, 'list.md'].join('/');
+  }
+);

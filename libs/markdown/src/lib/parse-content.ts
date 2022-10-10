@@ -5,11 +5,9 @@ export interface FetchMarkdownRes {
 }
 
 export async function getParsedFileContentById(
-  id: string | number,
-  contentPath: string
+  contentUrl: string
 ): Promise<FetchMarkdownRes> {
-  const url = [contentPath, `${id}.md`].join('/');
-  const response = await fetch(url);
+  const response = await fetch(contentUrl);
   const data = await response.text();
 
   if (!response.ok) {

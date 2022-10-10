@@ -73,6 +73,11 @@ export interface CurrentPov extends PovId {
   inView: boolean;
 }
 
+export interface EnhancedPov extends PovId {
+  coverSrc: string | null;
+  localizedTitle?: string;
+}
+
 export interface CurrentGeoFence {
   fence: FenceId | undefined;
   povs: Array<CurrentPov>;

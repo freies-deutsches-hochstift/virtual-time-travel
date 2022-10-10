@@ -8,7 +8,7 @@ import { camera, CameraResponsePermission, CaptureOptions } from '../camera'
 export interface CameraStreamProps {
   captureOptions?: CaptureOptions
   onRequestCameraComplete?: (res: DeviceResponsePermission) => void
-  locale: string
+  requestCameraDialog: string
   devicePermissionsStatus: Array<PermissionStatus>
 }
 
@@ -24,7 +24,7 @@ const StyledCameraVideo = styled.video(tw`
 
 
 export const CameraStream = memo((props: CameraStreamProps) => {
-  const { captureOptions, onRequestCameraComplete, locale, devicePermissionsStatus } = props
+  const { captureOptions, onRequestCameraComplete, requestCameraDialog, devicePermissionsStatus } = props
 
   const videoElRef = useRef<HTMLVideoElement>(null)
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null)
@@ -60,7 +60,7 @@ export const CameraStream = memo((props: CameraStreamProps) => {
 
   return (
     <>
-      <WithDevicePermissionDialog {...{ onConfirm: requestStream, dialogContentId: 'camera', locale, devicePermissionsStatus }} />
+      <WithDevicePermissionDialog {...{ onConfirm: requestStream, dialogContentUrl: requestCameraDialog, devicePermissionsStatus }} />
 
       {/* videoElRef needs to be always avail */}
       <StyledCameraWrapper>

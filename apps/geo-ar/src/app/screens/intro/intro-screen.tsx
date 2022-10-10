@@ -1,23 +1,23 @@
 
 import { useSelector } from 'react-redux'
-import { getPagesContentBaseUrl } from '@virtual-time-travel/app-config'
 import { Markdown } from '@virtual-time-travel/markdown'
-import { selectCurrentLocale } from '../../../store/locales.slice'
 import Page, { StyledPageGroup } from "../../page/page"
 import { PovsList } from '../../povs-list/povs-list'
+import { selectIntroPageContent, selectListPageContent } from '../../store/pages.slice'
+
 
 export function IntroScreen() {
-  const locale = useSelector(selectCurrentLocale)
+  const introPageContent = useSelector(selectIntroPageContent)
+  const listPageContent = useSelector(selectListPageContent)
 
   return (
     <Page>
-      <Markdown {...{ id: 'intro', baseUrl: getPagesContentBaseUrl(locale) }} />
+      <Markdown {...{ contentUrl: introPageContent }} />
       <StyledPageGroup>
-        <Markdown {...{ id: 'list', baseUrl: getPagesContentBaseUrl(locale) }} />
+        <Markdown {...{ contentUrl: listPageContent }} />
         <PovsList />
       </StyledPageGroup>
     </Page>
-
   )
 }
 

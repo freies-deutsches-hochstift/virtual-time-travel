@@ -2,13 +2,16 @@ import {
   createAsyncThunk,
   createSelector,
   createSlice,
-  PayloadAction,
 } from '@reduxjs/toolkit';
-import { getLocalesFetchParams } from '@virtual-time-travel/app-config';
+import {
+  AppConfigOptions,
+  ConfigDataItems,
+} from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
-import { RootState } from '../main';
+import { AvailLocales } from '@virtual-time-travel/localization';
+import { RootState } from '../../main';
 
-export const LOCALES_FEATURE_KEY = 'locales';
+export const LOCALES_FEATURE_KEY = ConfigDataItems.LOCALES;
 
 export interface LocaleId {
   slug: string;
@@ -20,24 +23,24 @@ export interface LocalesState {
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
   error: string | null;
   entries: Array<LocaleId> | null;
-  current: string;
-  default: string;
+  current: AvailLocales;
+  default: AvailLocales;
 }
 
+const baseLocale = Object.keys(AvailLocales)[0] as AvailLocales;
 export const initialLocalesState: LocalesState = {
   loadingStatus: 'not loaded',
   error: null,
   entries: [],
-  current: 'de',
-  default: 'de',
+  current: baseLocale,
+  default: baseLocale,
 };
 
-// TODO, import locales from cvs
 export const fetchLocales = createAsyncThunk(
   'locales/fetchLocales',
-  async (_, thunkAPI) => {
-    const { data } = await fetchApi(getLocalesFetchParams());
-
+  async (config: AppConfigOptions, thunkAPI) => {
+    const fetchParams = config[ConfigDataItems.LOCALES].fetchParams;
+    const { data } = await fetchApi(fetchParams);
     return data as Array<LocaleId> | null;
   }
 );
@@ -56,8 +59,9 @@ export const localesSlice = createSlice({
     builder.addCase(fetchLocales.fulfilled, (state, action) => {
       state.loadingStatus = 'loaded';
       const locales = action.payload;
-      const defaultLocale =
-        (locales || []).find((l) => l.default === true)?.slug || 'de';
+      const defaultLocale = ((locales || []).find((l) => l.default === true)
+        ?.slug || baseLocale) as AvailLocales;
+
       state.entries = locales;
       state.default = defaultLocale;
       state.current = defaultLocale;

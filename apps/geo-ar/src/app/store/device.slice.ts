@@ -1,5 +1,4 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getUseOrientation } from '@virtual-time-travel/app-config';
 import {
   DeviceFeatures,
   DevicePermission,
@@ -7,9 +6,9 @@ import {
   initialDeviceResponse,
   PermissionStatus,
 } from '@virtual-time-travel/util-device';
-import { RootState } from '../main';
+import { RootState } from '../../main';
 
-const canUseDeviceOrientation = getUseOrientation();
+const canUseDeviceOrientation = !process.env['NX_DISABLE_ORIENTATION'];
 export const DEVICE_FEATURE_KEY = 'device';
 
 if (!canUseDeviceOrientation)

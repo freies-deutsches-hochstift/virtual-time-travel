@@ -1,79 +1,72 @@
-// TODO !!
+import merge from 'ts-deepmerge';
 const DATA_ROOT = '/assets/items';
 
-const DATA_FENCES = 'fences';
-const DATA_FENCES_TYPE = 'csv';
+export enum ConfigDataItems {
+  FENCES = 'fences',
+  POVS = 'povs',
+  DIALOGS = 'dialogs',
+  LOCALES = 'locales',
+  PAGES = 'pages',
+}
 
-const DATA_POVS = 'povs';
-const DATA_POVS_TYPE = 'csv';
-
-const DATA_PAGES = 'pages';
-const DATA_PAGES_TYPE = 'csv';
-
-const DATA_LOCALES = 'locales';
-const DATA_LOCALES_TYPE = 'csv';
-
-const DATA_DIALOGS = 'dialogs';
-
-const DISABLE_ORIENTATION = false;
-
-const DISABLE_QR = false;
-
-const INVIEW_THRESHOLD_ANGLE = parseInt('20');
-
-const INVIEW_THRESHOLD_DISTANCE = parseInt('100');
+export enum DialogsContentsIds {
+  RequestCamera = 'request-camera',
+  RequestOrientation = 'request-orientation',
+  RequestGeolocation = 'request-geolocation',
+  OutOfGeoFence = 'out-of-geofence',
+  ArUnavailable = 'ar-unavailable',
+}
 
 export interface DataFetchParamsRes {
   url: string;
   type: string;
 }
 
-const getDataFetchParams = (
-  scope: string,
-  type: string
-): DataFetchParamsRes => ({
-  url: [DATA_ROOT, scope, `index.${type}`].join('/'),
-  type,
-});
+export interface ConfigDataItem {
+  fetchParams: DataFetchParamsRes;
+  mediasUrl: string;
+  contentUrl: string;
+}
 
-const getDataContentBaseUrl = (scope: string, locale: string): string =>
-  [DATA_ROOT, scope, 'locales', locale].join('/');
+type DataItems = {
+  [key in ConfigDataItems]: ConfigDataItem;
+};
 
-const getDataAssetsBaseUrl = (scope: string): string =>
-  [DATA_ROOT, scope, 'medias'].join('/');
+export interface AppConfigOptions extends DataItems {
+  DATA_ROOT: string;
+  DISABLE_QR: boolean;
+  INVIEW_THRESHOLD_ANGLE: number;
+  INVIEW_THRESHOLD_DISTANCE: number;
+}
 
-export const getDataRoot = () => DATA_ROOT;
+const defaultDataItems: {
+  [key: string]: unknown;
+} = {};
 
-// for development purpose
-// you might want to switch device orientation off since is not avail on most pcs
-export const getUseOrientation = () => !DISABLE_ORIENTATION;
+for (const item in ConfigDataItems) {
+  const key = ConfigDataItems[item as keyof typeof ConfigDataItems];
+  const scopeRoot = [DATA_ROOT, key].join('/');
+  defaultDataItems[key] = {
+    fetchParams: {
+      url: [scopeRoot, 'index.csv'].join('/'),
+      type: 'csv',
+    },
+    mediasUrl: [scopeRoot, 'medias'].join('/'),
+    contentUrl: [scopeRoot, 'locales'].join('/'),
+  } as ConfigDataItem;
+}
 
-export const getUseQr = () => !DISABLE_QR;
-export const getInViewThresholdAngle = () => INVIEW_THRESHOLD_ANGLE;
-export const getInViewThresholdDistance = () => INVIEW_THRESHOLD_DISTANCE;
+export const defaultAppConfig = {
+  DATA_ROOT: '/assets/items',
+  ...(defaultDataItems as unknown as DataItems),
+  DISABLE_QR: false,
+  INVIEW_THRESHOLD_ANGLE: 20,
+  INVIEW_THRESHOLD_DISTANCE: 100,
+};
 
-export const getFencesFetchParams = () =>
-  getDataFetchParams(DATA_FENCES, DATA_FENCES_TYPE);
-
-export const getFencesContentBaseUrl = (locale: string) =>
-  getDataContentBaseUrl(DATA_FENCES, locale);
-
-export const getPovsFetchParams = () =>
-  getDataFetchParams(DATA_POVS, DATA_POVS_TYPE);
-
-export const getPovsContentBaseUrl = (locale: string) =>
-  getDataContentBaseUrl(DATA_POVS, locale);
-
-export const getPovsAssetsBaseUrl = () => getDataAssetsBaseUrl(DATA_POVS);
-
-export const getLocalesFetchParams = () =>
-  getDataFetchParams(DATA_LOCALES, DATA_LOCALES_TYPE);
-
-export const getPagesFetchParams = () =>
-  getDataFetchParams(DATA_PAGES, DATA_PAGES_TYPE);
-
-export const getPagesContentBaseUrl = (locale: string) =>
-  getDataContentBaseUrl(DATA_PAGES, locale);
-
-export const getDialogsContentBaseUrl = (locale: string) =>
-  getDataContentBaseUrl(DATA_DIALOGS, locale);
+export function deepMergeConfig(
+  defaultConfig: AppConfigOptions,
+  appConfig: DataItems
+): AppConfigOptions {
+  return merge(defaultConfig, appConfig);
+}

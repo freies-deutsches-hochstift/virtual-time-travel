@@ -3,13 +3,12 @@ import Async from "react-async"
 import { getParsedFileContentById } from './parse-content'
 
 export interface PageProps {
-  id: string | number,
-  baseUrl: string
+  contentUrl: string
 }
 
 export function Markdown(props: PageProps) {
-  const { id, baseUrl } = props
-  const loadContent = useCallback(() => getParsedFileContentById(id, baseUrl), [id, baseUrl])
+  const { contentUrl } = props
+  const loadContent = useCallback(() => getParsedFileContentById(contentUrl), [contentUrl])
 
 
   return (

@@ -1,18 +1,24 @@
 
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from '@reduxjs/toolkit'
+import { DialogsContentsIds } from '@virtual-time-travel/app-config'
 import { Geo } from '@virtual-time-travel/geo'
 import { DeviceLocationEventRes, DeviceOrientationEventRes } from '@virtual-time-travel/geo-types'
 import { DeviceFeatures, DeviceResponsePermission } from '@virtual-time-travel/util-device'
-import { deviceActions, selectGeoPermissions } from '../../store/device.slice'
-import { geoActions } from '../../store/geo.slice'
-import { selectCurrentLocale } from '../../store/locales.slice'
 import ArUi from '../ar-ui/ar-ui'
+import { selectDialogsContentUrls } from '../store/config.slice'
+import { deviceActions, selectGeoPermissions } from '../store/device.slice'
+import { geoActions } from '../store/geo.slice'
 
 export function ArGeo() {
 
-  const locale = useSelector(selectCurrentLocale)
+  const dialogsContentUrl = useSelector(selectDialogsContentUrls)
+  const requestGeoDialog = useMemo(
+    () => dialogsContentUrl[DialogsContentsIds.RequestGeolocation],
+    [dialogsContentUrl]
+  )
+
   const devicePermissionsStatus = useSelector(selectGeoPermissions)
 
   const dispatch = useDispatch<Dispatch>()
@@ -41,7 +47,7 @@ export function ArGeo() {
 
 
   return (
-    <Geo {...{ onChangePosition, onRequestGeolocationComplete, onChangeOrientation, onRequestOrientationComplete, locale, devicePermissionsStatus }}>
+    <Geo {...{ onChangePosition, onRequestGeolocationComplete, onChangeOrientation, onRequestOrientationComplete, requestGeoDialog, devicePermissionsStatus }}>
       <ArUi />
     </Geo>
   )

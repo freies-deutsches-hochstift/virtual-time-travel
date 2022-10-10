@@ -1,29 +1,21 @@
+import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import styled from '@emotion/styled'
-import { GeoDebug } from '@virtual-time-travel/geo'
+import { DialogsContentsIds } from '@virtual-time-travel/app-config'
 import { Dialog, Fence } from '@virtual-time-travel/ui'
 import tw from "twin.macro"
-import { selectCurrentGeoFence, selectOrientation, selectPosition } from '../../store/geo.slice'
-import { selectCurrentLocale } from '../../store/locales.slice'
+import { selectDialogsContentUrls } from '../store/config.slice'
+import { selectCurrentGeoFence } from '../store/geo.slice'
 import { ArOverlay } from './overlay/overlay'
 
 
-/* eslint-disable-next-line */
-export interface ArUiProps { }
 
-
-const StyledArUi = styled.div(tw`
-  absolute inset-0 z-top
-`)
-
-
-
-export function ArUi(props: ArUiProps) {
-
+export function ArUi() {
   const currentGeoFence = useSelector(selectCurrentGeoFence)
-  const locale = useSelector(selectCurrentLocale)
+  const dialogsContentUrl = useSelector(selectDialogsContentUrls)
+  const outOfGeofenceContent = useMemo(() => dialogsContentUrl[DialogsContentsIds.OutOfGeoFence], [dialogsContentUrl])
 
-  if (!currentGeoFence?.fence) return <Dialog locale={locale} contentId='out-of-geofence' />
+  if (!currentGeoFence?.fence) return <Dialog {...{ contentUrl: outOfGeofenceContent }} />
 
   return (
     <StyledArUi>
@@ -34,5 +26,9 @@ export function ArUi(props: ArUiProps) {
     </StyledArUi>
   )
 }
+
+const StyledArUi = styled.div(tw`
+  absolute inset-0 z-top
+`)
 
 export default ArUi

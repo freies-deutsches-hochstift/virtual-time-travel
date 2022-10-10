@@ -1,8 +1,7 @@
 
 import { useSelector } from 'react-redux'
 import { HashRouter, Route, Routes } from 'react-router-dom'
-import { useStateData } from '../hooks/useStateData'
-import { selectAppIsReady } from '../store/general.slice'
+import { useStateData } from './hooks/useStateData'
 import Layout from './layout/layout'
 import ArScreen from './screens/ar/ar-screen'
 import IntroScreen from './screens/intro/intro-screen'
@@ -10,6 +9,7 @@ import ListScreen from './screens/list/list-screen'
 import MenuScreen from './screens/menu/menu-screen'
 import QrScreen from './screens/qr/qr-screen'
 import SplashScreen from './screens/splash/splash-screen'
+import { selectAppIsReady } from './store/general.slice'
 
 
 export function App() {

@@ -6,8 +6,7 @@ describe('Dialog', () => {
     const { baseElement } = render(<Dialog {...{
       onConfirm: () => console.log('Dialog onConfirm'),
       onCancel: () => console.log('Dialog onCancel'),
-      contentId: 'geolocation',
-      locale: 'de'
+      contentUrl: '/assets/items/dialogs/locales/de/request-camera.md',
     }} />)
     expect(baseElement).toBeTruthy()
   })

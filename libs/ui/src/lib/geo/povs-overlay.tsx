@@ -4,8 +4,8 @@ import { useMemo } from 'react'
 import styled from '@emotion/styled'
 import { CurrentGeoFence, CurrentPov, StateOrientation } from '@virtual-time-travel/geo-types'
 import tw from "twin.macro"
-import { PovMarker } from './pov-marker'
 import useResizeObserver from "use-resize-observer"
+import { PovMarker } from './pov-marker'
 
 export interface PovsOverlayProps {
   currentGeoFence: CurrentGeoFence | null

@@ -1,10 +1,13 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getFencesFetchParams } from '@virtual-time-travel/app-config';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  AppConfigOptions,
+  ConfigDataItems,
+} from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
 import { FenceId } from '@virtual-time-travel/geo-types';
-import { RootState } from '../main';
+import { RootState } from '../../main';
 
-export const FENCES_FEATURE_KEY = 'fences';
+export const FENCES_FEATURE_KEY = ConfigDataItems.FENCES;
 
 export interface FencesState {
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
@@ -20,8 +23,9 @@ export const initialFencesState: FencesState = {
 
 export const fetchFences = createAsyncThunk(
   'fences/fetchFences',
-  async (_, thunkAPI) => {
-    const { data } = await fetchApi(getFencesFetchParams());
+  async (config: AppConfigOptions, thunkAPI) => {
+    const fetchParams = config[ConfigDataItems.FENCES].fetchParams;
+    const { data } = await fetchApi(fetchParams);
     return data as Array<FenceId> | null;
   }
 );
@@ -39,7 +43,7 @@ export const fencesSlice = createSlice({
 
     builder.addCase(fetchFences.fulfilled, (state, action) => {
       state.loadingStatus = 'loaded';
-      state.entries = action.payload;
+      if (action.payload) state.entries = action.payload;
       state.error = null;
     });
 

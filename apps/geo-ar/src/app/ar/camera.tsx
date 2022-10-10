@@ -1,17 +1,22 @@
-
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from '@reduxjs/toolkit'
+import { DialogsContentsIds } from '@virtual-time-travel/app-config'
 import { CameraStream } from '@virtual-time-travel/camera'
-import { DeviceFeatures, DeviceResponsePermission } from '@virtual-time-travel/util-device'
-import { deviceActions, selectCameraPermission } from '../../store/device.slice'
-import { selectCurrentLocale } from '../../store/locales.slice'
-
-
+import {
+  DeviceFeatures,
+  DeviceResponsePermission,
+} from '@virtual-time-travel/util-device'
+import { selectDialogsContentUrls } from '../store/config.slice'
+import { deviceActions, selectCameraPermission } from '../store/device.slice'
 
 export function ArCamera() {
+  const dialogsContentUrl = useSelector(selectDialogsContentUrls)
+  const requestCameraDialog = useMemo(
+    () => dialogsContentUrl[DialogsContentsIds.RequestCamera],
+    [dialogsContentUrl]
+  )
 
-  const locale = useSelector(selectCurrentLocale)
   const cameraStatus = useSelector(selectCameraPermission)
 
   const dispatch = useDispatch<Dispatch>()
@@ -20,13 +25,26 @@ export function ArCamera() {
    * always wrap props functions into useCallbacks to avoid useless re-renders
    */
 
-
-  const onRequestCameraComplete = useCallback((res: DeviceResponsePermission) => {
-    dispatch(deviceActions.handlePermissionEvent({ permission: DeviceFeatures.Camera, ...res }))
-  }, [dispatch])
+  const onRequestCameraComplete = useCallback(
+    (res: DeviceResponsePermission) => {
+      dispatch(
+        deviceActions.handlePermissionEvent({
+          permission: DeviceFeatures.Camera,
+          ...res,
+        })
+      )
+    },
+    [dispatch]
+  )
 
   return (
-    <CameraStream {...{ onRequestCameraComplete, locale, devicePermissionsStatus: [cameraStatus] }} />
+    <CameraStream
+      {...{
+        onRequestCameraComplete,
+        requestCameraDialog,
+        devicePermissionsStatus: [cameraStatus],
+      }}
+    />
   )
 }
 

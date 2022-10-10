@@ -2,14 +2,20 @@ import {
   createAsyncThunk,
   createSelector,
   createSlice,
-  PayloadAction,
 } from '@reduxjs/toolkit';
-import { getPovsFetchParams } from '@virtual-time-travel/app-config';
+import {
+  AppConfigOptions,
+  ConfigDataItems,
+} from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
 import { PovId } from '@virtual-time-travel/geo-types';
-import { RootState } from '../main';
+import { getLocalizedField } from '@virtual-time-travel/localization';
+import { getAssetUrl } from 'libs/ui/src/lib/utils';
+import { RootState } from '../../main';
+import { getPovsConfig } from './config.slice';
+import { getLocalesState } from './locales.slice';
 
-export const POVS_FEATURE_KEY = 'povs';
+export const POVS_FEATURE_KEY = ConfigDataItems.POVS;
 
 export interface PovsState {
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
@@ -25,8 +31,9 @@ export const initialPovsState: PovsState = {
 
 export const fetchPovs = createAsyncThunk(
   'povs/fetchPovs',
-  async (_, thunkAPI) => {
-    const { data } = await fetchApi(getPovsFetchParams());
+  async (config: AppConfigOptions, thunkAPI) => {
+    const fetchParams = config[ConfigDataItems.POVS].fetchParams;
+    const { data } = await fetchApi(fetchParams);
     return data as Array<PovId> | null;
   }
 );
@@ -62,6 +69,12 @@ export const getPovsState = (rootState: RootState): PovsState =>
   rootState[POVS_FEATURE_KEY];
 
 export const selectAllPovs = createSelector(
-  getPovsState,
-  ({ entries }) => entries
+  [getPovsState, getLocalesState, getPovsConfig],
+  ({ entries }, { current: currentLocale }, { contentUrl, mediasUrl }) =>
+    entries?.map((e) => ({
+      ...e,
+      localizedTitle: getLocalizedField(e.title, currentLocale),
+      coverSrc: getAssetUrl(mediasUrl, e.cover),
+      contentUrl,
+    }))
 );

@@ -1,8 +1,4 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-  getInViewThresholdAngle,
-  getInViewThresholdDistance,
-} from '@virtual-time-travel/app-config';
 import { geolocation } from '@virtual-time-travel/geo';
 import {
   CurrentGeoFence,
@@ -10,12 +6,10 @@ import {
   StateOrientation,
   StatePosition,
 } from '@virtual-time-travel/geo-types';
-import { RootState } from '../main';
+import { RootState } from '../../main';
+import { getConfigState } from './config.slice';
 import { getFencesState } from './fences.slice';
 import { getPovsState } from './povs.slice';
-
-const inViewThresholdAngle = getInViewThresholdAngle();
-const inViewThresholdDistance = getInViewThresholdDistance();
 
 export const GEO_FEATURE_KEY = 'geo';
 
@@ -64,11 +58,12 @@ export const selectOrientation = createSelector(
 );
 
 export const selectCurrentGeoFence = createSelector(
-  [getGeoState, getFencesState, getPovsState],
+  [getGeoState, getFencesState, getPovsState, getConfigState],
   (
     { position, orientation },
     { entries: fences },
-    { entries: povs }
+    { entries: povs },
+    { appConfig: { INVIEW_THRESHOLD_ANGLE, INVIEW_THRESHOLD_DISTANCE } }
   ): CurrentGeoFence | null => {
     if (!position) return null;
 
@@ -105,8 +100,8 @@ export const selectCurrentGeoFence = createSelector(
 
           bearingViewportOrientation,
           inView:
-            Math.abs(bearingViewportOrientation) < inViewThresholdAngle &&
-            bearingDistance < inViewThresholdDistance,
+            Math.abs(bearingViewportOrientation) < INVIEW_THRESHOLD_ANGLE &&
+            bearingDistance < INVIEW_THRESHOLD_DISTANCE,
         };
       });
 

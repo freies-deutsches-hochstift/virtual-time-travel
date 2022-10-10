@@ -9,14 +9,12 @@ import Dialog from "../dialog/dialog"
 
 export interface WithDevicePermissionsProps {
   hasAllPermissions: boolean
-  permissionsFeedContentId: string
-  locale: string
+  dialogContentUrl: string
   children: ReactNode
 }
 
-
-export function WithDevicePermissions({ hasAllPermissions, permissionsFeedContentId, locale, children }: WithDevicePermissionsProps) {
+export function WithDevicePermissions({ hasAllPermissions, dialogContentUrl, children }: WithDevicePermissionsProps) {
   // eslint-disable-next-line react/jsx-no-useless-fragment
   if (hasAllPermissions) return <>{children}</>
-  return <Dialog {...{ contentId: permissionsFeedContentId, locale }} />
+  return <Dialog {...{ contentUrl: dialogContentUrl }} />
 }
