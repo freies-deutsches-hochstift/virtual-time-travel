@@ -1,4 +1,8 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  getInViewThresholdAngle,
+  getInViewThresholdDistance,
+} from '@virtual-time-travel/app-config';
 import { geolocation } from '@virtual-time-travel/geo';
 import {
   CurrentGeoFence,
@@ -9,6 +13,9 @@ import {
 import { RootState } from '../main';
 import { getFencesState } from './fences.slice';
 import { getPovsState } from './povs.slice';
+
+const inViewThresholdAngle = getInViewThresholdAngle();
+const inViewThresholdDistance = getInViewThresholdDistance();
 
 export const GEO_FEATURE_KEY = 'geo';
 
@@ -84,20 +91,22 @@ export const selectCurrentGeoFence = createSelector(
       .map((pov) => {
         const bearingViewportOrientation =
           (orientation?.compassHeading || 0) - (pov.orientation || 0);
-
+        const bearingDistance = geolocation.getBearingDistance(
+          position.coordinates,
+          pov.geometry.coordinates
+        );
         return {
           ...pov,
           distance: geolocation.getDistance(
             currentPosition,
             geolocation.getLongLat(pov.geometry.coordinates)
           ),
-          bearingDistance: geolocation.getBearingDistance(
-            position.coordinates,
-            pov.geometry.coordinates
-          ),
+          bearingDistance,
 
           bearingViewportOrientation,
-          inView: Math.abs(bearingViewportOrientation) < 20,
+          inView:
+            Math.abs(bearingViewportOrientation) < inViewThresholdAngle &&
+            bearingDistance < inViewThresholdDistance,
         };
       });
 

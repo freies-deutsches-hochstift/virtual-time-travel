@@ -17,6 +17,16 @@ const DATA_DIALOGS = process.env?.['NX_DATA_DIALOGS'] || 'dialogs';
 const DISABLE_ORIENTATION =
   process.env?.['NX_DISABLE_ORIENTATION'] === 'true' || false;
 
+const DISABLE_QR = process.env?.['NX_DISABLE_QR'] === 'true' || false;
+
+const INVIEW_THRESHOLD_ANGLE = parseInt(
+  process.env?.['NX_INVIEW_THRESHOLD_ANGLE'] || '20'
+);
+
+const INVIEW_THRESHOLD_DISTANCE = parseInt(
+  process.env?.['NX_INVIEW_THRESHOLD_DISTANCE'] || '100'
+);
+
 export interface DataFetchParamsRes {
   url: string;
   type: string;
@@ -38,6 +48,10 @@ export const getDataRoot = () => DATA_ROOT;
 // for development purpose
 // you might want to switch device orientation off since is not avail on most pcs
 export const getUseOrientation = () => !DISABLE_ORIENTATION;
+
+export const getUseQr = () => !DISABLE_QR;
+export const getInViewThresholdAngle = () => INVIEW_THRESHOLD_ANGLE;
+export const getInViewThresholdDistance = () => INVIEW_THRESHOLD_DISTANCE;
 
 export const getFencesFetchParams = () =>
   getDataFetchParams(DATA_FENCES, DATA_FENCES_TYPE);
