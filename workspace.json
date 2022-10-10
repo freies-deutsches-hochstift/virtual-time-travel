@@ -14,7 +14,6 @@
     "localization": "libs/localization",
     "markdown": "libs/markdown",
     "qrrouter": "libs/qrrouter",
-    "spatial": "libs/spatial",
     "tailwind-preset": "libs/tailwind-preset",
     "ui": "libs/ui",
     "util-device": "libs/util-device"
