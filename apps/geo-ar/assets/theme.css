@@ -107,7 +107,7 @@
   /* libs/Ui/Geo */
   --ui-pov-size: clamp(1rem, 10vw, 2rem);
   --ui-pov-wave-size: clamp(5rem, 90vw, 30rem);
-  --ui-pov-primary: var(----highlight);
+  --ui-pov-primary: var(--highlight);
   --ui-pov-waves: radial-gradient(var(--highlight-a), rgba(0, 0, 0, 0));
   --ui-pov-waves-inview: radial-gradient(var(--highlight-a), rgba(0, 0, 0, 0));
 

@@ -1,5 +1,7 @@
+
 import { useCallback } from 'react'
 import Async from "react-async"
+import { Loading } from '@virtual-time-travel/loading'
 import { getParsedFileContentById } from './parse-content'
 
 export interface PageProps {
@@ -13,14 +15,13 @@ export function Markdown(props: PageProps) {
 
   return (
     <Async promiseFn={loadContent}>
-      {({ data, error, isLoading }) => {
-        if (isLoading) return "Loading..."
-        if (error) return `Something went wrong: ${error.message}`
+      {({ data }) => {
         if (data?.content)
           return (
-            <div className="from-markdown" dangerouslySetInnerHTML={{ __html: data.content }} />
+            <div className="markdown" dangerouslySetInnerHTML={{ __html: data.content }} />
           )
-        return null
+
+        return <Loading />
       }}
     </Async>
   )
