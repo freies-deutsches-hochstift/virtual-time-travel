@@ -2,4 +2,4 @@
 
 ### !! Ups can not AR !!
 
-TODO: switch case permissions - unavail api
+no permissions or unavail api

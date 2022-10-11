@@ -12,7 +12,6 @@
     "loading": "libs/loading",
     "localization": "libs/localization",
     "markdown": "libs/markdown",
-    "qrrouter": "libs/qrrouter",
     "tailwind-preset": "libs/tailwind-preset",
     "ui": "libs/ui",
     "util-device": "libs/util-device"

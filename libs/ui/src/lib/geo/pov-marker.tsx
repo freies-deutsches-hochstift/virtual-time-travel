@@ -53,7 +53,7 @@ export function PovMarker({ pov, compassScaleFactor }: PovMarkerProps) {
     <StyledPovMarker  {...{ left }}>
       <StyledPovWave {...{ scale, inView, bearingViewportOrientation }} />
       <StyledPovInner>
-        <p>{distance}</p>
+        <p>{distance} {inView ? 'inView' : ''} {bearingViewportOrientation}</p>
       </StyledPovInner>
     </StyledPovMarker>
   )

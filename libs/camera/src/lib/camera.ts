@@ -1,27 +1,53 @@
-import { DeviceResponsePermission, PermissionStatus } from '@virtual-time-travel/util-device';
+import {
+  DeviceResponsePermission,
+  PermissionStatus,
+} from '@virtual-time-travel/util-device';
 
-export interface CaptureOptions {
-  audio: boolean;
-  video: { facingMode: string };
+interface MediaDeviceRes {
+  deviceId?: string;
+  stream: MediaStream | null;
+}
+
+export type OnReadQr = (text: string) => unknown;
+
+export interface CameraStreamProps {
+  captureOptions?: MediaStreamConstraints;
+  onRequestCameraComplete?: (res: DeviceResponsePermission) => void;
+  requestCameraDialog: string;
+  devicePermissionsStatus: Array<PermissionStatus>;
 }
 
 export interface CameraResponsePermission extends DeviceResponsePermission {
   status: PermissionStatus;
-  stream: MediaStream | null;
+  device?: MediaDeviceRes | null;
   error: unknown;
 }
 
-const defaultOptions: CaptureOptions = {
+const defaultConstraints: MediaStreamConstraints = {
   audio: false,
   video: { facingMode: 'environment' },
 };
 
-export const requestPermission = async (options = defaultOptions): Promise<CameraResponsePermission> => {
+export const requestPermission = async (
+  options = defaultConstraints,
+  getStream?: boolean
+): Promise<CameraResponsePermission> => {
   try {
-    const stream = await navigator.mediaDevices.getUserMedia(options);
-    return { status: PermissionStatus.Granted, stream, error: null };
+    let stream = null;
+
+    // stream is necessary only for camera-stream and it will conflict with zxing qr reader
+    if (getStream) stream = await navigator.mediaDevices.getUserMedia(options);
+
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const deviceId = devices.find((d) => d.kind === 'videoinput')?.deviceId;
+
+    return {
+      status: PermissionStatus.Granted,
+      device: { stream, deviceId },
+      error: null,
+    };
   } catch (error) {
-    return { status: PermissionStatus.Denied, stream: null, error };
+    return { status: PermissionStatus.Denied, error };
   }
 };
 

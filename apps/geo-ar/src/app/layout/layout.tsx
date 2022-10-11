@@ -27,10 +27,10 @@ export function Layout(props: LayoutProps) {
       <StyledMain>{children}</StyledMain>
       <MainNav>
         <>
-          <MainNavButton type="ar" link="ar" />
-          <MainNavButton type="qr" link="qr" />
-          <MainNavButton type="list" link="list" />
-          <MainNavButton type="menu" link="menu" />
+          <MainNavButton type="ar" link="/ar" />
+          <MainNavButton type="qr" link="/qr" />
+          <MainNavButton type="list" link="/list" />
+          <MainNavButton type="menu" link="/menu" />
         </>
       </MainNav>
     </StyledLayout>

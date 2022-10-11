@@ -1,12 +1,14 @@
-
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import styled from '@emotion/styled'
 import { DialogsContentsIds } from '@virtual-time-travel/app-config'
 import { WithDevicePermissions } from '@virtual-time-travel/ui'
-import tw from "twin.macro"
+import tw from 'twin.macro'
 import { selectDialogsContentUrls } from '../store/config.slice'
-import { selectHasArPermissions, selectHasCameraPermission } from '../store/device.slice'
+import {
+  selectHasArPermissions,
+  selectHasCameraPermission,
+} from '../store/device.slice'
 import ArCamera from './camera'
 import ArGeo from './geo'
 
@@ -14,21 +16,27 @@ import ArGeo from './geo'
 export function Ar() {
   const hasAllPermissions = useSelector(selectHasArPermissions)
   const dialogsContentUrl = useSelector(selectDialogsContentUrls)
-  const arUnavailableDialog = useMemo(() => dialogsContentUrl[DialogsContentsIds.ArUnavailable], [dialogsContentUrl])
 
   /*
-   * camera and geo have separated custom request permission dialogs
-   * and we want to display them one at the time
-   */
+ * camera and geo have separated custom request permission dialogs
+ * and we want to display them one at the time
+ */
   const hasCameraPermission = useSelector(selectHasCameraPermission)
 
+  const arUnavailableDialog = useMemo(
+    () => dialogsContentUrl[DialogsContentsIds.ArUnavailable],
+    [dialogsContentUrl]
+  )
+
   return (
-    <WithDevicePermissions {...{ hasAllPermissions, dialogContentUrl: arUnavailableDialog }}>
-      <StyledAr>
-        {hasCameraPermission && <ArGeo />}
-        <ArCamera />
-      </StyledAr>
-    </WithDevicePermissions>
+    <StyledAr>
+      {hasCameraPermission && <WithDevicePermissions
+        {...{ hasAllPermissions, dialogContentUrl: arUnavailableDialog }}
+      >
+        <ArGeo />
+      </WithDevicePermissions>}
+      <ArCamera />
+    </StyledAr>
   )
 }
 

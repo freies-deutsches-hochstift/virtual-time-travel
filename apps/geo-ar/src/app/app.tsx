@@ -13,8 +13,15 @@ import { selectAppIsReady } from './store/general.slice'
 
 
 export function App() {
+  // const { povId } = useLocation()
   const appIsReady = useSelector(selectAppIsReady)
   useStateData()
+
+
+  // const useQr = useMemo(() => {
+  //   return 'qr' in qs.parse(search)
+  // }, [search])
+
 
   if (!appIsReady) return <>...</>
 

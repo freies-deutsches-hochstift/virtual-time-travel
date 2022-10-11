@@ -27,6 +27,7 @@ export const geoSlice = createSlice({
       action: PayloadAction<StatePosition | null>
     ) {
       const { payload } = action;
+      console.log(JSON.stringify(payload));
       state.position = payload;
     },
 
@@ -86,22 +87,25 @@ export const selectCurrentGeoFence = createSelector(
       .map((pov) => {
         const bearingViewportOrientation =
           (orientation?.compassHeading || 0) - (pov.orientation || 0);
+
+        const distance = geolocation.getDistance(
+          currentPosition,
+          geolocation.getLongLat(pov.geometry.coordinates)
+        );
+
         const bearingDistance = geolocation.getBearingDistance(
           position.coordinates,
           pov.geometry.coordinates
         );
+
         return {
           ...pov,
-          distance: geolocation.getDistance(
-            currentPosition,
-            geolocation.getLongLat(pov.geometry.coordinates)
-          ),
+          distance,
           bearingDistance,
-
           bearingViewportOrientation,
-          inView:
-            Math.abs(bearingViewportOrientation) < INVIEW_THRESHOLD_ANGLE &&
-            bearingDistance < INVIEW_THRESHOLD_DISTANCE,
+          inView: distance < INVIEW_THRESHOLD_DISTANCE,
+          // inDirectView:
+          //   Math.abs(bearingViewportOrientation) < INVIEW_THRESHOLD_ANGLE,
         };
       });
 

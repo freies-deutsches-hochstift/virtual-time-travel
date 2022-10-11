@@ -2,6 +2,7 @@ import {
   createAsyncThunk,
   createSelector,
   createSlice,
+  PayloadAction,
 } from '@reduxjs/toolkit';
 import {
   AppConfigOptions,
@@ -21,12 +22,14 @@ export interface PovsState {
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
   error: string | null;
   entries: Array<PovId> | null;
+  currentId: string | null;
 }
 
 export const initialPovsState: PovsState = {
   loadingStatus: 'not loaded',
   error: null,
   entries: [],
+  currentId: null,
 };
 
 export const fetchPovs = createAsyncThunk(
@@ -41,7 +44,11 @@ export const fetchPovs = createAsyncThunk(
 export const povsSlice = createSlice({
   name: POVS_FEATURE_KEY,
   initialState: initialPovsState,
-  reducers: {},
+  reducers: {
+    setCurrentId(state: PovsState, action: PayloadAction<string>) {
+      state.currentId = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchPovs.pending, (state) => {
       state.loadingStatus = 'loading';
@@ -64,6 +71,7 @@ export const povsSlice = createSlice({
 });
 
 export const povsReducer = povsSlice.reducer;
+export const povsActions = povsSlice.actions;
 
 export const getPovsState = (rootState: RootState): PovsState =>
   rootState[POVS_FEATURE_KEY];

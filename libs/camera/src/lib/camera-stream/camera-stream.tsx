@@ -1,49 +1,35 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
-import styled from '@emotion/styled'
 import { WithDevicePermissionDialog } from '@virtual-time-travel/ui'
-import { DeviceResponsePermission, PermissionStatus } from '@virtual-time-travel/util-device'
-import tw from "twin.macro"
-import { camera, CameraResponsePermission, CaptureOptions } from '../camera'
+import { camera, CameraResponsePermission, CameraStreamProps } from '../camera'
+import Video from '../video/video'
 
-export interface CameraStreamProps {
-  captureOptions?: CaptureOptions
-  onRequestCameraComplete?: (res: DeviceResponsePermission) => void
-  requestCameraDialog: string
-  devicePermissionsStatus: Array<PermissionStatus>
-}
-
-
-const StyledCameraWrapper = styled.div(tw`
-  w-full h-full relative overflow-hidden
-`)
-
-
-const StyledCameraVideo = styled.video(tw`
-  block w-full h-full object-cover
-`)
 
 
 export const CameraStream = memo((props: CameraStreamProps) => {
-  const { captureOptions, onRequestCameraComplete, requestCameraDialog, devicePermissionsStatus } = props
+  const {
+    captureOptions,
+    onRequestCameraComplete,
+    requestCameraDialog,
+    devicePermissionsStatus,
+  } = props
 
   const videoElRef = useRef<HTMLVideoElement>(null)
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null)
 
   const setResponse = (res: CameraResponsePermission) => {
-    const { stream } = res
-
-    if (!videoElRef.current || !stream) return
-    setMediaStream(stream)
-    videoElRef.current.srcObject = stream
+    const { device } = res
+    if (!videoElRef.current || !device?.stream) return
+    setMediaStream(device.stream)
+    videoElRef.current.srcObject = device.stream
   }
 
   const requestStream = useCallback(async () => {
-    const res = await camera.requestPermission(captureOptions)
+    const res = await camera.requestPermission(captureOptions, true)
     const { status, error } = res
     setResponse(res)
-    if (onRequestCameraComplete) onRequestCameraComplete({ status, error })
+    if (onRequestCameraComplete)
+      onRequestCameraComplete({ status, error: JSON.stringify(error) })
   }, [captureOptions, onRequestCameraComplete])
-
 
   useEffect(() => {
     if (!videoElRef.current) return
@@ -60,12 +46,15 @@ export const CameraStream = memo((props: CameraStreamProps) => {
 
   return (
     <>
-      <WithDevicePermissionDialog {...{ onConfirm: requestStream, dialogContentUrl: requestCameraDialog, devicePermissionsStatus }} />
-
+      <WithDevicePermissionDialog
+        {...{
+          onConfirm: requestStream,
+          dialogContentUrl: requestCameraDialog,
+          devicePermissionsStatus,
+        }}
+      />
       {/* videoElRef needs to be always avail */}
-      <StyledCameraWrapper>
-        <StyledCameraVideo ref={videoElRef} autoPlay playsInline muted />
-      </StyledCameraWrapper>
+      <Video ref={videoElRef} {...{ autoplay: true }} />
     </>
   )
 })

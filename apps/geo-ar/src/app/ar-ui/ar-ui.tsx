@@ -8,12 +8,11 @@ import { selectDialogsContentUrls } from '../store/config.slice'
 import { selectCurrentGeoFence } from '../store/geo.slice'
 import { ArOverlay } from './overlay/overlay'
 
-
-
 export function ArUi() {
   const currentGeoFence = useSelector(selectCurrentGeoFence)
   const dialogsContentUrl = useSelector(selectDialogsContentUrls)
   const outOfGeofenceContent = useMemo(() => dialogsContentUrl[DialogsContentsIds.OutOfGeoFence], [dialogsContentUrl])
+
 
   if (!currentGeoFence?.fence) return <Dialog {...{ contentUrl: outOfGeofenceContent }} />
 

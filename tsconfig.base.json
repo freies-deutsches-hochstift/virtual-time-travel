@@ -23,7 +23,6 @@
       "@virtual-time-travel/loading": ["libs/loading/src/index.ts"],
       "@virtual-time-travel/localization": ["libs/localization/src/index.ts"],
       "@virtual-time-travel/markdown": ["libs/markdown/src/index.ts"],
-      "@virtual-time-travel/qrrouter": ["libs/qrrouter/src/index.ts"],
       "@virtual-time-travel/ui": ["libs/ui/src/index.ts"],
       "@virtual-time-travel/util-device": ["libs/util-device/src/index.ts"]
     }
