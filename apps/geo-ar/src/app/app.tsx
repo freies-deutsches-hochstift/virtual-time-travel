@@ -1,6 +1,8 @@
 
 import { useSelector } from 'react-redux'
 import { HashRouter, Route, Routes } from 'react-router-dom'
+import { getRoutePath, MainRoutes } from '@virtual-time-travel/app-router'
+import { Loading } from '@virtual-time-travel/loading'
 import { useStateData } from './hooks/useStateData'
 import Layout from './layout/layout'
 import ArScreen from './screens/ar/ar-screen'
@@ -13,28 +15,21 @@ import { selectAppIsReady } from './store/general.slice'
 
 
 export function App() {
-  // const { povId } = useLocation()
   const appIsReady = useSelector(selectAppIsReady)
   useStateData()
 
-
-  // const useQr = useMemo(() => {
-  //   return 'qr' in qs.parse(search)
-  // }, [search])
-
-
-  if (!appIsReady) return <>...</>
+  if (!appIsReady) return <Loading />
 
   return (
     <HashRouter>
       <Layout>
         <Routes>
-          <Route path="/" element={<SplashScreen />} />
-          <Route path="/intro" element={<IntroScreen />} />
-          <Route path="/ar" element={<ArScreen />} />
-          <Route path="/qr" element={<QrScreen />} />
-          <Route path="/list" element={<ListScreen />} />
-          <Route path="/menu" element={<MenuScreen />} />
+          <Route path={getRoutePath(MainRoutes.Home)} element={<SplashScreen />} />
+          <Route path={getRoutePath(MainRoutes.Intro)} element={<IntroScreen />} />
+          <Route path={getRoutePath(MainRoutes.Explore)} element={<ArScreen />} />
+          <Route path={getRoutePath(MainRoutes.Qr)} element={<QrScreen />} />
+          <Route path={getRoutePath(MainRoutes.List)} element={<ListScreen />} />
+          <Route path={getRoutePath(MainRoutes.Menu)} element={<MenuScreen />} />
         </Routes>
       </Layout>
     </HashRouter>

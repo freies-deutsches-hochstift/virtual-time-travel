@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { EmotionJSX } from "@emotion/react/types/jsx-namespace"
-import ArIcon from "./icons/ar"
+import ArIcon from "./icons/explore"
 import ListIcon from "./icons/list"
 import MenuIcon from "./icons/menu"
 import QrIcon from "./icons/qr"
@@ -16,7 +16,7 @@ export interface IconProps {
 
 
 const iconTypes: IconTypes = {
-  ar: ArIcon,
+  explore: ArIcon,
   list: ListIcon,
   menu: MenuIcon,
   qr: QrIcon
@@ -24,8 +24,8 @@ const iconTypes: IconTypes = {
 
 export function Icon(props: IconProps) {
   const { type } = props
-
   const IconType = useMemo(() => iconTypes[type], [type])
+
   return (
     <IconType />
   )

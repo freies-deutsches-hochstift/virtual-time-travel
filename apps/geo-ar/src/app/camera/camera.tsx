@@ -2,6 +2,7 @@ import { memo, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from '@reduxjs/toolkit'
 import { DialogsContentsIds } from '@virtual-time-travel/app-config'
+import { useQrData } from '@virtual-time-travel/app-router'
 import { CameraStream, QrReader } from '@virtual-time-travel/camera'
 import { Dialog } from '@virtual-time-travel/ui'
 import {
@@ -9,15 +10,13 @@ import {
   DeviceResponsePermission,
   PermissionStatus,
 } from '@virtual-time-travel/util-device'
-import { useQrData } from '../hooks/useQrData'
 import { selectDialogsContentUrls } from '../store/config.slice'
 import { deviceActions, selectCameraPermission } from '../store/device.slice'
 
-/* eslint-disable-next-line */
+
 export interface CameraProps {
   useQr?: boolean
 }
-
 
 
 export const Camera = memo(({ useQr }: CameraProps) => {

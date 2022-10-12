@@ -1,27 +1,24 @@
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import qs from 'query-string';
 
-export const useQrData = () => {
-  const navigate = useNavigate();
+export enum MainRoutes {
+  Home = '',
+  Intro = 'welcome',
+  Explore = 'explore',
+  Qr = 'qr',
+  List = 'list',
+  Menu = 'menu',
+}
 
-  const onReadQr = useCallback(
-    (text: string) => {
-      console.debug('QR SCANNED with text', text);
-      if (!text) return;
+export const currentPovSearchParam = 'povId';
+export const invalidQrParam = 'invalidQr';
 
-      const redirectParams = getQrNavigateParams(text);
+export interface QrRedirectParams {
+  hash: string;
+  search: qs.ParsedQuery<string>;
+}
 
-      if (!redirectParams) return navigate('/qr?povId=wrong-format');
-
-      const { hash, search } = redirectParams;
-
-      navigate([hash, qs.stringify(search)].join('?'));
-    },
-    [navigate]
-  );
-
-  return onReadQr;
+export const getRoutePath = (route: string) => {
+  return `/${route}`;
 };
 
 export const getHashSearchParams = (search = '') => {
@@ -50,6 +47,18 @@ export const getQrNavigateParams = (text: string) => {
   if (!redirectParams) return null;
   const { search } = redirectParams;
   // return invalid qr if search does not contain povId
-  if ('povId' in search) return redirectParams;
+  if (currentPovSearchParam in search) return redirectParams;
   return null;
+};
+
+const invalidQrSearch = { [invalidQrParam]: true };
+
+export const invalidQrRoute = [
+  getRoutePath(MainRoutes.Qr),
+  qs.stringify(invalidQrSearch),
+].join('?');
+
+export const getQrRedirectRoute = (redirectParams: QrRedirectParams) => {
+  const { hash, search } = redirectParams;
+  return [hash, qs.stringify(search)].join('?');
 };

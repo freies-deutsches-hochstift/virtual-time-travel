@@ -18,8 +18,6 @@ export function ArUi() {
 
   return (
     <StyledArUi>
-
-      {/* <GeoDebug {...{ position, orientation }} /> */}
       <Fence {...{ fenceTitle: currentGeoFence?.fence.title }} />
       <ArOverlay />
     </StyledArUi>

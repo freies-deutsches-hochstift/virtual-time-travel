@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { getHashSearchParams } from '../hooks/useQrData'
+import { getHashSearchParams } from '@virtual-time-travel/app-router'
 import { povsActions, selectCurrentPov } from '../store/povs.slice'
 
 

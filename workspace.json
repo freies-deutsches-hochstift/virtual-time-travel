@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "app-config": "libs/app-config",
+    "app-router": "libs/app-router",
     "camera": "libs/camera",
     "fetch-api": "libs/fetch-api",
     "geo": "libs/geo",
