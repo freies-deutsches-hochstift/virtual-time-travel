@@ -82,7 +82,7 @@ export const selectCurrentGeoFence = createSelector(
       .filter(
         (pov) =>
           pov.fence === currentFence?.id &&
-          pov.geometry.coordinates.length === 2
+          pov.geometry?.coordinates?.length === 2
       )
       .map((pov) => {
         const bearingViewportOrientation =
