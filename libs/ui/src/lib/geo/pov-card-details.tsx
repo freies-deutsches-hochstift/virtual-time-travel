@@ -18,12 +18,26 @@ export function PovCardDetails({ pov, onClose }: PovCardDetailsProps) {
     <StyledCardDetails>
       <StyledCardDetailsInner>
         <StyledCardDetailsContent>
-          <Markdown contentUrl={contentUrl} />
+          <Markdown contentUrl={contentUrl} fallbackComponent={<MissingPovFallback {...{ pov }} />} />
         </StyledCardDetailsContent>
         <Button highlight {...{ onClick: onClose, label: 'x' }} />
       </StyledCardDetailsInner>
     </StyledCardDetails>
   )
+}
+
+
+interface MissingPovFallbackProps {
+  pov: EnhancedPov
+}
+
+function MissingPovFallback({ pov }: MissingPovFallbackProps) {
+  const { coverSrc, localizedTitle } = pov
+
+  return <>
+    {!!coverSrc && <img src={coverSrc} alt={localizedTitle} />}
+    <h3>{localizedTitle}</h3>
+  </>
 }
 
 
