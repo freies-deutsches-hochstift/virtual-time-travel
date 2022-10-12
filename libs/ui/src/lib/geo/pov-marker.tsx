@@ -3,18 +3,20 @@ import { useMemo } from 'react'
 import styled from '@emotion/styled'
 import { CurrentPov } from '@virtual-time-travel/geo-types'
 import tw from "twin.macro"
+import { OnSelectPov } from '../utils'
 
 
 export interface PovMarkerProps {
   pov: CurrentPov
   compassScaleFactor: number
+  onSelectPov?: OnSelectPov
 }
 
 
 
 
-export function PovMarker({ pov, compassScaleFactor }: PovMarkerProps) {
-  const { id, bearingDistance, distance, inView, bearingViewportOrientation } = pov
+export function PovMarker({ pov, compassScaleFactor, onSelectPov }: PovMarkerProps) {
+  const { id, bearingDistance, distance, inView, bearingViewportOrientation, } = pov
 
   const scale = useMemo(() => {
 
@@ -43,6 +45,9 @@ export function PovMarker({ pov, compassScaleFactor }: PovMarkerProps) {
     return bearingDistance * compassScaleFactor
   }, [bearingDistance, compassScaleFactor])
 
+  const handleSelectPov = () => {
+    if (onSelectPov) onSelectPov(id)
+  }
 
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -52,7 +57,7 @@ export function PovMarker({ pov, compassScaleFactor }: PovMarkerProps) {
   return (
     <StyledPovMarker  {...{ left }}>
       <StyledPovWave {...{ scale, inView, bearingViewportOrientation }} />
-      <StyledPovInner>
+      <StyledPovInner onClick={handleSelectPov}>
         <p>{distance} {inView ? 'inView' : ''} {bearingViewportOrientation}</p>
       </StyledPovInner>
     </StyledPovMarker>

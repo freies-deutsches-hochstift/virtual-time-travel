@@ -2,25 +2,31 @@ import { memo, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from '@reduxjs/toolkit'
 import { DialogsContentsIds } from '@virtual-time-travel/app-config'
-import { CameraStream, OnReadQr, QrReader } from '@virtual-time-travel/camera'
+import { CameraStream, QrReader } from '@virtual-time-travel/camera'
 import { Dialog } from '@virtual-time-travel/ui'
 import {
   DeviceFeatures,
   DeviceResponsePermission,
   PermissionStatus,
 } from '@virtual-time-travel/util-device'
+import { useQrData } from '../hooks/useQrData'
 import { selectDialogsContentUrls } from '../store/config.slice'
 import { deviceActions, selectCameraPermission } from '../store/device.slice'
 
-interface ArCameraProps {
+/* eslint-disable-next-line */
+export interface CameraProps {
   useQr?: boolean
 }
 
-export const ArCamera = memo(({ useQr }: ArCameraProps) => {
+
+
+export const Camera = memo(({ useQr }: CameraProps) => {
   const dispatch = useDispatch<Dispatch>()
 
   const dialogsContentUrl = useSelector(selectDialogsContentUrls)
   const cameraStatus = useSelector(selectCameraPermission)
+
+  const onReadQr = useQrData()
 
   const requestCameraDialog = useMemo(
     () => dialogsContentUrl[DialogsContentsIds.RequestCamera],
@@ -55,10 +61,6 @@ export const ArCamera = memo(({ useQr }: ArCameraProps) => {
     [dispatch]
   )
 
-  const onReadQr = useCallback((text) => {
-    console.log(text)
-  }, []) as OnReadQr
-
   return isCameraUnavailable ? (
     <Dialog contentUrl={cameraUnavailableDialog} />
   ) : useQr ? (
@@ -81,4 +83,4 @@ export const ArCamera = memo(({ useQr }: ArCameraProps) => {
   )
 })
 
-export default ArCamera
+export default Camera

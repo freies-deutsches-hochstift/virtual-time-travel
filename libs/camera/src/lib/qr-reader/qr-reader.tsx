@@ -45,10 +45,10 @@ const QrReaderVideo = ({ onReadQr }: QrReaderProps) => {
     onResult(result) {
       const text = result.getText()
       if (text) onReadQr(text)
-    },
+    }
   })
 
-  return <Video ref={ref} />
+  return <Video ref={ref} {...{ autoplay: false }} />
 }
 
 export default QrReader

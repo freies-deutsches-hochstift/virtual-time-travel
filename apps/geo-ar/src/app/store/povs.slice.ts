@@ -86,3 +86,11 @@ export const selectAllPovs = createSelector(
       contentUrl,
     }))
 );
+
+export const selectCurrentPov = createSelector(
+  [getPovsState, selectAllPovs],
+  ({ currentId }, povs) => {
+    if (!currentId || !povs?.length) return null;
+    return povs?.find((p) => p.id.toString() === currentId.toString());
+  }
+);

@@ -1,9 +1,8 @@
 import { ReactNode } from 'react'
 import styled from '@emotion/styled'
 import { MainNav, MainNavButton } from '@virtual-time-travel/ui'
-import tw from "twin.macro"
-
-
+import tw from 'twin.macro'
+import PovDetails from '../pov-details/pov-details'
 
 export interface LayoutProps {
   children: ReactNode
@@ -25,6 +24,9 @@ export function Layout(props: LayoutProps) {
   return (
     <StyledLayout>
       <StyledMain>{children}</StyledMain>
+
+      <PovDetails />
+
       <MainNav>
         <>
           <MainNavButton type="ar" link="/ar" />

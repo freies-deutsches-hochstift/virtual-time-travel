@@ -1,5 +1,5 @@
-import { ReactNode, useCallback } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { ReactNode } from 'react'
+import { NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 import Icon from '../icon/icon'
@@ -75,18 +75,14 @@ const StyledMainNavLink = styled.span((props: MainNavButtonStyleProps) => [
 
 export function MainNavButton(props: MainNavButtonProps) {
   const { type, link, disabled, ...rest } = props
-  const location = useLocation()
-
-  const isActive = useCallback(() => {
-    const { pathname, search } = location
-    return [pathname, search].join('') === link
-  }, [location, link])
 
   return (
     <NavLink to={link}>
-      <StyledMainNavLink active={isActive()} disabled={disabled} {...rest}>
-        <Icon type={type} />
-      </StyledMainNavLink>
+      {({ isActive }) =>
+        <StyledMainNavLink active={isActive} disabled={disabled} {...rest}>
+          <Icon type={type} />
+        </StyledMainNavLink>
+      }
     </NavLink>
   )
 }

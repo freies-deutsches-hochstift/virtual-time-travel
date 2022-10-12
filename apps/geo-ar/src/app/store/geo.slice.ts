@@ -9,7 +9,7 @@ import {
 import { RootState } from '../../main';
 import { getConfigState } from './config.slice';
 import { getFencesState } from './fences.slice';
-import { getPovsState } from './povs.slice';
+import { selectAllPovs } from './povs.slice';
 
 export const GEO_FEATURE_KEY = 'geo';
 
@@ -59,11 +59,11 @@ export const selectOrientation = createSelector(
 );
 
 export const selectCurrentGeoFence = createSelector(
-  [getGeoState, getFencesState, getPovsState, getConfigState],
+  [getGeoState, getFencesState, selectAllPovs, getConfigState],
   (
     { position, orientation },
     { entries: fences },
-    { entries: povs },
+    povs,
     { appConfig: { INVIEW_THRESHOLD_ANGLE, INVIEW_THRESHOLD_DISTANCE } }
   ): CurrentGeoFence | null => {
     if (!position) return null;

@@ -5,15 +5,19 @@ import styled from '@emotion/styled'
 import { CurrentGeoFence, CurrentPov, StateOrientation } from '@virtual-time-travel/geo-types'
 import tw from "twin.macro"
 import useResizeObserver from "use-resize-observer"
+import { OnSelectPov } from '../utils'
 import { PovMarker } from './pov-marker'
+
 
 export interface PovsOverlayProps {
   currentGeoFence: CurrentGeoFence | null
   orientation: StateOrientation
+  onSelectPov?: OnSelectPov
 }
 
 interface PovsProps {
   povs: Array<CurrentPov>
+  onSelectPov?: OnSelectPov
 }
 
 /**
@@ -31,7 +35,7 @@ const wrapperWidth = circumference * sectors
 const sectorsKeys = Array.from({ length: sectors }, (x, i) => `${i}_key`)
 
 
-export function PovsOverlay({ currentGeoFence, orientation }: PovsOverlayProps) {
+export function PovsOverlay({ currentGeoFence, orientation, onSelectPov }: PovsOverlayProps) {
 
   const { povs } = currentGeoFence || {}
   const { compassHeading } = orientation || { compassHeading: 0 }
@@ -48,7 +52,7 @@ export function PovsOverlay({ currentGeoFence, orientation }: PovsOverlayProps) 
 
     <StyledPovsOverlay ref={ctnRef}>
       <StyledPovsWrapper style={{ width: wrapperWidth, transform: `translateX(${compassPosition}px)` }}>
-        {sectorsKeys.map(k => <Povs {...{ povs }} key={k} />)}
+        {sectorsKeys.map(k => <Povs {...{ povs, onSelectPov }} key={k} />)}
       </StyledPovsWrapper>
     </StyledPovsOverlay>
   )
@@ -57,10 +61,9 @@ export function PovsOverlay({ currentGeoFence, orientation }: PovsOverlayProps) 
 export default PovsOverlay
 
 
-function Povs({ povs }: PovsProps) {
-
+function Povs({ povs, onSelectPov }: PovsProps) {
   return <StyledPov style={{ width: circumference }}>
-    {povs?.map(pov => <PovMarker key={pov.id} {...{ pov, compassScaleFactor }} />)}
+    {povs?.map(pov => <PovMarker key={pov.id} {...{ pov, compassScaleFactor, onSelectPov }} />)}
   </StyledPov>
 }
 

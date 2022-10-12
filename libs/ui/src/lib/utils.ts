@@ -1,3 +1,5 @@
+export type OnSelectPov = (id: string | number) => void;
+
 export const isExternalUrl = (string: string) => {
   try {
     const url = new URL(string);

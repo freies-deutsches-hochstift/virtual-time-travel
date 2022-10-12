@@ -1,12 +1,12 @@
 
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
-import ArCamera from '../../ar/camera'
+import Camera from '../../camera/camera'
 
 export function QrScreen() {
   return (
     <StyledQr>
-      <ArCamera {...{ useQr: true }} />
+      <Camera {...{ useQr: true }} />
     </StyledQr>
 
   )
