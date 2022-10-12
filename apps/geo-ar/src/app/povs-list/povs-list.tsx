@@ -1,13 +1,11 @@
 import { useSelector } from "react-redux"
+import { useOnSelectPov } from '@virtual-time-travel/app-router'
 import { PovsCards } from "@virtual-time-travel/ui"
 import { selectAllPovs } from "../store/povs.slice"
 
-
 export function PovsList() {
   const povs = useSelector(selectAllPovs)
+  const onSelectPov = useOnSelectPov()
 
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (!povs?.length) return <></>
-
-  return <PovsCards {...{ povs }} />
+  return <PovsCards {...{ povs, onSelectPov }} />
 }

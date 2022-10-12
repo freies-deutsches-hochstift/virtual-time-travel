@@ -9,6 +9,8 @@ export enum MainRoutes {
   Menu = 'menu',
 }
 
+export type OnSelectPov = (id: string | number) => void;
+
 export const currentPovSearchParam = 'povId';
 export const invalidQrParam = 'invalidQr';
 
@@ -61,4 +63,17 @@ export const invalidQrRoute = [
 export const getQrRedirectRoute = (redirectParams: QrRedirectParams) => {
   const { hash, search } = redirectParams;
   return [hash, qs.stringify(search)].join('?');
+};
+
+/**
+ * the pov detail can be opened from different routes as overlay
+ * so we just want to add/replace current pov param
+ */
+
+export const getOnSelectPovRoute = (povId: string | number) => {
+  const { hash, search } = getNavigateParams(window.location.hash);
+  return [
+    hash,
+    qs.stringify({ ...search, [currentPovSearchParam]: povId }),
+  ].join('?');
 };

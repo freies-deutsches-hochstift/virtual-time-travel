@@ -2,10 +2,10 @@
 
 import { useMemo } from 'react'
 import styled from '@emotion/styled'
+import { OnSelectPov } from '@virtual-time-travel/app-router'
 import { CurrentGeoFence, CurrentPov, StateOrientation } from '@virtual-time-travel/geo-types'
 import tw from "twin.macro"
 import useResizeObserver from "use-resize-observer"
-import { OnSelectPov } from '../utils'
 import { PovMarker } from './pov-marker'
 
 

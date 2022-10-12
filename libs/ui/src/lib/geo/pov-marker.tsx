@@ -1,9 +1,9 @@
 
 import { useMemo } from 'react'
 import styled from '@emotion/styled'
+import { OnSelectPov } from '@virtual-time-travel/app-router'
 import { CurrentPov } from '@virtual-time-travel/geo-types'
 import tw from "twin.macro"
-import { OnSelectPov } from '../utils'
 
 
 export interface PovMarkerProps {
@@ -11,8 +11,6 @@ export interface PovMarkerProps {
   compassScaleFactor: number
   onSelectPov?: OnSelectPov
 }
-
-
 
 
 export function PovMarker({ pov, compassScaleFactor, onSelectPov }: PovMarkerProps) {
