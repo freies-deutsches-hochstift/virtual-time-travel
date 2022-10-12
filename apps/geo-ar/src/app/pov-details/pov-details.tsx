@@ -2,23 +2,20 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-import styled from '@emotion/styled'
-import { getHashSearchParams } from '@virtual-time-travel/app-router'
+import { getHashSearchParams, useOnClosePov } from '@virtual-time-travel/app-router'
+import { PovCardDetails } from '@virtual-time-travel/ui'
 import { povsActions, selectCurrentPov } from '../store/povs.slice'
 
 
-/* eslint-disable-next-line */
-export interface PovDetailsProps { }
 
-const StyledPovDetails = styled.div`
-  color: pink;
-`
-
-export function PovDetails(props: PovDetailsProps) {
+export function PovDetails() {
 
   const location = useLocation()
   const pov = useSelector(selectCurrentPov)
   const dispatch = useDispatch()
+
+
+  const onClose = useOnClosePov()
 
   useEffect(() => {
     console.log(pov)
@@ -36,9 +33,7 @@ export function PovDetails(props: PovDetailsProps) {
   if (!pov) return <></>
 
   return (
-    <StyledPovDetails>
-      {pov.id}
-    </StyledPovDetails>
+    <PovCardDetails {...{ pov, onClose }} />
   )
 }
 

@@ -14,9 +14,12 @@ export function Layout(props: LayoutProps) {
 
   return (
     <StyledLayout>
-      <StyledMain>{children}</StyledMain>
-
-      <PovDetails />
+      <StyledMain>
+        <>
+          {children}
+          <PovDetails />
+        </>
+      </StyledMain>
 
       <MainNav>
         <>

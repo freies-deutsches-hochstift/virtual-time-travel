@@ -76,6 +76,7 @@ export interface CurrentPov extends PovId {
 export interface EnhancedPov extends PovId {
   coverSrc: string | null;
   localizedTitle?: string;
+  contentUrl: string;
 }
 
 export interface CurrentGeoFence {

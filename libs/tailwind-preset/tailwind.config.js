@@ -58,6 +58,11 @@ const sharedTheme = {
             DEFAULT: 'var(--ui-button-disabled)',
             bg: 'var(--ui-button-disabled-bg)',
           },
+
+          highlight: {
+            DEFAULT: 'var(--ui-button-highlight)',
+            bg: 'var(--ui-button-highlight-bg)',
+          },
         },
 
         pov: {
@@ -71,6 +76,10 @@ const sharedTheme = {
           highlight: {
             DEFAULT: 'var(--ui-cards-highlight)',
             a: 'var(--ui-cards-highlight-a)',
+          },
+          details: {
+            DEFAULT: 'var(--ui-card-details-text)',
+            bg: 'var(--ui-card-details-bg)',
           },
         },
       },

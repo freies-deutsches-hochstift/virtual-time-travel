@@ -47,3 +47,33 @@ export const StyledCardCover = styled.div([
     }
   `
 ])
+
+
+
+
+export const StyledCardDetails = styled.div(() =>
+  [
+    tw`
+      absolute inset-0 z-top flex items-center justify-center
+    `
+  ]
+)
+
+export const StyledCardDetailsInner = styled.div(() =>
+  [
+    tw`
+      w-full max-w-app h-full
+      bg-ui-cards-details-bg text-ui-cards-details
+      flex flex-col
+    `
+  ]
+)
+
+export const StyledCardDetailsContent = styled.div(() =>
+  [
+    tw`
+      flex-1
+    `
+  ]
+)
+

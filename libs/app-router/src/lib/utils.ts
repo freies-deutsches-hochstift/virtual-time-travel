@@ -1,5 +1,9 @@
 import qs from 'query-string';
 
+interface VariableObjectKeys {
+  [key: string]: string | number | VariableObjectKeys;
+}
+
 export enum MainRoutes {
   Home = '',
   Intro = 'welcome',
@@ -70,10 +74,43 @@ export const getQrRedirectRoute = (redirectParams: QrRedirectParams) => {
  * so we just want to add/replace current pov param
  */
 
-export const getOnSelectPovRoute = (povId: string | number) => {
+export const getOnSelectPovRoute = (povId: string | number | null) => {
   const { hash, search } = getNavigateParams(window.location.hash);
-  return [
-    hash,
-    qs.stringify({ ...search, [currentPovSearchParam]: povId }),
-  ].join('?');
+  const nextSearch = {
+    ...search,
+    [currentPovSearchParam]: povId,
+  } as VariableObjectKeys;
+
+  for (const key in nextSearch) {
+    if (key === currentPovSearchParam && nextSearch[key] === null) {
+      delete nextSearch[key];
+    }
+  }
+
+  return [hash, qs.stringify(nextSearch)].join('?');
+};
+
+export const isExternalUrl = (string: string) => {
+  try {
+    const url = new URL(string);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch (err) {
+    return false;
+  }
+};
+
+export const getAssetUrl = (
+  localPath: string,
+  assetFilename?: string | null
+) => {
+  if (!assetFilename) return null;
+  if (isExternalUrl(assetFilename)) return assetFilename;
+  return [localPath, assetFilename].join('/');
+};
+
+export const getLocalizedMarkdownContent = (
+  localPath: string,
+  contentId: string | number
+) => {
+  return [localPath, `${contentId}.md`].join('/');
 };

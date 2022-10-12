@@ -8,10 +8,13 @@ import {
   AppConfigOptions,
   ConfigDataItems,
 } from '@virtual-time-travel/app-config';
+import {
+  getAssetUrl,
+  getLocalizedMarkdownContent,
+} from '@virtual-time-travel/app-router';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
 import { PovId } from '@virtual-time-travel/geo-types';
 import { getLocalizedField } from '@virtual-time-travel/localization';
-import { getAssetUrl } from 'libs/ui/src/lib/utils';
 import { RootState } from '../../main';
 import { getPovsConfig } from './config.slice';
 import { getLocalesState } from './locales.slice';
@@ -45,7 +48,7 @@ export const povsSlice = createSlice({
   name: POVS_FEATURE_KEY,
   initialState: initialPovsState,
   reducers: {
-    setCurrentId(state: PovsState, action: PayloadAction<string>) {
+    setCurrentId(state: PovsState, action: PayloadAction<string | null>) {
       state.currentId = action.payload;
     },
   },
@@ -83,7 +86,7 @@ export const selectAllPovs = createSelector(
       ...e,
       localizedTitle: getLocalizedField(e.title, currentLocale),
       coverSrc: getAssetUrl(mediasUrl, e.cover),
-      contentUrl,
+      contentUrl: getLocalizedMarkdownContent(contentUrl, e.id),
     }))
 );
 

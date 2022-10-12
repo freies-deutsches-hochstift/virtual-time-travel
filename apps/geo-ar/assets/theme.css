@@ -60,12 +60,13 @@
   --secondary: #fff;
   --secondary-dark: #7b61ff;
 
+  --highlight-text: #fff;
   --highlight: rgb(255, 122, 0);
   --highlight-a: rgba(255, 122, 0, 0.6);
 
   /* Sizes */
 
-  --app-max-width: 768px;
+  --app-max-width: 680px;
 
   /* libs/Ui/MainNav */
   --ui-nav-bg: var(--primary-b);
@@ -98,6 +99,9 @@
   --ui-button-secondary: var(--secondary);
   --ui-button-secondary-bg: var(--secondary-dark);
 
+  --ui-button-highlight: var(--highlight-text);
+  --ui-button-highlight-bg: var(--highlight);
+
   --ui-button-disabled: rgba(255, 255, 255, 0.5);
   --ui-button-disabled-bg: rgba(0, 0, 0, 0.5);
 
@@ -118,4 +122,7 @@
   --ui-cards-text: var(--primary-b);
   --ui-cards-highlight: var(--highlight);
   --ui-cards-highlight-a: var(--highlight-a);
+
+  --ui-card-details-bg: var(--primary);
+  --ui-card-details-text: var(--primary-b);
 }

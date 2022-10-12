@@ -5,6 +5,5 @@ export * from './lib/geo';
 export * from './lib/icon/icon';
 export * from './lib/main-nav/main-nav';
 export * from './lib/ui';
-export * from './lib/utils';
 export * from './lib/with-permission-dialog/with-permission-dialog';
 export * from './lib/with-permissions/with-permissions';
