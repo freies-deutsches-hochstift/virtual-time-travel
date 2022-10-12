@@ -1,17 +1,17 @@
-"id","fence","cover","title.de","title.en","orientation","geometry.type","geometry.coordinates","geometry"
-1,1,"1.jpg","Grundschule köppern","Grundschule köppern en",180,"Point","[8.645751388330268,50.27396182110553]",
-2,1,"2.jpg","Rewe","Rewe en",60,"Point","[8.648859550787279,50.275477233818776]",
-3,1,"3.jpg","Feuerwehr Köppern","Feuerwehr Köppern en",35,"Point","[8.646855329605984,50.27504791242191]",
-4,1,"https://i.picsum.photos/id/715/360/360.jpg?hmac=ldnxwtXRZbLj0Ug9wXkzeerhG_-zvekEkCG9RbAeygY","Pfingstweidstraße 10-24","Pfingstweidstraße 10-24 en",135,"Point","[8.64856720104936,50.27325277513853]",
-5,1,,"Amselweg 3-1","Amselweg 3-1 en",10,"Point","[8.647944096880451,50.274208478567374]",
-6,1,,"Köpperner Str. 46B","Köpperner Str. 46B en",270,"Point","[8.649634291375179,50.272457315120505]",
-7,3,,"Die Tür im Hinterhof","The door in the Backyard",,"Point","[8.64939722169072,50.122043545143384]",
-8,3,,"Weingarten","Vine Garden",,"Point","[8.649356268152047,50.12142150674441]",
-9,3,,"Gymnastikhalle","The Gym",,"Point","[8.649760302877809,50.12157857705992]",
-10,3,,"Schranke","Bar",,"Point","[8.650148343543435,50.12178912596178]",
-11,1,,"Köpperner str 51","Köpperner str 51 en",160,"Point","[8.64966027994231,50.27334561990148]",
-12,4,,"bänkle im grünen","bench example",0,"Point","[7.863651970811219,47.986921939358865]",
-13,4,,"Bank für Wanderer","bench for hikers",20,"Point","[7.863778815826834,47.98699632804562]",
-14,4,,"Müllhaus","garbage house",280,"Point","[7.863222133432629,47.98704553317276]",
-15,4,,"Zimmerchen","room",0,,,
-16,6,"zasius01.jpg","Zasiusstraße 83","Zasiusstraße 83",30,"Point","[7.859823002367136,47.98685746788178]",
+"id","fence","cover","title.de","title.en","orientation","geometry.type","geometry.coordinates"
+1,1,"1.jpg","Grundschule köppern","Grundschule köppern en",180,"Point","[8.645751388330268,50.27396182110553]"
+2,1,"2.jpg","Rewe","Rewe en",60,"Point","[8.648859550787279,50.275477233818776]"
+3,1,"3.jpg","Feuerwehr Köppern","Feuerwehr Köppern en",35,"Point","[8.646855329605984,50.27504791242191]"
+4,1,"https://i.picsum.photos/id/715/360/360.jpg?hmac=ldnxwtXRZbLj0Ug9wXkzeerhG_-zvekEkCG9RbAeygY","Pfingstweidstraße 10-24","Pfingstweidstraße 10-24 en",135,"Point","[8.64856720104936,50.27325277513853]"
+5,1,,"Amselweg 3-1","Amselweg 3-1 en",10,"Point","[8.647944096880451,50.274208478567374]"
+6,1,,"Köpperner Str. 46B","Köpperner Str. 46B en",270,"Point","[8.649634291375179,50.272457315120505]"
+7,3,,"Die Tür im Hinterhof","The door in the Backyard",,"Point","[8.64939722169072,50.122043545143384]"
+8,3,,"Weingarten","Vine Garden",,"Point","[8.649356268152047,50.12142150674441]"
+9,3,,"Gymnastikhalle","The Gym",,"Point","[8.649760302877809,50.12157857705992]"
+10,3,,"Schranke","Bar",,"Point","[8.650148343543435,50.12178912596178]"
+11,1,,"Köpperner str 51","Köpperner str 51 en",160,"Point","[8.64966027994231,50.27334561990148]"
+12,4,,"bänkle im grünen","bench example",0,"Point","[7.863651970811219,47.986921939358865]"
+13,4,,"Bank für Wanderer","bench for hikers",20,"Point","[7.863778815826834,47.98699632804562]"
+14,4,,"Müllhaus","garbage house",280,"Point","[7.863222133432629,47.98704553317276]"
+15,4,,"Zimmerchen","room",0,,
+16,6,"zasius01.jpg","Zasiusstraße 83","Zasiusstraße 83",30,"Point","[7.859823002367136,47.98685746788178]"
