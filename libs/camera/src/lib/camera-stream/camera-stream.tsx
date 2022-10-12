@@ -2,7 +2,7 @@ import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { WithDevicePermissionDialog } from '@virtual-time-travel/ui'
 import { camera, CameraResponsePermission, CameraStreamProps } from '../camera'
 import Video from '../video/video'
-
+import QrScanner from 'qr-scanner'
 
 
 export const CameraStream = memo((props: CameraStreamProps) => {
@@ -31,17 +31,29 @@ export const CameraStream = memo((props: CameraStreamProps) => {
       onRequestCameraComplete({ status, error: JSON.stringify(error) })
   }, [captureOptions, onRequestCameraComplete])
 
+  const onDecode = useCallback((result) => {
+    console.log(result)
+  }, []) as (result: string) => void
+
   useEffect(() => {
-    if (!videoElRef.current) return
+    if (!videoElRef.current || !mediaStream) return
     videoElRef.current.srcObject = mediaStream
+
+    const qrScanner = new QrScanner(videoElRef.current, onDecode)
+    qrScanner.start()
+
 
     return () => {
       if (mediaStream)
         mediaStream.getTracks().forEach((track) => {
           track.stop()
         })
+
+      if (qrScanner)
+        qrScanner.stop()
     }
-  }, [mediaStream])
+
+  }, [mediaStream, onDecode])
 
 
   return (
