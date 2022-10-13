@@ -1,9 +1,15 @@
+
+/**
+ * Camera stream component to be used standalone and or as qr-scanner
+ * TODO: QrScanner has some deprecated types mismatch
+ */
+
+
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { WithDevicePermissionDialog } from '@virtual-time-travel/ui'
+import QrScanner from 'qr-scanner'
 import { camera, CameraResponsePermission, CameraStreamProps } from '../camera'
 import Video from '../video/video'
-import QrScanner from 'qr-scanner'
-
 
 export const CameraStream = memo((props: CameraStreamProps) => {
   const {
@@ -11,6 +17,7 @@ export const CameraStream = memo((props: CameraStreamProps) => {
     onRequestCameraComplete,
     requestCameraDialog,
     devicePermissionsStatus,
+    onDecodeQr
   } = props
 
   const videoElRef = useRef<HTMLVideoElement>(null)
@@ -31,29 +38,42 @@ export const CameraStream = memo((props: CameraStreamProps) => {
       onRequestCameraComplete({ status, error: JSON.stringify(error) })
   }, [captureOptions, onRequestCameraComplete])
 
-  const onDecode = useCallback((result) => {
-    console.log(result)
-  }, []) as (result: string) => void
+
+  const onDecodeError = useCallback((error) => {
+    console.debug('QR-SCANNER', error)
+  }, []) as (error: Error | string) => void
+
 
   useEffect(() => {
     if (!videoElRef.current || !mediaStream) return
     videoElRef.current.srcObject = mediaStream
-
-    const qrScanner = new QrScanner(videoElRef.current, onDecode)
-    qrScanner.start()
-
 
     return () => {
       if (mediaStream)
         mediaStream.getTracks().forEach((track) => {
           track.stop()
         })
+    }
+  }, [mediaStream])
 
+
+  useEffect(() => {
+    if (!videoElRef.current || !mediaStream) return
+    let qrScanner: QrScanner | null = null
+    const video = videoElRef.current as HTMLVideoElement
+
+    if (typeof onDecodeQr !== 'function') return
+
+    qrScanner = new QrScanner(video, onDecodeQr, onDecodeError)
+    qrScanner.start()
+
+    return () => {
       if (qrScanner)
-        qrScanner.stop()
+        qrScanner.destroy()
     }
 
-  }, [mediaStream, onDecode])
+  }, [mediaStream, onDecodeQr, onDecodeError])
+
 
 
   return (

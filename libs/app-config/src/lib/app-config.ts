@@ -16,6 +16,7 @@ export enum DialogsContentsIds {
   OutOfGeoFence = 'out-of-geofence',
   ArUnavailable = 'ar-unavailable',
   CameraUnavailable = 'camera-unavailable',
+  InvalidQr = 'invalid-qr',
 }
 
 export interface DataFetchParamsRes {

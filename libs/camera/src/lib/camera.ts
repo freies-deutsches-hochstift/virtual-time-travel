@@ -1,3 +1,4 @@
+import { OnDecodeQr } from '@virtual-time-travel/app-router';
 import {
   DeviceResponsePermission,
   PermissionStatus,
@@ -8,13 +9,12 @@ interface MediaDeviceRes {
   stream: MediaStream | null;
 }
 
-export type OnReadQr = (text: string) => unknown;
-
 export interface CameraStreamProps {
   captureOptions?: MediaStreamConstraints;
   onRequestCameraComplete?: (res: DeviceResponsePermission) => void;
   requestCameraDialog: string;
   devicePermissionsStatus: Array<PermissionStatus>;
+  onDecodeQr?: OnDecodeQr;
 }
 
 export interface CameraResponsePermission extends DeviceResponsePermission {
