@@ -109,10 +109,11 @@
   --ui-button-filter: none;
 
   /* libs/Ui/Geo */
-  --ui-pov-size: clamp(1rem, 8vw, 2rem);
+  --ui-pov-size: clamp(1rem, 5vw, 2rem);
   --ui-pov-wave-size: 110vw;
   --ui-pov-primary: var(--highlight);
   --ui-pov-waves: radial-gradient(var(--highlight-a), rgba(0, 0, 0, 0));
+  /* --ui-pov-waves: url('/assets/medias/poi_wave.png') center center no-repeat; */
   --ui-pov-waves-inview: radial-gradient(var(--highlight-a), rgba(0, 0, 0, 0));
 
   --ui-pov-compass-bg: url('/assets/medias/poi_inview.png') center center
@@ -132,6 +133,10 @@
 
   --ui-pov-compass-tick-inset: -(calc(var(--ui-pov-compass-tick-width) / 2));
   --ui-pov-compass-tickmarker-inset: -(calc(var(--ui-pov-compass-tick-width)));
+
+  --ui-pov-compass-cta-size: 35vw;
+  --ui-pov-compass-cta: var(--highlight);
+  --ui-pov-compass-cta-text: var(--highlight-text);
 
   /* libs/Ui/Cards */
   --ui-cards-bg: var(--primary);
