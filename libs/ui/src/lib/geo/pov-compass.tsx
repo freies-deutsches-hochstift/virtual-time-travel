@@ -11,11 +11,7 @@ export interface PovCompassProps {
 }
 
 export function PovCompass({ pov, onSelectPov }: PovCompassProps) {
-  const { distance, id, bearingViewportOrientation, inDirectView } = pov
-
-  const tickMarkerLeft = useMemo(() => {
-    return (bearingViewportOrientation / 360) * 100
-  }, [bearingViewportOrientation])
+  const { id, inDirectView } = pov
 
   const handleSelectPov = () => {
     if (onSelectPov) onSelectPov(id)
@@ -24,7 +20,6 @@ export function PovCompass({ pov, onSelectPov }: PovCompassProps) {
   return (
     <StyledPovCompass>
       <StyledPovCompassInner>
-        id: {id} - {distance}m / {bearingViewportOrientation} / {tickMarkerLeft}
         {inDirectView && (
           <StyledPovCta onClick={handleSelectPov}>
             Blickwinkel ansehen
@@ -59,9 +54,12 @@ const StyledPovCta = styled.div(() => [
     bg-ui-pov rounded-full
     absolute
     top-1/3 left-1/3
+    drop-shadow-sm
+    flex items-center justify-center
+    text-center
   `,
   `
-    width: 30vw;
-    height: 30vw;
+    width: 35vw;
+    height: 35vw;
   `,
 ])

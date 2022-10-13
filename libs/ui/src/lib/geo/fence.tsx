@@ -8,7 +8,7 @@ export interface FenceProps {
 
 
 const StyledFence = styled.div(tw`
-  absolute bottom-0 left-0 w-full
+  absolute bottom-2 left-2 w-full font-bold
 `)
 
 export function Fence({ fenceTitle }: FenceProps) {
