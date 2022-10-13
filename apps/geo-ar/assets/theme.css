@@ -52,9 +52,9 @@
   /* Colors */
   --primary: #fff;
   --primary-a: #94a3d8;
-  --primary-b: #11172c;
+  --primary-b: rgb(17, 23, 44);
 
-  --primary-gradient: linear-gradient(var(--primary-b), var(--primary-a));
+  --primary-gradient: linear-gradient(var(--primary-b), var(--primary-b));
 
   --secondary-light: #bdb2f6;
   --secondary: #fff;
@@ -78,7 +78,7 @@
   --ui-nav-links-gap: 1rem;
 
   /* libs/Ui/Dialog */
-  --ui-dialog-overlay: rgb(17, 28, 78, 0.7);
+  --ui-dialog-overlay: rgba(17, 23, 44, 0.8);
   --ui-dialog-bg: var(--primary);
 
   --ui-dialog-primary: #111c4e;
