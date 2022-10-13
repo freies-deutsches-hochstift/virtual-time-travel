@@ -40,7 +40,7 @@ export default PovCompass
 
 const StyledPovCompass = styled.div(() => [
   tw`
-      absolute z-max inset-0
+      absolute z-top inset-0
     `,
   `
       background: var(--ui-pov-compass-bg);

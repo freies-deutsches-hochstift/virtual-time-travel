@@ -6,8 +6,9 @@ import { OnSelectPov } from '@virtual-time-travel/app-router'
 import { CurrentGeoFence, CurrentPov, StateOrientation } from '@virtual-time-travel/geo-types'
 import tw from "twin.macro"
 import useResizeObserver from "use-resize-observer"
-import { PovMarker } from './pov-marker'
 import PovCompass from './pov-compass'
+import { PovMarker } from './pov-marker'
+import PovsOverlayFeeds from './povs-overlay-feeds'
 
 
 export interface PovsOverlayProps {
@@ -53,6 +54,7 @@ export function PovsOverlay({ currentGeoFence, orientation, onSelectPov }: PovsO
   return (
 
     <StyledPovsOverlay ref={ctnRef}>
+      <PovsOverlayFeeds {...{ currentGeoFence, closestInViewPov }} />
       {!!closestInViewPov && <PovCompass {...{ pov: closestInViewPov, onSelectPov, compassHeading }} />}
       <StyledPovsWrapper style={{ width: wrapperWidth, transform: `translateX(${compassPosition}px)` }}>
         {sectorsKeys.map(k => <Povs {...{ povs, onSelectPov }} key={k} />)}
