@@ -18,6 +18,7 @@ export function PovCardDetails({ pov, onClose }: PovCardDetailsProps) {
     <StyledCardDetails>
       <StyledCardDetailsInner>
         <StyledCardDetailsContent>
+
           <Markdown contentUrl={contentUrl} fallbackComponent={<MissingPovFallback {...{ pov }} />} />
         </StyledCardDetailsContent>
         <Button highlight {...{ onClick: onClose, label: 'x' }} />
