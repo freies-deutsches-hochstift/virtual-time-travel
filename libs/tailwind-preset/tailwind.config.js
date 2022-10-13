@@ -67,6 +67,15 @@ const sharedTheme = {
 
         pov: {
           DEFAULT: 'var(--ui-pov-primary)',
+
+          compass: {
+            DEFAULT: 'var(--ui-pov-compass-primary-text)',
+            bg: 'var(--ui-pov-compass-primary)',
+            highlight: {
+              DEFAULT: 'var(--ui-pov-compass-highlight-text)',
+              bg: 'var(--ui-pov-compass-highlight)',
+            },
+          },
         },
 
         /* Cards */
@@ -97,6 +106,10 @@ const sharedTheme = {
           pov: {
             DEFAULT: 'var(--ui-pov-size)',
             wave: 'var(--ui-pov-wave-size)',
+            compass: {
+              tick: 'var(--ui-pov-compass-tick-width)',
+              tickmarker: 'var(--ui-pov-compass-tickmarker-width)',
+            },
           },
         },
       },
@@ -107,6 +120,10 @@ const sharedTheme = {
           pov: {
             DEFAULT: 'var(--ui-pov-size)',
             wave: 'var(--ui-pov-wave-size)',
+            compass: {
+              tick: 'var(--ui-pov-compass-tick-height)',
+              tickmarker: 'var(--ui-pov-compass-tickmarker-height)',
+            },
           },
         },
       },
@@ -115,6 +132,10 @@ const sharedTheme = {
         ui: {
           pov: {
             DEFAULT: 'calc(var(--ui-pov-wave-size) / 2 + 10vh)',
+            compass: {
+              tick: 'var(--ui-pov-compass-tick-inset)',
+              tickmarker: 'var(--ui-pov-compass-tickmarker-inset)',
+            },
           },
         },
       },

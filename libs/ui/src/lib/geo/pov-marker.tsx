@@ -44,7 +44,7 @@ export function PovMarker({ pov, compassScaleFactor, onSelectPov }: PovMarkerPro
 
   return (
     <StyledPovMarker  {...{ left, inView }}>
-      <StyledPovWave {...{ scale, inView, bearingViewportOrientation }} />
+      <StyledPovWave {...{ scale, inView }} />
       <StyledPovInner onClick={handleSelectPov}>
         <p>{distance}</p>
       </StyledPovInner>
@@ -85,17 +85,15 @@ const StyledPovInner = styled.div([
 type StyledPovWaveProps = {
   scale: number
   inView: boolean
-  bearingViewportOrientation: number
 }
 
-const StyledPovWave = styled.div(({ scale, inView, bearingViewportOrientation }: StyledPovWaveProps) => [
+const StyledPovWave = styled.div(({ scale, inView }: StyledPovWaveProps) => [
   tw`
     absolute top-ui-pov w-ui-pov-wave h-ui-pov-wave rounded-full
   `,
 
   !inView && `
-    transform: translate(-50%, -50%) scale(${scale}) rotate(${bearingViewportOrientation}deg);
+    transform: translate(-50%, -50%) scale(${scale});
     background: var(--ui-pov-waves);
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 85% 100%, 50% 50%, 15% 100%, 0% 100%);
   `
 ])

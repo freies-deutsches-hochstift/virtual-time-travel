@@ -7,7 +7,7 @@ import { CurrentGeoFence, CurrentPov, StateOrientation } from '@virtual-time-tra
 import tw from "twin.macro"
 import useResizeObserver from "use-resize-observer"
 import { PovMarker } from './pov-marker'
-import PovCompass from './povs-compass'
+import PovCompass from './pov-compass'
 
 
 export interface PovsOverlayProps {

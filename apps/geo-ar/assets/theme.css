@@ -115,6 +115,24 @@
   --ui-pov-waves: radial-gradient(var(--highlight-a), rgba(0, 0, 0, 0));
   --ui-pov-waves-inview: radial-gradient(var(--highlight-a), rgba(0, 0, 0, 0));
 
+  --ui-pov-compass-bg: url('/assets/medias/poi_inview.png') center center
+    no-repeat;
+
+  --ui-pov-compass-primary: var(--primary);
+  --ui-pov-compass-primary-text: var(--primary-b);
+  --ui-pov-compass-highlight: var(--highlight);
+  --ui-pov-compass-highlight-text: var(--highlight-text);
+
+  --ui-pov-compass-tick-height: 2.5vh;
+  --ui-pov-compass-tickmarker-height: calc(
+    var(--ui-pov-compass-tick-height) * 3
+  );
+  --ui-pov-compass-tick-width: 3px;
+  --ui-pov-compass-tickmarker-width: calc(var(--ui-pov-compass-tick-width) * 3);
+
+  --ui-pov-compass-tick-inset: -(calc(var(--ui-pov-compass-tick-width) / 2));
+  --ui-pov-compass-tickmarker-inset: -(calc(var(--ui-pov-compass-tick-width)));
+
   /* libs/Ui/Cards */
   --ui-cards-bg: var(--primary);
   --ui-cards-border: thin solid var(--primary);

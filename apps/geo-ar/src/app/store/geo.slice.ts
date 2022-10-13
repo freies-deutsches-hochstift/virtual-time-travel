@@ -85,8 +85,14 @@ export const selectCurrentGeoFence = createSelector(
           pov.geometry?.coordinates?.length === 2
       )
       .map((pov) => {
+        // TODO, clean this up into libs method!
         const bearingViewportOrientation =
           (orientation?.compassHeading || 0) - (pov.orientation || 0);
+
+        let normalizedBearingViewportOrientation = bearingViewportOrientation;
+
+        if (normalizedBearingViewportOrientation < 0)
+          normalizedBearingViewportOrientation += 360;
 
         const distance = geolocation.getDistance(
           currentPosition,
@@ -102,16 +108,12 @@ export const selectCurrentGeoFence = createSelector(
           ...pov,
           distance,
           bearingDistance,
-          bearingViewportOrientation,
+          bearingViewportOrientation: normalizedBearingViewportOrientation,
           inView: distance < INVIEW_THRESHOLD_DISTANCE,
           inDirectView:
             Math.abs(bearingViewportOrientation) < INVIEW_THRESHOLD_ANGLE,
         };
       });
-
-    // TODO !!! ???
-    // if there are no points in view show directions to clostest one?
-    // should we filter povs by
 
     return {
       fence: currentFence,
