@@ -14,26 +14,16 @@ export interface PovMarkerProps {
 
 
 export function PovMarker({ pov, compassScaleFactor, onSelectPov }: PovMarkerProps) {
-  const { id, bearingDistance, distance, inView, bearingViewportOrientation, } = pov
+  const { id, bearingDistance, distance, inView, bearingViewportOrientation } = pov
 
   const scale = useMemo(() => {
 
-    let scaleByDistance = 1
-    if (!distance) return scaleByDistance
+    if (!distance) return 0
 
-    // TODO! these are just example values
+    let scaleByDistance = 40 / distance
 
-    if (distance > 100) {
-      scaleByDistance = .75
-    }
-
-    if (distance > 200) {
-      scaleByDistance = .5
-    }
-
-    if (distance > 400) {
-      scaleByDistance = .25
-    }
+    if (scaleByDistance > 1) scaleByDistance = 1
+    if (scaleByDistance < .1) scaleByDistance = .1
 
     return scaleByDistance
   }, [distance])
@@ -53,10 +43,10 @@ export function PovMarker({ pov, compassScaleFactor, onSelectPov }: PovMarkerPro
 
 
   return (
-    <StyledPovMarker  {...{ left }}>
+    <StyledPovMarker  {...{ left, inView }}>
       <StyledPovWave {...{ scale, inView, bearingViewportOrientation }} />
       <StyledPovInner onClick={handleSelectPov}>
-        <p>{distance} {inView ? 'inView' : ''} {bearingViewportOrientation}</p>
+        <p>{distance}</p>
       </StyledPovInner>
     </StyledPovMarker>
   )
@@ -66,16 +56,19 @@ export function PovMarker({ pov, compassScaleFactor, onSelectPov }: PovMarkerPro
 export default PovMarker
 
 type StyledPovMarkerProps = {
-  left: number
+  left: number,
+  inView: boolean
 }
 
-const StyledPovMarker = styled.div(({ left }: StyledPovMarkerProps) =>
+const StyledPovMarker = styled.div(({ left, inView }: StyledPovMarkerProps) =>
   [
     tw`
       absolute top-0
     `,
     left && `left: ${left}px;`,
-
+    inView && `
+      display: none;
+    `,
   ]
 )
 
@@ -90,24 +83,19 @@ const StyledPovInner = styled.div([
 ])
 
 type StyledPovWaveProps = {
-  bearingViewportOrientation: number
   scale: number
   inView: boolean
+  bearingViewportOrientation: number
 }
 
-const StyledPovWave = styled.div(({ bearingViewportOrientation, scale, inView }: StyledPovWaveProps) => [
+const StyledPovWave = styled.div(({ scale, inView, bearingViewportOrientation }: StyledPovWaveProps) => [
   tw`
     absolute top-ui-pov w-ui-pov-wave h-ui-pov-wave rounded-full
   `,
 
-  inView && `
-    transform: translate(-50%, -50%) scale(${scale}) rotate(${bearingViewportOrientation}deg) ;
+  !inView && `
+    transform: translate(-50%, -50%) scale(${scale}) rotate(${bearingViewportOrientation}deg);
     background: var(--ui-pov-waves);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 85% 100%, 50% 50%, 15% 100%, 0% 100%);
-  `,
-
-  !inView && `
-    transform: translate(-50%, -50%) scale(${scale});
-    background: var(--ui-pov-waves);
   `
 ])

@@ -7,6 +7,7 @@ import { CurrentGeoFence, CurrentPov, StateOrientation } from '@virtual-time-tra
 import tw from "twin.macro"
 import useResizeObserver from "use-resize-observer"
 import { PovMarker } from './pov-marker'
+import PovCompass from './povs-compass'
 
 
 export interface PovsOverlayProps {
@@ -38,12 +39,13 @@ const sectorsKeys = Array.from({ length: sectors }, (x, i) => `${i}_key`)
 export function PovsOverlay({ currentGeoFence, orientation, onSelectPov }: PovsOverlayProps) {
 
   const { povs } = currentGeoFence || {}
-  const { compassHeading } = orientation || { compassHeading: 0 }
-  const { ref: ctnRef, width: ctnWidth } = useResizeObserver()
+  const { compassHeading = 0 } = orientation || {}
+  const { ref: ctnRef, width: ctnWidth = 0 } = useResizeObserver()
 
-  const centerStartPosition = useMemo(() => -circumference + (0.5 * (ctnWidth || 0)), [ctnWidth])
+  const centerStartPosition = useMemo(() => -circumference + (0.5 * ctnWidth), [ctnWidth])
+  const compassPosition = useMemo(() => centerStartPosition - (compassHeading * compassScaleFactor), [centerStartPosition, compassHeading])
 
-  const compassPosition = useMemo(() => centerStartPosition - ((compassHeading || 0) * compassScaleFactor), [centerStartPosition, compassHeading])
+  const closestInViewPov = useMemo(() => povs?.filter(p => p.inView).sort((a, b) => (a?.distance || 99999) - (b?.distance || 99999)).pop(), [povs])
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
   if (!povs) return <></>
@@ -51,6 +53,7 @@ export function PovsOverlay({ currentGeoFence, orientation, onSelectPov }: PovsO
   return (
 
     <StyledPovsOverlay ref={ctnRef}>
+      {!!closestInViewPov && <PovCompass {...{ pov: closestInViewPov, onSelectPov, compassHeading }} />}
       <StyledPovsWrapper style={{ width: wrapperWidth, transform: `translateX(${compassPosition}px)` }}>
         {sectorsKeys.map(k => <Povs {...{ povs, onSelectPov }} key={k} />)}
       </StyledPovsWrapper>
@@ -71,12 +74,9 @@ function Povs({ povs, onSelectPov }: PovsProps) {
 
 const StyledPovsOverlay = styled.div([
   tw`
-    absolute left-0 bottom-0 z-top 
+    absolute top-0 left-0 bottom-0 z-top 
     overflow-hidden w-full
     flex
-  `,
-  `
-    top: 15vh;
   `
 ])
 

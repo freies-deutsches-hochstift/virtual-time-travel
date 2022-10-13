@@ -71,6 +71,7 @@ export interface CurrentPov extends PovId {
   bearingDistance: number | null;
   bearingViewportOrientation: number;
   inView: boolean;
+  inDirectView: boolean;
 }
 
 export interface EnhancedPov extends PovId {

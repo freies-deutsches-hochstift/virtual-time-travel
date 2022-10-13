@@ -104,8 +104,8 @@ export const selectCurrentGeoFence = createSelector(
           bearingDistance,
           bearingViewportOrientation,
           inView: distance < INVIEW_THRESHOLD_DISTANCE,
-          // inDirectView:
-          //   Math.abs(bearingViewportOrientation) < INVIEW_THRESHOLD_ANGLE,
+          inDirectView:
+            Math.abs(bearingViewportOrientation) < INVIEW_THRESHOLD_ANGLE,
         };
       });
 

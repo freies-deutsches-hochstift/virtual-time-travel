@@ -10,7 +10,7 @@ import * as geolib from 'geolib';
 
 export const geolocationDefaultOptions: LocationOptions = {
   enableHighAccuracy: true,
-  timeout: 10000,
+  timeout: 30000,
   maximumAge: 0,
 };
 

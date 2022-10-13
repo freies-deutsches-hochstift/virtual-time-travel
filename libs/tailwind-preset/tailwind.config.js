@@ -114,7 +114,7 @@ const sharedTheme = {
       inset: {
         ui: {
           pov: {
-            DEFAULT: 'calc(var(--ui-pov-wave-size) / 2)',
+            DEFAULT: 'calc(var(--ui-pov-wave-size) / 2 + 10vh)',
           },
         },
       },
