@@ -1,10 +1,10 @@
 // TODO
 // import { StrictMode } from 'react';
 // Effects firing twice in <React.StrictMode /> was added in React 18.
-
 import * as ReactDOM from 'react-dom/client'
 import { Provider, useDispatch } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
+import './registerServiceWorker.js'
 import App from './app/app'
 import { CONFIG_FEATURE_KEY, configReducer } from './app/store/config.slice'
 import { DEVICE_FEATURE_KEY, deviceReducer } from './app/store/device.slice'
