@@ -1,7 +1,6 @@
-
 import { useSelector } from 'react-redux'
 import { Markdown } from '@virtual-time-travel/markdown'
-import Page from "../../page/page"
+import { StyledPage, StyledPageDivider } from '@virtual-time-travel/ui'
 import { PovsList } from '../../povs-list/povs-list'
 import { selectListPageContent } from '../../store/pages.slice'
 
@@ -9,11 +8,12 @@ export function ListScreen() {
   const listPageContent = useSelector(selectListPageContent)
 
   return (
-    <Page>
+    <StyledPage>
       <Markdown {...{ contentUrl: listPageContent }} />
-      <PovsList />
-    </Page>
-
+      <StyledPageDivider>
+        <PovsList />
+      </StyledPageDivider>
+    </StyledPage>
   )
 }
 

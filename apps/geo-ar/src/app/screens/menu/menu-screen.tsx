@@ -1,4 +1,4 @@
-import Page from "../../page/page"
+import { StyledPage } from '@virtual-time-travel/ui'
 
 
 // const selectPageById = useMemo(usePageById, [
@@ -12,9 +12,9 @@ import Page from "../../page/page"
 export function MenuScreen() {
   return (
 
-    <Page>
+    <StyledPage>
       <p>TO DO MENU</p>
-    </Page>
+    </StyledPage>
   )
 }
 

@@ -68,6 +68,16 @@
 
   --app-max-width: 680px;
 
+  --bottom-mask-size: 10vh;
+  --top-mask-size: 5vh;
+  --page-scrollmask: linear-gradient(
+    to bottom,
+    transparent 0,
+    black var(--top-mask-size, 0),
+    black calc(100% - var(--bottom-mask-size, 0)),
+    transparent 100%
+  );
+
   /* libs/Ui/MainNav */
   --ui-nav-bg: var(--primary-b);
   --ui-nav-link: var(--primary-a);
