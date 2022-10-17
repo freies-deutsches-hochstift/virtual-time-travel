@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { Markdown } from '@virtual-time-travel/markdown'
 import {
-  StyledPage,
+  Page,
   StyledPageDivider,
   StyledPageGroup,
 } from '@virtual-time-travel/ui'
@@ -16,7 +16,7 @@ export function IntroScreen() {
   const listPageContent = useSelector(selectListPageContent)
 
   return (
-    <StyledPage>
+    <Page>
       <Markdown {...{ contentUrl: introPageContent }} />
       <StyledPageGroup>
         <Markdown {...{ contentUrl: listPageContent }} />
@@ -24,7 +24,7 @@ export function IntroScreen() {
           <PovsList />
         </StyledPageDivider>
       </StyledPageGroup>
-    </StyledPage>
+    </Page>
   )
 }
 

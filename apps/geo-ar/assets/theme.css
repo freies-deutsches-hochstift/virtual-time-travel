@@ -66,7 +66,7 @@
 
   /* Sizes */
 
-  --app-max-width: 680px;
+  --app-max-width: 640px;
 
   --bottom-mask-size: 10vh;
   --top-mask-size: 5vh;
@@ -158,4 +158,21 @@
 
   --ui-card-details-bg: var(--primary);
   --ui-card-details-text: var(--primary-b);
+}
+
+/**
+* app dependent logos can have different sizes/positions
+* see libs/ui/src/lib/page/page-logo.tsx 
+*/
+
+.page-logo {
+  height: 5vh;
+  display: flex;
+  justify-content: end;
+}
+
+.page-logo svg {
+  display: block;
+  height: 100%;
+  width: auto;
 }

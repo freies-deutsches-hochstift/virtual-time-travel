@@ -17,8 +17,8 @@ import { selectAppIsReady } from './store/general.slice'
 export function App() {
   const appIsReady = useSelector(selectAppIsReady)
   useStateData()
-
   if (!appIsReady) return <Loading />
+
 
   return (
     <HashRouter>
@@ -29,7 +29,7 @@ export function App() {
           <Route path={getRoutePath(MainRoutes.Explore)} element={<ArScreen />} />
           <Route path={getRoutePath(MainRoutes.Qr)} element={<QrScreen />} />
           <Route path={getRoutePath(MainRoutes.List)} element={<ListScreen />} />
-          <Route path={getRoutePath(MainRoutes.Menu)} element={<MenuScreen />} />
+          <Route path={`${getRoutePath(MainRoutes.Menu)}/*`} element={<MenuScreen />} />
         </Routes>
       </Layout>
     </HashRouter>

@@ -38,32 +38,11 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6 {
   @apply font-headline;
-}
-
-h1 {
-  font-size: 3rem;
-  line-height: 1.25em;
-  margin: 0 0 2rem 0;
-}
-
-h2 {
-  font-size: 2rem;
-  line-height: 1.25em;
-  margin: 0 0 2rem 0;
-}
-
-h3 {
-  font-size: 1rem;
-  line-height: 1.6em;
-  margin: 0 0 1rem 0;
-}
-
-p,
-ol,
-li {
-  margin: 0 0 1rem 0;
 }
 
 img,

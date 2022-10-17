@@ -7,9 +7,15 @@ import {
   AppConfigOptions,
   ConfigDataItems,
 } from '@virtual-time-travel/app-config';
+import { getLocalizedMarkdownContent } from '@virtual-time-travel/app-router';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
+import {
+  getLocalizedField,
+  LocalizedKey,
+} from '@virtual-time-travel/localization';
 import { RootState } from '../../main';
 import { getPagesConfig } from './config.slice';
+import { getLocalesState } from './locales.slice';
 
 export const PAGES_FEATURE_KEY = ConfigDataItems.PAGES;
 
@@ -17,8 +23,21 @@ export type PageId = string | number;
 
 export interface PageEntry {
   id: PageId;
+  slug: string;
   subpages: Array<string | number>;
+  title: string | null | LocalizedKey;
   [key: string]: unknown;
+}
+
+export interface EnhancedPageEntry extends PageEntry {
+  subpages: Array<PageId>;
+  localizedTitle: string;
+  contentUrl: string;
+}
+
+export interface PageWithSubpages {
+  page: EnhancedPageEntry;
+  subpages: Array<EnhancedPageEntry>;
 }
 
 export interface PagesState {
@@ -74,11 +93,34 @@ export const pagesActions = pagesSlice.actions;
 export const getPagesState = (rootState: RootState): PagesState =>
   rootState[PAGES_FEATURE_KEY];
 
-export const usePageById = () => {
+export const usePageWithSubpages = () => {
   return createSelector(
-    [getPagesState, (_, pageId) => pageId],
-    (state, pageId) => {
-      return state.entries?.find((p: PageEntry) => p.id === pageId);
+    [getPagesState, getLocalesState, getPagesConfig, (_, pageSlug) => pageSlug],
+    (state, { current: currentLocale }, { contentUrl }, pageSlug) => {
+      const pages = state.entries || [];
+      const page = state.entries?.find(
+        (p: PageEntry) => p['slug'] === pageSlug
+      );
+
+      if (!page) return null;
+      const { subpages: subpagesIds } = page;
+      const subpages = pages.filter(
+        (p: PageEntry) => !!(subpagesIds || []).find((spId) => spId === p.id)
+      );
+
+      return {
+        page: {
+          ...page,
+          localizedTitle: getLocalizedField(page.title, currentLocale),
+          contentUrl: getLocalizedMarkdownContent(contentUrl, page.slug),
+        },
+
+        subpages:
+          subpages.map((sp) => ({
+            ...sp,
+            localizedTitle: getLocalizedField(sp.title, currentLocale),
+          })) || [],
+      } as PageWithSubpages;
     }
   );
 };

@@ -6,7 +6,7 @@ interface VariableObjectKeys {
 
 export enum MainRoutes {
   Home = '',
-  Intro = 'welcome',
+  Intro = 'tutorial',
   Explore = 'explore',
   Qr = 'qr',
   List = 'list',

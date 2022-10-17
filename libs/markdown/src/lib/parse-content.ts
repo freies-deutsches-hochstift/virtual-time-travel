@@ -1,7 +1,7 @@
 import { marked } from 'marked';
 
 export interface FetchMarkdownRes {
-  content: string;
+  content?: string;
 }
 
 export async function getParsedFileContentById(
@@ -11,7 +11,7 @@ export async function getParsedFileContentById(
   const data = await response.text();
 
   if (!response.ok) {
-    return Promise.reject(response.statusText);
+    return {};
   }
 
   return { content: marked.parse(data) };
