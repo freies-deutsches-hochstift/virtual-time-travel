@@ -176,3 +176,12 @@
   height: 100%;
   width: auto;
 }
+
+/**
+* custom markdown containers
+* libs/markdown/src/lib/parse-content.ts
+*/
+
+html body .splash h1 {
+  font-size: 60px;
+}

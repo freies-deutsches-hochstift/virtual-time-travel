@@ -1,4 +1,24 @@
-import { marked } from 'marked';
+import MarkdownIt from 'markdown-it';
+import mdContainerPlugin from 'markdown-it-container';
+import linkAttributesPlugin from 'markdown-it-link-attributes';
+
+const md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
+});
+
+md.use(linkAttributesPlugin, {
+  matcher(href: string) {
+    return href.startsWith('https:') || href.startsWith('http:');
+  },
+  attrs: {
+    target: '_blank',
+    rel: 'noopener',
+  },
+});
+
+md.use(mdContainerPlugin, 'splash');
 
 export interface FetchMarkdownRes {
   content?: string;
@@ -14,5 +34,5 @@ export async function getParsedFileContentById(
     return {};
   }
 
-  return { content: marked.parse(data) };
+  return { content: md.render(data) };
 }

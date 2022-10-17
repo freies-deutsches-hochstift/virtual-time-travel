@@ -50,9 +50,11 @@ Ordered
 
 ## Links
 
-[link text](https://google.de)
+[external link](https://google.de)
 
-[link with title](https://google.de 'title text!'
+[internal link](/welcome)
+
+[link with title](https://google.de 'title text!')
 
 Autoconverted link https://google.de
 
