@@ -14,12 +14,16 @@ export function SplashScreen() {
     <Link to={getRoutePath(MainRoutes.Intro)}>
       <RouteAnimation>
         <Page withLogo>
-          <Markdown {...{ contentUrl: splashPageContent }} />
-          <ActionsGroup left>
-            <Button secondary>
-              {start}
-            </Button>
-          </ActionsGroup>
+          <div className='flex flex-col min-h-full'>
+            <Markdown {...{ contentUrl: splashPageContent }} />
+            <div className='flex-1 flex items-center'>
+              <ActionsGroup left>
+                <Button inverted>
+                  {start}
+                </Button>
+              </ActionsGroup>
+            </div>
+          </div>
         </Page>
       </RouteAnimation>
     </Link>

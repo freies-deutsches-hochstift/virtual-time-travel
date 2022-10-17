@@ -7,6 +7,7 @@ type StyledButtonStyleProps = {
   secondary?: boolean
   disabled?: boolean
   highlight?: boolean
+  inverted?: boolean
 }
 
 export interface ButtonProps extends StyledButtonStyleProps {
@@ -15,7 +16,7 @@ export interface ButtonProps extends StyledButtonStyleProps {
 }
 
 export function Button(props: ButtonProps) {
-  const { children, onClick, secondary, disabled, highlight, rounded } = props
+  const { children, onClick, secondary, disabled, highlight, rounded, inverted } = props
   const [triggered, setTriggered] = useState(false)
 
   const handleClick = useCallback(() => {
@@ -26,7 +27,7 @@ export function Button(props: ButtonProps) {
   return (
     <StyledButton
       onClick={handleClick}
-      {...{ rounded, secondary, highlight, disabled: disabled || triggered }}
+      {...{ rounded, secondary, highlight, disabled: disabled || triggered, inverted }}
     >
       {children}
     </StyledButton>
@@ -39,6 +40,7 @@ const StyledButton = styled.span(
     secondary,
     highlight,
     disabled,
+    inverted
   }: StyledButtonStyleProps) => [
       tw`
     py-2 px-4
@@ -54,8 +56,11 @@ const StyledButton = styled.span(
     }
   `,
       rounded && tw`rounded-ui-button`,
+      inverted && tw`bg-ui-button-primary text-ui-button-primary-bg`,
       secondary && tw`text-ui-button-secondary bg-ui-button-secondary-bg`,
+      secondary && inverted && tw`bg-ui-button-secondary text-ui-button-secondary-bg`,
       highlight && tw`text-ui-button-highlight bg-ui-button-highlight-bg`,
+      highlight && inverted && tw`bg-ui-button-highlight text-ui-button-highlight-bg`,
       disabled &&
       tw`text-ui-button-disabled bg-ui-button-disabled-bg pointer-events-none`,
     ]
