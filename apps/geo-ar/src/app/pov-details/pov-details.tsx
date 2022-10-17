@@ -6,6 +6,8 @@ import { getHashSearchParams, useOnClosePov } from '@virtual-time-travel/app-rou
 import { PovCardDetails } from '@virtual-time-travel/ui'
 import { povsActions, selectCurrentPov } from '../store/povs.slice'
 
+import CloseIcon from '/assets/layout/close.svg'
+
 
 
 export function PovDetails() {
@@ -33,7 +35,7 @@ export function PovDetails() {
   if (!pov) return <></>
 
   return (
-    <PovCardDetails {...{ pov, onClose }} />
+    <PovCardDetails {...{ pov, onClose, closeIcon: <CloseIcon /> }} />
   )
 }
 

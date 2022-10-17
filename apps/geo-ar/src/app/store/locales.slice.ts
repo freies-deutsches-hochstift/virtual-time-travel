@@ -17,7 +17,12 @@ export interface LocaleId {
   slug: string;
   label: string;
   default: boolean;
+  labels?: Labels;
 }
+
+type Labels = {
+  [key: string]: string;
+};
 
 export interface LocalesState {
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
@@ -86,4 +91,13 @@ export const getLocalesState = (rootState: RootState): LocalesState =>
 export const selectCurrentLocale = createSelector(
   getLocalesState,
   ({ current }) => current
+);
+
+export const selectLabels = createSelector(
+  getLocalesState,
+  ({ current, entries }) => {
+    const locale = entries?.find((e) => e.slug === current);
+
+    return locale?.labels || {};
+  }
 );

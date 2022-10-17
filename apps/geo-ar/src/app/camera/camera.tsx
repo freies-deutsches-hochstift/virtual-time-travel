@@ -12,6 +12,7 @@ import {
 } from '@virtual-time-travel/util-device'
 import { selectDialogsContentUrls } from '../store/config.slice'
 import { deviceActions, selectCameraPermission } from '../store/device.slice'
+import { selectLabels } from '../store/locales.slice'
 
 
 export interface CameraProps {
@@ -23,6 +24,7 @@ export const Camera = memo(({ onDecodeQr }: CameraProps) => {
   const dispatch = useDispatch<Dispatch>()
 
   const dialogsContentUrl = useSelector(selectDialogsContentUrls)
+  const { confirm } = useSelector(selectLabels)
   const cameraStatus = useSelector(selectCameraPermission)
 
   const requestCameraDialog = useMemo(
@@ -65,6 +67,7 @@ export const Camera = memo(({ onDecodeQr }: CameraProps) => {
       {...{
         onRequestCameraComplete,
         requestCameraDialog,
+        onConfirmLabel: confirm,
         devicePermissionsStatus: [cameraStatus],
         onDecodeQr
       }}

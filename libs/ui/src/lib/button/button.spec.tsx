@@ -3,7 +3,7 @@ import Button from './button'
 
 describe('Button', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Button label="Try me" onClick={() => console.log('Button onClick')} />)
+    const { baseElement } = render(<Button onClick={() => console.log('Button onClick')}>Label</Button>)
     expect(baseElement).toBeTruthy()
   })
 })

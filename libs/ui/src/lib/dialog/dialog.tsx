@@ -9,10 +9,12 @@ export interface DialogProps {
   contentUrl: string
   onConfirm?: (event: unknown) => unknown
   onCancel?: (event: unknown) => unknown
+  onConfirmLabel?: string
+  onCancelLabel?: string
 }
 
 export function Dialog(props: DialogProps) {
-  const { contentUrl, onCancel, onConfirm } = props
+  const { contentUrl, onCancel, onConfirm, onConfirmLabel, onCancelLabel } = props
 
   const withConfirm = useMemo(
     () => typeof onConfirm === 'function',
@@ -29,7 +31,8 @@ export function Dialog(props: DialogProps) {
         </StyledDialogContent>
         {withConfirm && (
           <ActionsGroup>
-            {!!onConfirm && <Button label="confirm" onClick={onConfirm} />}
+            {!!onCancel && <Button secondary onClick={onCancel}>{onCancelLabel || 'cancel'}</Button>}
+            {!!onConfirm && <Button onClick={onConfirm}>{onConfirmLabel || 'ok'}</Button>}
           </ActionsGroup>
         )}
       </StyledDialogInner>

@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom'
 import tw from 'twin.macro'
 import { MenuLinkProps, StyledMenuLink } from './link'
 
-import Arrow from '/assets/medias/arrow.svg'
+// TODO!!
+import Arrow from '/assets/layout/arrow.svg'
 
 
 export const MenuBackLink = ({ label, linkTo }: MenuLinkProps) => {

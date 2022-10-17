@@ -13,6 +13,7 @@ export interface CameraStreamProps {
   captureOptions?: MediaStreamConstraints;
   onRequestCameraComplete?: (res: DeviceResponsePermission) => void;
   requestCameraDialog: string;
+  onConfirmLabel: string;
   devicePermissionsStatus: Array<PermissionStatus>;
   onDecodeQr?: OnDecodeQr;
 }

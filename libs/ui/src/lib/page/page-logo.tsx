@@ -1,4 +1,5 @@
-import Logo from '/assets/medias/app-logo.svg'
+// TODO!
+import Logo from '/assets/layout/app-logo.svg'
 
 /**
  * app dependent logos can have different sizes/positions

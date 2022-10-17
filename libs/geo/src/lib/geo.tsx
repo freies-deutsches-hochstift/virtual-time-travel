@@ -17,6 +17,7 @@ import useOrientation from './use-orientation/use-orientation'
 
 export interface GeoProps {
   requestGeoDialog: string
+  onConfirmLabel: string
   onChangePosition: (pos: DeviceLocationEventRes) => void
   onRequestGeolocationComplete?: (res: DeviceResponsePermission) => void
   locationOptions?: LocationOptions
@@ -28,7 +29,7 @@ export interface GeoProps {
 
 export function Geo(props: GeoProps) {
 
-  const { onChangePosition, onRequestGeolocationComplete, locationOptions, onChangeOrientation, onRequestOrientationComplete, requestGeoDialog, devicePermissionsStatus, children } = props
+  const { onChangePosition, onRequestGeolocationComplete, locationOptions, onChangeOrientation, onRequestOrientationComplete, requestGeoDialog, onConfirmLabel, devicePermissionsStatus, children } = props
   const { requestLocation } = useLocation(onChangePosition, onRequestGeolocationComplete, locationOptions)
   const { requestOrientation } = useOrientation(onChangeOrientation, onRequestOrientationComplete)
 
@@ -39,7 +40,7 @@ export function Geo(props: GeoProps) {
     requestLocation, requestOrientation
   ])
 
-  return <WithDevicePermissionDialog {...{ onConfirm, dialogContentUrl: requestGeoDialog, devicePermissionsStatus }}>
+  return <WithDevicePermissionDialog {...{ onConfirm, onConfirmLabel, dialogContentUrl: requestGeoDialog, devicePermissionsStatus }}>
     {children}
   </WithDevicePermissionDialog>
 

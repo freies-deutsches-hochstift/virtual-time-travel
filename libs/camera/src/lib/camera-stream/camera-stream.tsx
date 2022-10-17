@@ -16,6 +16,7 @@ export const CameraStream = memo((props: CameraStreamProps) => {
     captureOptions,
     onRequestCameraComplete,
     requestCameraDialog,
+    onConfirmLabel,
     devicePermissionsStatus,
     onDecodeQr
   } = props
@@ -81,6 +82,7 @@ export const CameraStream = memo((props: CameraStreamProps) => {
       <WithDevicePermissionDialog
         {...{
           onConfirm: requestStream,
+          onConfirmLabel,
           dialogContentUrl: requestCameraDialog,
           devicePermissionsStatus,
         }}

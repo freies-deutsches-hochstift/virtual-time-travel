@@ -13,6 +13,8 @@ export interface WithDevicePermissionDialogProps {
   onConfirm: (event?: unknown) => unknown
   onCancel?: (event?: unknown) => unknown
   dialogContentUrl: string
+  onConfirmLabel?: string
+  onCancelLabel?: string
   devicePermissionsStatus: Array<PermissionStatus>
   children?: ReactNode
 }
@@ -22,6 +24,8 @@ export function WithDevicePermissionDialog({
   onCancel,
   dialogContentUrl,
   devicePermissionsStatus,
+  onConfirmLabel,
+  onCancelLabel,
   children,
 }: WithDevicePermissionDialogProps) {
   const [hasAlreadyPermissions] = useState(
@@ -40,5 +44,8 @@ export function WithDevicePermissionDialog({
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>
 
-  return <Dialog {...{ onCancel, onConfirm, contentUrl: dialogContentUrl }} />
+  return <Dialog {...{
+    onCancel, onConfirm, contentUrl: dialogContentUrl, onConfirmLabel,
+    onCancelLabel,
+  }} />
 }
