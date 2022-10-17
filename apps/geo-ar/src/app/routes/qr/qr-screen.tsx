@@ -8,7 +8,7 @@ import tw from 'twin.macro'
 import Camera from '../../camera/camera'
 import { selectDialogsContentUrls } from '../../store/config.slice'
 import { selectCurrentPov } from '../../store/povs.slice'
-import { ScreenAnimation } from '../screen-animation'
+import { RouteAnimation } from '../route-animation'
 
 export function QrScreen() {
   const dialogsContentUrl = useSelector(selectDialogsContentUrls)
@@ -31,7 +31,7 @@ export function QrScreen() {
   }, [currentPov, onResetQrReader])
 
   return (
-    <ScreenAnimation>
+    <RouteAnimation>
       <StyledQr>
         {invalidQr && (
           <Dialog
@@ -41,7 +41,7 @@ export function QrScreen() {
         )}
         <Camera {...{ onDecodeQr: onDecodeQr }} />
       </StyledQr>
-    </ScreenAnimation>
+    </RouteAnimation>
   )
 }
 

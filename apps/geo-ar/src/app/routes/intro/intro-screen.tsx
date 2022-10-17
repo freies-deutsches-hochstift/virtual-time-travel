@@ -10,14 +10,14 @@ import {
   selectIntroPageContent,
   selectListPageContent,
 } from '../../store/pages.slice'
-import { ScreenAnimation } from '../screen-animation'
+import { RouteAnimation } from '../route-animation'
 
 export function IntroScreen() {
   const introPageContent = useSelector(selectIntroPageContent)
   const listPageContent = useSelector(selectListPageContent)
 
   return (
-    <ScreenAnimation>
+    <RouteAnimation>
       <Page>
         <Markdown {...{ contentUrl: introPageContent }} />
         <StyledPageGroup>
@@ -27,7 +27,7 @@ export function IntroScreen() {
           </StyledPageDivider>
         </StyledPageGroup>
       </Page>
-    </ScreenAnimation>
+    </RouteAnimation>
   )
 }
 

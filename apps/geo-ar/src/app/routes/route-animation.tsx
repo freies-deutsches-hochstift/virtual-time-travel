@@ -1,11 +1,11 @@
 import { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 
-export interface ScreenAnimationProps {
+export interface RouteAnimationProps {
   children: ReactNode
 }
 
-export const ScreenAnimation = ({ children }: ScreenAnimationProps) => {
+export const RouteAnimation = ({ children }: RouteAnimationProps) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}

@@ -1,11 +1,11 @@
 import Ar from '../../ar/ar'
-import { ScreenAnimation } from '../screen-animation'
+import { RouteAnimation } from '../route-animation'
 
 export function ArScreen() {
   return (
-    <ScreenAnimation>
+    <RouteAnimation>
       <Ar />
-    </ScreenAnimation>
+    </RouteAnimation>
   )
 }
 

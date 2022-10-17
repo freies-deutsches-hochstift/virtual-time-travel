@@ -19,7 +19,7 @@ import {
   EnhancedPageEntry,
   usePageWithSubpages,
 } from '../../store/pages.slice'
-import { ScreenAnimation } from '../screen-animation'
+import { RouteAnimation } from '../route-animation'
 
 export function MenuScreen() {
   const { route, isSubroute } = useNestedRoute()
@@ -35,7 +35,7 @@ export function MenuScreen() {
   const { slug, localizedTitle, contentUrl } = page
 
   return (
-    <ScreenAnimation key={currentPage}>
+    <RouteAnimation key={currentPage}>
       <Page withLogo={!isSubroute}>
         {isSubroute && (
           <MenuBackLink
@@ -49,7 +49,7 @@ export function MenuScreen() {
           <MainMenu {...{ subpages }} />
         )}
       </Page>
-    </ScreenAnimation>
+    </RouteAnimation>
   )
 }
 

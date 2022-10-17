@@ -5,14 +5,14 @@ import { Markdown } from '@virtual-time-travel/markdown'
 import { ActionsGroup, Button, Page } from '@virtual-time-travel/ui'
 import { selectLabels } from '../../store/locales.slice'
 import { selectSplashPageContent } from '../../store/pages.slice'
-import { ScreenAnimation } from '../screen-animation'
+import { RouteAnimation } from '../route-animation'
 
 export function SplashScreen() {
   const splashPageContent = useSelector(selectSplashPageContent)
   const { start } = useSelector(selectLabels)
   return (
     <Link to={getRoutePath(MainRoutes.Intro)}>
-      <ScreenAnimation>
+      <RouteAnimation>
         <Page withLogo>
           <Markdown {...{ contentUrl: splashPageContent }} />
           <ActionsGroup left>
@@ -21,7 +21,7 @@ export function SplashScreen() {
             </Button>
           </ActionsGroup>
         </Page>
-      </ScreenAnimation>
+      </RouteAnimation>
     </Link>
   )
 }
