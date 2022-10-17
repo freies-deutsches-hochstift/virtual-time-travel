@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from '@emotion/styled'
@@ -9,6 +8,7 @@ import tw from 'twin.macro'
 import Camera from '../../camera/camera'
 import { selectDialogsContentUrls } from '../../store/config.slice'
 import { selectCurrentPov } from '../../store/povs.slice'
+import { ScreenAnimation } from '../screen-animation'
 
 export function QrScreen() {
   const dialogsContentUrl = useSelector(selectDialogsContentUrls)
@@ -26,20 +26,24 @@ export function QrScreen() {
 
   const { onDecodeQr, onResetQrReader } = useQrData(onInvalidQr)
 
-
   useEffect(() => {
     if (!currentPov) onResetQrReader()
   }, [currentPov, onResetQrReader])
 
-
   return (
-    <StyledQr>
-      {invalidQr && <Dialog contentUrl={invalidQrContentDialog} onConfirm={onResetQrReader} />}
-      <Camera {...{ onDecodeQr: onDecodeQr }} />
-    </StyledQr>
+    <ScreenAnimation>
+      <StyledQr>
+        {invalidQr && (
+          <Dialog
+            contentUrl={invalidQrContentDialog}
+            onConfirm={onResetQrReader}
+          />
+        )}
+        <Camera {...{ onDecodeQr: onDecodeQr }} />
+      </StyledQr>
+    </ScreenAnimation>
   )
 }
-
 
 const StyledQr = styled.div(tw`
   w-full h-full

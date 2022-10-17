@@ -10,21 +10,24 @@ import {
   selectIntroPageContent,
   selectListPageContent,
 } from '../../store/pages.slice'
+import { ScreenAnimation } from '../screen-animation'
 
 export function IntroScreen() {
   const introPageContent = useSelector(selectIntroPageContent)
   const listPageContent = useSelector(selectListPageContent)
 
   return (
-    <Page>
-      <Markdown {...{ contentUrl: introPageContent }} />
-      <StyledPageGroup>
-        <Markdown {...{ contentUrl: listPageContent }} />
-        <StyledPageDivider>
-          <PovsList />
-        </StyledPageDivider>
-      </StyledPageGroup>
-    </Page>
+    <ScreenAnimation>
+      <Page>
+        <Markdown {...{ contentUrl: introPageContent }} />
+        <StyledPageGroup>
+          <Markdown {...{ contentUrl: listPageContent }} />
+          <StyledPageDivider>
+            <PovsList />
+          </StyledPageDivider>
+        </StyledPageGroup>
+      </Page>
+    </ScreenAnimation>
   )
 }
 

@@ -1,8 +1,12 @@
-import Ar from "../../ar/ar"
-
+import Ar from '../../ar/ar'
+import { ScreenAnimation } from '../screen-animation'
 
 export function ArScreen() {
-  return <Ar />
+  return (
+    <ScreenAnimation>
+      <Ar />
+    </ScreenAnimation>
+  )
 }
 
 export default ArScreen
