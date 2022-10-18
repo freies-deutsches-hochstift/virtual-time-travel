@@ -15,6 +15,14 @@ import {
 } from '@virtual-time-travel/util-device';
 import { geolocation } from '../utils';
 
+const IS_IOS =
+  navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
+  navigator.userAgent.match(/AppleWebKit/);
+
+const ORIENTATION_EVENT = IS_IOS
+  ? 'deviceorientation'
+  : ('deviceorientationabsolute' as unknown as keyof WindowEventMap);
+
 export function useOrientation(
   onChange: (event: DeviceOrientationEventRes) => void,
   onRequestComplete?: (res: DeviceResponsePermission) => void
@@ -24,14 +32,33 @@ export function useOrientation(
   );
 
   const handleOrientation = useCallback(
-    (event: DeviceOrientationEventExtended) => {
-      console.debug('DeviceOrientationEvent::Changed', event);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (event: any): any => {
+      // console.debug('DeviceOrientationEvent::Changed', event);
       onChange(geolocation.getOrientationEventRes(event));
     },
     [onChange]
   );
 
   const requestOrientation = useCallback(() => {
+    // if unsupported browser
+    if (!window.ondeviceorientationabsolute && !!window.ondeviceorientation) {
+      if (onRequestComplete) {
+        onRequestComplete({
+          status: PermissionStatus.Unavailable,
+          error: null,
+        });
+        return;
+      }
+    }
+
+    // if android (does not need request permissions)
+    if (!IS_IOS && onRequestComplete) {
+      onRequestComplete({ status: PermissionStatus.Granted, error: null });
+      return;
+    }
+
+    // if IOS
     const requestPermission = (
       DeviceOrientationEvent as unknown as DeviceOrientationEventExtended
     ).requestPermission;
@@ -63,9 +90,9 @@ export function useOrientation(
 
   useEffect(() => {
     if (permissionStatus === PermissionStatus.Denied) return;
-    window.addEventListener('deviceorientation', handleOrientation);
+    window.addEventListener(ORIENTATION_EVENT, handleOrientation);
     return () => {
-      window.removeEventListener('deviceorientation', handleOrientation);
+      window.removeEventListener(ORIENTATION_EVENT, handleOrientation);
     };
   }, [permissionStatus, handleOrientation]);
 

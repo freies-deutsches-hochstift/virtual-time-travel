@@ -23,7 +23,6 @@ export interface DeviceOrientationEventRes {
   beta: number | null;
   gamma: number | null;
   compassHeading: number;
-  compassAccuracy: number | null;
 }
 
 export interface DeviceLocationEventRes {

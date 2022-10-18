@@ -80,14 +80,14 @@ const getBearingDeltaUnit = (startBearing: number, endBearing: number) => {
  */
 
 const getOrientationEventRes = (event: DeviceOrientationEventExtended) => {
-  const { alpha, beta, gamma, webkitCompassHeading, webkitCompassAccuracy } =
-    event;
+  const { alpha, beta, gamma, webkitCompassHeading } = event;
+  const anyAlpha = alpha || 0;
+
   return {
-    alpha: alpha?.toFixed(1),
+    alpha: anyAlpha?.toFixed(1),
     beta: beta?.toFixed(1),
     gamma: gamma?.toFixed(1),
-    compassHeading: Math.floor(webkitCompassHeading || 0),
-    compassAccuracy: Math.floor(webkitCompassAccuracy || 0),
+    compassHeading: webkitCompassHeading || Math.abs(anyAlpha - 360) || 0,
   } as unknown as DeviceOrientationEventRes;
 };
 
