@@ -1,94 +1,44 @@
+import { memo, useEffect, useRef } from 'react'
+import styled from '@emotion/styled'
+import tw from 'twin.macro'
+import { MediaDeviceRes } from '../utils'
 
-/**
- * Camera stream component to be used standalone and or as qr-scanner
- * TODO: QrScanner has some deprecated types mismatch
- */
-
-
-import { memo, useCallback, useEffect, useRef, useState } from 'react'
-import { WithDevicePermissionDialog } from '@virtual-time-travel/ui'
-import QrScanner from 'qr-scanner'
-import { camera, CameraResponsePermission, CameraStreamProps } from '../camera'
-import Video from '../video/video'
+interface CameraStreamProps {
+  device: MediaDeviceRes
+}
 
 export const CameraStream = memo((props: CameraStreamProps) => {
-  const {
-    captureOptions,
-    onRequestCameraComplete,
-    requestCameraDialog,
-    onConfirmLabel,
-    devicePermissionsStatus,
-    onDecodeQr
-  } = props
+  const { device } = props
 
-  const videoElRef = useRef<HTMLVideoElement>(null)
-  const [mediaStream, setMediaStream] = useState<MediaStream | null>(null)
-
-  const setResponse = (res: CameraResponsePermission) => {
-    const { device } = res
-    if (!videoElRef.current || !device?.stream) return
-    setMediaStream(device.stream)
-    videoElRef.current.srcObject = device.stream
-  }
-
-  const requestStream = useCallback(async () => {
-    const res = await camera.requestPermission(captureOptions, true)
-    const { status, error } = res
-    setResponse(res)
-    if (onRequestCameraComplete)
-      onRequestCameraComplete({ status, error: JSON.stringify(error) })
-  }, [captureOptions, onRequestCameraComplete])
-
-
-  const onDecodeError = useCallback((error) => {
-    console.debug('QR-SCANNER', error)
-  }, []) as (error: Error | string) => void
-
+  const videoElRef = useRef<HTMLVideoElement | null>(null)
+  const { stream } = device
 
   useEffect(() => {
-    if (!videoElRef.current || !mediaStream) return
-    videoElRef.current.srcObject = mediaStream
+    console.log(stream)
+    if (!videoElRef.current || !stream) return
+    videoElRef.current.srcObject = stream
 
     return () => {
-      if (mediaStream)
-        mediaStream.getTracks().forEach((track) => {
+      if (stream)
+        stream.getTracks().forEach((track) => {
           track.stop()
         })
     }
-  }, [mediaStream])
-
-
-  useEffect(() => {
-    if (!videoElRef.current || !mediaStream) return
-    let qrScanner: QrScanner | null = null
-    const video = videoElRef.current as HTMLVideoElement
-
-    if (typeof onDecodeQr !== 'function') return
-
-    qrScanner = new QrScanner(video, onDecodeQr, onDecodeError)
-    qrScanner.start()
-
-    return () => {
-      if (qrScanner)
-        qrScanner.destroy()
-    }
-
-  }, [mediaStream, onDecodeQr, onDecodeError])
-
-
+  }, [stream])
 
   return (
-    <>
-      <WithDevicePermissionDialog
-        {...{
-          onConfirm: requestStream,
-          onConfirmLabel,
-          dialogContentUrl: requestCameraDialog,
-          devicePermissionsStatus,
-        }}
-      />
-      {/* videoElRef needs to be always avail */}
-      <Video ref={videoElRef} {...{ autoplay: true }} />
-    </>
+    <StyledVideoWrapper>
+      <StyledVideo ref={videoElRef} autoPlay playsInline muted />
+    </StyledVideoWrapper>
   )
 })
+
+const StyledVideoWrapper = styled.div(tw`
+  w-full h-full relative overflow-hidden
+`)
+
+const StyledVideo = styled.video(tw`
+  block w-full h-full object-cover
+`)
+
+export default CameraStream

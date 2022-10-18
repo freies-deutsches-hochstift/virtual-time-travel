@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from '@reduxjs/toolkit'
 import { DialogsContentsIds } from '@virtual-time-travel/app-config'
 import { OnDecodeQr } from '@virtual-time-travel/app-router'
-import { CameraStream } from '@virtual-time-travel/camera'
+import { Camera } from '@virtual-time-travel/camera'
 import { Dialog } from '@virtual-time-travel/ui'
 import {
   DeviceFeatures,
@@ -20,7 +20,7 @@ export interface CameraProps {
 }
 
 
-export const Camera = memo(({ onDecodeQr }: CameraProps) => {
+export const ArCamera = memo(({ onDecodeQr }: CameraProps) => {
   const dispatch = useDispatch<Dispatch>()
 
   const dialogsContentUrl = useSelector(selectDialogsContentUrls)
@@ -63,7 +63,7 @@ export const Camera = memo(({ onDecodeQr }: CameraProps) => {
   return isCameraUnavailable ? (
     <Dialog contentUrl={cameraUnavailableDialog} />
   ) :
-    <CameraStream
+    <Camera
       {...{
         onRequestCameraComplete,
         requestCameraDialog,
@@ -74,4 +74,4 @@ export const Camera = memo(({ onDecodeQr }: CameraProps) => {
     />
 })
 
-export default Camera
+export default ArCamera
