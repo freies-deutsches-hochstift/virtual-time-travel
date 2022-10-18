@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import styled from '@emotion/styled'
-import { Markdown } from '@virtual-time-travel/markdown'
+import { Markdown, StyledMarkdown } from '@virtual-time-travel/markdown'
 import tw from 'twin.macro'
 import { ActionsGroup } from '../actions-group/actions-group'
 import Button from '../button/button'
@@ -25,7 +25,7 @@ export function Dialog(props: DialogProps) {
   return (
     <StyledDialog>
       <StyledDialogInner>
-        {withCancel && <div onClick={onCancel}>x</div>}
+        {withCancel && <div onClick={onCancel}></div>}
         <StyledDialogContent>
           <Markdown {...{ contentUrl }} />
         </StyledDialogContent>
@@ -59,21 +59,23 @@ const StyledDialogInner = styled.div([
     height: 70vh;
     filter: var(--ui-dialog-filter);
 
-    & img {
+    ${StyledMarkdown} img,
+    img {
       max-height: 35vh;
       margin: auto;
       object-fit: contain;
     }
 
-    & h1, & h2 {
-      font-size: 2rem;
-      line-height: 1.25em;
+    ${StyledMarkdown} h3 {
+      font-size: 1.5rem;
+      line-height: 1.6em;
       margin: 0 0 1rem 0;
     }
 
-    & h3 {
-      font-size: 1.5rem;
-      line-height: 1.6em;
+    ${StyledMarkdown} h1,
+    ${StyledMarkdown} h2 {
+      font-size: 2rem;
+      line-height: 1.25em;
       margin: 0 0 1rem 0;
     }
   `,

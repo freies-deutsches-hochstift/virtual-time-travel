@@ -42,7 +42,7 @@ export function Markdown({ contentUrl, fallbackComponent }: PageProps) {
 
 export default Markdown
 
-const StyledMarkdown = styled.div([
+export const StyledMarkdown = styled.div([
   `
     h1 {
       font-size: 3rem;
