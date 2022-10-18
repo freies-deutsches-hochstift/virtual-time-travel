@@ -2,7 +2,7 @@ export * from './lib/actions-group/actions-group';
 export * from './lib/button/button';
 export * from './lib/dialog/dialog';
 export * from './lib/geo';
-export * from './lib/icon/icon';
+export * from './lib/icon';
 export * from './lib/main-nav/main-nav';
 export * from './lib/menu';
 export * from './lib/page';

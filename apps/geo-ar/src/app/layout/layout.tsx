@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import styled from '@emotion/styled'
 import { getRoutePath, MainRoutes } from '@virtual-time-travel/app-router'
-import { MainNav, MainNavButton } from '@virtual-time-travel/ui'
+import { Icons, MainNav, MainNavButton } from '@virtual-time-travel/ui'
 import tw from 'twin.macro'
 import PovDetails from '../pov-details/pov-details'
 
@@ -24,19 +24,19 @@ export function Layout(props: LayoutProps) {
       <MainNav>
         <>
           <MainNavButton
-            type={MainRoutes.Explore}
+            type={Icons.Explore}
             link={getRoutePath(MainRoutes.Explore)}
           />
           <MainNavButton
-            type={MainRoutes.Qr}
+            type={Icons.Qr}
             link={getRoutePath(MainRoutes.Qr)}
           />
           <MainNavButton
-            type={MainRoutes.List}
+            type={Icons.List}
             link={getRoutePath(MainRoutes.List)}
           />
           <MainNavButton
-            type={MainRoutes.Menu}
+            type={Icons.Menu}
             link={getRoutePath(MainRoutes.Menu)}
           />
         </>

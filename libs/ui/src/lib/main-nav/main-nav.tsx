@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
-import Icon from '../icon/icon'
+import Icon from '../icon'
 
 export interface MainNavProps {
   children: ReactNode

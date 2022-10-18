@@ -59,8 +59,6 @@
         "polyfills": "apps/geo-ar/src/polyfills.ts",
         "tsConfig": "apps/geo-ar/tsconfig.app.json",
         "assets": [
-          "apps/geo-ar/src/favicon.ico",
-          "apps/geo-ar/src/assets",
           {
             "input": "apps/geo-ar/assets/",
             "glob": "**/*",
