@@ -9,8 +9,9 @@ export interface ScrollableProps {
 
 export const Scrollable = ({ children }: ScrollableProps) => {
   const ctnRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const { height = 0 } = useResizeObserver<HTMLDivElement>({
-    ref: ctnRef,
+    ref: scrollRef,
   })
 
   const [isScrollable, setIsScrollable] = useState<boolean>(false)
@@ -18,17 +19,22 @@ export const Scrollable = ({ children }: ScrollableProps) => {
 
   const handleScroll = () => {
     if (!ctnRef.current) return
+
     setIsScrollTop(ctnRef.current.scrollTop === 0)
   }
 
   useEffect(() => {
     if (!ctnRef?.current) return
-    setIsScrollable(ctnRef.current.scrollHeight > height)
+    setIsScrollable(ctnRef.current.scrollHeight > ctnRef.current.offsetHeight)
   }, [height])
 
   return (
-    <StyledScrollableCtn ref={ctnRef} {...{ isScrollable, isScrollTop }} onScroll={handleScroll}>
-      <StyledScrollable {...{ isScrollable }}>{children}</StyledScrollable>
+    <StyledScrollableCtn
+      ref={ctnRef}
+      {...{ isScrollable, isScrollTop }}
+      onScroll={handleScroll}
+    >
+      <StyledScrollable ref={scrollRef} {...{ isScrollable }}>{children}</StyledScrollable>
     </StyledScrollableCtn>
   )
 }
@@ -38,19 +44,21 @@ export interface StyledScrollableCtnProps {
   isScrollable?: boolean
 }
 
-export const StyledScrollableCtn = styled.div(({ isScrollTop, isScrollable }: StyledScrollableCtnProps) => [
-  tw`
-      w-full h-full flex
+export const StyledScrollableCtn = styled.div(
+  ({ isScrollTop, isScrollable }: StyledScrollableCtnProps) => [
+    tw`
+      w-full h-full flex flex-col flex-nowrap
       overflow-y-auto
     `,
 
-  isScrollable &&
-  `
+    isScrollable &&
+    `
     mask-image: var(--page-scrollmask);
   `,
 
-  isScrollTop && `mask-image: var(--page-scrollmask--bottom);`
-])
+    isScrollTop && `mask-image: var(--page-scrollmask-bottom);`,
+  ]
+)
 
 export interface StyledScrollableProps {
   isScrollable?: boolean
@@ -58,8 +66,7 @@ export interface StyledScrollableProps {
 
 export const StyledScrollable = styled.div(
   ({ isScrollable }: StyledScrollableProps) => [
-
-    tw`w-full flex flex-col`,
+    tw`w-full flex-1 flex flex-col`,
     isScrollable &&
     `
       padding-bottom: var(--bottom-mask-size);
