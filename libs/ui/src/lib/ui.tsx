@@ -72,8 +72,7 @@ export const StyledCardDetailsInner = styled.div(() =>
 export const StyledCardDetailsContent = styled.div(() =>
   [
     tw`
-      flex-1
+      w-full h-full overflow-hidden
     `
   ]
 )
-

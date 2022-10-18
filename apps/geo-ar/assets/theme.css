@@ -78,6 +78,12 @@
     transparent 100%
   );
 
+  --page-scrollmask-bottom: linear-gradient(
+    to bottom,
+    black calc(100% - var(--bottom-mask-size, 0)),
+    transparent 100%
+  );
+
   /* libs/Ui/MainNav */
   --ui-nav-bg: var(--primary-b);
   --ui-nav-link: var(--primary-a);

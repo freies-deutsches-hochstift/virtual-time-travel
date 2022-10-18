@@ -21,15 +21,21 @@ export interface StyledMenuLinkProps {
   main?: boolean
 }
 
-export const StyledMenuLink = styled.span((props: StyledMenuLinkProps) => [
+export const StyledMenuLink = styled.span(({ main }: StyledMenuLinkProps) => [
   tw`
     py-2 w-full flex gap-2 items-center
   `,
-  props.main && tw`font-headline text-xl tracking-wide`,
-  !props.main && `
+  main && tw`font-headline text-xl tracking-wide`,
+  !main && `
     text-decoration: underline;
     text-underline-offset: .4em;
   `,
+
+  `svg, img {
+    height: 1.1em;
+    width: auto;
+    margin: .1em 0 0 0;
+  }`
 ])
 
 

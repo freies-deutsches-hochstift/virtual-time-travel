@@ -2,6 +2,7 @@ import { EnhancedPov } from '@virtual-time-travel/geo-types'
 import { Markdown } from '@virtual-time-travel/markdown'
 import Button from '../button/button'
 import Icon, { Icons } from '../icon'
+import Scrollable from '../scrollable/scrollable'
 import {
   StyledCardDetails,
   StyledCardDetailsContent,
@@ -23,10 +24,12 @@ export function PovCardDetails({
     <StyledCardDetails>
       <StyledCardDetailsInner>
         <StyledCardDetailsContent>
-          <Markdown
-            contentUrl={contentUrl}
-            fallbackComponent={<MissingPovFallback {...{ pov }} />}
-          />
+          <Scrollable>
+            <Markdown
+              contentUrl={contentUrl}
+              fallbackComponent={<MissingPovFallback {...{ pov }} />}
+            />
+          </Scrollable>
         </StyledCardDetailsContent>
 
         <Button highlight {...{ onClick: onClose, rounded: false }}>

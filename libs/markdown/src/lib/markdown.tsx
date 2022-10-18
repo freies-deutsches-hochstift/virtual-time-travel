@@ -95,5 +95,9 @@ export const StyledMarkdown = styled.div([
     > * + img {
       padding-top: 1em;
     }
+
+    .card {
+      padding: 1.5rem;
+    }
   `,
 ])

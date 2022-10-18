@@ -19,6 +19,7 @@ md.use(linkAttributesPlugin, {
 });
 
 md.use(mdContainerPlugin, 'splash');
+md.use(mdContainerPlugin, 'card');
 
 export interface FetchMarkdownRes {
   content?: string;
