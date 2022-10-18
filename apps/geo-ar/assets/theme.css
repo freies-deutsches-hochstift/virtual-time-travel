@@ -164,6 +164,16 @@
 
   --ui-card-details-bg: var(--primary);
   --ui-card-details-text: var(--primary-b);
+
+  --ui-toggle-size: 2rem;
+
+  --ui-map-mask: linear-gradient(
+    to bottom,
+    black 0,
+    transparent var(--top-mask-size, 0),
+    transparent calc(100% - var(--bottom-mask-size, 0)),
+    black 100%
+  );
 }
 
 /**

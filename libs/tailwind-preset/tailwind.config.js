@@ -111,6 +111,13 @@ const sharedTheme = {
               tickmarker: 'var(--ui-pov-compass-tickmarker-width)',
             },
           },
+          toggle: 'var(--ui-toggle-size)',
+        },
+      },
+
+      minWidth: {
+        ui: {
+          toggle: 'calc(var(--ui-toggle-size) * 2)',
         },
       },
 
@@ -125,6 +132,7 @@ const sharedTheme = {
               tickmarker: 'var(--ui-pov-compass-tickmarker-height)',
             },
           },
+          toggle: 'var(--ui-toggle-size)',
         },
       },
 
