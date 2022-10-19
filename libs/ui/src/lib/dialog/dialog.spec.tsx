@@ -7,6 +7,12 @@ describe('Dialog', () => {
       onConfirm: () => console.log('Dialog onConfirm'),
       onCancel: () => console.log('Dialog onCancel'),
       contentUrl: '/assets/items/dialogs/locales/de/request-camera.md',
+      labels: {
+        confirm: 'ok',
+        cancel: 'cancel',
+        skip: 'skip',
+        next: 'go'
+      }
     }} />)
     expect(baseElement).toBeTruthy()
   })

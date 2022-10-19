@@ -1,5 +1,6 @@
-![image](/assets/items/dialogs/medias/geolocation.png)
+![image](/assets/items/dialogs/medias/out-of-geofence.svg)
 
-### !! Ups out of avail geofences !!
+### Kein Blickwinkel in der Nähe
 
-Proin eget tortor risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Du befindest dich momentan nicht in der Nähe eines Blickwinkels.
+Schaue auf der Kartenansicht wo Blickwinkel zu entdecken sind.

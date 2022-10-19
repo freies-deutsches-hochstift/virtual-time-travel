@@ -11,13 +11,15 @@ export enum ConfigDataItems {
 
 export enum DialogsContentsIds {
   RequestCamera = 'request-camera',
-  RequestOrientation = 'request-orientation',
   RequestGeolocation = 'request-geolocation',
   OutOfGeoFence = 'out-of-geofence',
   ArUnavailable = 'ar-unavailable',
+  ArTutorial = 'ar-tutorial',
   CameraUnavailable = 'camera-unavailable',
   InvalidQr = 'invalid-qr',
   PovNotFound = 'pov-404',
+  ForcePortrait = 'force-portrait',
+  ForceOrientation = 'force-orientation',
 }
 
 export interface DataFetchParamsRes {

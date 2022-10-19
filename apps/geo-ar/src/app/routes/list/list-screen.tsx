@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { Markdown } from '@virtual-time-travel/markdown'
 import {
@@ -6,14 +7,22 @@ import {
   StyledPageDivider,
   SwitchView,
 } from '@virtual-time-travel/ui'
+import { RootState } from '../../../main'
 import { PovsList } from '../../povs/list'
-import { selectLabels } from '../../store/locales.slice'
+import { useLabels } from '../../store/locales.slice'
 import { selectListPageContent } from '../../store/pages.slice'
 import { RouteAnimation } from '../route-animation'
 
 export function ListScreen() {
   const listPageContent = useSelector(selectListPageContent)
-  const { switchMap, switchList } = useSelector(selectLabels)
+  const selectLabel = useMemo(useLabels, [])
+  const switchMap = useSelector((state: RootState) =>
+    selectLabel(state, 'switchMap')
+  )
+
+  const switchList = useSelector((state: RootState) =>
+    selectLabel(state, 'switchList')
+  )
 
   return (
     <RouteAnimation>

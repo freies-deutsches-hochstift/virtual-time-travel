@@ -10,31 +10,20 @@ import {
   DeviceResponsePermission,
   PermissionStatus,
 } from '@virtual-time-travel/util-device'
-import { selectDialogsContentUrls } from '../store/config.slice'
+import { useDialogByKey } from '../hooks/useDialogByKey'
 import { deviceActions, selectCameraPermission } from '../store/device.slice'
-import { selectLabels } from '../store/locales.slice'
-
 
 export interface CameraProps {
   onDecodeQr?: OnDecodeQr
 }
 
-
 export const ArCamera = memo(({ onDecodeQr }: CameraProps) => {
   const dispatch = useDispatch<Dispatch>()
-
-  const dialogsContentUrl = useSelector(selectDialogsContentUrls)
-  const { confirm } = useSelector(selectLabels)
   const cameraStatus = useSelector(selectCameraPermission)
 
-  const requestCameraDialog = useMemo(
-    () => dialogsContentUrl[DialogsContentsIds.RequestCamera],
-    [dialogsContentUrl]
-  )
-
-  const cameraUnavailableDialog = useMemo(
-    () => dialogsContentUrl[DialogsContentsIds.CameraUnavailable],
-    [dialogsContentUrl]
+  const requestCameraDialog = useDialogByKey(DialogsContentsIds.RequestCamera)
+  const cameraUnavailableDialog = useDialogByKey(
+    DialogsContentsIds.CameraUnavailable
   )
 
   const isCameraUnavailable = useMemo(() => {
@@ -61,17 +50,17 @@ export const ArCamera = memo(({ onDecodeQr }: CameraProps) => {
   )
 
   return isCameraUnavailable ? (
-    <Dialog contentUrl={cameraUnavailableDialog} />
-  ) :
+    <Dialog {...cameraUnavailableDialog} />
+  ) : (
     <Camera
       {...{
         onRequestCameraComplete,
         requestCameraDialog,
-        onConfirmLabel: confirm,
         devicePermissionsStatus: [cameraStatus],
-        onDecodeQr
+        onDecodeQr,
       }}
     />
+  )
 })
 
 export default ArCamera

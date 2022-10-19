@@ -8,14 +8,14 @@ import Scrollable from '../scrollable/scrollable'
 
 export interface DialogProps {
   contentUrl: string
+  labels?: { [key: string]: string }
   onConfirm?: (event: unknown) => unknown
   onCancel?: (event: unknown) => unknown
-  onConfirmLabel?: string
-  onCancelLabel?: string
 }
 
-export function Dialog(props: DialogProps) {
-  const { contentUrl, onCancel, onConfirm, onConfirmLabel, onCancelLabel } = props
+export function Dialog({ contentUrl, onCancel, onConfirm, labels = {} }: DialogProps) {
+  // TODO switch multiple 'steps' dialog
+  const { confirm, cancel } = labels
 
   const withConfirm = useMemo(
     () => typeof onConfirm === 'function',
@@ -33,8 +33,8 @@ export function Dialog(props: DialogProps) {
           </StyledDialogContent>
           {withConfirm && (
             <ActionsGroup>
-              {!!onCancel && <Button secondary onClick={onCancel}>{onCancelLabel || 'cancel'}</Button>}
-              {!!onConfirm && <Button onClick={onConfirm}>{onConfirmLabel || 'ok'}</Button>}
+              {!!onCancel && <Button secondary onClick={onCancel}>{cancel}</Button>}
+              {!!onConfirm && <Button onClick={onConfirm}>{confirm}</Button>}
             </ActionsGroup>
           )}
         </Scrollable>
@@ -48,29 +48,30 @@ const StyledDialog = styled.div(tw`
   bg-ui-dialog-overlay
   text-ui-dialog-primary
   flex items-center justify-center
+  landscape:fixed
 `)
 
 const StyledDialogInner = styled.div([
   tw`
-    w-5/6 max-w-ui-dialog
+    w-5/6 h-5/6 max-w-ui-dialog
     bg-ui-dialog-bg
     p-ui-dialog
     flex flex-col text-center
     rounded-ui-dialog
+    landscape:h-full
   `,
   `
-    height: 70vh;
     filter: var(--ui-dialog-filter);
 
     ${StyledMarkdown} img,
     img {
-      max-height: 35vh;
-      margin: auto;
+      max-height: 25vh;
+      margin: 2rem auto;
       object-fit: contain;
     }
 
     ${StyledMarkdown} h3 {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       line-height: 1.6em;
       margin: 0 0 1rem 0;
     }

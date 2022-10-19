@@ -20,9 +20,9 @@ export interface LocaleId {
   labels?: Labels;
 }
 
-type Labels = {
-  [key: string]: string;
-};
+export interface Labels {
+  [key: string]: string | Labels;
+}
 
 export interface LocalesState {
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
@@ -101,3 +101,27 @@ export const selectLabels = createSelector(
     return locale?.labels || {};
   }
 );
+
+export const useLabels = () => {
+  return createSelector([selectLabels, (_, key) => key], (labels, key) => {
+    return getLabel(labels, key) as string;
+  });
+};
+
+export const scopedLabel = (
+  labels: Labels,
+  identifier: string,
+  key: string
+) => {
+  // some labels, like the dialogs ones, can use common values or
+  // can be overwritten by scoping them with an identifier
+  // eg: labels.myDialog.confirm || labels.confirm
+  const labelsForIdentifier = getLabel(labels, identifier) as Labels;
+  return getLabel(labelsForIdentifier, key) || getLabel(labels, key) || key;
+};
+
+export const getLabel = (labels: Labels, key: string) => {
+  if (!labels) return null;
+  if (key in labels) return labels[key];
+  return null;
+};

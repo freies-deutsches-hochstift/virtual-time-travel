@@ -49,8 +49,6 @@ export const StyledCardCover = styled.div([
 ])
 
 
-
-
 export const StyledCardDetails = styled.div(() =>
   [
     tw`

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { DialogsContentsIds } from '@virtual-time-travel/app-config'
@@ -9,7 +9,7 @@ import {
 } from '@virtual-time-travel/app-router'
 import { EnhancedPov } from '@virtual-time-travel/geo-types'
 import { Dialog, PovCardDetails } from '@virtual-time-travel/ui'
-import { selectDialogsContentUrls } from '../store/config.slice'
+import { useDialogByKey } from '../hooks/useDialogByKey'
 import { povsActions, selectCurrentPov } from '../store/povs.slice'
 
 export function PovDetails() {
@@ -37,13 +37,10 @@ interface PovCardDetailsWrapperProps {
 }
 
 export function PovCardDetailsWrapper({ pov, onClose }: PovCardDetailsWrapperProps) {
-  const dialogsContentUrl = useSelector(selectDialogsContentUrls)
-  const povNotFoundContentDialog = useMemo(
-    () => dialogsContentUrl[DialogsContentsIds.PovNotFound],
-    [dialogsContentUrl]
-  )
 
-  if (typeof pov === 'string') return <Dialog {...{ contentUrl: povNotFoundContentDialog, onConfirm: onClose, onConfirmLabel: 'Close' }} />
+  const povNotFoundContentDialog = useDialogByKey(DialogsContentsIds.PovNotFound)
+
+  if (typeof pov === 'string') return <Dialog {...{ onConfirm: onClose, ...povNotFoundContentDialog }} />
 
   return <PovCardDetails {...{ pov, onClose }} />
 }

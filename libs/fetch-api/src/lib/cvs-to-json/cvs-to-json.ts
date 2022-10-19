@@ -1,3 +1,13 @@
+/**
+ * csv to json converter
+ * delimiter "," + use quotes
+ * csv keys can be plain values or hieretical string representations
+ * eg: the key "object.key.subkey" will be interpreted as { object: { key: { subkey: <somevalue> } } }
+ * hieretical strings are commonly used in this project for localized fields or povs/fences coordinates
+ */
+
+import merge from 'ts-deepmerge';
+
 export interface CvsToJsonRes {
   data: Array<unknown> | null;
 }
@@ -24,22 +34,23 @@ export function cvsToJson(text: string): CvsToJsonRes {
 
   const data = values.map((value) => {
     return keys.reduce((obj: VariableObjectKeys, key: string, index) => {
-      // TODO !! this can cover only one level deep!
-      const [baseKey, subKey] = key.split('.');
+      const subKeys = key.split('.');
+      const keyValue = plainOrParsed(value, index);
+      const baseObjToClone = obj as VariableObjectKeys;
+      let baseObj = { ...baseObjToClone } as VariableObjectKeys;
 
-      if (subKey) {
-        let localisedObj = obj[baseKey] as VariableObjectKeys;
+      const redObject = {} as VariableObjectKeys;
+      let tempObject = redObject as VariableObjectKeys | string;
 
-        const localisedValue = {
-          [subKey]: plainOrParsed(value, index),
-        } as VariableObjectKeys;
+      subKeys.map((k, i, values) => {
+        if (typeof tempObject !== 'string') {
+          tempObject = tempObject[k] = i == values.length - 1 ? keyValue : {};
+        }
+      });
 
-        localisedObj = { ...localisedObj, ...localisedValue };
+      baseObj = !baseObj ? redObject : merge(baseObj, redObject);
 
-        return (obj[baseKey] = localisedObj), obj;
-      }
-
-      return (obj[baseKey] = plainOrParsed(value, index)), obj;
+      return (obj = baseObj), obj;
     }, {});
   });
 
@@ -57,6 +68,9 @@ function plainOrParsed(values: string[], index: number) {
   try {
     value = JSON.parse(value);
   } catch (error) {
+    // will enter here if value is text/null/ ...
+    // we do not really need to catch
+    // if not parsable we use directly the given value
     // console.debug(error);
   }
   return value;

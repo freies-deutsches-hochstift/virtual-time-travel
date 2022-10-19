@@ -1,4 +1,5 @@
 import { OnDecodeQr } from '@virtual-time-travel/app-router';
+import { DialogProps } from '@virtual-time-travel/ui';
 import {
   DeviceResponsePermission,
   PermissionStatus,
@@ -18,8 +19,7 @@ export interface RequestConstraintsOptions {
 export interface CameraProps {
   captureOptions?: RequestConstraintsOptions;
   onRequestCameraComplete?: (res: DeviceResponsePermission) => void;
-  requestCameraDialog: string;
-  onConfirmLabel: string;
+  requestCameraDialog: DialogProps;
   devicePermissionsStatus: Array<PermissionStatus>;
   onDecodeQr?: OnDecodeQr;
 }

@@ -8,7 +8,6 @@ import {
   ConfigDataItems,
   deepMergeConfig,
   defaultAppConfig,
-  DialogsContentsIds,
 } from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
 import { RootState } from '../../main';
@@ -76,7 +75,7 @@ export const selectConfig = createSelector(
   ({ appConfig }) => appConfig
 );
 
-const getLocalizedConfig = createSelector(
+export const getLocalizedConfig = createSelector(
   [getConfigState, getLocalesState],
   ({ appConfig }, { current: currentLocale }) => {
     return {
@@ -105,24 +104,5 @@ export const getPagesConfig = createSelector(
       ...config,
       contentUrl: [config.contentUrl, currentLocale].join('/'),
     };
-  }
-);
-
-export const selectDialogsContentUrls = createSelector(
-  [getLocalizedConfig],
-  ({ appConfig, currentLocale }) => {
-    const config = appConfig[ConfigDataItems.DIALOGS];
-    const baseUrl = [config.contentUrl, currentLocale].join('/');
-
-    const dialogs: {
-      [key: string]: string;
-    } = {};
-
-    for (const dialog in DialogsContentsIds) {
-      const key = DialogsContentsIds[dialog as keyof typeof DialogsContentsIds];
-      dialogs[key] = [baseUrl, `${key}.md`].join('/');
-    }
-
-    return dialogs;
   }
 );

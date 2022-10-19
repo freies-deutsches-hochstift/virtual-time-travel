@@ -1,12 +1,13 @@
-
-
 import { ReactNode, useCallback } from 'react'
 import {
   DeviceLocationEventRes,
   DeviceOrientationEventRes,
   LocationOptions,
 } from '@virtual-time-travel/geo-types'
-import { WithDevicePermissionDialog } from '@virtual-time-travel/ui'
+import {
+  DialogProps,
+  WithDevicePermissionDialog,
+} from '@virtual-time-travel/ui'
 import {
   DeviceResponsePermission,
   PermissionStatus,
@@ -14,10 +15,8 @@ import {
 import useLocation from './use-location/use-location'
 import useOrientation from './use-orientation/use-orientation'
 
-
 export interface GeoProps {
-  requestGeoDialog: string
-  onConfirmLabel: string
+  requestGeoDialog: DialogProps
   onChangePosition: (pos: DeviceLocationEventRes) => void
   onRequestGeolocationComplete?: (res: DeviceResponsePermission) => void
   locationOptions?: LocationOptions
@@ -28,23 +27,41 @@ export interface GeoProps {
 }
 
 export function Geo(props: GeoProps) {
+  const {
+    onChangePosition,
+    onRequestGeolocationComplete,
+    locationOptions,
+    onChangeOrientation,
+    onRequestOrientationComplete,
+    requestGeoDialog,
+    devicePermissionsStatus,
+    children,
+  } = props
+  const { requestLocation } = useLocation(
+    onChangePosition,
+    onRequestGeolocationComplete,
+    locationOptions
+  )
+  const { requestOrientation } = useOrientation(
+    onChangeOrientation,
+    onRequestOrientationComplete
+  )
 
-  const { onChangePosition, onRequestGeolocationComplete, locationOptions, onChangeOrientation, onRequestOrientationComplete, requestGeoDialog, onConfirmLabel, devicePermissionsStatus, children } = props
-  const { requestLocation } = useLocation(onChangePosition, onRequestGeolocationComplete, locationOptions)
-  const { requestOrientation } = useOrientation(onChangeOrientation, onRequestOrientationComplete)
+  const onConfirm = useCallback(
+    (e: unknown) => {
+      requestLocation()
+      requestOrientation()
+    },
+    [requestLocation, requestOrientation]
+  )
 
-  const onConfirm = useCallback((e: unknown) => {
-    requestLocation()
-    requestOrientation()
-  }, [
-    requestLocation, requestOrientation
-  ])
-
-  return <WithDevicePermissionDialog {...{ onConfirm, onConfirmLabel, dialogContentUrl: requestGeoDialog, devicePermissionsStatus }}>
-    {children}
-  </WithDevicePermissionDialog>
-
+  return (
+    <WithDevicePermissionDialog
+      {...{ onConfirm, devicePermissionsStatus, dialog: requestGeoDialog }}
+    >
+      {children}
+    </WithDevicePermissionDialog>
+  )
 }
-
 
 export default Geo

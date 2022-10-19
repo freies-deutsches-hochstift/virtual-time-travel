@@ -7,14 +7,12 @@
 
 import { ReactNode, useEffect, useState } from 'react'
 import { PermissionStatus } from '@virtual-time-travel/util-device'
-import Dialog from '../dialog/dialog'
+import Dialog, { DialogProps } from '../dialog/dialog'
 
 export interface WithDevicePermissionDialogProps {
   onConfirm: (event?: unknown) => unknown
   onCancel?: (event?: unknown) => unknown
-  dialogContentUrl: string
-  onConfirmLabel?: string
-  onCancelLabel?: string
+  dialog: DialogProps
   devicePermissionsStatus: Array<PermissionStatus>
   children?: ReactNode
 }
@@ -22,12 +20,11 @@ export interface WithDevicePermissionDialogProps {
 export function WithDevicePermissionDialog({
   onConfirm,
   onCancel,
-  dialogContentUrl,
+  dialog,
   devicePermissionsStatus,
-  onConfirmLabel,
-  onCancelLabel,
   children,
 }: WithDevicePermissionDialogProps) {
+
   const [hasAlreadyPermissions] = useState(
     devicePermissionsStatus.filter((s) => s === PermissionStatus.Granted)
       .length === devicePermissionsStatus.length
@@ -45,7 +42,6 @@ export function WithDevicePermissionDialog({
     return <>{children}</>
 
   return <Dialog {...{
-    onCancel, onConfirm, contentUrl: dialogContentUrl, onConfirmLabel,
-    onCancelLabel,
+    onCancel, onConfirm, ...dialog
   }} />
 }

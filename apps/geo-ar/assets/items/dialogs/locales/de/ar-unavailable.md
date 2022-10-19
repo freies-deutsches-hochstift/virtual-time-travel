@@ -1,5 +1,5 @@
-![image](/assets/items/dialogs/medias/geolocation.png)
+![image](/assets/items/dialogs/medias/ar-unavailable.svg)
 
-### !! Ups can not AR !!
+### Fehlende Berechtigungen
 
-no permissions or unavail api
+Informationen zu deinem Standort sowie die Berechtigung zur Kameranutzung sind nötig, um Blickwinkel in deiner Nähe zu finden. Bitte passe deine Einstellungen an.

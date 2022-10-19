@@ -14,7 +14,6 @@ export const Camera = memo((props: CameraProps) => {
     captureOptions,
     onRequestCameraComplete,
     requestCameraDialog,
-    onConfirmLabel,
     devicePermissionsStatus,
     onDecodeQr,
   } = props
@@ -36,16 +35,12 @@ export const Camera = memo((props: CameraProps) => {
       onRequestCameraComplete({ status, error: JSON.stringify(error) })
   }, [captureOptions, onRequestCameraComplete])
 
-
-  console.log(captureOptions)
-
   return (
     <WithDevicePermissionDialog
       {...{
         onConfirm: requestStream,
-        onConfirmLabel,
-        dialogContentUrl: requestCameraDialog,
         devicePermissionsStatus,
+        dialog: requestCameraDialog,
       }}
     >
       {!!device &&

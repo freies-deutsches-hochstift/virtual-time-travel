@@ -1,5 +1,5 @@
-![image](/assets/items/dialogs/medias/camera.png)
+![image](/assets/items/dialogs/medias/invalid-qr.svg)
 
-### Invalid QR
+### QR Code wird nicht erkannt
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis lorem ut libero malesuada feugiat. Donec rutrum congue leo eget malesuada.
+Dieser QR-Code gehört nicht zu dieser App. Probiere es mit einem anderen QR Code.

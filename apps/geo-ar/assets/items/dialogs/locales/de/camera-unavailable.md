@@ -1,5 +1,5 @@
-![image](/assets/items/dialogs/medias/camera.png)
+![image](/assets/items/dialogs/medias/camera-unavailable.svg)
 
-### NO Kamera
+### Kamera nicht verfügbar
 
-no permissions or unavail
+Erlaube den Zugriff auf deine Kamera, damit du Blickwinkel finden kannst. Gehe dazu auf die App-Einstellungen deines Browsers. Mehr Infos findest du im Hilfebereich.
