@@ -4,6 +4,7 @@ import { Markdown, StyledMarkdown } from '@virtual-time-travel/markdown'
 import tw from 'twin.macro'
 import { ActionsGroup } from '../actions-group/actions-group'
 import Button from '../button/button'
+import Scrollable from '../scrollable/scrollable'
 
 export interface DialogProps {
   contentUrl: string
@@ -26,15 +27,17 @@ export function Dialog(props: DialogProps) {
     <StyledDialog>
       <StyledDialogInner>
         {withCancel && <div onClick={onCancel}></div>}
-        <StyledDialogContent>
-          <Markdown {...{ contentUrl }} />
-        </StyledDialogContent>
-        {withConfirm && (
-          <ActionsGroup>
-            {!!onCancel && <Button secondary onClick={onCancel}>{onCancelLabel || 'cancel'}</Button>}
-            {!!onConfirm && <Button onClick={onConfirm}>{onConfirmLabel || 'ok'}</Button>}
-          </ActionsGroup>
-        )}
+        <Scrollable>
+          <StyledDialogContent>
+            <Markdown {...{ contentUrl }} />
+          </StyledDialogContent>
+          {withConfirm && (
+            <ActionsGroup>
+              {!!onCancel && <Button secondary onClick={onCancel}>{onCancelLabel || 'cancel'}</Button>}
+              {!!onConfirm && <Button onClick={onConfirm}>{onConfirmLabel || 'ok'}</Button>}
+            </ActionsGroup>
+          )}
+        </Scrollable>
       </StyledDialogInner>
     </StyledDialog>
   )

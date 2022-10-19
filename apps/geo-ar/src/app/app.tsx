@@ -9,6 +9,7 @@ import ArScreen from './routes/ar/ar-screen'
 import IntroScreen from './routes/intro/intro-screen'
 import ListScreen from './routes/list/list-screen'
 import MenuScreen from './routes/menu/menu-screen'
+import PovScreen from './routes/pov/pov-screen'
 import QrScreen from './routes/qr/qr-screen'
 import SplashScreen from './routes/splash/splash-screen'
 import { selectAppIsReady } from './store/general.slice'
@@ -43,6 +44,16 @@ export function App() {
             <Route
               path={`${getRoutePath(MainRoutes.Menu)}/*`}
               element={<MenuScreen />}
+            />
+
+            <Route
+              path={`${getRoutePath(MainRoutes.Pov)}/:id`}
+              element={<PovScreen />}
+            />
+
+            <Route
+              path={"*"}
+              element={<p>Not found</p>}
             />
           </Routes>
         </AnimatePresence>

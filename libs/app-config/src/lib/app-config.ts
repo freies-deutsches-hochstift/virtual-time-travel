@@ -17,6 +17,7 @@ export enum DialogsContentsIds {
   ArUnavailable = 'ar-unavailable',
   CameraUnavailable = 'camera-unavailable',
   InvalidQr = 'invalid-qr',
+  PovNotFound = 'pov-404',
 }
 
 export interface DataFetchParamsRes {

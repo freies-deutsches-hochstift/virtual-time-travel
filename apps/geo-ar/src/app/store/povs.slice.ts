@@ -94,6 +94,14 @@ export const selectCurrentPov = createSelector(
   [getPovsState, selectAllPovs],
   ({ currentId }, povs) => {
     if (!currentId || !povs?.length) return null;
-    return povs?.find((p) => p.id.toString() === currentId.toString());
+    return (
+      povs?.find((p) => p.id.toString() === currentId.toString()) || '::404::'
+    );
   }
 );
+
+export const usePovFromId = () => {
+  return createSelector([selectAllPovs, (_, povId) => povId], (povs, povId) => {
+    return povs?.find((p) => p.id.toString() === povId.toString()) || '::404::';
+  });
+};

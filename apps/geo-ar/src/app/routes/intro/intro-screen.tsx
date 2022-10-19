@@ -5,7 +5,7 @@ import {
   StyledPageDivider,
   StyledPageGroup,
 } from '@virtual-time-travel/ui'
-import { PovsList } from '../../povs-list/povs-list'
+import { PovsList } from '../../povs/list'
 import {
   selectIntroPageContent,
   selectListPageContent,

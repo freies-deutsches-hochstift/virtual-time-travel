@@ -6,7 +6,7 @@ import {
   StyledPageDivider,
   SwitchView,
 } from '@virtual-time-travel/ui'
-import { PovsList } from '../../povs-list/povs-list'
+import { PovsList } from '../../povs/list'
 import { selectLabels } from '../../store/locales.slice'
 import { selectListPageContent } from '../../store/pages.slice'
 import { RouteAnimation } from '../route-animation'

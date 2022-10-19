@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { getRoutePath, MainRoutes } from '@virtual-time-travel/app-router'
 import { Icons, MainNav, MainNavButton } from '@virtual-time-travel/ui'
 import tw from 'twin.macro'
-import PovDetails from '../pov-details/pov-details'
+import PovDetails from '../povs/details'
 
 export interface LayoutProps {
   children: ReactNode

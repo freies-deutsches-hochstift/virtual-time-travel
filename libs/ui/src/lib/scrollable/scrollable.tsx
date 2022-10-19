@@ -15,17 +15,19 @@ export const Scrollable = ({ children }: ScrollableProps) => {
   })
 
   const [isScrollable, setIsScrollable] = useState<boolean>(false)
-  const [isScrollTop, setIsScrollTop] = useState<boolean>(true)
+  const [isScrollTop, setIsScrollTop] = useState<boolean>(false)
 
   const handleScroll = () => {
-    if (!ctnRef.current) return
+    if (!ctnRef.current || !isScrollable) return
 
     setIsScrollTop(ctnRef.current.scrollTop === 0)
   }
 
   useEffect(() => {
     if (!ctnRef?.current) return
-    setIsScrollable(ctnRef.current.scrollHeight > ctnRef.current.offsetHeight)
+    const canScroll = ctnRef.current.scrollHeight > ctnRef.current.offsetHeight
+    setIsScrollable(canScroll)
+    setIsScrollTop(canScroll)
   }, [height])
 
   return (
@@ -51,11 +53,7 @@ export const StyledScrollableCtn = styled.div(
       overflow-y-auto
     `,
 
-    isScrollable &&
-    `
-    mask-image: var(--page-scrollmask);
-  `,
-
+    isScrollable && `mask-image: var(--page-scrollmask);`,
     isScrollTop && `mask-image: var(--page-scrollmask-bottom);`,
   ]
 )
@@ -67,10 +65,7 @@ export interface StyledScrollableProps {
 export const StyledScrollable = styled.div(
   ({ isScrollable }: StyledScrollableProps) => [
     tw`w-full flex-1 flex flex-col`,
-    isScrollable &&
-    `
-      padding-bottom: var(--bottom-mask-size);
-    `,
+    isScrollable && `padding-bottom: var(--bottom-mask-size);`,
   ]
 )
 

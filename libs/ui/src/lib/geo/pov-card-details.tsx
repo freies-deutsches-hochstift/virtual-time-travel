@@ -18,6 +18,7 @@ export function PovCardDetails({
   pov,
   onClose
 }: PovCardDetailsProps) {
+
   const { contentUrl } = pov
 
   return (

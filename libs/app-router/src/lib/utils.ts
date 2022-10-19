@@ -11,6 +11,7 @@ export enum MainRoutes {
   Qr = 'qr',
   List = 'list',
   Menu = 'menu',
+  Pov = 'pov',
 }
 
 export type OnSelectPov = (id: string | number) => void;
@@ -35,10 +36,20 @@ export const getQrRedirectParams = (text: string) => {
   try {
     const qrUrl = new URL(text);
     if (window.location.origin !== qrUrl.origin) return null;
-    return getNavigateParams(qrUrl.hash);
+    return getQrRedirect(qrUrl.hash);
   } catch (e) {
-    return getNavigateParams(text);
+    return getQrRedirect(text);
   }
+};
+
+export const getQrRedirect = (text: string) => {
+  const { hash, search } = getNavigateParams(text);
+  const [, route, id] = hash.split('/');
+  if (route !== MainRoutes.Pov) return null;
+  return {
+    hash: getRoutePath(MainRoutes.Qr),
+    search: { ...search, [currentPovSearchParam]: id.toString() },
+  };
 };
 
 export const getNavigateParams = (hashFromLocation: string) => {
