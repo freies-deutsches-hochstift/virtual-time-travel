@@ -1,8 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { ConfigDataItems } from '@virtual-time-travel/app-config';
+import { Labels } from '@virtual-time-travel/localization';
 import { DialogProps } from '@virtual-time-travel/ui';
 import { getLocalizedConfig } from './config.slice';
-import { getLocalesState, Labels, scopedLabel } from './locales.slice';
+import { getLocalesState, scopedLabel } from './locales.slice';
 
 export const useDialog = () => {
   return createSelector(

@@ -15,6 +15,7 @@ import {
   StyledSubMenu,
 } from '@virtual-time-travel/ui'
 import { RootState } from '../../../main'
+import LanguagesMenu from '../../languages-menu/languages-menu'
 import {
   EnhancedPageEntry,
   usePageWithSubpages,
@@ -42,11 +43,16 @@ export function MenuScreen() {
             {...{ label: localizedTitle || slug, linkTo: basePathname }}
           />
         )}
+
         <Markdown contentUrl={contentUrl} />
+
         {isSubroute ? (
           <SubMenu {...{ subpages }} />
         ) : (
-          <MainMenu {...{ subpages }} />
+          <>
+            <MainMenu {...{ subpages }} />
+            <LanguagesMenu />
+          </>
         )}
       </Page>
     </RouteAnimation>

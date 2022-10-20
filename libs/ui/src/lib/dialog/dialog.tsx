@@ -4,7 +4,7 @@ import tw from 'twin.macro'
 import { ActionsGroup } from '../actions-group/actions-group'
 import Button from '../button/button'
 import Icon, { Icons } from '../icon'
-import { Markdown, StyledMarkdown, StyledMarkdownContent, StyledMarkdownContents, StyledMarkdownWrapper } from '../markdown'
+import { Markdown, StyledMarkdownContent, StyledMarkdownWrapper } from '../markdown'
 
 export interface DialogProps {
   contentUrl: string

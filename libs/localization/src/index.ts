@@ -1,2 +1,2 @@
 export * from './lib/localization';
-export * from './lib/types.d';
+export * from './lib/types';

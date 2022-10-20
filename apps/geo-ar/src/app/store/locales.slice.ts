@@ -8,26 +8,20 @@ import {
   ConfigDataItems,
 } from '@virtual-time-travel/app-config';
 import { fetchApi } from '@virtual-time-travel/fetch-api';
-import { AvailLocales } from '@virtual-time-travel/localization';
+import {
+  AvailLocales,
+  getLabel,
+  Labels,
+  Locales,
+} from '@virtual-time-travel/localization';
 import { RootState } from '../../main';
 
 export const LOCALES_FEATURE_KEY = ConfigDataItems.LOCALES;
 
-export interface LocaleId {
-  slug: string;
-  label: string;
-  default: boolean;
-  labels?: Labels;
-}
-
-export interface Labels {
-  [key: string]: string | Labels;
-}
-
 export interface LocalesState {
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
   error: string | null;
-  entries: Array<LocaleId> | null;
+  entries: Locales;
   current: AvailLocales;
   default: AvailLocales;
 }
@@ -46,14 +40,18 @@ export const fetchLocales = createAsyncThunk(
   async (config: AppConfigOptions, thunkAPI) => {
     const fetchParams = config[ConfigDataItems.LOCALES].fetchParams;
     const { data } = await fetchApi(fetchParams);
-    return data as Array<LocaleId> | null;
+    return data as Locales;
   }
 );
 
 export const localesSlice = createSlice({
   name: LOCALES_FEATURE_KEY,
   initialState: initialLocalesState,
-  reducers: {},
+  reducers: {
+    setCurrentLocale(state: LocalesState, { payload }) {
+      state.current = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchLocales.pending, (state) => {
       state.loadingStatus = 'loading';
@@ -88,6 +86,11 @@ export const localesActions = localesSlice.actions;
 export const getLocalesState = (rootState: RootState): LocalesState =>
   rootState[LOCALES_FEATURE_KEY];
 
+export const selectLocaleState = createSelector(
+  getLocalesState,
+  ({ current, entries: locales }) => ({ current, locales })
+);
+
 export const selectCurrentLocale = createSelector(
   getLocalesState,
   ({ current }) => current
@@ -118,10 +121,4 @@ export const scopedLabel = (
   // eg: labels.myDialog.confirm || labels.confirm
   const labelsForIdentifier = getLabel(labels, identifier) as Labels;
   return getLabel(labelsForIdentifier, key) || getLabel(labels, key) || key;
-};
-
-export const getLabel = (labels: Labels, key: string) => {
-  if (!labels) return null;
-  if (key in labels) return labels[key];
-  return null;
 };

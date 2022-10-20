@@ -1,3 +1,4 @@
-"slug","label","default","labels.start","labels.confirm","labels.cancel","labels.skip","labels.next","labels.switchMap","labels.switchList","labels.out-of-geofence.confirm","labels.ar-tutorial.confirm"
-"en","en","false","Start","Okay","Cancel","Skip","Next","Map","List","View Map","Start"
-"de","de","true","Los geht’s","Weiter","Beenden","Skip","Weiter","Map","List","Zur Karte","Los geht’s"
+"slug","default","labels.en","labels.de","labels.start","labels.confirm","labels.cancel","labels.skip","labels.next","labels.switchMap","labels.switchList","labels.out-of-geofence.confirm","labels.ar-tutorial.confirm"
+"de","true","En","De","Los geht’s","Weiter","Beenden","Skip","Weiter","Map","List","Zur Karte","Los geht’s"
+"en","false","En","De","Start","Okay","Cancel","Skip","Next","Map","List","View Map","Start"
+

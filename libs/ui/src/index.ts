@@ -2,6 +2,7 @@ export * from './lib/actions-group/actions-group';
 export * from './lib/button/button';
 export * from './lib/dialog/dialog';
 export * from './lib/icon';
+export * from './lib/language-switch/language-switch';
 export * from './lib/main-nav/main-nav';
 export * from './lib/markdown';
 export * from './lib/menu';

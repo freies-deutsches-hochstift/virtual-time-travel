@@ -11,7 +11,7 @@ export const Scrollable = ({ children }: ScrollableProps) => {
   const ctnRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
   const { height = 0 } = useResizeObserver<HTMLDivElement>({
-    ref: scrollRef,
+    ref: scrollRef
   })
 
   const [isScrollable, setIsScrollable] = useState<boolean>(false)
@@ -25,7 +25,8 @@ export const Scrollable = ({ children }: ScrollableProps) => {
 
   useEffect(() => {
     if (!ctnRef?.current) return
-    const canScroll = ctnRef.current.scrollHeight > ctnRef.current.offsetHeight
+    // + 1 to avoid crossbrowser math round issues
+    const canScroll = ctnRef.current.scrollHeight > (ctnRef.current.offsetHeight + 1)
     setIsScrollable(canScroll)
     setIsScrollTop(canScroll)
   }, [height])
@@ -64,7 +65,7 @@ export interface StyledScrollableProps {
 
 export const StyledScrollable = styled.div(
   ({ isScrollable }: StyledScrollableProps) => [
-    tw`w-full flex-1 flex flex-col`,
+    tw`w-full flex-1 flex flex-col relative`,
     isScrollable && `padding-bottom: var(--bottom-mask-size);`,
   ]
 )
