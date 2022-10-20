@@ -2,8 +2,8 @@
 import { ReactNode, useCallback } from 'react'
 import Async from 'react-async'
 import { Loading } from '@virtual-time-travel/loading'
+import { getParsedFileContentById } from '@virtual-time-travel/markdown'
 import MarkdownContents from './markdown-contents'
-import { getParsedFileContentById } from './parse-content'
 
 export interface MarkdownProps {
   contentUrl: string

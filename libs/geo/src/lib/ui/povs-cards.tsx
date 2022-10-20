@@ -1,6 +1,6 @@
 import { OnSelectPov } from "@virtual-time-travel/app-router"
 import { EnhancedPov } from "@virtual-time-travel/geo-types"
-import { StyledCards } from "../ui"
+import { StyledCards } from "@virtual-time-travel/ui"
 import { PovCard } from "./pov-card"
 
 export interface PovsCardsProps {

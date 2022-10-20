@@ -7,8 +7,9 @@ import {
   getHashSearchParams,
   useOnClosePov,
 } from '@virtual-time-travel/app-router'
+import { PovCardDetails } from '@virtual-time-travel/geo'
 import { EnhancedPov } from '@virtual-time-travel/geo-types'
-import { Dialog, PovCardDetails } from '@virtual-time-travel/ui'
+import { Dialog } from '@virtual-time-travel/ui'
 import { useDialogByKey } from '../hooks/useDialogByKey'
 import { povsActions, selectCurrentPov } from '../store/povs.slice'
 

@@ -6,8 +6,8 @@ import {
   useNestedRoute,
   useSubpageLink,
 } from '@virtual-time-travel/app-router'
-import { Markdown } from '@virtual-time-travel/markdown'
 import {
+  Markdown,
   MenuBackLink,
   MenuLink,
   Page,

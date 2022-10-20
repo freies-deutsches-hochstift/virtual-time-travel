@@ -39,7 +39,7 @@
 
 @font-face {
   font-family: 'noto_sans';
-  src: url('notosans-bolditalic-webfont.woff2') format('woff2');
+  src: url('./fonts/notosans-bolditalic-webfont.woff2') format('woff2');
   font-weight: bold;
   font-style: italic;
 }
@@ -132,7 +132,7 @@
   /* --ui-pov-waves: url('/assets/medias/poi_wave.png') center center no-repeat; */
   --ui-pov-waves-inview: radial-gradient(var(--highlight-a), rgba(0, 0, 0, 0));
 
-  --ui-pov-compass-bg: url('/assets/medias/poi_inview.png') center center
+  --ui-pov-compass-bg: url('/assets/medias/layout/poi_inview.png') center center
     no-repeat;
 
   --ui-pov-compass-primary: var(--primary);

@@ -4,12 +4,12 @@
  */
 
 import styled from '@emotion/styled'
-import { Markdown, StyledMarkdown } from '@virtual-time-travel/markdown'
+import { Markdown, StyledMarkdown, StyledPage } from '@virtual-time-travel/ui'
 import tw from 'twin.macro'
 
 import map from '/assets/layout/map-povs.jpg'
 import povs from '/assets/layout/map-povs-overlay.png'
-import { StyledPage } from '../page'
+
 
 export interface PovsMapProps {
   contentUrl?: string

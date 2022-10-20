@@ -2,8 +2,11 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react'
 import { uid } from 'react-uid'
 import styled from '@emotion/styled'
-import { ActionsGroup, Button } from '@virtual-time-travel/ui'
 import tw from 'twin.macro'
+import { ActionsGroup } from '../actions-group/actions-group'
+import Button from '../button/button'
+import Scrollable from '../scrollable/scrollable'
+
 
 export interface MarkdownContentsProps {
   contents?: Array<string>
@@ -36,11 +39,16 @@ export function MarkdownContents({
     <StyledMarkdownWrapper {...{ hasSlides }}>
       <StyledMarkdownContents {...{ hasSlides }}>
         {contents.map((content, i) => (
-          <StyledMarkdown
-            {...{ isSlide: hasSlides, current: i === currentSlide }}
-            dangerouslySetInnerHTML={{ __html: content }}
-            key={uid(i)}
-          />
+          <StyledMarkdown {...{ isSlide: hasSlides, current: i === currentSlide }}>
+            <Scrollable>
+              <div
+
+                dangerouslySetInnerHTML={{ __html: content }}
+                key={uid(i)}
+              />
+            </Scrollable>
+          </StyledMarkdown>
+
         ))}
       </StyledMarkdownContents>
       {isLastSlide ? (

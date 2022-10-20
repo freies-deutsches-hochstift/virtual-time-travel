@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { Markdown } from '@virtual-time-travel/markdown'
+import { Markdown } from '@virtual-time-travel/ui'
 import {
   Page,
   StyledPageDivider,

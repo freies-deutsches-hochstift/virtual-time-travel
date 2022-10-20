@@ -1,7 +1,8 @@
 import { useSelector } from 'react-redux'
 import styled from '@emotion/styled'
 import { DialogsContentsIds } from '@virtual-time-travel/app-config'
-import { Dialog, Fence } from '@virtual-time-travel/ui'
+import { Fence } from '@virtual-time-travel/geo'
+import { Dialog } from '@virtual-time-travel/ui'
 import tw from "twin.macro"
 import { useDialogByKey } from '../hooks/useDialogByKey'
 import { selectCurrentGeoFence } from '../store/geo.slice'

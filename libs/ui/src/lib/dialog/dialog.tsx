@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 import styled from '@emotion/styled'
-import { Markdown, StyledMarkdown, StyledMarkdownWrapper } from '@virtual-time-travel/markdown'
 import tw from 'twin.macro'
 import { ActionsGroup } from '../actions-group/actions-group'
 import Button from '../button/button'
 import Icon, { Icons } from '../icon'
+import { Markdown, StyledMarkdown, StyledMarkdownWrapper } from '../markdown'
 
 export interface DialogProps {
   contentUrl: string

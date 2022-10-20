@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { Markdown } from '@virtual-time-travel/markdown'
+import { PovsMap } from '@virtual-time-travel/geo'
 import {
+  Markdown,
   Page,
-  PovsMap,
   StyledPageDivider,
-  SwitchView,
+  SwitchView
 } from '@virtual-time-travel/ui'
 import { RootState } from '../../../main'
 import { PovsList } from '../../povs/list'

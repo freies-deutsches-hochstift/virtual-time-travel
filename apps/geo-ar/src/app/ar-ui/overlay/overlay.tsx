@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useOnSelectPov } from '@virtual-time-travel/app-router'
-import { PovsOverlay } from '@virtual-time-travel/ui'
+import { PovsOverlay } from '@virtual-time-travel/geo'
 import { selectCurrentGeoFence, selectOrientation } from '../../store/geo.slice'
 
 
