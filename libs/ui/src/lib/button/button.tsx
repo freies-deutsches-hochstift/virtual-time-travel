@@ -8,6 +8,7 @@ type StyledButtonStyleProps = {
   disabled?: boolean
   highlight?: boolean
   inverted?: boolean
+  disabledAfterClick?: boolean
 }
 
 export interface ButtonProps extends StyledButtonStyleProps {
@@ -16,13 +17,13 @@ export interface ButtonProps extends StyledButtonStyleProps {
 }
 
 export function Button(props: ButtonProps) {
-  const { children, onClick, secondary, disabled, highlight, rounded, inverted } = props
+  const { children, onClick, secondary, disabled, highlight, rounded, inverted, disabledAfterClick } = props
   const [triggered, setTriggered] = useState(false)
 
   const handleClick = useCallback(() => {
     if (onClick) onClick()
-    setTriggered(true)
-  }, [onClick])
+    if (disabledAfterClick) setTriggered(true)
+  }, [onClick, disabledAfterClick])
 
   return (
     <StyledButton

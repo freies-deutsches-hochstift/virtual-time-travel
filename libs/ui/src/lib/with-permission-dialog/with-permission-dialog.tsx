@@ -24,7 +24,6 @@ export function WithDevicePermissionDialog({
   devicePermissionsStatus,
   children,
 }: WithDevicePermissionDialogProps) {
-
   const [hasAlreadyPermissions] = useState(
     devicePermissionsStatus.filter((s) => s === PermissionStatus.Granted)
       .length === devicePermissionsStatus.length
@@ -41,7 +40,14 @@ export function WithDevicePermissionDialog({
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>
 
-  return <Dialog {...{
-    onCancel, onConfirm, ...dialog
-  }} />
+  return (
+    <Dialog
+      {...{
+        onCancel,
+        onConfirm,
+        disabledAfterClick: true,
+        ...dialog,
+      }}
+    />
+  )
 }

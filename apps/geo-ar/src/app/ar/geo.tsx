@@ -15,6 +15,7 @@ import ArUi from '../ar-ui/ar-ui'
 import { useDialogByKey } from '../hooks/useDialogByKey'
 import { deviceActions, selectGeoPermissions } from '../store/device.slice'
 import { geoActions } from '../store/geo.slice'
+import ArTutorial from './tutorial'
 
 export function ArGeo() {
   const requestGeoDialog = useDialogByKey(
@@ -68,18 +69,21 @@ export function ArGeo() {
   )
 
   return (
-    <Geo
-      {...{
-        onChangePosition,
-        onRequestGeolocationComplete,
-        onChangeOrientation,
-        onRequestOrientationComplete,
-        requestGeoDialog,
-        devicePermissionsStatus,
-      }}
-    >
-      <ArUi />
-    </Geo>
+    <>
+      <ArTutorial />
+      <Geo
+        {...{
+          onChangePosition,
+          onRequestGeolocationComplete,
+          onChangeOrientation,
+          onRequestOrientationComplete,
+          requestGeoDialog,
+          devicePermissionsStatus,
+        }}
+      >
+        <ArUi />
+      </Geo>
+    </>
   )
 }
 

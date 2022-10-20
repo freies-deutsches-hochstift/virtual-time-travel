@@ -18,11 +18,26 @@ md.use(linkAttributesPlugin, {
   },
 });
 
-md.use(mdContainerPlugin, 'splash');
+/**
+ * layout composition and nesting
+ * to spyce up the layout a little and to give more freedome
+ * we currently have avail some predifined containers
+ * each container will result in a div with the same className
+ * the containers then can be easily styled/overwritten in theme.css
+ *
+ * the only special case is 'slide' which is used to split the content into multiple slides
+ *
+ * http://spec.commonmark.org/0.25/#fenced-code-blocks
+ * Use the same principle as in fenced block for nested things - add more : for outer block start/end.
+ */
+
+md.use(mdContainerPlugin, 'splash'); // use to tweak
 md.use(mdContainerPlugin, 'card');
+md.use(mdContainerPlugin, 'background');
+md.use(mdContainerPlugin, 'slide');
 
 export interface FetchMarkdownRes {
-  content?: string;
+  contents?: Array<string> | null;
 }
 
 export async function getParsedFileContentById(
@@ -31,9 +46,22 @@ export async function getParsedFileContentById(
   const response = await fetch(contentUrl);
   const data = await response.text();
 
+  let contents = null;
+
   if (!response.ok) {
-    return {};
+    return { contents };
   }
 
-  return { content: md.render(data) };
+  // split content into slides
+
+  const html = md.render(data);
+  const tmpDiv = document.createElement('div');
+  tmpDiv.innerHTML = html;
+  const slides = tmpDiv.querySelectorAll('.slide');
+
+  if (!slides || !slides.length) return { contents: [html] };
+
+  contents = Array.from(slides).map((slide) => slide.outerHTML);
+
+  return { contents };
 }

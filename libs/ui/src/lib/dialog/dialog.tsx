@@ -1,20 +1,27 @@
 import { useMemo } from 'react'
 import styled from '@emotion/styled'
-import { Markdown, StyledMarkdown } from '@virtual-time-travel/markdown'
+import { Markdown, StyledMarkdown, StyledMarkdownWrapper } from '@virtual-time-travel/markdown'
 import tw from 'twin.macro'
 import { ActionsGroup } from '../actions-group/actions-group'
 import Button from '../button/button'
-import Scrollable from '../scrollable/scrollable'
+import Icon, { Icons } from '../icon'
 
 export interface DialogProps {
   contentUrl: string
   labels?: { [key: string]: string }
   onConfirm?: (event: unknown) => unknown
   onCancel?: (event: unknown) => unknown
+  onClose?: (event: unknown) => unknown
+  disabledAfterClick?: true,
 }
 
-export function Dialog({ contentUrl, onCancel, onConfirm, labels = {} }: DialogProps) {
-  // TODO switch multiple 'steps' dialog
+export function Dialog({
+  contentUrl,
+  onCancel,
+  onConfirm,
+  onClose,
+  labels = {},
+}: DialogProps) {
   const { confirm, cancel } = labels
 
   const withConfirm = useMemo(
@@ -22,22 +29,43 @@ export function Dialog({ contentUrl, onCancel, onConfirm, labels = {} }: DialogP
     [onConfirm]
   )
   const withCancel = useMemo(() => typeof onCancel === 'function', [onCancel])
+  const withClose = useMemo(() => typeof onClose === 'function', [onClose])
+
+  const withActions = useMemo(
+    () => withConfirm || withCancel,
+    [withConfirm, withCancel]
+  )
 
   return (
     <StyledDialog>
       <StyledDialogInner>
-        {withCancel && <div onClick={onCancel}></div>}
-        <Scrollable>
-          <StyledDialogContent>
-            <Markdown {...{ contentUrl }} />
-          </StyledDialogContent>
-          {withConfirm && (
-            <ActionsGroup>
-              {!!onCancel && <Button secondary onClick={onCancel}>{cancel}</Button>}
-              {!!onConfirm && <Button onClick={onConfirm}>{confirm}</Button>}
-            </ActionsGroup>
-          )}
-        </Scrollable>
+        {withClose && (
+          <StyledCloseBtn onClick={onClose}>
+            <Icon type={Icons.Close} />
+          </StyledCloseBtn>
+        )}
+
+        <StyledDialogContent>
+          <Markdown
+            {...{
+              contentUrl,
+              labels,
+              actions: withActions && (
+                <ActionsGroup>
+                  {!!onCancel && (
+                    <Button secondary onClick={onCancel}>
+                      {cancel}
+                    </Button>
+                  )}
+                  {!!onConfirm && (
+                    <Button disabledAfterClick onClick={onConfirm}>{confirm}</Button>
+                  )}
+                </ActionsGroup>
+              ),
+            }}
+          />
+        </StyledDialogContent>
+
       </StyledDialogInner>
     </StyledDialog>
   )
@@ -55,18 +83,28 @@ const StyledDialogInner = styled.div([
   tw`
     w-5/6 h-5/6 max-w-ui-dialog
     bg-ui-dialog-bg
-    p-ui-dialog
     flex flex-col text-center
     rounded-ui-dialog
+    relative
     landscape:h-full
   `,
   `
     filter: var(--ui-dialog-filter);
 
+    ${StyledMarkdownWrapper} {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    ${StyledMarkdown}  {
+      padding: 1rem;
+    }
+
     ${StyledMarkdown} img,
     img {
       max-height: 25vh;
-      margin: 2rem auto;
+      padding: 2rem auto;
       object-fit: contain;
     }
 
@@ -84,6 +122,12 @@ const StyledDialogInner = styled.div([
     }
   `,
 ])
+
+const StyledCloseBtn = styled.div(tw`
+  w-4 h-4
+  absolute z-max
+  top-2 right-2
+`)
 
 const StyledDialogContent = styled.div(tw`
   flex-1

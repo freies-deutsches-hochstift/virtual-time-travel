@@ -106,7 +106,7 @@
   --ui-dialog-padding: 1rem;
 
   --ui-dialog-filter: drop-shadow(0 0.5rem 0.5rem rgb(0 0 0 / 0.4));
-  --ui-dialog-radius: 0;
+  --ui-dialog-radius: 0.3rem;
 
   /* libs/Ui/Button */
   --ui-button-primary: var(--primary);
