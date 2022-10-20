@@ -4,7 +4,7 @@ import tw from 'twin.macro'
 import { ActionsGroup } from '../actions-group/actions-group'
 import Button from '../button/button'
 import Icon, { Icons } from '../icon'
-import { Markdown, StyledMarkdown, StyledMarkdownWrapper } from '../markdown'
+import { Markdown, StyledMarkdown, StyledMarkdownContent, StyledMarkdownContents, StyledMarkdownWrapper } from '../markdown'
 
 export interface DialogProps {
   contentUrl: string
@@ -45,26 +45,26 @@ export function Dialog({
           </StyledCloseBtn>
         )}
 
-        <StyledDialogContent>
-          <Markdown
-            {...{
-              contentUrl,
-              labels,
-              actions: withActions && (
-                <ActionsGroup>
-                  {!!onCancel && (
-                    <Button secondary onClick={onCancel}>
-                      {cancel}
-                    </Button>
-                  )}
-                  {!!onConfirm && (
-                    <Button disabledAfterClick onClick={onConfirm}>{confirm}</Button>
-                  )}
-                </ActionsGroup>
-              ),
-            }}
-          />
-        </StyledDialogContent>
+
+        <Markdown
+          {...{
+            contentUrl,
+            labels,
+            actions: withActions && (
+              <ActionsGroup>
+                {!!onCancel && (
+                  <Button secondary onClick={onCancel}>
+                    {cancel}
+                  </Button>
+                )}
+                {!!onConfirm && (
+                  <Button disabledAfterClick onClick={onConfirm}>{confirm}</Button>
+                )}
+              </ActionsGroup>
+            ),
+          }}
+        />
+
 
       </StyledDialogInner>
     </StyledDialog>
@@ -83,9 +83,10 @@ const StyledDialogInner = styled.div([
   tw`
     w-5/6 h-5/6 max-w-ui-dialog
     bg-ui-dialog-bg
-    flex flex-col text-center
+    text-center
     rounded-ui-dialog
     relative
+    overflow-hidden
     landscape:h-full
   `,
   `
@@ -93,29 +94,33 @@ const StyledDialogInner = styled.div([
 
     ${StyledMarkdownWrapper} {
       min-height: 100%;
+      max-height: 100%;
       display: flex;
       flex-direction: column;
+      flex-grow: 0;
+      flex:1;
+      overflow: hidden;
     }
 
-    ${StyledMarkdown}  {
+    ${StyledMarkdownContent}  {
       padding: 1rem;
     }
 
-    ${StyledMarkdown} img,
+    ${StyledMarkdownContent} img,
     img {
       max-height: 25vh;
       padding: 2rem auto;
       object-fit: contain;
     }
 
-    ${StyledMarkdown} h3 {
+    ${StyledMarkdownContent} h3 {
       font-size: 1.3rem;
       line-height: 1.6em;
       margin: 0 0 1rem 0;
     }
 
-    ${StyledMarkdown} h1,
-    ${StyledMarkdown} h2 {
+    ${StyledMarkdownContent} h1,
+    ${StyledMarkdownContent} h2 {
       font-size: 2rem;
       line-height: 1.25em;
       margin: 0 0 1rem 0;
@@ -127,10 +132,6 @@ const StyledCloseBtn = styled.div(tw`
   w-4 h-4
   absolute z-max
   top-2 right-2
-`)
-
-const StyledDialogContent = styled.div(tw`
-  flex-1
 `)
 
 export default Dialog

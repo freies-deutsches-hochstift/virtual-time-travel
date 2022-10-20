@@ -1,62 +1,113 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { ReactNode, useCallback, useMemo, useState } from 'react'
+import { useSwipeable } from 'react-swipeable'
 import { uid } from 'react-uid'
 import styled from '@emotion/styled'
+import { AnimatePresence, motion } from 'framer-motion'
+import { wrap } from 'popmotion'
 import tw from 'twin.macro'
-import { ActionsGroup } from '../actions-group/actions-group'
-import Button from '../button/button'
 import Scrollable from '../scrollable/scrollable'
+import MarkdownInlineActions from './markdown-inline-actions'
+import MarkdownSlideshowActions from './markdown-slideshow-actions'
 
+export type MarkdownContents = Array<string>
+export type MarkdownLabels = { [key: string]: string }
+export type MarkdownActions = ReactNode
+export type MarkdownAsSlideshow = boolean
 
 export interface MarkdownContentsProps {
-  contents?: Array<string>
-  asSlideshow?: boolean
-  actions?: ReactNode
-  labels?: { [key: string]: string }
+  contents?: MarkdownContents
+  asSlideshow?: MarkdownAsSlideshow
+  actions?: MarkdownActions
+  labels?: MarkdownLabels
+}
+
+const slideshowVariants = {
+  enter: (direction: number) => {
+    return {
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 0,
+    }
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? '100%' : '-100%',
+      opacity: 0,
+    }
+  },
 }
 
 export function MarkdownContents({
   contents = [],
   asSlideshow,
   actions,
-  labels
+  labels,
 }: MarkdownContentsProps) {
-  const [currentSlide, setCurrentSlide] = useState<number>(0)
+  const [[currentSlide, direction], setCurrentSlide] = useState([0, 0])
   const hasSlides = useMemo(() => contents.length > 1, [contents])
-  const { next } = labels || {}
+  const contentIndex = wrap(0, contents.length, currentSlide)
+  const activeSlideshow = useMemo(
+    () => hasSlides && asSlideshow,
+    [hasSlides, asSlideshow]
+  )
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => paginate(1),
+    onSwipedRight: () => paginate(-1),
+  })
 
   const isLastSlide = useMemo(
     () => currentSlide === contents.length - 1,
     [currentSlide, contents]
   )
 
+  const paginate = (newDirection: number) => {
+    if (!activeSlideshow) return
+    setCurrentSlide([currentSlide + newDirection, newDirection])
+  }
+
   const onNext = useCallback(() => {
-    if (isLastSlide) return
-    setCurrentSlide((s) => s + 1)
-  }, [isLastSlide])
+    if (!isLastSlide) setCurrentSlide([currentSlide + 1, 1])
+  }, [isLastSlide, currentSlide])
 
   return (
     <StyledMarkdownWrapper {...{ hasSlides }}>
-      <StyledMarkdownContents {...{ hasSlides }}>
-        {contents.map((content, i) => (
-          <StyledMarkdown {...{ isSlide: hasSlides, current: i === currentSlide }}>
+      {activeSlideshow && (
+        <MarkdownSlideshowActions
+          {...{ contents, contentIndex, setCurrentSlide }}
+        />
+      )}
+      <StyledMarkdownContents {...swipeHandlers}>
+        <AnimatePresence initial={false} custom={direction}>
+          <StyledMarkdown
+            custom={direction}
+            variants={slideshowVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: 'spring', stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+            }}
+            key={uid(contentIndex)}
+          >
             <Scrollable>
-              <div
-
-                dangerouslySetInnerHTML={{ __html: content }}
-                key={uid(i)}
+              <StyledMarkdownContent
+                dangerouslySetInnerHTML={{ __html: contents[contentIndex] }}
               />
             </Scrollable>
           </StyledMarkdown>
-
-        ))}
+        </AnimatePresence>
       </StyledMarkdownContents>
-      {isLastSlide ? (
-        actions
-      ) : (
-        <ActionsGroup>
-          <Button onClick={onNext}>{next}</Button>
-        </ActionsGroup>
+
+      {!asSlideshow && (
+        <MarkdownInlineActions {...{ isLastSlide, onNext, actions, labels }} />
       )}
     </StyledMarkdownWrapper>
   )
@@ -71,35 +122,29 @@ type StyledMarkdownWrapperProps = {
 export const StyledMarkdownWrapper = styled.div(
   ({ hasSlides }: StyledMarkdownWrapperProps) => [
     hasSlides && tw`absolute inset-0 overflow-hidden min-h-full flex flex-col`,
+    hasSlides &&
+    `
+    ${StyledMarkdown} {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+  `,
   ]
 )
 
-type StyledMarkdownContents = {
-  hasSlides: boolean
-}
+export const StyledMarkdownContents = styled.div(() => [
+  tw`w-full flex-1 relative overflow-hidden flex flex-col`,
+])
 
-export const StyledMarkdownContents = styled.div(
-  ({ hasSlides }: StyledMarkdownContents) => [tw`w-full flex-1 relative`]
-)
+export const StyledMarkdown = styled(motion.div)(() => [
+  tw`w-full flex-1 relative overflow-hidden flex flex-col`,
+])
 
-type StyledMarkdownProps = {
-  isSlide: boolean
-  current: boolean
-}
+export const StyledMarkdownContent = styled.div(() => [
+  `
+    min-height: 100%;
 
-export const StyledMarkdown = styled.div(
-  ({ isSlide, current }: StyledMarkdownProps) => [
-    isSlide &&
-    tw`
-      absolute inset-0 overflow-hidden 
-      transition-opacity duration-500 opacity-0 pointer-events-none
-    `,
-    current &&
-    tw`
-      opacity-100 pointer-events-auto
-    `,
-
-    `
     h1 {
       font-size: 3rem;
       line-height: 1.25em;
@@ -152,6 +197,11 @@ export const StyledMarkdown = styled.div(
       padding-top: 1em;
     }
 
+    img {
+      user-select: none;
+      pointer-events: none;
+    }
+
     .card {
       padding: 1.5rem;
     }
@@ -183,5 +233,4 @@ export const StyledMarkdown = styled.div(
       max-height: none;
     }
   `,
-  ]
-)
+])

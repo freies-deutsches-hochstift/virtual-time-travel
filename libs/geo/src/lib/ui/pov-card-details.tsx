@@ -25,6 +25,7 @@ export function PovCardDetails({
       <StyledCardDetailsInner>
         <StyledCardDetailsContent>
           <Markdown
+            asSlideshow
             contentUrl={contentUrl}
             fallbackComponent={<MissingPovFallback {...{ pov }} />}
           />
