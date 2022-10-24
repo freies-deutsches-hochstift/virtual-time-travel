@@ -2,29 +2,47 @@ import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { OnSelectPov } from "@virtual-time-travel/app-router";
 import { CurrentPov } from "@virtual-time-travel/geo-types";
+import { LocalizedFieldGroup } from "@virtual-time-travel/localization";
+import { AnimatePresence, motion } from "framer-motion";
 import tw from "twin.macro";
 import PovCompassTicks from "./pov-compass-ticks";
 
 export interface PovCompassProps {
   pov: CurrentPov;
   onSelectPov?: OnSelectPov;
+  feeds: LocalizedFieldGroup;
 }
 
-export function PovCompass({ pov, onSelectPov }: PovCompassProps) {
+export function PovCompass({ pov, onSelectPov, feeds }: PovCompassProps) {
   const { id, inDirectView } = pov;
 
   const handleSelectPov = () => {
     if (onSelectPov) onSelectPov(id);
   };
 
+  const feed = useMemo(() => {
+    return feeds["view_pov"] || "Missing label::: labels.geo-feeds.view_pov";
+  }, [feeds]);
+
   return (
     <StyledPovCompass>
       <StyledPovCompassInner>
-        {inDirectView && (
-          <StyledPovCta onClick={handleSelectPov}>
-            Blickwinkel ansehen
-          </StyledPovCta>
-        )}
+        <AnimatePresence initial={false}>
+          {inDirectView && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.7 }}
+              className="absolute inset-0 z-max"
+            >
+              <StyledPovCta
+                onClick={handleSelectPov}
+                dangerouslySetInnerHTML={{ __html: feed }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
         <PovCompassTicks {...{ pov }} />
       </StyledPovCompassInner>
     </StyledPovCompass>
@@ -58,7 +76,7 @@ const StyledPovCta = styled.div(() => [
     text-center
   `,
   `
-    width: 35vw;
-    height: 35vw;
+    width: 40vw;
+    height: 40vw;
   `,
 ]);

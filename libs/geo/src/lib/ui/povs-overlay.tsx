@@ -75,7 +75,7 @@ export function PovsOverlay({
       <PovsOverlayFeeds {...{ currentGeoFence, closestInViewPov, feeds }} />
       {!!closestInViewPov && (
         <PovCompass
-          {...{ pov: closestInViewPov, onSelectPov, compassHeading }}
+          {...{ pov: closestInViewPov, onSelectPov, compassHeading, feeds }}
         />
       )}
       <StyledPovsWrapper
