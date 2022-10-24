@@ -175,3 +175,7 @@ export interface LocaleId {
 export type LocalizedKey = {
   [key in AvailLocales]: string;
 };
+
+export type LocalizedFieldGroup = {
+  [key: string]: string | undefined;
+};

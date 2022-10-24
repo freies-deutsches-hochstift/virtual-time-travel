@@ -6,6 +6,7 @@ import {
   CurrentPov,
   StateOrientation,
 } from "@virtual-time-travel/geo-types";
+import { LocalizedFieldGroup } from "@virtual-time-travel/localization";
 import tw from "twin.macro";
 import useResizeObserver from "use-resize-observer";
 import PovCompass from "./pov-compass";
@@ -16,6 +17,7 @@ export interface PovsOverlayProps {
   currentGeoFence: CurrentGeoFence | null;
   orientation: StateOrientation;
   onSelectPov?: OnSelectPov;
+  feeds: LocalizedFieldGroup;
 }
 
 interface PovsProps {
@@ -41,6 +43,7 @@ export function PovsOverlay({
   currentGeoFence,
   orientation,
   onSelectPov,
+  feeds,
 }: PovsOverlayProps) {
   const { povs } = currentGeoFence || {};
   const { compassHeading = 0 } = orientation || {};
@@ -69,7 +72,7 @@ export function PovsOverlay({
 
   return (
     <StyledPovsOverlay ref={ctnRef}>
-      <PovsOverlayFeeds {...{ currentGeoFence, closestInViewPov }} />
+      <PovsOverlayFeeds {...{ currentGeoFence, closestInViewPov, feeds }} />
       {!!closestInViewPov && (
         <PovCompass
           {...{ pov: closestInViewPov, onSelectPov, compassHeading }}
