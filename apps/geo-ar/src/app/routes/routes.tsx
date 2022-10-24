@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { uid } from "react-uid";
 import {
   getRoutePath,
   MainRoutes,
@@ -16,30 +17,32 @@ import * as views from "./views";
 export const AppRoutes = () => {
   const routes = useSelector(selectAllRoutes);
   return (
-    <AnimatePresence mode="wait">
+    <>
       <RedirectRouter />
-      <Routes>
-        {routes.map((route) => {
-          const { routeKey, path } = route;
-          const RouteComponent = views[routeKey as keyof typeof views]
-            .default as unknown as React.ElementType;
-          return (
-            <Route
-              key={path}
-              {...{
-                path,
-                element: (
-                  <RouteAnimation key={path}>
-                    <RouteComponent />
-                  </RouteAnimation>
-                ),
-              }}
-            />
-          );
-        })}
-        <Route path={"*"} element={<NotFoundRoute />} />
-      </Routes>
-    </AnimatePresence>
+      <AnimatePresence mode="wait">
+        <Routes>
+          {routes.map((route) => {
+            const { routeKey, path } = route;
+            const RouteComponent = views[routeKey as keyof typeof views]
+              .default as unknown as React.ElementType;
+            return (
+              <Route
+                key={uid(route)}
+                {...{
+                  path,
+                  element: (
+                    <RouteAnimation key={uid(route)}>
+                      <RouteComponent />
+                    </RouteAnimation>
+                  ),
+                }}
+              />
+            );
+          })}
+          <Route path={"*"} element={<NotFoundRoute />} />
+        </Routes>
+      </AnimatePresence>
+    </>
   );
 };
 

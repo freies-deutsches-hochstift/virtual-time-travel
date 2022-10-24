@@ -14,7 +14,7 @@ import { GEO_FEATURE_KEY, geoReducer } from "./app/store/geo.slice";
 import { LOCALES_FEATURE_KEY, localesReducer } from "./app/store/locales.slice";
 import { PAGES_FEATURE_KEY, pagesReducer } from "./app/store/pages.slice";
 import { POVS_FEATURE_KEY, povsReducer } from "./app/store/povs.slice";
-import WithAppConfig from "./app/WithAppConfig";
+import WithAppConfig from "./app/with-app-config";
 import "./styles/global.css";
 
 const root = ReactDOM.createRoot(
