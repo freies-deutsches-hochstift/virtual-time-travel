@@ -55,7 +55,7 @@ interface MainNavLinkProps {
 }
 
 function MainNavLink({ route }: MainNavLinkProps) {
-  const { routeKey, path } = route;
+  const { routeKey, route: routeLink } = route;
 
   const iconType = useMemo(() => {
     const indexOfS = Object.values(Icons).indexOf(routeKey as unknown as Icons);
@@ -65,7 +65,7 @@ function MainNavLink({ route }: MainNavLinkProps) {
     return key ? Icons[key as keyof typeof Icons] : Icons.Menu;
   }, [routeKey]);
 
-  return <MainNavButton type={iconType} link={path} />;
+  return <MainNavButton type={iconType} link={routeLink} />;
 }
 
 const StyledLayout = styled.div(tw`

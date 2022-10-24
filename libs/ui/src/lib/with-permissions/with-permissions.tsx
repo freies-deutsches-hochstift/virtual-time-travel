@@ -10,14 +10,16 @@ export interface WithDevicePermissionsProps {
   hasAllPermissions: boolean;
   dialog: DialogProps;
   children: ReactNode;
+  onConfirm: () => void;
 }
 
 export function WithDevicePermissions({
   hasAllPermissions,
   dialog,
   children,
+  onConfirm,
 }: WithDevicePermissionsProps) {
   // eslint-disable-next-line react/jsx-no-useless-fragment
   if (hasAllPermissions) return <>{children}</>;
-  return <Dialog {...dialog} />;
+  return <Dialog {...{ ...dialog, onConfirm }} />;
 }

@@ -2,22 +2,33 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { DialogsContentsIds } from "@virtual-time-travel/app-config";
+import { MainRoutes } from "@virtual-time-travel/app-router";
 import { Geo } from "@virtual-time-travel/geo";
 import {
   DeviceLocationEventRes,
   DeviceOrientationEventRes,
 } from "@virtual-time-travel/geo-types";
+import { WithDevicePermissions } from "@virtual-time-travel/ui";
 import {
   DeviceFeatures,
   DeviceResponsePermission,
 } from "@virtual-time-travel/util-device";
 import ArUi from "../ar-ui/ar-ui";
 import { useDialogByKey } from "../hooks/use-dialog-by-key";
-import { deviceActions, selectGeoPermissions } from "../store/device.slice";
+import { useGotoRoute } from "../hooks/use-goto-route";
+import {
+  deviceActions,
+  selectGeoPermissions,
+  selectHasArPermissions,
+} from "../store/device.slice";
 import { geoActions } from "../store/geo.slice";
 import ArTutorial from "./tutorial";
 
 export function ArGeo() {
+  const { goToRoute: goToMenu } = useGotoRoute(MainRoutes.Menu);
+  const hasAllPermissions = useSelector(selectHasArPermissions);
+  const arUnavailableDialog = useDialogByKey(DialogsContentsIds.ArUnavailable);
+
   const requestGeoDialog = useDialogByKey(
     DialogsContentsIds.RequestGeolocation,
   );
@@ -69,7 +80,13 @@ export function ArGeo() {
   );
 
   return (
-    <>
+    <WithDevicePermissions
+      {...{
+        hasAllPermissions,
+        dialog: arUnavailableDialog,
+        onConfirm: goToMenu,
+      }}
+    >
       <ArTutorial />
       <Geo
         {...{
@@ -83,7 +100,7 @@ export function ArGeo() {
       >
         <ArUi />
       </Geo>
-    </>
+    </WithDevicePermissions>
   );
 }
 

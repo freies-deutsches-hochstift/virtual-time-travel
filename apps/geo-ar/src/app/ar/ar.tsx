@@ -1,20 +1,11 @@
 import { useSelector } from "react-redux";
 import styled from "@emotion/styled";
-import { DialogsContentsIds } from "@virtual-time-travel/app-config";
-import { WithDevicePermissions } from "@virtual-time-travel/ui";
 import tw from "twin.macro";
 import Camera from "../camera/camera";
-import { useDialogByKey } from "../hooks/use-dialog-by-key";
-import {
-  selectHasArPermissions,
-  selectHasCameraPermission,
-} from "../store/device.slice";
+import { selectHasCameraPermission } from "../store/device.slice";
 import ArGeo from "./geo";
 
 export function Ar() {
-  const hasAllPermissions = useSelector(selectHasArPermissions);
-  const arUnavailableDialog = useDialogByKey(DialogsContentsIds.ArUnavailable);
-
   /*
    * camera and geo have separated custom request permission dialogs
    * and we want to display them one at the time
@@ -23,13 +14,7 @@ export function Ar() {
 
   return (
     <StyledAr>
-      {hasCameraPermission && (
-        <WithDevicePermissions
-          {...{ hasAllPermissions, dialog: arUnavailableDialog }}
-        >
-          <ArGeo />
-        </WithDevicePermissions>
-      )}
+      {hasCameraPermission && <ArGeo />}
       <Camera />
     </StyledAr>
   );

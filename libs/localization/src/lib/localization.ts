@@ -1,5 +1,10 @@
 import { AvailLocales, LocalizedField, LocalizedKey } from "./types";
 
+/**
+ * Mandatory labels to add in apps/geo-ar/assets/items/locales/index.csv
+ *
+ */
+
 export enum MainLabels {
   Start = "start",
   Confirm = "confirm",

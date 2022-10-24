@@ -2,15 +2,16 @@ import { memo, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { DialogsContentsIds } from "@virtual-time-travel/app-config";
-import { OnDecodeQr } from "@virtual-time-travel/app-router";
+import { MainRoutes, OnDecodeQr } from "@virtual-time-travel/app-router";
 import { Camera } from "@virtual-time-travel/camera";
-import { Dialog } from "@virtual-time-travel/ui";
+import { WithDevicePermissions } from "@virtual-time-travel/ui";
 import {
   DeviceFeatures,
   DeviceResponsePermission,
   PermissionStatus,
 } from "@virtual-time-travel/util-device";
 import { useDialogByKey } from "../hooks/use-dialog-by-key";
+import { useGotoRoute } from "../hooks/use-goto-route";
 import { deviceActions, selectCameraPermission } from "../store/device.slice";
 
 export interface CameraProps {
@@ -18,6 +19,7 @@ export interface CameraProps {
 }
 
 export const ArCamera = memo(({ onDecodeQr }: CameraProps) => {
+  const { goToRoute: goToMenu } = useGotoRoute(MainRoutes.Menu);
   const dispatch = useDispatch<Dispatch>();
   const cameraStatus = useSelector(selectCameraPermission);
 
@@ -49,17 +51,23 @@ export const ArCamera = memo(({ onDecodeQr }: CameraProps) => {
     [dispatch],
   );
 
-  return isCameraUnavailable ? (
-    <Dialog {...cameraUnavailableDialog} />
-  ) : (
-    <Camera
+  return (
+    <WithDevicePermissions
       {...{
-        onRequestCameraComplete,
-        requestCameraDialog,
-        devicePermissionsStatus: [cameraStatus],
-        onDecodeQr,
+        hasAllPermissions: !isCameraUnavailable,
+        dialog: cameraUnavailableDialog,
+        onConfirm: goToMenu,
       }}
-    />
+    >
+      <Camera
+        {...{
+          onRequestCameraComplete,
+          requestCameraDialog,
+          devicePermissionsStatus: [cameraStatus],
+          onDecodeQr,
+        }}
+      />
+    </WithDevicePermissions>
   );
 });
 
