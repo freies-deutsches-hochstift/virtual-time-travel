@@ -2,7 +2,6 @@ import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   DeviceFeatures,
   DevicePermission,
-  DeviceResponsePermission,
   initialDeviceResponse,
   PermissionStatus,
 } from "@virtual-time-travel/util-device";
@@ -10,17 +9,14 @@ import { RootState } from "../../main";
 
 export const DEVICE_FEATURE_KEY = "device";
 
-export interface DeviceState {
-  [DeviceFeatures.Camera]: DeviceResponsePermission;
-  [DeviceFeatures.Geolocation]: DeviceResponsePermission;
-  [DeviceFeatures.Orientation]: DeviceResponsePermission;
-}
+type DeviceState = Array<DevicePermission>;
 
-export const initialDevicesState: DeviceState = {
-  [DeviceFeatures.Camera]: initialDeviceResponse,
-  [DeviceFeatures.Geolocation]: initialDeviceResponse,
-  [DeviceFeatures.Orientation]: initialDeviceResponse,
-};
+export const initialDevicesState: DeviceState = [
+  { permission: DeviceFeatures.Camera, ...initialDeviceResponse },
+
+  { permission: DeviceFeatures.Geolocation, ...initialDeviceResponse },
+  { permission: DeviceFeatures.Orientation, ...initialDeviceResponse },
+];
 
 export const deviceSlice = createSlice({
   name: DEVICE_FEATURE_KEY,
@@ -31,55 +27,48 @@ export const deviceSlice = createSlice({
       action: PayloadAction<DevicePermission>,
     ) {
       const { permission, status, error } = action.payload;
-      state[permission] = { status, error };
+      const permissionToUpdate = state.find((p) => p.permission === permission);
+      if (!permissionToUpdate) {
+        state.push(action.payload);
+      } else {
+        permissionToUpdate.status = status;
+        permissionToUpdate.error = error;
+      }
     },
   },
 });
 
-/*
- * Export reducer for store configuration.
- */
 export const deviceReducer = deviceSlice.reducer;
 
-/*
- * Export action creators to be dispatched. For use with the `useDispatch` hook.
- *
- * e.g.
- * ```
- * import React, { useEffect } from 'react';
- * import { useDispatch } from 'react-redux';
- *
- * // ...
- *
- * const dispatch = useDispatch();
- * useEffect(() => {
- *   dispatch(deviceActions.add({ id: 1 }))
- * }, [dispatch]);
- * ```
- *
- * See: https://react-redux.js.org/next/api/hooks#usedispatch
- */
 export const deviceActions = deviceSlice.actions;
 
 export const getDevicesState = (rootState: RootState): DeviceState =>
   rootState[DEVICE_FEATURE_KEY];
 
 export const selectGeoPermissions = createSelector(getDevicesState, (state) => {
-  const mandatory = [
-    state[DeviceFeatures.Geolocation],
-    state[DeviceFeatures.Orientation],
+  const mandatoryFeatures = [
+    DeviceFeatures.Geolocation,
+    DeviceFeatures.Orientation,
   ];
+  const mandatory = state.filter((p) =>
+    mandatoryFeatures.find((f) => f === p.permission),
+  );
+
   return mandatory.map((m) => m?.status);
 });
 
 export const selectHasArPermissions = createSelector(
   getDevicesState,
   (state) => {
-    const mandatory = [
-      state[DeviceFeatures.Geolocation],
-      state[DeviceFeatures.Camera],
-      state[DeviceFeatures.Orientation],
+    const mandatoryFeatures = [
+      DeviceFeatures.Geolocation,
+      DeviceFeatures.Orientation,
+      DeviceFeatures.Camera,
     ];
+
+    const mandatory = state.filter((p) =>
+      mandatoryFeatures.find((f) => f === p.permission),
+    );
 
     return (
       mandatory.filter((m) =>
@@ -93,7 +82,9 @@ export const selectHasArPermissions = createSelector(
 
 export const selectCameraPermission = createSelector(
   getDevicesState,
-  (state) => state[DeviceFeatures.Camera].status,
+  (state) =>
+    state.find((p) => p.permission === DeviceFeatures.Camera)?.status ||
+    PermissionStatus.Unknown,
 );
 
 export const selectHasCameraPermission = createSelector(
