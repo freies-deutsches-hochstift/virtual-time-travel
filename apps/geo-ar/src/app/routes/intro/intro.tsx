@@ -1,20 +1,20 @@
-import { useSelector } from 'react-redux'
-import { Markdown } from '@virtual-time-travel/ui'
+import { useSelector } from 'react-redux';
+import { Markdown } from '@virtual-time-travel/ui';
 import {
   Page,
   StyledPageDivider,
   StyledPageGroup,
-} from '@virtual-time-travel/ui'
-import { PovsList } from '../../povs/list'
+} from '@virtual-time-travel/ui';
+import { PovsList } from '../../povs/list';
 import {
   selectIntroPageContent,
   selectListPageContent,
-} from '../../store/pages.slice'
-import { RouteAnimation } from '../route-animation'
+} from '../../store/pages.slice';
+import { RouteAnimation } from '../route-animation';
 
-export function IntroScreen() {
-  const introPageContent = useSelector(selectIntroPageContent)
-  const listPageContent = useSelector(selectListPageContent)
+export function IntroRoute() {
+  const introPageContent = useSelector(selectIntroPageContent);
+  const listPageContent = useSelector(selectListPageContent);
 
   return (
     <RouteAnimation>
@@ -28,7 +28,7 @@ export function IntroScreen() {
         </StyledPageGroup>
       </Page>
     </RouteAnimation>
-  )
+  );
 }
 
-export default IntroScreen
+export default IntroRoute;

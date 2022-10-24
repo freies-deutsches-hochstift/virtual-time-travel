@@ -23,15 +23,20 @@ export type PageId = string | number;
 
 export interface PageEntry {
   id: PageId;
-  slug: string;
-  subpages: Array<string | number>;
+  identifier: string;
+  slug: string | null | LocalizedKey;
   title: string | null | LocalizedKey;
+  subpages: Array<string | number>;
   [key: string]: unknown;
 }
 
-export interface EnhancedPageEntry extends PageEntry {
+export interface LocalizedPage extends PageEntry {
+  slug: string;
+  title: string;
+}
+
+export interface EnhancedPageEntry extends LocalizedPage {
   subpages: Array<PageId>;
-  localizedTitle: string;
   contentUrl: string;
 }
 
@@ -93,42 +98,49 @@ export const pagesActions = pagesSlice.actions;
 export const getPagesState = (rootState: RootState): PagesState =>
   rootState[PAGES_FEATURE_KEY];
 
+export const selectAllPages = createSelector(
+  [getPagesState, getLocalesState],
+  ({ entries }, { current: currentLocale }) =>
+    entries?.map(
+      (e) =>
+        ({
+          ...e,
+          title: getLocalizedField(e.title, currentLocale),
+          slug: getLocalizedField(e.slug, currentLocale),
+        } as LocalizedPage)
+    )
+);
+
 export const usePageWithSubpages = () => {
   return createSelector(
-    [getPagesState, getLocalesState, getPagesConfig, (_, pageSlug) => pageSlug],
-    (state, { current: currentLocale }, { contentUrl }, pageSlug) => {
-      const pages = state.entries || [];
-      const page = state.entries?.find(
-        (p: PageEntry) => p['slug'] === pageSlug
-      );
+    [selectAllPages, getPagesConfig, (_, pageSlug) => pageSlug],
+    (pages, { contentUrl }, pageSlug) => {
+      console.log(pages);
+
+      const page = pages?.find((p: PageEntry) => p['slug'] === pageSlug);
 
       if (!page) return null;
       const { subpages: subpagesIds } = page;
-      const subpages = pages.filter(
+      const subpages = pages?.filter(
         (p: PageEntry) => !!(subpagesIds || []).find((spId) => spId === p.id)
       );
 
       return {
         page: {
           ...page,
-          localizedTitle: getLocalizedField(page.title, currentLocale),
-          contentUrl: getLocalizedMarkdownContent(contentUrl, page.slug),
+          contentUrl: getLocalizedMarkdownContent(contentUrl, page.identifier),
         },
 
-        subpages:
-          subpages.map((sp) => ({
-            ...sp,
-            localizedTitle: getLocalizedField(sp.title, currentLocale),
-          })) || [],
+        subpages: subpages || [],
       } as PageWithSubpages;
     }
   );
 };
 
-export const selectSplashPageContent = createSelector(
+export const selectHomePageContent = createSelector(
   [getPagesConfig],
   ({ contentUrl }) => {
-    return [contentUrl, 'splash.md'].join('/');
+    return [contentUrl, 'home.md'].join('/');
   }
 );
 

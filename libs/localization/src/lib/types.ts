@@ -160,15 +160,16 @@ export type CurrentLocale = AvailLocales;
 export type DefaulLocale = AvailLocales;
 export type Locales = Array<LocaleId> | null;
 
-export interface Labels {
-  [key: string]: string | Labels;
+export interface LocalizedField {
+  [key: string]: string | LocalizedField;
 }
 
 export interface LocaleId {
   slug: string;
   label: string;
   default: boolean;
-  labels?: Labels;
+  labels?: LocalizedField;
+  routes?: LocalizedField;
 }
 
 export type LocalizedKey = {

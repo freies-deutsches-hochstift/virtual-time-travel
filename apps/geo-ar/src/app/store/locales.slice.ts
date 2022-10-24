@@ -11,8 +11,8 @@ import { fetchApi } from '@virtual-time-travel/fetch-api';
 import {
   AvailLocales,
   getLabel,
-  Labels,
   Locales,
+  LocalizedField,
 } from '@virtual-time-travel/localization';
 import { RootState } from '../../main';
 
@@ -23,7 +23,7 @@ export interface LocalesState {
   error: string | null;
   entries: Locales;
   current: AvailLocales;
-  default: AvailLocales;
+  defaultLocale: AvailLocales;
 }
 
 const baseLocale = Object.keys(AvailLocales)[0] as AvailLocales;
@@ -32,7 +32,7 @@ export const initialLocalesState: LocalesState = {
   error: null,
   entries: [],
   current: baseLocale,
-  default: baseLocale,
+  defaultLocale: baseLocale,
 };
 
 export const fetchLocales = createAsyncThunk(
@@ -50,6 +50,7 @@ export const localesSlice = createSlice({
   reducers: {
     setCurrentLocale(state: LocalesState, { payload }) {
       state.current = payload;
+      localStorage.setItem('locale', payload);
     },
   },
   extraReducers: (builder) => {
@@ -61,13 +62,25 @@ export const localesSlice = createSlice({
 
     builder.addCase(fetchLocales.fulfilled, (state, action) => {
       state.loadingStatus = 'loaded';
-      const locales = action.payload;
-      const defaultLocale = ((locales || []).find((l) => l.default === true)
-        ?.slug || baseLocale) as AvailLocales;
+      const locales = action.payload || [];
+
+      const defaultLocale =
+        locales.find((l) => l.default === true)?.slug || baseLocale;
+
+      const browserLocale = locales.find(({ slug }) => {
+        const matchLang = new RegExp(`^${slug}\\b`);
+        return !!matchLang.test(navigator.language);
+      });
+
+      const storedLocale = localStorage.getItem('locale');
+
+      const userLocale = (storedLocale ||
+        browserLocale?.slug ||
+        defaultLocale) as AvailLocales;
 
       state.entries = locales;
-      state.default = defaultLocale;
-      state.current = defaultLocale;
+      state.current = userLocale;
+      state.defaultLocale = userLocale;
       state.error = null;
     });
 
@@ -86,6 +99,14 @@ export const localesActions = localesSlice.actions;
 export const getLocalesState = (rootState: RootState): LocalesState =>
   rootState[LOCALES_FEATURE_KEY];
 
+export const selectAvailLocales = createSelector(
+  getLocalesState,
+  ({ defaultLocale, entries: locales }) => ({
+    defaultLocale,
+    locales: locales?.map((l) => l.slug),
+  })
+);
+
 export const selectLocaleState = createSelector(
   getLocalesState,
   ({ current, entries: locales }) => ({ current, locales })
@@ -93,17 +114,18 @@ export const selectLocaleState = createSelector(
 
 export const selectCurrentLocale = createSelector(
   getLocalesState,
-  ({ current }) => current
-);
-
-export const selectLabels = createSelector(
-  getLocalesState,
   ({ current, entries }) => {
-    const locale = entries?.find((e) => e.slug === current);
-
-    return locale?.labels || {};
+    return entries?.find((e) => e.slug === current);
   }
 );
+export const selectCurrentLocaleSlug = createSelector(
+  selectCurrentLocale,
+  (locale) => locale?.slug || ''
+);
+
+export const selectLabels = createSelector(selectCurrentLocale, (locale) => {
+  return locale?.labels || {};
+});
 
 export const useLabels = () => {
   return createSelector([selectLabels, (_, key) => key], (labels, key) => {
@@ -112,13 +134,13 @@ export const useLabels = () => {
 };
 
 export const scopedLabel = (
-  labels: Labels,
+  labels: LocalizedField,
   identifier: string,
   key: string
 ) => {
   // some labels, like the dialogs ones, can use common values or
   // can be overwritten by scoping them with an identifier
   // eg: labels.myDialog.confirm || labels.confirm
-  const labelsForIdentifier = getLabel(labels, identifier) as Labels;
+  const labelsForIdentifier = getLabel(labels, identifier) as LocalizedField;
   return getLabel(labelsForIdentifier, key) || getLabel(labels, key) || key;
 };

@@ -40,6 +40,7 @@ type DataItems = {
 export interface AppConfigOptions extends DataItems {
   DATA_ROOT: string;
   DISABLE_QR: boolean;
+  DISABLE_EXPLORE: boolean;
   INVIEW_THRESHOLD_ANGLE: number;
   INVIEW_THRESHOLD_DISTANCE: number;
 }
@@ -65,6 +66,7 @@ export const defaultAppConfig = {
   DATA_ROOT: '/assets/items',
   ...(defaultDataItems as unknown as DataItems),
   DISABLE_QR: false,
+  DISABLE_EXPLORE: false,
   INVIEW_THRESHOLD_ANGLE: 20,
   INVIEW_THRESHOLD_DISTANCE: 100,
 };

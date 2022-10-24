@@ -1,4 +1,4 @@
-import { AvailLocales, LocalizedKey, Labels } from './types';
+import { AvailLocales, LocalizedField, LocalizedKey } from './types';
 
 export function getLocalizedField(
   field: LocalizedKey | string | null,
@@ -9,7 +9,7 @@ export function getLocalizedField(
   return field?.[locale];
 }
 
-export const getLabel = (labels: Labels, key: string) => {
+export const getLabel = (labels: LocalizedField, key: string) => {
   if (!labels) return null;
   if (key in labels) return labels[key];
   return null;

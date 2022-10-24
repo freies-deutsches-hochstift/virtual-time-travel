@@ -2,5 +2,8 @@
   "cSpell.words": ["Directus", "povs", "Roadmap"],
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "typescript.format.semicolons": "remove"
+  "typescript.format.semicolons": "remove",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

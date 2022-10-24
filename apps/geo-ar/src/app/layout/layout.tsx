@@ -1,26 +1,29 @@
-import { ReactNode, useMemo } from 'react'
-import styled from '@emotion/styled'
-import { DialogsContentsIds } from '@virtual-time-travel/app-config'
-import { getRoutePath, MainRoutes } from '@virtual-time-travel/app-router'
-import { Dialog, Icons, MainNav, MainNavButton } from '@virtual-time-travel/ui'
-import tw from 'twin.macro'
-import useResizeObserver from 'use-resize-observer'
-import { useDialogByKey } from '../hooks/useDialogByKey'
-import PovDetails from '../povs/details'
+import { ReactNode, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import styled from '@emotion/styled';
+import { DialogsContentsIds } from '@virtual-time-travel/app-config';
+import { Dialog, Icons, MainNav, MainNavButton } from '@virtual-time-travel/ui';
+import tw from 'twin.macro';
+import useResizeObserver from 'use-resize-observer';
+import { useDialogByKey } from '../hooks/useDialogByKey';
+import PovDetails from '../povs/details';
+import { selectMainRoutes } from '../store/router';
+import { LocalizedRoute } from '@virtual-time-travel/app-router';
 
 export interface LayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export function Layout(props: LayoutProps) {
-  const { children } = props
-  const { ref, height, width } = useResizeObserver()
-  const forcePortraitDialog = useDialogByKey(DialogsContentsIds.ForcePortrait)
+  const { children } = props;
+  const mainRoutes = useSelector(selectMainRoutes);
+  const { ref, height, width } = useResizeObserver();
+  const forcePortraitDialog = useDialogByKey(DialogsContentsIds.ForcePortrait);
 
   const forcePortrait = useMemo(
     () => (!!width && !!height ? width > height : false),
     [width, height]
-  )
+  );
 
   return (
     <StyledLayout ref={ref}>
@@ -30,7 +33,6 @@ export function Layout(props: LayoutProps) {
           <PovDetails />
           {forcePortrait && (
             <div className="pointer-events-none">
-              {' '}
               <Dialog {...forcePortraitDialog} />
             </div>
           )}
@@ -39,33 +41,41 @@ export function Layout(props: LayoutProps) {
 
       <MainNav>
         <>
-          <MainNavButton
-            type={Icons.Explore}
-            link={getRoutePath(MainRoutes.Explore)}
-          />
-          <MainNavButton type={Icons.Qr} link={getRoutePath(MainRoutes.Qr)} />
-          <MainNavButton
-            type={Icons.List}
-            link={getRoutePath(MainRoutes.List)}
-          />
-          <MainNavButton
-            type={Icons.Menu}
-            link={getRoutePath(MainRoutes.Menu)}
-          />
+          {mainRoutes.map((route) => (
+            <MainNavLink {...{ route }} key={route.path} />
+          ))}
         </>
       </MainNav>
     </StyledLayout>
-  )
+  );
+}
+
+interface MainNavLinkProps {
+  route: LocalizedRoute;
+}
+
+function MainNavLink({ route }: MainNavLinkProps) {
+  const { routeKey, path } = route;
+
+  const iconType = useMemo(() => {
+    const indexOfS = Object.values(Icons).indexOf(routeKey as unknown as Icons);
+
+    const key = Object.keys(Icons)[indexOfS];
+
+    return key ? Icons[key as keyof typeof Icons] : Icons.Menu;
+  }, [routeKey]);
+
+  return <MainNavButton type={iconType} link={path} />;
 }
 
 const StyledLayout = styled.div(tw`
     w-full h-full
     flex flex-col
-`)
+`);
 
 const StyledMain = styled.main(tw`
     w-full flex-1 overflow-hidden
     flex justify-center relative
-`)
+`);
 
-export default Layout
+export default Layout;

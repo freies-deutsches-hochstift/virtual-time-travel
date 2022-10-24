@@ -5,8 +5,8 @@ interface VariableObjectKeys {
 }
 
 export enum MainRoutes {
-  Home = '',
-  Intro = 'tutorial',
+  Home = 'home',
+  Intro = 'intro',
   Explore = 'explore',
   Qr = 'qr',
   List = 'list',
@@ -15,6 +15,12 @@ export enum MainRoutes {
 }
 
 export type OnSelectPov = (id: string | number) => void;
+
+export interface LocalizedRoute {
+  routeKey: string;
+  path: string;
+  route: string;
+}
 
 export const currentPovSearchParam = 'povId';
 export const invalidQrParam = 'invalidQr';
@@ -28,26 +34,31 @@ export const getRoutePath = (route: string) => {
   return `/${route}`;
 };
 
+export const getLocalizedRoutePath = (locale: string, route: string) => {
+  return `/${[locale, route].filter(Boolean).join('/')}`;
+};
+
 export const getHashSearchParams = (search = '') => {
   return qs.parse(search);
 };
 
-export const getQrRedirectParams = (text: string) => {
+export const getQrRedirectParams = (qrRoute: LocalizedRoute, text: string) => {
   try {
     const qrUrl = new URL(text);
     if (window.location.origin !== qrUrl.origin) return null;
-    return getQrRedirect(qrUrl.hash);
+    return getQrRedirect(qrRoute, qrUrl.hash);
   } catch (e) {
-    return getQrRedirect(text);
+    return getQrRedirect(qrRoute, text);
   }
 };
 
-export const getQrRedirect = (text: string) => {
+export const getQrRedirect = (qrRoute: LocalizedRoute, text: string) => {
   const { hash, search } = getNavigateParams(text);
   const [, route, id] = hash.split('/');
+
   if (route !== MainRoutes.Pov) return null;
   return {
-    hash: getRoutePath(MainRoutes.Qr),
+    hash: qrRoute.path,
     search: { ...search, [currentPovSearchParam]: id.toString() },
   };
 };
@@ -59,21 +70,14 @@ export const getNavigateParams = (hashFromLocation: string) => {
   return { hash: hash.replace('#/', '/'), search };
 };
 
-export const getQrNavigateParams = (text: string) => {
-  const redirectParams = getQrRedirectParams(text);
+export const getQrNavigateParams = (qrRoute: LocalizedRoute, text: string) => {
+  const redirectParams = getQrRedirectParams(qrRoute, text);
   if (!redirectParams) return null;
   const { search } = redirectParams;
   // return invalid qr if search does not contain povId
   if (currentPovSearchParam in search) return redirectParams;
   return null;
 };
-
-const invalidQrSearch = { [invalidQrParam]: true };
-
-export const invalidQrRoute = [
-  getRoutePath(MainRoutes.Qr),
-  qs.stringify(invalidQrSearch),
-].join('?');
 
 export const getQrRedirectRoute = (redirectParams: QrRedirectParams) => {
   const { hash, search } = redirectParams;
