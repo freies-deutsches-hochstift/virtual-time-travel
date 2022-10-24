@@ -30,7 +30,7 @@ export function PovMarker({
 
   const left = useMemo(() => {
     if (!bearingDistance) return 0;
-    return bearingDistance * compassScaleFactor;
+    return (bearingDistance * compassScaleFactor).toFixed(1);
   }, [bearingDistance, compassScaleFactor]);
 
   const showMeterDistance = useMemo(
@@ -67,15 +67,18 @@ export function PovMarker({
 export default PovMarker;
 
 type StyledPovMarkerProps = {
-  left: number;
+  left: string | number;
   inView: boolean;
 };
 
 const StyledPovMarker = styled.div(({ left, inView }: StyledPovMarkerProps) => [
   tw`
-      absolute top-0
+      absolute top-0 left-0
     `,
-  left && `left: ${left}px;`,
+  `
+    will-change: transform;
+  `,
+  left && `transform: translate(${left}px, 0);`,
   inView &&
     `
       display: none;
