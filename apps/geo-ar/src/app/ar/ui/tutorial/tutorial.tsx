@@ -2,7 +2,7 @@
 import { useCallback, useState } from "react";
 import { DialogsContentsIds } from "@virtual-time-travel/app-config";
 import { Dialog } from "@virtual-time-travel/ui";
-import { useDialogByKey } from "../hooks/use-dialog-by-key";
+import { useDialogByKey } from "../../../hooks/use-dialog-by-key";
 
 export function ArTutorial() {
   const [showTutorial, setShowTutorial] = useState<boolean>(getDefaultState());

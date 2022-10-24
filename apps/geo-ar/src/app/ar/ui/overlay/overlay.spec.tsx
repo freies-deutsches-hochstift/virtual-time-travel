@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
-import { ArOverlay } from "./overlay";
+import ArOverlay from "./overlay";
 
-describe("O", () => {
+describe("ArOverlay", () => {
   it("should render successfully", () => {
     const { baseElement } = render(<ArOverlay />);
     expect(baseElement).toBeTruthy();

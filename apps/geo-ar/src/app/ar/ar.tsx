@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 import Camera from "../camera/camera";
 import { selectHasCameraPermission } from "../store/device.slice";
-import ArGeo from "./geo";
+import GeoWrapper from "./geo-wrapper/geo-wrapper";
 
 export function Ar() {
   /*
@@ -14,7 +14,7 @@ export function Ar() {
 
   return (
     <StyledAr>
-      {hasCameraPermission && <ArGeo />}
+      {hasCameraPermission && <GeoWrapper />}
       <Camera />
     </StyledAr>
   );

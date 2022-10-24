@@ -13,18 +13,17 @@ import {
   DeviceFeatures,
   DeviceResponsePermission,
 } from "@virtual-time-travel/util-device";
-import ArUi from "../ar-ui/ar-ui";
-import { useDialogByKey } from "../hooks/use-dialog-by-key";
-import { useGotoRoute } from "../hooks/use-goto-route";
+import { useDialogByKey } from "../../hooks/use-dialog-by-key";
+import { useGotoRoute } from "../../hooks/use-goto-route";
 import {
   deviceActions,
   selectGeoPermissions,
   selectHasArPermissions,
-} from "../store/device.slice";
-import { geoActions } from "../store/geo.slice";
-import ArTutorial from "./tutorial";
+} from "../../store/device.slice";
+import { geoActions } from "../../store/geo.slice";
+import ArUi from "../ui/ar-ui";
 
-export function ArGeo() {
+export function GeoWrapper() {
   const { goToRoute: goToMenu } = useGotoRoute(MainRoutes.Menu);
   const hasAllPermissions = useSelector(selectHasArPermissions);
   const arUnavailableDialog = useDialogByKey(DialogsContentsIds.ArUnavailable);
@@ -87,7 +86,6 @@ export function ArGeo() {
         onConfirm: goToMenu,
       }}
     >
-      <ArTutorial />
       <Geo
         {...{
           onChangePosition,
@@ -104,4 +102,4 @@ export function ArGeo() {
   );
 }
 
-export default ArGeo;
+export default GeoWrapper;

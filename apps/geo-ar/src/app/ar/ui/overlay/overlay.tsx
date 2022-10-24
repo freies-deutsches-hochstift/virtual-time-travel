@@ -4,7 +4,7 @@ import { PovsOverlay } from "@virtual-time-travel/geo";
 import {
   selectCurrentGeoFence,
   selectOrientation,
-} from "../../store/geo.slice";
+} from "../../../store/geo.slice";
 
 export function ArOverlay() {
   const currentGeoFence = useSelector(selectCurrentGeoFence);
@@ -14,3 +14,5 @@ export function ArOverlay() {
 
   return <PovsOverlay {...{ currentGeoFence, orientation, onSelectPov }} />;
 }
+
+export default ArOverlay;
