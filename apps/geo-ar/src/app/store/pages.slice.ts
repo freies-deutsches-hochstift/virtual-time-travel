@@ -115,9 +115,7 @@ export const usePageWithSubpages = () => {
   return createSelector(
     [selectAllPages, getPagesConfig, (_, pageSlug) => pageSlug],
     (pages, { contentUrl }, pageSlug) => {
-      console.log(pages);
-
-      const page = pages?.find((p: PageEntry) => p['slug'] === pageSlug);
+      const page = pages?.find((p: PageEntry) => p.slug === pageSlug);
 
       if (!page) return null;
       const { subpages: subpagesIds } = page;
@@ -137,23 +135,16 @@ export const usePageWithSubpages = () => {
   );
 };
 
-export const selectHomePageContent = createSelector(
-  [getPagesConfig],
-  ({ contentUrl }) => {
-    return [contentUrl, 'home.md'].join('/');
-  }
-);
-
-export const selectIntroPageContent = createSelector(
-  [getPagesConfig],
-  ({ contentUrl }) => {
-    return [contentUrl, 'intro.md'].join('/');
-  }
-);
-
-export const selectListPageContent = createSelector(
-  [getPagesConfig],
-  ({ contentUrl }) => {
-    return [contentUrl, 'list.md'].join('/');
-  }
-);
+export const usePageFromIdentifier = () => {
+  return createSelector(
+    [selectAllPages, getPagesConfig, (_, identifier) => identifier],
+    (pages, { contentUrl }, identifier) => {
+      const page = pages?.find((p: PageEntry) => p.identifier === identifier);
+      if (!page) return null;
+      return {
+        ...page,
+        contentUrl: getLocalizedMarkdownContent(contentUrl, page.identifier),
+      };
+    }
+  );
+};

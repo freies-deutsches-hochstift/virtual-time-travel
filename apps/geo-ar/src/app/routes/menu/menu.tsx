@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import {
   MainRoutes,
@@ -14,29 +13,19 @@ import {
   StyledMenuMain,
   StyledSubMenu,
 } from '@virtual-time-travel/ui';
-import { RootState } from '../../../main';
+import { usePageBySlug } from '../../hooks/usePageBySlug';
 import LanguagesMenu from '../../languages-menu/languages-menu';
-import {
-  EnhancedPageEntry,
-  usePageWithSubpages,
-} from '../../store/pages.slice';
+import { selectCurrentLocaleSlug } from '../../store/locales.slice';
+import { EnhancedPageEntry } from '../../store/pages.slice';
 import { selectLocaleRoute } from '../../store/router';
 import { RouteAnimation } from '../route-animation';
-import {
-  selectCurrentLocale,
-  selectCurrentLocaleSlug,
-} from '../../store/locales.slice';
 
 export function MenuRoute() {
   const homeRoute = useSelector(selectLocaleRoute);
   const { route, isSubroute } = useNestedRoute(homeRoute);
   const { basePathname, currentPage } = route;
-  const selectPageBySlug = useMemo(usePageWithSubpages, []);
-  const entry = useSelector((state: RootState) =>
-    selectPageBySlug(state, currentPage || MainRoutes.Menu)
-  );
 
-  const { page, subpages } = entry || {};
+  const { page, subpages } = usePageBySlug(currentPage || MainRoutes.Menu);
 
   if (!page) return <></>;
 

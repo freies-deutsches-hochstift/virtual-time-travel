@@ -5,6 +5,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getRoutePath, MainRoutes } from '@virtual-time-travel/app-router';
 import { localesActions, selectAvailLocales } from '../store/locales.slice';
 import { selectAllRoutes } from '../store/router';
+import NotFoundRoute from './not-found/not-found';
 import * as views from './views';
 
 export const AppRoutes = () => {
@@ -21,7 +22,7 @@ export const AppRoutes = () => {
             <Route key={path} {...{ path, element: <RouteComponent /> }} />
           );
         })}
-        <Route path={'*'} element={<p>Not found</p>} />
+        <Route path={'*'} element={<NotFoundRoute />} />
       </Routes>
     </>
   );

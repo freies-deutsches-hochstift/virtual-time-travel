@@ -12,6 +12,7 @@ export enum MainRoutes {
   List = 'list',
   Menu = 'menu',
   Pov = 'pov',
+  NotFound = 'not-found',
 }
 
 export type OnSelectPov = (id: string | number) => void;

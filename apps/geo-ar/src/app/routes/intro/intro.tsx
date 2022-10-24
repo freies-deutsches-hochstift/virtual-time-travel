@@ -1,27 +1,20 @@
-import { useSelector } from 'react-redux';
-import { Markdown } from '@virtual-time-travel/ui';
+import { MainRoutes } from '@virtual-time-travel/app-router';
 import {
   Page,
   StyledPageDivider,
   StyledPageGroup,
 } from '@virtual-time-travel/ui';
+import PageContent from '../../page-content/page-content';
 import { PovsList } from '../../povs/list';
-import {
-  selectIntroPageContent,
-  selectListPageContent,
-} from '../../store/pages.slice';
 import { RouteAnimation } from '../route-animation';
 
 export function IntroRoute() {
-  const introPageContent = useSelector(selectIntroPageContent);
-  const listPageContent = useSelector(selectListPageContent);
-
   return (
     <RouteAnimation>
       <Page>
-        <Markdown {...{ contentUrl: introPageContent }} />
+        <PageContent {...{ identifier: MainRoutes.Intro }} />
         <StyledPageGroup>
-          <Markdown {...{ contentUrl: listPageContent }} />
+          <PageContent {...{ identifier: MainRoutes.List }} />
           <StyledPageDivider>
             <PovsList />
           </StyledPageDivider>
