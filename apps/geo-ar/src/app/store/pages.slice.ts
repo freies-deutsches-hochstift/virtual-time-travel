@@ -98,7 +98,12 @@ export const pagesActions = pagesSlice.actions;
 export const getPagesState = (rootState: RootState): PagesState =>
   rootState[PAGES_FEATURE_KEY];
 
-export const selectAllPages = createSelector(
+export const selectPages = createSelector(
+  [getPagesState],
+  ({ entries }) => entries || undefined,
+);
+
+export const selectAllLocalizedPages = createSelector(
   [getPagesState, getLocalesState],
   ({ entries }, { current: currentLocale }) =>
     entries?.map(
@@ -113,7 +118,7 @@ export const selectAllPages = createSelector(
 
 export const usePageWithSubpages = () => {
   return createSelector(
-    [selectAllPages, getPagesConfig, (_, pageSlug) => pageSlug],
+    [selectAllLocalizedPages, getPagesConfig, (_, pageSlug) => pageSlug],
     (pages, { contentUrl }, pageSlug) => {
       const page = pages?.find((p: PageEntry) => p.slug === pageSlug);
 
@@ -137,7 +142,7 @@ export const usePageWithSubpages = () => {
 
 export const usePageFromIdentifier = () => {
   return createSelector(
-    [selectAllPages, getPagesConfig, (_, identifier) => identifier],
+    [selectAllLocalizedPages, getPagesConfig, (_, identifier) => identifier],
     (pages, { contentUrl }, identifier) => {
       const page = pages?.find((p: PageEntry) => p.identifier === identifier);
       if (!page) return null;

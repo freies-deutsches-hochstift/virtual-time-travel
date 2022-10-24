@@ -4,13 +4,21 @@ import {
   LocalizedRoute,
   MainRoutes,
 } from "@virtual-time-travel/app-router";
-import { LocaleId } from "@virtual-time-travel/localization";
+import {
+  AvailLocales,
+  LocaleId,
+  LocalizedKey,
+} from "@virtual-time-travel/localization";
 import { getConfigState } from "./config.slice";
 import { selectCurrentLocale } from "./locales.slice";
-import { LocalizedPage, selectAllPages } from "./pages.slice";
+import {
+  LocalizedPage,
+  PageEntry,
+  selectAllLocalizedPages,
+} from "./pages.slice";
 
 export const selectAllRoutes = createSelector(
-  [selectAllPages, selectCurrentLocale],
+  [selectAllLocalizedPages, selectCurrentLocale],
   (pages, locale) => {
     return [
       getRouteFromMainRoutes(MainRoutes.Home, pages, locale),
@@ -25,7 +33,7 @@ export const selectAllRoutes = createSelector(
 );
 
 export const selectMainRoutes = createSelector(
-  [selectAllPages, getConfigState, selectCurrentLocale],
+  [selectAllLocalizedPages, getConfigState, selectCurrentLocale],
   (pages, { appConfig }, locale) => {
     const { DISABLE_QR, DISABLE_EXPLORE } = appConfig;
 
@@ -39,8 +47,15 @@ export const selectMainRoutes = createSelector(
   },
 );
 
+export const selectMenuRouteSwitchLocale = createSelector(
+  [selectAllLocalizedPages, selectCurrentLocale],
+  (pages, locale) => {
+    return getRouteFromMainRoutes(MainRoutes.Menu, pages, locale);
+  },
+);
+
 export const selectQrRoute = createSelector(
-  [selectAllPages, selectCurrentLocale],
+  [selectAllLocalizedPages, selectCurrentLocale],
   (pages, locale) =>
     getRouteFromMainRoutes(MainRoutes.Qr, pages, locale) as LocalizedRoute,
 );
@@ -53,9 +68,9 @@ export const selectLocaleRoute = createSelector(
   },
 );
 
-function getRouteFromMainRoutes(
+export function getRouteFromMainRoutes(
   defaultRoute: MainRoutes,
-  pages: Array<LocalizedPage> | undefined,
+  pages: Array<LocalizedPage> | Array<PageEntry> | undefined,
   locale: LocaleId | undefined,
   params?: string,
 ) {
@@ -72,5 +87,26 @@ function getRouteFromMainRoutes(
       [slug, normalizedPageSlug, params].filter(Boolean).join("/"),
     ),
     route: [slug, normalizedPageSlug].filter(Boolean).join("/"),
-  };
+  } as LocalizedRoute;
+}
+
+export function getMainRoutesForLocale(
+  defaultRoute: MainRoutes,
+  pages: Array<PageEntry> | undefined,
+  locale: LocaleId | undefined,
+) {
+  if (!locale) return defaultRoute;
+  const { slug } = locale;
+  const pageSlug = pages?.find((p) => p.identifier === defaultRoute)
+    ?.slug as LocalizedKey;
+
+  const baseRoute = pageSlug[slug as AvailLocales];
+  const normalizedPageSlug =
+    typeof baseRoute === "string" ? baseRoute : defaultRoute;
+
+  return {
+    routeKey: defaultRoute,
+    path: getRoutePath([slug, normalizedPageSlug].filter(Boolean).join("/")),
+    route: [slug, normalizedPageSlug].filter(Boolean).join("/"),
+  } as LocalizedRoute;
 }
