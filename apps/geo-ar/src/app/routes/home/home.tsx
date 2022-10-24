@@ -2,18 +2,15 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { MainRoutes } from "@virtual-time-travel/app-router";
+import { MainLabels } from "@virtual-time-travel/localization";
 import { ActionsGroup, Button, Page } from "@virtual-time-travel/ui";
-import { RootState } from "../../../main";
+import { useLabel } from "../../hooks/use-label";
 import PageContent from "../../page-content/page-content";
-import { useLabels } from "../../store/locales.slice";
 import { selectAllRoutes } from "../../store/router";
 
 export function HomeRoute() {
   const routes = useSelector(selectAllRoutes);
-  const selectLabel = useMemo(useLabels, []);
-  const startLabel = useSelector((state: RootState) =>
-    selectLabel(state, "start"),
-  );
+  const startLabel = useLabel(MainLabels.Start);
 
   const redirectLink = useMemo(() => {
     return routes.find((r) => r.routeKey === MainRoutes.Intro)?.path || "";

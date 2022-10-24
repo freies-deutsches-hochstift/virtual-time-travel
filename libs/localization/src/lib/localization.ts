@@ -1,5 +1,16 @@
 import { AvailLocales, LocalizedField, LocalizedKey } from "./types";
 
+export enum MainLabels {
+  Start = "start",
+  Confirm = "confirm",
+  Cancel = "cancel",
+  Skip = "cancel",
+  Next = "next",
+  SwitchMap = "switch-map",
+  SwitchList = "switch-list",
+  GoHome = "go-home",
+}
+
 export function getLocalizedField(
   field: LocalizedKey | string | null,
   locale: AvailLocales,

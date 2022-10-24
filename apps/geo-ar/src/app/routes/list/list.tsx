@@ -1,22 +1,15 @@
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
 import { MainRoutes } from "@virtual-time-travel/app-router";
 import { PovsMap } from "@virtual-time-travel/geo";
+import { MainLabels } from "@virtual-time-travel/localization";
 import { Page, StyledPageDivider, SwitchView } from "@virtual-time-travel/ui";
-import { RootState } from "../../../main";
+import { useLabel } from "../../hooks/use-label";
 import { usePageByIdentifier } from "../../hooks/use-page-by-identifier";
 import PageContent from "../../page-content/page-content";
 import { PovsList } from "../../povs/list";
-import { useLabels } from "../../store/locales.slice";
 
 export function ListRoute() {
-  const selectLabel = useMemo(useLabels, []);
-  const switchMap = useSelector((state: RootState) =>
-    selectLabel(state, "switchMap"),
-  );
-  const switchList = useSelector((state: RootState) =>
-    selectLabel(state, "switchList"),
-  );
+  const switchMap = useLabel(MainLabels.SwitchMap);
+  const switchList = useLabel(MainLabels.SwitchList);
 
   const listPage = usePageByIdentifier(MainRoutes.List);
 
