@@ -2,7 +2,7 @@
  * A wrapper for navigator.geolocation handling feature availability and permissions gracefully
  */
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   DeviceLocationEventRes,
   LocationOptions,
@@ -34,10 +34,16 @@ export function useLocation(
 ) {
   const [watchId, setWatchId] = useState<number | null>(null);
 
+  const requested = useRef(false);
+
   const onSuccess = useCallback(
     (pos: GeolocationPosition) => {
-      if (onRequestComplete)
-        onRequestComplete({ status: PermissionStatus.Granted, error: null });
+      if (!requested.current) {
+        if (onRequestComplete)
+          onRequestComplete({ status: PermissionStatus.Granted, error: null });
+        requested.current = true;
+      }
+
       onChange(geolocation.getPositionEventRes(pos) as DeviceLocationEventRes);
     },
     [onRequestComplete, onChange],

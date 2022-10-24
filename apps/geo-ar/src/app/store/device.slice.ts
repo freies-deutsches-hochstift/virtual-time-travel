@@ -8,13 +8,7 @@ import {
 } from "@virtual-time-travel/util-device";
 import { RootState } from "../../main";
 
-const canUseDeviceOrientation = !process.env["NX_DISABLE_ORIENTATION"];
 export const DEVICE_FEATURE_KEY = "device";
-
-if (!canUseDeviceOrientation)
-  console.warn(
-    "DEVICE ORIENTATION REQUEST DISABLED!! If this is not wanted check NX_DISABLE_ORIENTATION in your env file",
-  );
 
 export interface DeviceState {
   [DeviceFeatures.Camera]: DeviceResponsePermission;
@@ -71,12 +65,10 @@ export const getDevicesState = (rootState: RootState): DeviceState =>
   rootState[DEVICE_FEATURE_KEY];
 
 export const selectGeoPermissions = createSelector(getDevicesState, (state) => {
-  const mandatory = [state[DeviceFeatures.Geolocation]];
-
-  if (canUseDeviceOrientation) {
-    mandatory.push(state[DeviceFeatures.Orientation]);
-  }
-
+  const mandatory = [
+    state[DeviceFeatures.Geolocation],
+    state[DeviceFeatures.Orientation],
+  ];
   return mandatory.map((m) => m?.status);
 });
 
@@ -86,11 +78,8 @@ export const selectHasArPermissions = createSelector(
     const mandatory = [
       state[DeviceFeatures.Geolocation],
       state[DeviceFeatures.Camera],
+      state[DeviceFeatures.Orientation],
     ];
-
-    if (canUseDeviceOrientation) {
-      mandatory.push(state[DeviceFeatures.Orientation]);
-    }
 
     return (
       mandatory.filter((m) =>

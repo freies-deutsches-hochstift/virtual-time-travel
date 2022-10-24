@@ -18,10 +18,9 @@ export interface DeviceOrientationEventExtended extends DeviceOrientationEvent {
 }
 
 export interface DeviceOrientationEventRes {
-  absolute: boolean;
-  alpha: number | null;
-  beta: number | null;
-  gamma: number | null;
+  alpha: number;
+  beta: number;
+  gamma: number;
   compassHeading: number;
 }
 

@@ -1,4 +1,3 @@
-export * from "./lib/debug";
 export * from "./lib/geo";
 export * from "./lib/ui";
 export * from "./lib/use-location/use-location";

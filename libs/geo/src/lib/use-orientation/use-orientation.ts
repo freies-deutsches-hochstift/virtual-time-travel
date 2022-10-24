@@ -37,17 +37,6 @@ export function useOrientation(
   );
 
   const requestOrientation = useCallback(() => {
-    // // if unsupported browser
-    // if (!window.ondeviceorientation) {
-    //   if (onRequestComplete) {
-    //     onRequestComplete({
-    //       status: PermissionStatus.Unavailable,
-    //       error: null,
-    //     });
-    //     return;
-    //   }
-    // }
-
     // if android (does not need request permissions)
     if (!IS_IOS && onRequestComplete) {
       onRequestComplete({ status: PermissionStatus.Granted, error: null });

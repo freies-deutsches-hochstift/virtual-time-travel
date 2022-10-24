@@ -11,7 +11,7 @@ import * as geolib from "geolib";
 export const geolocationDefaultOptions: LocationOptions = {
   enableHighAccuracy: true,
   timeout: 30000,
-  maximumAge: 0,
+  maximumAge: 5000,
 };
 
 export const geolocationErrors = [PermissionStatus.Denied];
@@ -84,10 +84,14 @@ const getOrientationEventRes = (event: DeviceOrientationEventExtended) => {
   const anyAlpha = alpha || 0;
 
   return {
-    alpha: anyAlpha?.toFixed(1),
-    beta: beta?.toFixed(1),
-    gamma: gamma?.toFixed(1),
-    compassHeading: webkitCompassHeading || Math.abs(anyAlpha - 360) || 0,
+    alpha: anyAlpha?.toFixed(0) || 0,
+    beta: beta?.toFixed(0) || 0,
+    gamma: gamma?.toFixed(0) || 0,
+    compassHeading: (
+      webkitCompassHeading ||
+      Math.abs(anyAlpha - 360) ||
+      0
+    ).toFixed(0),
   } as unknown as DeviceOrientationEventRes;
 };
 
