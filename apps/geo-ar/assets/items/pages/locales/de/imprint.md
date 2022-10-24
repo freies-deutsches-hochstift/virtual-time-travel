@@ -54,7 +54,7 @@ Ordered
 
 [internal link](/welcome)
 
-[link with title](https://google.de 'title text!')
+[link with title](https://google.de "title text!")
 
 Autoconverted link https://google.de
 

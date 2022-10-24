@@ -1,57 +1,63 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import { ReactNode, useMemo, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import Toggle from '../toggle/toggle'
+import { ReactNode, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import Toggle from "../toggle/toggle";
 
 export interface SwitchViewProps {
-  primaryView: ReactNode
-  primaryLabel?: string
-  secondaryView: ReactNode
-  secondaryLabel?: string
+  primaryView: ReactNode;
+  primaryLabel?: string;
+  secondaryView: ReactNode;
+  secondaryLabel?: string;
 }
 
 enum SwitchViews {
-  Primary = 'primary',
-  Secondary = 'secondary',
+  Primary = "primary",
+  Secondary = "secondary",
 }
 
-export function SwitchView({ primaryView, secondaryView, primaryLabel, secondaryLabel }: SwitchViewProps) {
+export function SwitchView({
+  primaryView,
+  secondaryView,
+  primaryLabel,
+  secondaryLabel,
+}: SwitchViewProps) {
   const [switchView, setSwitchView] = useState<SwitchViews>(
-    SwitchViews.Primary
-  )
+    SwitchViews.Primary,
+  );
 
   const view = useMemo(
     () => (switchView === SwitchViews.Primary ? primaryView : secondaryView),
-    [switchView, primaryView, secondaryView]
-  )
+    [switchView, primaryView, secondaryView],
+  );
   const onToggle = () => {
     setSwitchView((s) =>
-      s === SwitchViews.Primary ? SwitchViews.Secondary : SwitchViews.Primary
-    )
-  }
+      s === SwitchViews.Primary ? SwitchViews.Secondary : SwitchViews.Primary,
+    );
+  };
 
   return (
     <>
       <AnimatePresence mode="wait">
         <SwitchAnimation key={switchView}>{view}</SwitchAnimation>
-
       </AnimatePresence>
-      <div className='absolute z-top right-2 bottom-2'>
-        <Toggle {...{
-          onToggle,
-          toggled: switchView !== SwitchViews.Secondary,
-          toggledLabel: primaryLabel,
-          toggleLabel: secondaryLabel
-        }} />
+      <div className="absolute z-top right-2 bottom-2">
+        <Toggle
+          {...{
+            onToggle,
+            toggled: switchView !== SwitchViews.Secondary,
+            toggledLabel: primaryLabel,
+            toggleLabel: secondaryLabel,
+          }}
+        />
       </div>
     </>
-  )
+  );
 }
 
-export default SwitchView
+export default SwitchView;
 
 interface SwitchAnimationProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const SwitchAnimation = ({ children }: SwitchAnimationProps) => {
@@ -65,5 +71,5 @@ const SwitchAnimation = ({ children }: SwitchAnimationProps) => {
     >
       {children}
     </motion.div>
-  )
-}
+  );
+};

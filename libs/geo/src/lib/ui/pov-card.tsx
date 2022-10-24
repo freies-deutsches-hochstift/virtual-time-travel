@@ -1,18 +1,22 @@
-import { OnSelectPov } from '@virtual-time-travel/app-router'
-import { EnhancedPov } from '@virtual-time-travel/geo-types'
-import { StyledCard, StyledCardContent, StyledCardCover } from '@virtual-time-travel/ui'
+import { OnSelectPov } from "@virtual-time-travel/app-router";
+import { EnhancedPov } from "@virtual-time-travel/geo-types";
+import {
+  StyledCard,
+  StyledCardContent,
+  StyledCardCover,
+} from "@virtual-time-travel/ui";
 
 export interface PovCardProps {
-  pov: EnhancedPov,
-  onSelectPov?: OnSelectPov
+  pov: EnhancedPov;
+  onSelectPov?: OnSelectPov;
 }
 
 export function PovCard({ pov, onSelectPov }: PovCardProps) {
-  const { id, coverSrc, localizedTitle } = pov
+  const { id, coverSrc, localizedTitle } = pov;
 
   const onSelectCard = () => {
-    if (onSelectPov) onSelectPov(id)
-  }
+    if (onSelectPov) onSelectPov(id);
+  };
 
   return (
     <StyledCard onClick={onSelectCard}>
@@ -24,5 +28,5 @@ export function PovCard({ pov, onSelectPov }: PovCardProps) {
         <h3>{localizedTitle}</h3>
       </StyledCardContent>
     </StyledCard>
-  )
+  );
 }

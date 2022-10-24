@@ -2,52 +2,52 @@
 
 /*! Headlines */
 @font-face {
-  font-family: 'dm_serif';
-  src: url('./fonts/dmserifdisplay-regular-webfont.woff2') format('woff2');
+  font-family: "dm_serif";
+  src: url("./fonts/dmserifdisplay-regular-webfont.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'dm_serif';
-  src: url('./fonts/dmserifdisplay-italic-webfont.woff2') format('woff2');
+  font-family: "dm_serif";
+  src: url("./fonts/dmserifdisplay-italic-webfont.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
 }
 
 /*! Text */
 @font-face {
-  font-family: 'noto_sans';
-  src: url('./fonts/notosans-regular-webfont.woff2') format('woff2');
+  font-family: "noto_sans";
+  src: url("./fonts/notosans-regular-webfont.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'noto_sans';
-  src: url('./fonts/notosans-italic-webfont.woff2') format('woff2');
+  font-family: "noto_sans";
+  src: url("./fonts/notosans-italic-webfont.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'noto_sans';
-  src: url('./fonts/notosans-bold-webfont.woff2') format('woff2');
+  font-family: "noto_sans";
+  src: url("./fonts/notosans-bold-webfont.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'noto_sans';
-  src: url('./fonts/notosans-bolditalic-webfont.woff2') format('woff2');
+  font-family: "noto_sans";
+  src: url("./fonts/notosans-bolditalic-webfont.woff2") format("woff2");
   font-weight: bold;
   font-style: italic;
 }
 
 :root {
   /* Font family */
-  --font-headline: 'dm_serif';
-  --font-body: 'noto_sans';
+  --font-headline: "dm_serif";
+  --font-body: "noto_sans";
 
   /* Colors */
   --primary: #fff;
@@ -132,7 +132,7 @@
   /* --ui-pov-waves: url('/assets/medias/poi_wave.png') center center no-repeat; */
   --ui-pov-waves-inview: radial-gradient(var(--highlight-a), rgba(0, 0, 0, 0));
 
-  --ui-pov-compass-bg: url('/assets/medias/layout/poi_inview.png') center center
+  --ui-pov-compass-bg: url("/assets/medias/layout/poi_inview.png") center center
     no-repeat;
 
   --ui-pov-compass-primary: var(--primary);

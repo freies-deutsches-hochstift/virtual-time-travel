@@ -1,18 +1,18 @@
-import { useMemo } from 'react'
-import styled from '@emotion/styled'
-import { CurrentPov } from '@virtual-time-travel/geo-types'
-import tw from 'twin.macro'
+import { useMemo } from "react";
+import styled from "@emotion/styled";
+import { CurrentPov } from "@virtual-time-travel/geo-types";
+import tw from "twin.macro";
 
 export interface PovCompassProps {
-  pov: CurrentPov
+  pov: CurrentPov;
 }
 
 export function PovCompassTicks({ pov }: PovCompassProps) {
-  const { bearingViewportOrientation } = pov
+  const { bearingViewportOrientation } = pov;
 
   const tickMarkerLeft = useMemo(() => {
-    return (bearingViewportOrientation / 360) * 100
-  }, [bearingViewportOrientation])
+    return (bearingViewportOrientation / 360) * 100;
+  }, [bearingViewportOrientation]);
 
   /**
    * this module is displayed 2 times to guarantee a 360° experience
@@ -31,10 +31,10 @@ export function PovCompassTicks({ pov }: PovCompassProps) {
         </StyledCompassTicksSector>
       ))}
     </StyledCompassTicks>
-  )
+  );
 }
 
-export default PovCompassTicks
+export default PovCompassTicks;
 
 const StyledCompassTicks = styled.div(() => [
   tw`
@@ -46,14 +46,14 @@ const StyledCompassTicks = styled.div(() => [
       width: 200%;
       transform: translateX(-25%);
     `,
-])
+]);
 
 const StyledCompassTicksSector = styled.div(() => [
   tw`
       w-1/2
       flex items-center justify-between relative
     `,
-])
+]);
 
 const StyledCompassTick = styled.div(() => [
   tw`
@@ -67,11 +67,11 @@ const StyledCompassTick = styled.div(() => [
       after:bg-ui-pov-compass
       after:rounded-sm
     `,
-])
+]);
 
 type StyledCompassTicksMarkerProps = {
-  left: number
-}
+  left: number;
+};
 
 const StyledCompassTicksMarker = styled.div(
   ({ left }: StyledCompassTicksMarkerProps) => [
@@ -89,5 +89,5 @@ const StyledCompassTicksMarker = styled.div(
     `
       left: ${left}%;
     `,
-  ]
-)
+  ],
+);

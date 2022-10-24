@@ -1,10 +1,10 @@
 /* eslint-disable */
 export default {
-  displayName: 'markdown',
-  preset: '../../jest.preset.js',
+  displayName: "markdown",
+  preset: "../../jest.preset.js",
   transform: {
-    '^.+\\.[tj]sx?$': 'babel-jest',
+    "^.+\\.[tj]sx?$": "babel-jest",
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/markdown',
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
+  coverageDirectory: "../../coverage/libs/markdown",
 };

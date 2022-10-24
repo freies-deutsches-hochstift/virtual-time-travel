@@ -1,11 +1,11 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../main';
-import { getFencesState } from './fences.slice';
-import { getLocalesState } from './locales.slice';
-import { getPagesState } from './pages.slice';
-import { getPovsState } from './povs.slice';
+import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../main";
+import { getFencesState } from "./fences.slice";
+import { getLocalesState } from "./locales.slice";
+import { getPagesState } from "./pages.slice";
+import { getPovsState } from "./povs.slice";
 
-export const GENERAL_FEATURE_KEY = 'general';
+export const GENERAL_FEATURE_KEY = "general";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface GeneralState {}
@@ -34,7 +34,7 @@ export const selectAppIsReady = createSelector(
   [getLocalesState, getPagesState, getFencesState, getPovsState],
   (locales, pages, fences, povs) => {
     const thunkData = [locales, pages, fences, povs];
-    const notLoaded = thunkData.filter((d) => d.loadingStatus !== 'loaded');
+    const notLoaded = thunkData.filter((d) => d.loadingStatus !== "loaded");
     return notLoaded.length === 0;
-  }
+  },
 );

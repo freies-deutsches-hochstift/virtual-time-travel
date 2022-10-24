@@ -1,33 +1,33 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import { ReactNode, useCallback, useMemo, useState } from 'react'
-import { useSwipeable } from 'react-swipeable'
-import { uid } from 'react-uid'
-import styled from '@emotion/styled'
-import { AnimatePresence, motion } from 'framer-motion'
-import { wrap } from 'popmotion'
-import tw from 'twin.macro'
-import Scrollable from '../scrollable/scrollable'
-import MarkdownInlineActions from './markdown-inline-actions'
-import MarkdownSlideshowActions from './markdown-slideshow-actions'
+import { ReactNode, useCallback, useMemo, useState } from "react";
+import { useSwipeable } from "react-swipeable";
+import { uid } from "react-uid";
+import styled from "@emotion/styled";
+import { AnimatePresence, motion } from "framer-motion";
+import { wrap } from "popmotion";
+import tw from "twin.macro";
+import Scrollable from "../scrollable/scrollable";
+import MarkdownInlineActions from "./markdown-inline-actions";
+import MarkdownSlideshowActions from "./markdown-slideshow-actions";
 
-export type MarkdownContents = Array<string>
-export type MarkdownLabels = { [key: string]: string }
-export type MarkdownActions = ReactNode
-export type MarkdownAsSlideshow = boolean
+export type MarkdownContents = Array<string>;
+export type MarkdownLabels = { [key: string]: string };
+export type MarkdownActions = ReactNode;
+export type MarkdownAsSlideshow = boolean;
 
 export interface MarkdownContentsProps {
-  contents?: MarkdownContents
-  asSlideshow?: MarkdownAsSlideshow
-  actions?: MarkdownActions
-  labels?: MarkdownLabels
+  contents?: MarkdownContents;
+  asSlideshow?: MarkdownAsSlideshow;
+  actions?: MarkdownActions;
+  labels?: MarkdownLabels;
 }
 
 const slideshowVariants = {
   enter: (direction: number) => {
     return {
-      x: direction > 0 ? '100%' : '-100%',
+      x: direction > 0 ? "100%" : "-100%",
       opacity: 0,
-    }
+    };
   },
   center: {
     zIndex: 1,
@@ -37,11 +37,11 @@ const slideshowVariants = {
   exit: (direction: number) => {
     return {
       zIndex: 0,
-      x: direction < 0 ? '100%' : '-100%',
+      x: direction < 0 ? "100%" : "-100%",
       opacity: 0,
-    }
+    };
   },
-}
+};
 
 export function MarkdownContents({
   contents = [],
@@ -49,32 +49,32 @@ export function MarkdownContents({
   actions,
   labels,
 }: MarkdownContentsProps) {
-  const [[currentSlide, direction], setCurrentSlide] = useState([0, 0])
-  const hasSlides = useMemo(() => contents.length > 1, [contents])
-  const contentIndex = wrap(0, contents.length, currentSlide)
+  const [[currentSlide, direction], setCurrentSlide] = useState([0, 0]);
+  const hasSlides = useMemo(() => contents.length > 1, [contents]);
+  const contentIndex = wrap(0, contents.length, currentSlide);
   const activeSlideshow = useMemo(
     () => hasSlides && asSlideshow,
-    [hasSlides, asSlideshow]
-  )
+    [hasSlides, asSlideshow],
+  );
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => paginate(1),
     onSwipedRight: () => paginate(-1),
-  })
+  });
 
   const isLastSlide = useMemo(
     () => currentSlide === contents.length - 1,
-    [currentSlide, contents]
-  )
+    [currentSlide, contents],
+  );
 
   const paginate = (newDirection: number) => {
-    if (!activeSlideshow) return
-    setCurrentSlide([currentSlide + newDirection, newDirection])
-  }
+    if (!activeSlideshow) return;
+    setCurrentSlide([currentSlide + newDirection, newDirection]);
+  };
 
   const onNext = useCallback(() => {
-    if (!isLastSlide) setCurrentSlide([currentSlide + 1, 1])
-  }, [isLastSlide, currentSlide])
+    if (!isLastSlide) setCurrentSlide([currentSlide + 1, 1]);
+  }, [isLastSlide, currentSlide]);
 
   return (
     <StyledMarkdownWrapper {...{ hasSlides }}>
@@ -92,7 +92,7 @@ export function MarkdownContents({
             animate="center"
             exit="exit"
             transition={{
-              x: { type: 'spring', stiffness: 300, damping: 30 },
+              x: { type: "spring", stiffness: 300, damping: 30 },
               opacity: { duration: 0.2 },
             }}
             key={uid(contentIndex)}
@@ -110,36 +110,36 @@ export function MarkdownContents({
         <MarkdownInlineActions {...{ isLastSlide, onNext, actions, labels }} />
       )}
     </StyledMarkdownWrapper>
-  )
+  );
 }
 
-export default MarkdownContents
+export default MarkdownContents;
 
 type StyledMarkdownWrapperProps = {
-  hasSlides: boolean
-}
+  hasSlides: boolean;
+};
 
 export const StyledMarkdownWrapper = styled.div(
   ({ hasSlides }: StyledMarkdownWrapperProps) => [
     hasSlides && tw`absolute inset-0 overflow-hidden min-h-full flex flex-col`,
     hasSlides &&
-    `
+      `
     ${StyledMarkdown} {
       position: absolute;
       inset: 0;
       overflow: hidden;
     }
   `,
-  ]
-)
+  ],
+);
 
 export const StyledMarkdownContents = styled.div(() => [
   tw`w-full flex-1 relative overflow-hidden flex flex-col`,
-])
+]);
 
 export const StyledMarkdown = styled(motion.div)(() => [
   tw`w-full flex-1 relative overflow-hidden flex flex-col`,
-])
+]);
 
 export const StyledMarkdownContent = styled.div(() => [
   `
@@ -233,4 +233,4 @@ export const StyledMarkdownContent = styled.div(() => [
       max-height: none;
     }
   `,
-])
+]);

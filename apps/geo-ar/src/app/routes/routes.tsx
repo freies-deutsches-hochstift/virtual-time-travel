@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { getRoutePath, MainRoutes } from '@virtual-time-travel/app-router';
-import { localesActions, selectAvailLocales } from '../store/locales.slice';
-import { selectAllRoutes } from '../store/router';
-import NotFoundRoute from './not-found/not-found';
-import * as views from './views';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { getRoutePath, MainRoutes } from "@virtual-time-travel/app-router";
+import { localesActions, selectAvailLocales } from "../store/locales.slice";
+import { selectAllRoutes } from "../store/router";
+import NotFoundRoute from "./not-found/not-found";
+import * as views from "./views";
 
 export const AppRoutes = () => {
   const routes = useSelector(selectAllRoutes);
@@ -22,7 +22,7 @@ export const AppRoutes = () => {
             <Route key={path} {...{ path, element: <RouteComponent /> }} />
           );
         })}
-        <Route path={'*'} element={<NotFoundRoute />} />
+        <Route path={"*"} element={<NotFoundRoute />} />
       </Routes>
     </>
   );
@@ -41,7 +41,7 @@ function RedirectRouter() {
      * so lang validation/redirect has to be done manually
      */
 
-    const maybeLang = pathname.split('/').filter(Boolean).shift();
+    const maybeLang = pathname.split("/").filter(Boolean).shift();
 
     if (maybeLang === MainRoutes.Pov) {
       /**
@@ -50,8 +50,8 @@ function RedirectRouter() {
        */
 
       const povRoute = routes.find((r) => r.routeKey === MainRoutes.Pov);
-      const povId = pathname.split('/').pop();
-      if (povRoute) navigate([povRoute.route, povId].join('/'));
+      const povId = pathname.split("/").pop();
+      if (povRoute) navigate([povRoute.route, povId].join("/"));
       return;
     }
 

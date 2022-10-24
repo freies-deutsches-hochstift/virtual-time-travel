@@ -2,20 +2,20 @@ import {
   createAsyncThunk,
   createSelector,
   createSlice,
-} from '@reduxjs/toolkit';
+} from "@reduxjs/toolkit";
 import {
   AppConfigOptions,
   ConfigDataItems,
-} from '@virtual-time-travel/app-config';
-import { getLocalizedMarkdownContent } from '@virtual-time-travel/app-router';
-import { fetchApi } from '@virtual-time-travel/fetch-api';
+} from "@virtual-time-travel/app-config";
+import { getLocalizedMarkdownContent } from "@virtual-time-travel/app-router";
+import { fetchApi } from "@virtual-time-travel/fetch-api";
 import {
   getLocalizedField,
   LocalizedKey,
-} from '@virtual-time-travel/localization';
-import { RootState } from '../../main';
-import { getPagesConfig } from './config.slice';
-import { getLocalesState } from './locales.slice';
+} from "@virtual-time-travel/localization";
+import { RootState } from "../../main";
+import { getPagesConfig } from "./config.slice";
+import { getLocalesState } from "./locales.slice";
 
 export const PAGES_FEATURE_KEY = ConfigDataItems.PAGES;
 
@@ -46,24 +46,24 @@ export interface PageWithSubpages {
 }
 
 export interface PagesState {
-  loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
+  loadingStatus: "not loaded" | "loading" | "loaded" | "error";
   error: string | null;
   entries: Array<PageEntry> | null;
 }
 
 export const initialPagesState: PagesState = {
-  loadingStatus: 'not loaded',
+  loadingStatus: "not loaded",
   error: null,
   entries: [],
 };
 
 export const fetchPages = createAsyncThunk(
-  'pages/fetchPages',
+  "pages/fetchPages",
   async (config: AppConfigOptions, thunkAPI) => {
     const fetchParams = config[ConfigDataItems.PAGES].fetchParams;
     const { data } = await fetchApi(fetchParams);
     return data as Array<PageEntry> | null;
-  }
+  },
 );
 
 export const pagesSlice = createSlice({
@@ -72,21 +72,21 @@ export const pagesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchPages.pending, (state) => {
-      state.loadingStatus = 'loading';
+      state.loadingStatus = "loading";
       state.entries = null;
       state.error = null;
     });
 
     builder.addCase(fetchPages.fulfilled, (state, action) => {
-      state.loadingStatus = 'loaded';
+      state.loadingStatus = "loaded";
       state.entries = action.payload;
       state.error = null;
     });
 
     builder.addCase(fetchPages.rejected, (state) => {
-      state.loadingStatus = 'error';
+      state.loadingStatus = "error";
       state.entries = null;
-      state.error = 'Could not fetch pages';
+      state.error = "Could not fetch pages";
     });
   },
 });
@@ -107,8 +107,8 @@ export const selectAllPages = createSelector(
           ...e,
           title: getLocalizedField(e.title, currentLocale),
           slug: getLocalizedField(e.slug, currentLocale),
-        } as LocalizedPage)
-    )
+        } as LocalizedPage),
+    ),
 );
 
 export const usePageWithSubpages = () => {
@@ -120,7 +120,7 @@ export const usePageWithSubpages = () => {
       if (!page) return null;
       const { subpages: subpagesIds } = page;
       const subpages = pages?.filter(
-        (p: PageEntry) => !!(subpagesIds || []).find((spId) => spId === p.id)
+        (p: PageEntry) => !!(subpagesIds || []).find((spId) => spId === p.id),
       );
 
       return {
@@ -131,7 +131,7 @@ export const usePageWithSubpages = () => {
 
         subpages: subpages || [],
       } as PageWithSubpages;
-    }
+    },
   );
 };
 
@@ -145,6 +145,6 @@ export const usePageFromIdentifier = () => {
         ...page,
         contentUrl: getLocalizedMarkdownContent(contentUrl, page.identifier),
       };
-    }
+    },
   );
 };

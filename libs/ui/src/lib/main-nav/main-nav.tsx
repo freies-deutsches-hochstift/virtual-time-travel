@@ -1,22 +1,22 @@
-import { ReactNode } from 'react'
-import { NavLink } from 'react-router-dom'
-import styled from '@emotion/styled'
-import tw from 'twin.macro'
-import Icon from '../icon'
+import { ReactNode } from "react";
+import { NavLink } from "react-router-dom";
+import styled from "@emotion/styled";
+import tw from "twin.macro";
+import Icon from "../icon";
 
 export interface MainNavProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 type MainNavButtonStyleProps = {
-  active?: boolean
-  disabled?: boolean
-}
+  active?: boolean;
+  disabled?: boolean;
+};
 
 export interface MainNavButtonProps {
-  type: string
-  link: string
-  disabled?: boolean
+  type: string;
+  link: string;
+  disabled?: boolean;
 }
 
 const StyledMainNav = styled.nav(tw`
@@ -24,7 +24,7 @@ const StyledMainNav = styled.nav(tw`
   bg-ui-nav-bg
   text-ui-nav-link
   flex items-center justify-center
-`)
+`);
 
 const StyledMainNavInner = styled.nav([
   tw`
@@ -42,16 +42,16 @@ const StyledMainNavInner = styled.nav([
       aspect-ratio: 1 / 1;
     }
   `,
-])
+]);
 
 export function MainNav(props: MainNavProps) {
-  const { children } = props
+  const { children } = props;
 
   return (
     <StyledMainNav>
       <StyledMainNavInner>{children}</StyledMainNavInner>
     </StyledMainNav>
-  )
+  );
 }
 
 const StyledMainNavLink = styled.span((props: MainNavButtonStyleProps) => [
@@ -71,20 +71,20 @@ const StyledMainNavLink = styled.span((props: MainNavButtonStyleProps) => [
   `,
   props.active && tw`text-ui-nav-link-active`,
   props.disabled && tw`opacity-50 pointer-events-none`,
-])
+]);
 
 export function MainNavButton(props: MainNavButtonProps) {
-  const { type, link, disabled, ...rest } = props
+  const { type, link, disabled, ...rest } = props;
 
   return (
     <NavLink to={link}>
-      {({ isActive }) =>
+      {({ isActive }) => (
         <StyledMainNavLink active={isActive} disabled={disabled} {...rest}>
           <Icon type={type} />
         </StyledMainNavLink>
-      }
+      )}
     </NavLink>
-  )
+  );
 }
 
-export default MainNav
+export default MainNav;

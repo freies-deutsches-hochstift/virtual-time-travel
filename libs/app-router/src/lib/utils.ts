@@ -1,18 +1,18 @@
-import qs from 'query-string';
+import qs from "query-string";
 
 interface VariableObjectKeys {
   [key: string]: string | number | VariableObjectKeys;
 }
 
 export enum MainRoutes {
-  Home = 'home',
-  Intro = 'intro',
-  Explore = 'explore',
-  Qr = 'qr',
-  List = 'list',
-  Menu = 'menu',
-  Pov = 'pov',
-  NotFound = 'not-found',
+  Home = "home",
+  Intro = "intro",
+  Explore = "explore",
+  Qr = "qr",
+  List = "list",
+  Menu = "menu",
+  Pov = "pov",
+  NotFound = "not-found",
 }
 
 export type OnSelectPov = (id: string | number) => void;
@@ -23,8 +23,8 @@ export interface LocalizedRoute {
   route: string;
 }
 
-export const currentPovSearchParam = 'povId';
-export const invalidQrParam = 'invalidQr';
+export const currentPovSearchParam = "povId";
+export const invalidQrParam = "invalidQr";
 
 export interface QrRedirectParams {
   hash: string;
@@ -36,10 +36,10 @@ export const getRoutePath = (route: string) => {
 };
 
 export const getLocalizedRoutePath = (locale: string, route: string) => {
-  return `/${[locale, route].filter(Boolean).join('/')}`;
+  return `/${[locale, route].filter(Boolean).join("/")}`;
 };
 
-export const getHashSearchParams = (search = '') => {
+export const getHashSearchParams = (search = "") => {
   return qs.parse(search);
 };
 
@@ -55,7 +55,7 @@ export const getQrRedirectParams = (qrRoute: LocalizedRoute, text: string) => {
 
 export const getQrRedirect = (qrRoute: LocalizedRoute, text: string) => {
   const { hash, search } = getNavigateParams(text);
-  const [, route, id] = hash.split('/');
+  const [, route, id] = hash.split("/");
 
   if (route !== MainRoutes.Pov) return null;
   return {
@@ -65,10 +65,10 @@ export const getQrRedirect = (qrRoute: LocalizedRoute, text: string) => {
 };
 
 export const getNavigateParams = (hashFromLocation: string) => {
-  const [hash, params] = hashFromLocation.split('?');
+  const [hash, params] = hashFromLocation.split("?");
   const search = getHashSearchParams(params);
 
-  return { hash: hash.replace('#/', '/'), search };
+  return { hash: hash.replace("#/", "/"), search };
 };
 
 export const getQrNavigateParams = (qrRoute: LocalizedRoute, text: string) => {
@@ -82,7 +82,7 @@ export const getQrNavigateParams = (qrRoute: LocalizedRoute, text: string) => {
 
 export const getQrRedirectRoute = (redirectParams: QrRedirectParams) => {
   const { hash, search } = redirectParams;
-  return [hash, qs.stringify(search)].join('?');
+  return [hash, qs.stringify(search)].join("?");
 };
 
 /**
@@ -103,13 +103,13 @@ export const getOnSelectPovRoute = (povId: string | number | null) => {
     }
   }
 
-  return [hash, qs.stringify(nextSearch)].join('?');
+  return [hash, qs.stringify(nextSearch)].join("?");
 };
 
 export const isExternalUrl = (string: string) => {
   try {
     const url = new URL(string);
-    return url.protocol === 'http:' || url.protocol === 'https:';
+    return url.protocol === "http:" || url.protocol === "https:";
   } catch (err) {
     return false;
   }
@@ -117,16 +117,16 @@ export const isExternalUrl = (string: string) => {
 
 export const getAssetUrl = (
   localPath: string,
-  assetFilename?: string | null
+  assetFilename?: string | null,
 ) => {
   if (!assetFilename) return null;
   if (isExternalUrl(assetFilename)) return assetFilename;
-  return [localPath, assetFilename].join('/');
+  return [localPath, assetFilename].join("/");
 };
 
 export const getLocalizedMarkdownContent = (
   localPath: string,
-  contentId: string | number
+  contentId: string | number,
 ) => {
-  return [localPath, `${contentId}.md`].join('/');
+  return [localPath, `${contentId}.md`].join("/");
 };

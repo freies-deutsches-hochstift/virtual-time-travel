@@ -1,17 +1,17 @@
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { geolocation } from '@virtual-time-travel/geo';
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { geolocation } from "@virtual-time-travel/geo";
 import {
   CurrentGeoFence,
   GeoState,
   StateOrientation,
   StatePosition,
-} from '@virtual-time-travel/geo-types';
-import { RootState } from '../../main';
-import { getConfigState } from './config.slice';
-import { getFencesState } from './fences.slice';
-import { selectAllPovs } from './povs.slice';
+} from "@virtual-time-travel/geo-types";
+import { RootState } from "../../main";
+import { getConfigState } from "./config.slice";
+import { getFencesState } from "./fences.slice";
+import { selectAllPovs } from "./povs.slice";
 
-export const GEO_FEATURE_KEY = 'geo';
+export const GEO_FEATURE_KEY = "geo";
 
 export const initialGeoState: GeoState = {
   position: null,
@@ -24,7 +24,7 @@ export const geoSlice = createSlice({
   reducers: {
     updateLocation(
       state: GeoState,
-      action: PayloadAction<StatePosition | null>
+      action: PayloadAction<StatePosition | null>,
     ) {
       const { payload } = action;
       console.log(JSON.stringify(payload));
@@ -33,7 +33,7 @@ export const geoSlice = createSlice({
 
     updateOrientation(
       state: GeoState,
-      action: PayloadAction<StateOrientation | null>
+      action: PayloadAction<StateOrientation | null>,
     ) {
       const { payload } = action;
       state.orientation = payload;
@@ -50,12 +50,12 @@ export const getGeoState = (rootState: RootState): GeoState =>
 
 export const selectPosition = createSelector(
   getGeoState,
-  ({ position }) => position
+  ({ position }) => position,
 );
 
 export const selectOrientation = createSelector(
   getGeoState,
-  ({ orientation }) => orientation
+  ({ orientation }) => orientation,
 );
 
 export const selectCurrentGeoFence = createSelector(
@@ -64,7 +64,7 @@ export const selectCurrentGeoFence = createSelector(
     { position, orientation },
     { entries: fences },
     povs,
-    { appConfig: { INVIEW_THRESHOLD_ANGLE, INVIEW_THRESHOLD_DISTANCE } }
+    { appConfig: { INVIEW_THRESHOLD_ANGLE, INVIEW_THRESHOLD_DISTANCE } },
   ): CurrentGeoFence | null => {
     if (!position) return null;
 
@@ -74,15 +74,15 @@ export const selectCurrentGeoFence = createSelector(
       (fence) =>
         !!fence.geometry.coordinates.find(
           (geometry) =>
-            !!geolocation.isPointInPolygon(currentPosition, geometry)
-        )
+            !!geolocation.isPointInPolygon(currentPosition, geometry),
+        ),
     );
 
     const currentPovs = (povs || [])
       .filter(
         (pov) =>
           pov.fence === currentFence?.id &&
-          pov.geometry?.coordinates?.length === 2
+          pov.geometry?.coordinates?.length === 2,
       )
       .map((pov) => {
         // TODO, clean this up into libs method!
@@ -96,12 +96,12 @@ export const selectCurrentGeoFence = createSelector(
 
         const distance = geolocation.getDistance(
           currentPosition,
-          geolocation.getLongLat(pov.geometry.coordinates)
+          geolocation.getLongLat(pov.geometry.coordinates),
         );
 
         const bearingDistance = geolocation.getBearingDistance(
           position.coordinates,
-          pov.geometry.coordinates
+          pov.geometry.coordinates,
         );
 
         return {
@@ -119,5 +119,5 @@ export const selectCurrentGeoFence = createSelector(
       fence: currentFence,
       povs: currentPovs,
     };
-  }
+  },
 );

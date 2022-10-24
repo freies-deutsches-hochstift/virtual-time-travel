@@ -1,11 +1,9 @@
-import styled from '@emotion/styled'
-import tw from "twin.macro"
-
+import styled from "@emotion/styled";
+import tw from "twin.macro";
 
 export const StyledCards = styled.div(tw`
   flex flex-col gap-2
-`)
-
+`);
 
 export const StyledCard = styled.div([
   tw`
@@ -16,8 +14,8 @@ export const StyledCard = styled.div([
   `
     border: var(--ui-cards-border);
     filter: var(--ui-catds-filter);
-  `
-])
+  `,
+]);
 
 export const StyledCardContent = styled.div([
   tw`
@@ -31,8 +29,8 @@ export const StyledCardContent = styled.div([
       overflow: hidden;
       margin: 0;
     }
-  `
-])
+  `,
+]);
 
 export const StyledCardCover = styled.div([
   tw`
@@ -45,32 +43,25 @@ export const StyledCardCover = styled.div([
       height: 100%;
       object-fit: cover;
     }
-  `
-])
+  `,
+]);
 
-
-export const StyledCardDetails = styled.div(() =>
-  [
-    tw`
+export const StyledCardDetails = styled.div(() => [
+  tw`
       absolute inset-0 z-top flex items-center justify-center
-    `
-  ]
-)
+    `,
+]);
 
-export const StyledCardDetailsInner = styled.div(() =>
-  [
-    tw`
+export const StyledCardDetailsInner = styled.div(() => [
+  tw`
       w-full max-w-app h-full
       bg-ui-cards-details-bg text-ui-cards-details
       flex flex-col
-    `
-  ]
-)
+    `,
+]);
 
-export const StyledCardDetailsContent = styled.div(() =>
-  [
-    tw`
+export const StyledCardDetailsContent = styled.div(() => [
+  tw`
       w-full h-full overflow-hidden relative
-    `
-  ]
-)
+    `,
+]);

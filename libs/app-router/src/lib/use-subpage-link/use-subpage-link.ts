@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
-import { getLocalizedRoutePath, MainRoutes } from '../utils';
+import { useMemo } from "react";
+import { useLocation } from "react-router-dom";
+import { getLocalizedRoutePath, MainRoutes } from "../utils";
 
 /**
  * used with navigate - hashRouter
@@ -11,7 +11,7 @@ import { getLocalizedRoutePath, MainRoutes } from '../utils';
 export const useSubpageLink = (
   locale: string,
   identifier: string,
-  slug: string
+  slug: string,
 ) => {
   const location = useLocation();
   const { pathname } = location;
@@ -23,7 +23,7 @@ export const useSubpageLink = (
 
     if (isMainRoute) return getLocalizedRoutePath(locale, slug);
 
-    return [pathname, slug].join('/');
+    return [pathname, slug].join("/");
   }, [pathname, identifier, slug, locale]);
 
   return linkTo;

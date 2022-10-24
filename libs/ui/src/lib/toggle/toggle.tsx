@@ -1,12 +1,12 @@
-import { useMemo } from 'react'
-import styled from '@emotion/styled'
-import tw from 'twin.macro'
+import { useMemo } from "react";
+import styled from "@emotion/styled";
+import tw from "twin.macro";
 
 export interface ToggleProps {
-  onToggle: (e: unknown) => void
-  toggled: boolean
-  toggledLabel?: string
-  toggleLabel?: string
+  onToggle: (e: unknown) => void;
+  toggled: boolean;
+  toggledLabel?: string;
+  toggleLabel?: string;
 }
 
 export function Toggle({
@@ -17,8 +17,8 @@ export function Toggle({
 }: ToggleProps) {
   const hasLabel = useMemo(
     () => !!toggledLabel || !!toggleLabel,
-    [toggledLabel, toggleLabel]
-  )
+    [toggledLabel, toggleLabel],
+  );
 
   return (
     <StyledToggle onClick={onToggle}>
@@ -29,18 +29,18 @@ export function Toggle({
         </StyledToggleLabel>
       )}
     </StyledToggle>
-  )
+  );
 }
 
 export const StyledToggle = styled.div(() => [
   tw`
       min-w-ui-toggle h-ui-toggle rounded-full bg-primary-a 
     `,
-])
+]);
 
 type StyledToggleHandleProps = {
-  toggled: boolean
-}
+  toggled: boolean;
+};
 
 const StyledToggleHandle = styled.div(
   ({ toggled }: StyledToggleHandleProps) => [
@@ -49,8 +49,8 @@ const StyledToggleHandle = styled.div(
     h-ui-toggle w-ui-toggle rounded-full bg-primary text-primary-a border-2
   `,
     toggled ? `left: calc(100% - var(--ui-toggle-size))` : tw`left-0`,
-  ]
-)
+  ],
+);
 
 const StyledToggleLabel = styled.div(({ toggled }: StyledToggleHandleProps) => [
   tw`transition-all duration-500`,
@@ -62,6 +62,6 @@ const StyledToggleLabel = styled.div(({ toggled }: StyledToggleHandleProps) => [
     : `
   padding: 0 calc(var(--ui-toggle-size) *.5) 0 calc(var(--ui-toggle-size) *1.2);
 `,
-])
+]);
 
-export default Toggle
+export default Toggle;

@@ -1,13 +1,13 @@
-import { useMemo } from 'react'
-import styled from '@emotion/styled'
-import { OnSelectPov } from '@virtual-time-travel/app-router'
-import { CurrentPov } from '@virtual-time-travel/geo-types'
-import tw from 'twin.macro'
+import { useMemo } from "react";
+import styled from "@emotion/styled";
+import { OnSelectPov } from "@virtual-time-travel/app-router";
+import { CurrentPov } from "@virtual-time-travel/geo-types";
+import tw from "twin.macro";
 
 export interface PovMarkerProps {
-  pov: CurrentPov
-  compassScaleFactor: number
-  onSelectPov?: OnSelectPov
+  pov: CurrentPov;
+  compassScaleFactor: number;
+  onSelectPov?: OnSelectPov;
 }
 
 export function PovMarker({
@@ -15,33 +15,35 @@ export function PovMarker({
   compassScaleFactor,
   onSelectPov,
 }: PovMarkerProps) {
-  const { id, bearingDistance, distance, inView } =
-    pov
+  const { id, bearingDistance, distance, inView } = pov;
 
   const scale = useMemo(() => {
-    if (!distance) return 0
+    if (!distance) return 0;
 
-    let scaleByDistance = 40 / distance
+    let scaleByDistance = 40 / distance;
 
-    if (scaleByDistance > 1) scaleByDistance = 1
-    if (scaleByDistance < 0.1) scaleByDistance = 0.1
+    if (scaleByDistance > 1) scaleByDistance = 1;
+    if (scaleByDistance < 0.1) scaleByDistance = 0.1;
 
-    return scaleByDistance
-  }, [distance])
+    return scaleByDistance;
+  }, [distance]);
 
   const left = useMemo(() => {
-    if (!bearingDistance) return 0
-    return bearingDistance * compassScaleFactor
-  }, [bearingDistance, compassScaleFactor])
+    if (!bearingDistance) return 0;
+    return bearingDistance * compassScaleFactor;
+  }, [bearingDistance, compassScaleFactor]);
 
-  const showMeterDistance = useMemo(() => distance && distance < 180, [distance])
+  const showMeterDistance = useMemo(
+    () => distance && distance < 180,
+    [distance],
+  );
 
   const handleSelectPov = () => {
-    if (onSelectPov) onSelectPov(id)
-  }
+    if (onSelectPov) onSelectPov(id);
+  };
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (!bearingDistance) return <></>
+  if (!bearingDistance) return <></>;
 
   return (
     <StyledPovMarker {...{ left, inView }}>
@@ -59,15 +61,15 @@ export function PovMarker({
         </StyledPovDistance>
       </StyledPovInner>
     </StyledPovMarker>
-  )
+  );
 }
 
-export default PovMarker
+export default PovMarker;
 
 type StyledPovMarkerProps = {
-  left: number
-  inView: boolean
-}
+  left: number;
+  inView: boolean;
+};
 
 const StyledPovMarker = styled.div(({ left, inView }: StyledPovMarkerProps) => [
   tw`
@@ -75,10 +77,10 @@ const StyledPovMarker = styled.div(({ left, inView }: StyledPovMarkerProps) => [
     `,
   left && `left: ${left}px;`,
   inView &&
-  `
+    `
       display: none;
     `,
-])
+]);
 
 const StyledPovInner = styled.div([
   tw`
@@ -88,7 +90,7 @@ const StyledPovInner = styled.div([
   `
     transform: translate(-50%, -50%);
   `,
-])
+]);
 
 const StyledPovDistance = styled.div([
   tw`
@@ -101,12 +103,12 @@ const StyledPovDistance = styled.div([
       width: auto;
     }
   `,
-])
+]);
 
 type StyledPovWaveProps = {
-  scale: number
-  inView: boolean
-}
+  scale: number;
+  inView: boolean;
+};
 
 const StyledPovWave = styled.div(({ scale, inView }: StyledPovWaveProps) => [
   tw`
@@ -114,9 +116,9 @@ const StyledPovWave = styled.div(({ scale, inView }: StyledPovWaveProps) => [
   `,
 
   !inView &&
-  `
+    `
     transform: translate(-50%, -50%) scale(${scale});
     background: var(--ui-pov-waves);
     background-size: cover;
   `,
-])
+]);

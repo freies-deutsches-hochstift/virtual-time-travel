@@ -1,7 +1,7 @@
-import { NavLink } from 'react-router-dom'
-import tw from 'twin.macro'
-import Icon, { Icons } from '../icon'
-import { MenuLinkProps, StyledMenuLink } from './link'
+import { NavLink } from "react-router-dom";
+import tw from "twin.macro";
+import Icon, { Icons } from "../icon";
+import { MenuLinkProps, StyledMenuLink } from "./link";
 
 export const MenuBackLink = ({ label, linkTo }: MenuLinkProps) => {
   return (
@@ -13,5 +13,5 @@ export const MenuBackLink = ({ label, linkTo }: MenuLinkProps) => {
         {label}
       </StyledMenuLink>
     </NavLink>
-  )
-}
+  );
+};

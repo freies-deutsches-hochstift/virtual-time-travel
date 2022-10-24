@@ -3,13 +3,13 @@
  * is rejected or is not avail
  */
 
-import { ReactNode } from 'react'
-import Dialog, { DialogProps } from '../dialog/dialog'
+import { ReactNode } from "react";
+import Dialog, { DialogProps } from "../dialog/dialog";
 
 export interface WithDevicePermissionsProps {
-  hasAllPermissions: boolean
-  dialog: DialogProps
-  children: ReactNode
+  hasAllPermissions: boolean;
+  dialog: DialogProps;
+  children: ReactNode;
 }
 
 export function WithDevicePermissions({
@@ -18,6 +18,6 @@ export function WithDevicePermissions({
   children,
 }: WithDevicePermissionsProps) {
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (hasAllPermissions) return <>{children}</>
-  return <Dialog {...dialog} />
+  if (hasAllPermissions) return <>{children}</>;
+  return <Dialog {...dialog} />;
 }

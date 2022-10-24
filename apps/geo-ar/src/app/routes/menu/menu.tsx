@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import {
   MainRoutes,
   useNestedRoute,
   useSubpageLink,
-} from '@virtual-time-travel/app-router';
+} from "@virtual-time-travel/app-router";
 import {
   Markdown,
   MenuBackLink,
@@ -12,13 +12,13 @@ import {
   Page,
   StyledMenuMain,
   StyledSubMenu,
-} from '@virtual-time-travel/ui';
-import { usePageBySlug } from '../../hooks/usePageBySlug';
-import LanguagesMenu from '../../languages-menu/languages-menu';
-import { selectCurrentLocaleSlug } from '../../store/locales.slice';
-import { EnhancedPageEntry } from '../../store/pages.slice';
-import { selectLocaleRoute } from '../../store/router';
-import { RouteAnimation } from '../route-animation';
+} from "@virtual-time-travel/ui";
+import { usePageBySlug } from "../../hooks/usePageBySlug";
+import LanguagesMenu from "../../languages-menu/languages-menu";
+import { selectCurrentLocaleSlug } from "../../store/locales.slice";
+import { EnhancedPageEntry } from "../../store/pages.slice";
+import { selectLocaleRoute } from "../../store/router";
+import { RouteAnimation } from "../route-animation";
 
 export function MenuRoute() {
   const homeRoute = useSelector(selectLocaleRoute);

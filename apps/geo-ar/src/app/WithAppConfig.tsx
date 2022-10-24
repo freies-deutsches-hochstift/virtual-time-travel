@@ -1,29 +1,24 @@
-import { ReactNode, useCallback } from 'react'
-import { useSelector } from "react-redux"
-import { useData } from '@virtual-time-travel/fetch-api'
-import { useAppDispatch } from '../main'
-import { fetchConfig, selectHasConfig } from "./store/config.slice"
-
+import { ReactNode, useCallback } from "react";
+import { useSelector } from "react-redux";
+import { useData } from "@virtual-time-travel/fetch-api";
+import { useAppDispatch } from "../main";
+import { fetchConfig, selectHasConfig } from "./store/config.slice";
 
 interface WithAppConfigProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export function WithAppConfig({ children }: WithAppConfigProps) {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-  const hasConfig = useSelector(selectHasConfig)
+  const hasConfig = useSelector(selectHasConfig);
 
-  const getConfig = useCallback(
-    () => dispatch(fetchConfig()),
-    [dispatch]
-  )
+  const getConfig = useCallback(() => dispatch(fetchConfig()), [dispatch]);
 
-  useData(getConfig)
-
+  useData(getConfig);
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{hasConfig ? children : '...'}</>
+  return <>{hasConfig ? children : "..."}</>;
 }
 
-export default WithAppConfig
+export default WithAppConfig;

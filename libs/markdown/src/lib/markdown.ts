@@ -1,6 +1,6 @@
-import MarkdownIt from 'markdown-it';
-import mdContainerPlugin from 'markdown-it-container';
-import linkAttributesPlugin from 'markdown-it-link-attributes';
+import MarkdownIt from "markdown-it";
+import mdContainerPlugin from "markdown-it-container";
+import linkAttributesPlugin from "markdown-it-link-attributes";
 
 const md = new MarkdownIt({
   html: true,
@@ -10,11 +10,11 @@ const md = new MarkdownIt({
 
 md.use(linkAttributesPlugin, {
   matcher(href: string) {
-    return href.startsWith('https:') || href.startsWith('http:');
+    return href.startsWith("https:") || href.startsWith("http:");
   },
   attrs: {
-    target: '_blank',
-    rel: 'noopener',
+    target: "_blank",
+    rel: "noopener",
   },
 });
 
@@ -31,17 +31,17 @@ md.use(linkAttributesPlugin, {
  * Use the same principle as in fenced block for nested things - add more : for outer block start/end.
  */
 
-md.use(mdContainerPlugin, 'splash'); // use to tweak
-md.use(mdContainerPlugin, 'card');
-md.use(mdContainerPlugin, 'background');
-md.use(mdContainerPlugin, 'slide');
+md.use(mdContainerPlugin, "splash"); // use to tweak
+md.use(mdContainerPlugin, "card");
+md.use(mdContainerPlugin, "background");
+md.use(mdContainerPlugin, "slide");
 
 export interface FetchMarkdownRes {
   contents?: Array<string> | null;
 }
 
 export async function getParsedFileContentById(
-  contentUrl: string
+  contentUrl: string,
 ): Promise<FetchMarkdownRes> {
   const response = await fetch(contentUrl);
   const data = await response.text();
@@ -55,9 +55,9 @@ export async function getParsedFileContentById(
   // split content into slides
 
   const html = md.render(data);
-  const tmpDiv = document.createElement('div');
+  const tmpDiv = document.createElement("div");
   tmpDiv.innerHTML = html;
-  const slides = tmpDiv.querySelectorAll('.slide');
+  const slides = tmpDiv.querySelectorAll(".slide");
 
   if (!slides || !slides.length) return { contents: [html] };
 

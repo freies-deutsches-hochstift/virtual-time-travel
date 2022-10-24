@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import { ActionsGroup } from '../actions-group/actions-group'
-import Button from '../button/button'
-import { MarkdownActions, MarkdownLabels } from './markdown-contents'
+import { ActionsGroup } from "../actions-group/actions-group";
+import Button from "../button/button";
+import { MarkdownActions, MarkdownLabels } from "./markdown-contents";
 
 export interface MarkdownInlineActionsProps {
-  isLastSlide: boolean
-  onNext: () => void
-  actions: MarkdownActions
-  labels?: MarkdownLabels
+  isLastSlide: boolean;
+  onNext: () => void;
+  actions: MarkdownActions;
+  labels?: MarkdownLabels;
 }
 
 export function MarkdownInlineActions({
@@ -16,7 +16,7 @@ export function MarkdownInlineActions({
   onNext,
   labels,
 }: MarkdownInlineActionsProps) {
-  const { next } = labels || {}
+  const { next } = labels || {};
 
   return (
     <>
@@ -28,7 +28,7 @@ export function MarkdownInlineActions({
         </ActionsGroup>
       )}
     </>
-  )
+  );
 }
 
-export default MarkdownInlineActions
+export default MarkdownInlineActions;

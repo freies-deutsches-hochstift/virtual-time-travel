@@ -1,11 +1,11 @@
-import styled from '@emotion/styled'
-import tw from 'twin.macro'
+import styled from "@emotion/styled";
+import tw from "twin.macro";
 
 type ActionsGroupProps = {
-  left?: boolean
-  center?: boolean
-  right?: boolean
-}
+  left?: boolean;
+  center?: boolean;
+  right?: boolean;
+};
 
 export const ActionsGroup = styled.div(
   ({ left, center = true, right }: ActionsGroupProps) => [
@@ -16,5 +16,5 @@ export const ActionsGroup = styled.div(
     center && tw`justify-center`,
     left && tw`justify-start`,
     right && tw`justify-end`,
-  ]
-)
+  ],
+);

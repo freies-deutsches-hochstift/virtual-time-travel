@@ -1,20 +1,19 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import { uid } from 'react-uid'
-import styled from '@emotion/styled'
-import tw from 'twin.macro'
-import MarkdownContents from './markdown-contents'
+import { uid } from "react-uid";
+import styled from "@emotion/styled";
+import tw from "twin.macro";
+import MarkdownContents from "./markdown-contents";
 
 export interface MarkdownSlideshowActionsProps {
-  contents: MarkdownContents
-  contentIndex: number
+  contents: MarkdownContents;
+  contentIndex: number;
 }
 
 export function MarkdownSlideshowActions({
   contents,
   contentIndex,
 }: MarkdownSlideshowActionsProps) {
-
-  if (!contents.length || contents.length === 1) return <></>
+  if (!contents.length || contents.length === 1) return <></>;
 
   return (
     <StyledMarkdownSlideshowActions>
@@ -25,10 +24,10 @@ export function MarkdownSlideshowActions({
         />
       ))}
     </StyledMarkdownSlideshowActions>
-  )
+  );
 }
 
-export default MarkdownSlideshowActions
+export default MarkdownSlideshowActions;
 
 export const StyledMarkdownSlideshowActions = styled.div(() => [
   tw`
@@ -36,11 +35,11 @@ export const StyledMarkdownSlideshowActions = styled.div(() => [
       justify-center
       items-center
     `,
-])
+]);
 
 type StyledMarkdownSlideshowActionsSlideProps = {
-  current: boolean
-}
+  current: boolean;
+};
 
 export const StyledMarkdownSlideshowActionsSlide = styled.div(
   ({ current }: StyledMarkdownSlideshowActionsSlideProps) => [
@@ -51,5 +50,5 @@ export const StyledMarkdownSlideshowActionsSlide = styled.div(
     `,
 
     current && tw`w-6 bg-primary-b`,
-  ]
-)
+  ],
+);

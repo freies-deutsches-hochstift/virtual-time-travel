@@ -1,26 +1,25 @@
 // TODO
 // import { StrictMode } from 'react';
 // Effects firing twice in <React.StrictMode /> was added in React 18.
-import * as ReactDOM from 'react-dom/client'
-import { Provider, useDispatch } from 'react-redux'
-import { configureStore } from '@reduxjs/toolkit'
-import './registerServiceWorker.js'
-import App from './app/app'
-import { CONFIG_FEATURE_KEY, configReducer } from './app/store/config.slice'
-import { DEVICE_FEATURE_KEY, deviceReducer } from './app/store/device.slice'
-import { FENCES_FEATURE_KEY, fencesReducer } from './app/store/fences.slice'
-import { GENERAL_FEATURE_KEY, generalReducer } from './app/store/general.slice'
-import { GEO_FEATURE_KEY, geoReducer } from './app/store/geo.slice'
-import { LOCALES_FEATURE_KEY, localesReducer } from './app/store/locales.slice'
-import { PAGES_FEATURE_KEY, pagesReducer } from './app/store/pages.slice'
-import { POVS_FEATURE_KEY, povsReducer } from './app/store/povs.slice'
-import WithAppConfig from './app/WithAppConfig'
-import './styles/global.css'
+import * as ReactDOM from "react-dom/client";
+import { Provider, useDispatch } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import "./registerServiceWorker.js";
+import App from "./app/app";
+import { CONFIG_FEATURE_KEY, configReducer } from "./app/store/config.slice";
+import { DEVICE_FEATURE_KEY, deviceReducer } from "./app/store/device.slice";
+import { FENCES_FEATURE_KEY, fencesReducer } from "./app/store/fences.slice";
+import { GENERAL_FEATURE_KEY, generalReducer } from "./app/store/general.slice";
+import { GEO_FEATURE_KEY, geoReducer } from "./app/store/geo.slice";
+import { LOCALES_FEATURE_KEY, localesReducer } from "./app/store/locales.slice";
+import { PAGES_FEATURE_KEY, pagesReducer } from "./app/store/pages.slice";
+import { POVS_FEATURE_KEY, povsReducer } from "./app/store/povs.slice";
+import WithAppConfig from "./app/WithAppConfig";
+import "./styles/global.css";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-)
-
+  document.getElementById("root") as HTMLElement,
+);
 
 const store = configureStore({
   reducer: {
@@ -34,24 +33,23 @@ const store = configureStore({
     [GENERAL_FEATURE_KEY]: generalReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-  devTools: process.env['NODE_ENV'] !== 'production',
-  enhancers: []
-})
-
+  devTools: process.env["NODE_ENV"] !== "production",
+  enhancers: [],
+});
 
 /**
  * Define redux types
  * https://redux-toolkit.js.org/tutorials/typescript#define-root-state-and-dispatch-types
  */
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
-export const useAppDispatch: () => AppDispatch = useDispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
 
 root.render(
   <Provider store={store}>
     <WithAppConfig>
       <App />
     </WithAppConfig>
-  </Provider>
-)
+  </Provider>,
+);

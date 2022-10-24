@@ -1,29 +1,29 @@
-import { ReactNode, useCallback } from 'react'
+import { ReactNode, useCallback } from "react";
 import {
   DeviceLocationEventRes,
   DeviceOrientationEventRes,
   LocationOptions,
-} from '@virtual-time-travel/geo-types'
+} from "@virtual-time-travel/geo-types";
 import {
   DialogProps,
   WithDevicePermissionDialog,
-} from '@virtual-time-travel/ui'
+} from "@virtual-time-travel/ui";
 import {
   DeviceResponsePermission,
   PermissionStatus,
-} from '@virtual-time-travel/util-device'
-import useLocation from './use-location/use-location'
-import useOrientation from './use-orientation/use-orientation'
+} from "@virtual-time-travel/util-device";
+import useLocation from "./use-location/use-location";
+import useOrientation from "./use-orientation/use-orientation";
 
 export interface GeoProps {
-  requestGeoDialog: DialogProps
-  onChangePosition: (pos: DeviceLocationEventRes) => void
-  onRequestGeolocationComplete?: (res: DeviceResponsePermission) => void
-  locationOptions?: LocationOptions
-  onChangeOrientation: (event: DeviceOrientationEventRes) => void
-  onRequestOrientationComplete?: (res: DeviceResponsePermission) => void
-  devicePermissionsStatus: Array<PermissionStatus>
-  children: ReactNode
+  requestGeoDialog: DialogProps;
+  onChangePosition: (pos: DeviceLocationEventRes) => void;
+  onRequestGeolocationComplete?: (res: DeviceResponsePermission) => void;
+  locationOptions?: LocationOptions;
+  onChangeOrientation: (event: DeviceOrientationEventRes) => void;
+  onRequestOrientationComplete?: (res: DeviceResponsePermission) => void;
+  devicePermissionsStatus: Array<PermissionStatus>;
+  children: ReactNode;
 }
 
 export function Geo(props: GeoProps) {
@@ -36,24 +36,24 @@ export function Geo(props: GeoProps) {
     requestGeoDialog,
     devicePermissionsStatus,
     children,
-  } = props
+  } = props;
   const { requestLocation } = useLocation(
     onChangePosition,
     onRequestGeolocationComplete,
-    locationOptions
-  )
+    locationOptions,
+  );
   const { requestOrientation } = useOrientation(
     onChangeOrientation,
-    onRequestOrientationComplete
-  )
+    onRequestOrientationComplete,
+  );
 
   const onConfirm = useCallback(
     (e: unknown) => {
-      requestLocation()
-      requestOrientation()
+      requestLocation();
+      requestOrientation();
     },
-    [requestLocation, requestOrientation]
-  )
+    [requestLocation, requestOrientation],
+  );
 
   return (
     <WithDevicePermissionDialog
@@ -61,7 +61,7 @@ export function Geo(props: GeoProps) {
     >
       {children}
     </WithDevicePermissionDialog>
-  )
+  );
 }
 
-export default Geo
+export default Geo;

@@ -2,52 +2,52 @@
 
 /*! Headlines */
 @font-face {
-  font-family: 'dm_serif';
-  src: url('./fonts/dmserifdisplay-regular-webfont.woff2') format('woff2');
+  font-family: "dm_serif";
+  src: url("./fonts/dmserifdisplay-regular-webfont.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'dm_serif';
-  src: url('./fonts/dmserifdisplay-italic-webfont.woff2') format('woff2');
+  font-family: "dm_serif";
+  src: url("./fonts/dmserifdisplay-italic-webfont.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
 }
 
 /*! Text */
 @font-face {
-  font-family: 'noto_sans';
-  src: url('./fonts/notosans-regular-webfont.woff2') format('woff2');
+  font-family: "noto_sans";
+  src: url("./fonts/notosans-regular-webfont.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'noto_sans';
-  src: url('./fonts/notosans-italic-webfont.woff2') format('woff2');
+  font-family: "noto_sans";
+  src: url("./fonts/notosans-italic-webfont.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'noto_sans';
-  src: url('./fonts/notosans-bold-webfont.woff2') format('woff2');
+  font-family: "noto_sans";
+  src: url("./fonts/notosans-bold-webfont.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'noto_sans';
-  src: url('notosans-bolditalic-webfont.woff2') format('woff2');
+  font-family: "noto_sans";
+  src: url("notosans-bolditalic-webfont.woff2") format("woff2");
   font-weight: bold;
   font-style: italic;
 }
 
 :root {
   /* Font family */
-  --font-headline: 'dm_serif';
-  --font-body: 'noto_sans';
+  --font-headline: "dm_serif";
+  --font-body: "noto_sans";
 
   /* Colors */
   --primary: #fff;
@@ -60,7 +60,7 @@
   --secondary: #fff;
   --secondary-dark: #7b61ff;
 
-  --highlight: rgb(255, 122, 0)
+  --highlight: rgb(255, 122, 0);
 
   /* Sizes */
 

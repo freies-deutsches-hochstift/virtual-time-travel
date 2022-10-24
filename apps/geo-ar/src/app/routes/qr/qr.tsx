@@ -1,15 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import styled from '@emotion/styled';
-import { DialogsContentsIds } from '@virtual-time-travel/app-config';
-import { SetInvalidQr, useQrData } from '@virtual-time-travel/app-router';
-import { Dialog } from '@virtual-time-travel/ui';
-import tw from 'twin.macro';
-import Camera from '../../camera/camera';
-import { useDialogByKey } from '../../hooks/useDialogByKey';
-import { selectCurrentPov } from '../../store/povs.slice';
-import { selectQrRoute } from '../../store/router';
-import { RouteAnimation } from '../route-animation';
+import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import styled from "@emotion/styled";
+import { DialogsContentsIds } from "@virtual-time-travel/app-config";
+import { SetInvalidQr, useQrData } from "@virtual-time-travel/app-router";
+import { Dialog } from "@virtual-time-travel/ui";
+import tw from "twin.macro";
+import Camera from "../../camera/camera";
+import { useDialogByKey } from "../../hooks/useDialogByKey";
+import { selectCurrentPov } from "../../store/povs.slice";
+import { selectQrRoute } from "../../store/router";
+import { RouteAnimation } from "../route-animation";
 
 export function QrRoute() {
   const currentPov = useSelector(selectCurrentPov);

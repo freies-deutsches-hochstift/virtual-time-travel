@@ -4,31 +4,31 @@
  * TODO: DEBOUNCE ORIENTATION EVENT!!!
  */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 import {
   DeviceOrientationEventExtended,
   DeviceOrientationEventRes,
-} from '@virtual-time-travel/geo-types';
+} from "@virtual-time-travel/geo-types";
 import {
   DeviceResponsePermission,
   PermissionStatus,
-} from '@virtual-time-travel/util-device';
-import { geolocation } from '../utils';
+} from "@virtual-time-travel/util-device";
+import { geolocation } from "../utils";
 
 const IS_IOS =
   navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
   navigator.userAgent.match(/AppleWebKit/);
 
 const ORIENTATION_EVENT = IS_IOS
-  ? 'deviceorientation'
-  : ('deviceorientationabsolute' as unknown as keyof WindowEventMap);
+  ? "deviceorientation"
+  : ("deviceorientationabsolute" as unknown as keyof WindowEventMap);
 
 export function useOrientation(
   onChange: (event: DeviceOrientationEventRes) => void,
-  onRequestComplete?: (res: DeviceResponsePermission) => void
+  onRequestComplete?: (res: DeviceResponsePermission) => void,
 ) {
   const [permissionStatus, setPermissionStatus] = useState<PermissionStatus>(
-    PermissionStatus.Unknown
+    PermissionStatus.Unknown,
   );
 
   const handleOrientation = useCallback(
@@ -37,7 +37,7 @@ export function useOrientation(
       // console.debug('DeviceOrientationEvent::Changed', event);
       onChange(geolocation.getOrientationEventRes(event));
     },
-    [onChange]
+    [onChange],
   );
 
   const requestOrientation = useCallback(() => {
@@ -63,20 +63,20 @@ export function useOrientation(
       DeviceOrientationEvent as unknown as DeviceOrientationEventExtended
     ).requestPermission;
 
-    const canRequestPermission = typeof requestPermission === 'function';
+    const canRequestPermission = typeof requestPermission === "function";
 
     if (!canRequestPermission) {
       if (onRequestComplete) {
         onRequestComplete({
           status: PermissionStatus.Unavailable,
-          error: 'Device orientation not supported',
+          error: "Device orientation not supported",
         });
       }
       return;
     }
 
     requestPermission().then((status) => {
-      if (status === 'denied') {
+      if (status === "denied") {
         setPermissionStatus(PermissionStatus.Denied);
         if (onRequestComplete)
           onRequestComplete({ status: PermissionStatus.Denied, error: null });

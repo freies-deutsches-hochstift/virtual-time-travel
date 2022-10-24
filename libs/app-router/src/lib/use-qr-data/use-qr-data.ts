@@ -1,17 +1,17 @@
-import { useCallback, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   getQrNavigateParams,
   getQrRedirectRoute,
   LocalizedRoute,
-} from '../utils';
+} from "../utils";
 
 export type OnDecodeQr = (text: string) => unknown;
 export type SetInvalidQr = (isValid: boolean) => void;
 
 export const useQrData = (
   setInvalidQr: SetInvalidQr,
-  qrRoute: LocalizedRoute
+  qrRoute: LocalizedRoute,
 ) => {
   /**
    * the return methods of this hook are used to initialize the qr engine
@@ -24,7 +24,7 @@ export const useQrData = (
   const onDecodeQr = useCallback(
     (result) => {
       if (scanned.current) return;
-      console.debug('QR SCANNED with text', result);
+      console.debug("QR SCANNED with text", result);
       if (!result) return;
       scanned.current = true;
       const redirectParams = getQrNavigateParams(qrRoute, result);
@@ -32,7 +32,7 @@ export const useQrData = (
       if (!redirectParams) return setInvalidQr(true);
       navigate(getQrRedirectRoute(redirectParams));
     },
-    [navigate, setInvalidQr, qrRoute]
+    [navigate, setInvalidQr, qrRoute],
   ) as OnDecodeQr;
 
   const onResetQrReader = useCallback(() => {

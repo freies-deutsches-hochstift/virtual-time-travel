@@ -1,14 +1,14 @@
-import { ReactNode, useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import styled from '@emotion/styled';
-import { DialogsContentsIds } from '@virtual-time-travel/app-config';
-import { Dialog, Icons, MainNav, MainNavButton } from '@virtual-time-travel/ui';
-import tw from 'twin.macro';
-import useResizeObserver from 'use-resize-observer';
-import { useDialogByKey } from '../hooks/useDialogByKey';
-import PovDetails from '../povs/details';
-import { selectMainRoutes } from '../store/router';
-import { LocalizedRoute } from '@virtual-time-travel/app-router';
+import { ReactNode, useMemo } from "react";
+import { useSelector } from "react-redux";
+import styled from "@emotion/styled";
+import { DialogsContentsIds } from "@virtual-time-travel/app-config";
+import { Dialog, Icons, MainNav, MainNavButton } from "@virtual-time-travel/ui";
+import tw from "twin.macro";
+import useResizeObserver from "use-resize-observer";
+import { useDialogByKey } from "../hooks/useDialogByKey";
+import PovDetails from "../povs/details";
+import { selectMainRoutes } from "../store/router";
+import { LocalizedRoute } from "@virtual-time-travel/app-router";
 
 export interface LayoutProps {
   children: ReactNode;
@@ -22,7 +22,7 @@ export function Layout(props: LayoutProps) {
 
   const forcePortrait = useMemo(
     () => (!!width && !!height ? width > height : false),
-    [width, height]
+    [width, height],
   );
 
   return (

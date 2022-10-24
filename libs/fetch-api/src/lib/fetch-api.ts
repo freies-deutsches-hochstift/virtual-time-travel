@@ -1,5 +1,5 @@
-import { DataFetchParamsRes } from '@virtual-time-travel/app-config';
-import { cvsToJson } from './cvs-to-json/cvs-to-json';
+import { DataFetchParamsRes } from "@virtual-time-travel/app-config";
+import { cvsToJson } from "./cvs-to-json/cvs-to-json";
 
 export interface FetchApiRes {
   data: Array<unknown> | null;
@@ -16,7 +16,7 @@ export async function fetchApi({
     return Promise.reject(response.statusText);
   }
 
-  if (type === 'csv') return cvsToJson(data);
+  if (type === "csv") return cvsToJson(data);
 
   return JSON.parse(data);
 }

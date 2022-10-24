@@ -2,20 +2,20 @@
  * A wrapper for navigator.geolocation handling feature availability and permissions gracefully
  */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 import {
   DeviceLocationEventRes,
   LocationOptions,
-} from '@virtual-time-travel/geo-types';
+} from "@virtual-time-travel/geo-types";
 import {
   DeviceResponsePermission,
   PermissionStatus,
-} from '@virtual-time-travel/util-device';
+} from "@virtual-time-travel/util-device";
 import {
   geolocation,
   geolocationDefaultOptions,
   handleGeolocationError,
-} from '../utils';
+} from "../utils";
 /**
  * to avoid re-renders we do not want to return position and request status directly from the hook
  * update callbacks
@@ -30,7 +30,7 @@ import {
 export function useLocation(
   onChange: (pos: DeviceLocationEventRes) => void,
   onRequestComplete?: (res: DeviceResponsePermission) => void,
-  options: LocationOptions = geolocationDefaultOptions
+  options: LocationOptions = geolocationDefaultOptions,
 ) {
   const [watchId, setWatchId] = useState<number | null>(null);
 
@@ -40,20 +40,20 @@ export function useLocation(
         onRequestComplete({ status: PermissionStatus.Granted, error: null });
       onChange(geolocation.getPositionEventRes(pos) as DeviceLocationEventRes);
     },
-    [onRequestComplete, onChange]
+    [onRequestComplete, onChange],
   );
 
   const onError = useCallback(
     (error: GeolocationPositionError) => {
       if (onRequestComplete) onRequestComplete(handleGeolocationError(error));
     },
-    [onRequestComplete]
+    [onRequestComplete],
   );
 
   const requestLocation = useCallback(() => {
     if (!navigator.geolocation) {
       console.debug(
-        'Ups ... your browser does not support navigator.geolocation'
+        "Ups ... your browser does not support navigator.geolocation",
       );
       if (onRequestComplete)
         onRequestComplete({
@@ -65,9 +65,9 @@ export function useLocation(
     const wId = geolocation.requestGeolocationPermission(
       options,
       onSuccess,
-      onError
+      onError,
     );
-    console.debug('Watching geolocation id', wId, 'with options: ', options);
+    console.debug("Watching geolocation id", wId, "with options: ", options);
     setWatchId(wId);
   }, [onSuccess, onError, onRequestComplete, options]);
 
@@ -75,7 +75,7 @@ export function useLocation(
     return () => {
       if (watchId) {
         geolocation.clearGeolocationRequest(watchId);
-        console.debug('Stop Watching geolocation id', watchId);
+        console.debug("Stop Watching geolocation id", watchId);
       }
     };
   }, [watchId]);

@@ -1,13 +1,13 @@
-import { createSelector } from '@reduxjs/toolkit';
+import { createSelector } from "@reduxjs/toolkit";
 import {
   getRoutePath,
   LocalizedRoute,
   MainRoutes,
-} from '@virtual-time-travel/app-router';
-import { LocaleId } from '@virtual-time-travel/localization';
-import { getConfigState } from './config.slice';
-import { selectCurrentLocale } from './locales.slice';
-import { LocalizedPage, selectAllPages } from './pages.slice';
+} from "@virtual-time-travel/app-router";
+import { LocaleId } from "@virtual-time-travel/localization";
+import { getConfigState } from "./config.slice";
+import { selectCurrentLocale } from "./locales.slice";
+import { LocalizedPage, selectAllPages } from "./pages.slice";
 
 export const selectAllRoutes = createSelector(
   [selectAllPages, selectCurrentLocale],
@@ -18,10 +18,10 @@ export const selectAllRoutes = createSelector(
       getRouteFromMainRoutes(MainRoutes.Explore, pages, locale),
       getRouteFromMainRoutes(MainRoutes.Qr, pages, locale),
       getRouteFromMainRoutes(MainRoutes.List, pages, locale),
-      getRouteFromMainRoutes(MainRoutes.Menu, pages, locale, '*'),
-      getRouteFromMainRoutes(MainRoutes.Pov, pages, locale, ':id'),
+      getRouteFromMainRoutes(MainRoutes.Menu, pages, locale, "*"),
+      getRouteFromMainRoutes(MainRoutes.Pov, pages, locale, ":id"),
     ] as Array<LocalizedRoute>;
-  }
+  },
 );
 
 export const selectMainRoutes = createSelector(
@@ -36,13 +36,13 @@ export const selectMainRoutes = createSelector(
       getRouteFromMainRoutes(MainRoutes.List, pages, locale),
       getRouteFromMainRoutes(MainRoutes.Menu, pages, locale),
     ].filter(Boolean) as Array<LocalizedRoute>;
-  }
+  },
 );
 
 export const selectQrRoute = createSelector(
   [selectAllPages, selectCurrentLocale],
   (pages, locale) =>
-    getRouteFromMainRoutes(MainRoutes.Qr, pages, locale) as LocalizedRoute
+    getRouteFromMainRoutes(MainRoutes.Qr, pages, locale) as LocalizedRoute,
 );
 
 export const selectLocaleRoute = createSelector(
@@ -50,27 +50,27 @@ export const selectLocaleRoute = createSelector(
   (locale) => {
     if (!locale) return;
     return getRoutePath(locale?.slug);
-  }
+  },
 );
 
 function getRouteFromMainRoutes(
   defaultRoute: MainRoutes,
   pages: Array<LocalizedPage> | undefined,
   locale: LocaleId | undefined,
-  params?: string
+  params?: string,
 ) {
   if (!locale) return defaultRoute;
   const { slug } = locale;
   const pageSlug = pages?.find((p) => p.identifier === defaultRoute)?.slug;
 
   const normalizedPageSlug =
-    typeof pageSlug === 'string' ? pageSlug : defaultRoute;
+    typeof pageSlug === "string" ? pageSlug : defaultRoute;
 
   return {
     routeKey: defaultRoute,
     path: getRoutePath(
-      [slug, normalizedPageSlug, params].filter(Boolean).join('/')
+      [slug, normalizedPageSlug, params].filter(Boolean).join("/"),
     ),
-    route: [slug, normalizedPageSlug].filter(Boolean).join('/'),
+    route: [slug, normalizedPageSlug].filter(Boolean).join("/"),
   };
 }

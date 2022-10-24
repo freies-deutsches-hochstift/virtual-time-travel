@@ -1,6 +1,6 @@
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getOnSelectPovRoute, OnSelectPov } from '../utils';
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { getOnSelectPovRoute, OnSelectPov } from "../utils";
 
 export const useOnSelectPov = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ export const useOnSelectPov = () => {
     (povId) => {
       navigate(getOnSelectPovRoute(povId));
     },
-    [navigate]
+    [navigate],
   ) as OnSelectPov;
 
   return onSelectPov;

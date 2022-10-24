@@ -1,25 +1,25 @@
-import merge from 'ts-deepmerge';
-const DATA_ROOT = '/assets/items';
+import merge from "ts-deepmerge";
+const DATA_ROOT = "/assets/items";
 
 export enum ConfigDataItems {
-  FENCES = 'fences',
-  POVS = 'povs',
-  DIALOGS = 'dialogs',
-  LOCALES = 'locales',
-  PAGES = 'pages',
+  FENCES = "fences",
+  POVS = "povs",
+  DIALOGS = "dialogs",
+  LOCALES = "locales",
+  PAGES = "pages",
 }
 
 export enum DialogsContentsIds {
-  RequestCamera = 'request-camera',
-  RequestGeolocation = 'request-geolocation',
-  OutOfGeoFence = 'out-of-geofence',
-  ArUnavailable = 'ar-unavailable',
-  ArTutorial = 'ar-tutorial',
-  CameraUnavailable = 'camera-unavailable',
-  InvalidQr = 'invalid-qr',
-  PovNotFound = 'pov-404',
-  ForcePortrait = 'force-portrait',
-  ForceOrientation = 'force-orientation',
+  RequestCamera = "request-camera",
+  RequestGeolocation = "request-geolocation",
+  OutOfGeoFence = "out-of-geofence",
+  ArUnavailable = "ar-unavailable",
+  ArTutorial = "ar-tutorial",
+  CameraUnavailable = "camera-unavailable",
+  InvalidQr = "invalid-qr",
+  PovNotFound = "pov-404",
+  ForcePortrait = "force-portrait",
+  ForceOrientation = "force-orientation",
 }
 
 export interface DataFetchParamsRes {
@@ -51,19 +51,19 @@ const defaultDataItems: {
 
 for (const item in ConfigDataItems) {
   const key = ConfigDataItems[item as keyof typeof ConfigDataItems];
-  const scopeRoot = [DATA_ROOT, key].join('/');
+  const scopeRoot = [DATA_ROOT, key].join("/");
   defaultDataItems[key] = {
     fetchParams: {
-      url: [scopeRoot, 'index.csv'].join('/'),
-      type: 'csv',
+      url: [scopeRoot, "index.csv"].join("/"),
+      type: "csv",
     },
-    mediasUrl: [scopeRoot, 'medias'].join('/'),
-    contentUrl: [scopeRoot, 'locales'].join('/'),
+    mediasUrl: [scopeRoot, "medias"].join("/"),
+    contentUrl: [scopeRoot, "locales"].join("/"),
   } as ConfigDataItem;
 }
 
 export const defaultAppConfig = {
-  DATA_ROOT: '/assets/items',
+  DATA_ROOT: "/assets/items",
   ...(defaultDataItems as unknown as DataItems),
   DISABLE_QR: false,
   DISABLE_EXPLORE: false,
@@ -73,7 +73,7 @@ export const defaultAppConfig = {
 
 export function deepMergeConfig(
   defaultConfig: AppConfigOptions,
-  appConfig: DataItems
+  appConfig: DataItems,
 ): AppConfigOptions {
   return merge(defaultConfig, appConfig);
 }

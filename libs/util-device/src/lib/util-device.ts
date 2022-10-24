@@ -1,14 +1,14 @@
 export enum DeviceFeatures {
-  Camera = 'camera',
-  Geolocation = 'geolocation',
-  Orientation = 'orientation',
+  Camera = "camera",
+  Geolocation = "geolocation",
+  Orientation = "orientation",
 }
 
 export enum PermissionStatus {
-  Unknown = 'unknown',
-  Denied = 'denied',
-  Granted = 'granted',
-  Unavailable = 'unavailable',
+  Unknown = "unknown",
+  Denied = "denied",
+  Granted = "granted",
+  Unavailable = "unavailable",
 }
 
 export interface DeviceResponsePermission {
@@ -26,5 +26,5 @@ export interface DevicePermission extends DeviceResponsePermission {
 }
 
 export function utilDevice(): string {
-  return 'util-device';
+  return "util-device";
 }

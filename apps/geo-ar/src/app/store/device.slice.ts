@@ -1,19 +1,19 @@
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   DeviceFeatures,
   DevicePermission,
   DeviceResponsePermission,
   initialDeviceResponse,
   PermissionStatus,
-} from '@virtual-time-travel/util-device';
-import { RootState } from '../../main';
+} from "@virtual-time-travel/util-device";
+import { RootState } from "../../main";
 
-const canUseDeviceOrientation = !process.env['NX_DISABLE_ORIENTATION'];
-export const DEVICE_FEATURE_KEY = 'device';
+const canUseDeviceOrientation = !process.env["NX_DISABLE_ORIENTATION"];
+export const DEVICE_FEATURE_KEY = "device";
 
 if (!canUseDeviceOrientation)
   console.warn(
-    'DEVICE ORIENTATION REQUEST DISABLED!! If this is not wanted check NX_DISABLE_ORIENTATION in your env file'
+    "DEVICE ORIENTATION REQUEST DISABLED!! If this is not wanted check NX_DISABLE_ORIENTATION in your env file",
   );
 
 export interface DeviceState {
@@ -34,7 +34,7 @@ export const deviceSlice = createSlice({
   reducers: {
     handlePermissionEvent(
       state: DeviceState,
-      action: PayloadAction<DevicePermission>
+      action: PayloadAction<DevicePermission>,
     ) {
       const { permission, status, error } = action.payload;
       state[permission] = { status, error };
@@ -95,19 +95,19 @@ export const selectHasArPermissions = createSelector(
     return (
       mandatory.filter((m) =>
         [PermissionStatus.Denied, PermissionStatus.Unavailable].find(
-          (s) => s === m?.status
-        )
+          (s) => s === m?.status,
+        ),
       ).length === 0
     );
-  }
+  },
 );
 
 export const selectCameraPermission = createSelector(
   getDevicesState,
-  (state) => state[DeviceFeatures.Camera].status
+  (state) => state[DeviceFeatures.Camera].status,
 );
 
 export const selectHasCameraPermission = createSelector(
   selectCameraPermission,
-  (status) => status === PermissionStatus.Granted
+  (status) => status === PermissionStatus.Granted,
 );

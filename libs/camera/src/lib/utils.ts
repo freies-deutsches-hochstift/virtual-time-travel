@@ -1,9 +1,9 @@
-import { OnDecodeQr } from '@virtual-time-travel/app-router';
-import { DialogProps } from '@virtual-time-travel/ui';
+import { OnDecodeQr } from "@virtual-time-travel/app-router";
+import { DialogProps } from "@virtual-time-travel/ui";
 import {
   DeviceResponsePermission,
   PermissionStatus,
-} from '@virtual-time-travel/util-device';
+} from "@virtual-time-travel/util-device";
 
 export interface MediaDeviceRes {
   deviceId?: string;
@@ -33,7 +33,7 @@ export interface CameraResponsePermission extends DeviceResponsePermission {
 export const defaultConstraints: RequestConstraintsOptions = {
   audio: false,
   video: {
-    facingMode: 'environment',
+    facingMode: "environment",
     width: window.innerWidth,
     height: window.innerHeight,
     aspectRatio: window.innerHeight / window.innerWidth,
@@ -41,14 +41,14 @@ export const defaultConstraints: RequestConstraintsOptions = {
 };
 
 export const requestPermission = async (
-  captureOptions?: RequestConstraintsOptions
+  captureOptions?: RequestConstraintsOptions,
 ): Promise<CameraResponsePermission> => {
   try {
     const constraints = captureOptions || defaultConstraints;
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
 
     const devices = await navigator.mediaDevices.enumerateDevices();
-    const deviceId = devices.find((d) => d.kind === 'videoinput')?.deviceId;
+    const deviceId = devices.find((d) => d.kind === "videoinput")?.deviceId;
 
     return {
       status: PermissionStatus.Granted,

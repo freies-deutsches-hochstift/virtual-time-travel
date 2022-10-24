@@ -1,18 +1,22 @@
-import { useMemo } from 'react'
-import styled from '@emotion/styled'
-import tw from 'twin.macro'
-import { ActionsGroup } from '../actions-group/actions-group'
-import Button from '../button/button'
-import Icon, { Icons } from '../icon'
-import { Markdown, StyledMarkdownContent, StyledMarkdownWrapper } from '../markdown'
+import { useMemo } from "react";
+import styled from "@emotion/styled";
+import tw from "twin.macro";
+import { ActionsGroup } from "../actions-group/actions-group";
+import Button from "../button/button";
+import Icon, { Icons } from "../icon";
+import {
+  Markdown,
+  StyledMarkdownContent,
+  StyledMarkdownWrapper,
+} from "../markdown";
 
 export interface DialogProps {
-  contentUrl: string
-  labels?: { [key: string]: string }
-  onConfirm?: (event: unknown) => unknown
-  onCancel?: (event: unknown) => unknown
-  onClose?: (event: unknown) => unknown
-  disabledAfterClick?: true,
+  contentUrl: string;
+  labels?: { [key: string]: string };
+  onConfirm?: (event: unknown) => unknown;
+  onCancel?: (event: unknown) => unknown;
+  onClose?: (event: unknown) => unknown;
+  disabledAfterClick?: true;
 }
 
 export function Dialog({
@@ -22,19 +26,19 @@ export function Dialog({
   onClose,
   labels = {},
 }: DialogProps) {
-  const { confirm, cancel } = labels
+  const { confirm, cancel } = labels;
 
   const withConfirm = useMemo(
-    () => typeof onConfirm === 'function',
-    [onConfirm]
-  )
-  const withCancel = useMemo(() => typeof onCancel === 'function', [onCancel])
-  const withClose = useMemo(() => typeof onClose === 'function', [onClose])
+    () => typeof onConfirm === "function",
+    [onConfirm],
+  );
+  const withCancel = useMemo(() => typeof onCancel === "function", [onCancel]);
+  const withClose = useMemo(() => typeof onClose === "function", [onClose]);
 
   const withActions = useMemo(
     () => withConfirm || withCancel,
-    [withConfirm, withCancel]
-  )
+    [withConfirm, withCancel],
+  );
 
   return (
     <StyledDialog>
@@ -44,7 +48,6 @@ export function Dialog({
             <Icon type={Icons.Close} />
           </StyledCloseBtn>
         )}
-
 
         <Markdown
           {...{
@@ -58,17 +61,17 @@ export function Dialog({
                   </Button>
                 )}
                 {!!onConfirm && (
-                  <Button disabledAfterClick onClick={onConfirm}>{confirm}</Button>
+                  <Button disabledAfterClick onClick={onConfirm}>
+                    {confirm}
+                  </Button>
                 )}
               </ActionsGroup>
             ),
           }}
         />
-
-
       </StyledDialogInner>
     </StyledDialog>
-  )
+  );
 }
 
 const StyledDialog = styled.div(tw`
@@ -77,7 +80,7 @@ const StyledDialog = styled.div(tw`
   text-ui-dialog-primary
   flex items-center justify-center
   landscape:fixed
-`)
+`);
 
 const StyledDialogInner = styled.div([
   tw`
@@ -126,12 +129,12 @@ const StyledDialogInner = styled.div([
       margin: 0 0 1rem 0;
     }
   `,
-])
+]);
 
 const StyledCloseBtn = styled.div(tw`
   w-4 h-4
   absolute z-max
   top-2 right-2
-`)
+`);
 
-export default Dialog
+export default Dialog;

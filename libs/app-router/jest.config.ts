@@ -1,10 +1,10 @@
 /* eslint-disable */
 export default {
-  displayName: 'app-router',
-  preset: '../../jest.preset.js',
+  displayName: "app-router",
+  preset: "../../jest.preset.js",
   transform: {
-    '^.+\\.[tj]sx?$': 'babel-jest',
+    "^.+\\.[tj]sx?$": "babel-jest",
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/app-router',
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
+  coverageDirectory: "../../coverage/libs/app-router",
 };

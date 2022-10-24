@@ -4,9 +4,9 @@ import {
   DeviceOrientationEventRes,
   GeolibGeoJSONPoint,
   LocationOptions,
-} from '@virtual-time-travel/geo-types';
-import { PermissionStatus } from '@virtual-time-travel/util-device';
-import * as geolib from 'geolib';
+} from "@virtual-time-travel/geo-types";
+import { PermissionStatus } from "@virtual-time-travel/util-device";
+import * as geolib from "geolib";
 
 export const geolocationDefaultOptions: LocationOptions = {
   enableHighAccuracy: true,
@@ -26,7 +26,7 @@ export const handleGeolocationError = (error: GeolocationPositionError) => {
 const requestGeolocationPermission = (
   options: LocationOptions,
   onSuccess: PositionCallback,
-  onError: PositionErrorCallback
+  onError: PositionErrorCallback,
 ) => {
   return navigator.geolocation.watchPosition(onSuccess, onError, options);
 };
@@ -65,7 +65,7 @@ const getBearingDelta = (startBearing: number, endBearing: number) => {
 const getBearingDeltaUnit = (startBearing: number, endBearing: number) => {
   const [clockwise, counterClockwise] = getBearingDelta(
     startBearing,
-    endBearing
+    endBearing,
   );
   if (clockwise <= Math.abs(counterClockwise)) {
     return clockwise / 180;
@@ -113,7 +113,7 @@ const getPositionEventRes = (position: GeolocationPosition) => {
 
 const getBearingDistance = (
   lonlatA: GeolibGeoJSONPoint,
-  lonlatB: GeolibGeoJSONPoint
+  lonlatB: GeolibGeoJSONPoint,
 ) => {
   const toDegrees = (radians: number) => {
     return radians * (180 / Math.PI);

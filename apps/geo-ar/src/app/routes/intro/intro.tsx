@@ -1,12 +1,12 @@
-import { MainRoutes } from '@virtual-time-travel/app-router';
+import { MainRoutes } from "@virtual-time-travel/app-router";
 import {
   Page,
   StyledPageDivider,
   StyledPageGroup,
-} from '@virtual-time-travel/ui';
-import PageContent from '../../page-content/page-content';
-import { PovsList } from '../../povs/list';
-import { RouteAnimation } from '../route-animation';
+} from "@virtual-time-travel/ui";
+import PageContent from "../../page-content/page-content";
+import { PovsList } from "../../povs/list";
+import { RouteAnimation } from "../route-animation";
 
 export function IntroRoute() {
   return (

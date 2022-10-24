@@ -3,16 +3,15 @@
  * possibly in the future it will become an actual map
  */
 
-import styled from '@emotion/styled'
-import { Markdown, StyledMarkdown, StyledPage } from '@virtual-time-travel/ui'
-import tw from 'twin.macro'
+import styled from "@emotion/styled";
+import { Markdown, StyledMarkdown, StyledPage } from "@virtual-time-travel/ui";
+import tw from "twin.macro";
 
-import map from '/assets/layout/map-povs.jpg'
-import povs from '/assets/layout/map-povs-overlay.png'
-
+import map from "/assets/layout/map-povs.jpg";
+import povs from "/assets/layout/map-povs-overlay.png";
 
 export interface PovsMapProps {
-  contentUrl?: string
+  contentUrl?: string;
 }
 
 export const PovsMap = ({ contentUrl }: PovsMapProps) => {
@@ -27,19 +26,19 @@ export const PovsMap = ({ contentUrl }: PovsMapProps) => {
         </StyledMapContent>
       )}
     </StyledMapCtn>
-  )
-}
+  );
+};
 
-const StyledMapCtn = styled.div(() => [tw`w-full h-full relative`])
+const StyledMapCtn = styled.div(() => [tw`w-full h-full relative`]);
 
 const StyledMapLayer = styled.img(() => [
   tw`absolute inset-0 w-full h-full object-cover`,
-])
+]);
 
 const StyledMapOverlay = styled.div(() => [
   tw`absolute inset-0 w-full h-full mix-blend-color`,
-  'background: var(--primary-gradient);',
-])
+  "background: var(--primary-gradient);",
+]);
 const StyledMapContent = styled(StyledPage)(() => [
   tw`absolute inset-0 w-full h-full`,
   `
@@ -57,6 +56,6 @@ const StyledMapContent = styled(StyledPage)(() => [
       z-index: 2;
     }
   `,
-])
+]);
 
-export default PovsMap
+export default PovsMap;

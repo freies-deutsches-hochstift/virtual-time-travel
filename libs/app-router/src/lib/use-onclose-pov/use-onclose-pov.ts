@@ -1,6 +1,6 @@
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getOnSelectPovRoute } from '../utils';
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { getOnSelectPovRoute } from "../utils";
 
 export const useOnClosePov = () => {
   const navigate = useNavigate();

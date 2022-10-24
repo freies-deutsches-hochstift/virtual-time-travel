@@ -1,5 +1,5 @@
-import { GeolibGeoJSONPoint } from 'geolib/es/types';
-import { LocalizedKey } from '@virtual-time-travel/localization';
+import { GeolibGeoJSONPoint } from "geolib/es/types";
+import { LocalizedKey } from "@virtual-time-travel/localization";
 
 export interface LocationOptions {
   enableHighAccuracy: boolean;
@@ -14,7 +14,7 @@ export interface LocationOptions {
 export interface DeviceOrientationEventExtended extends DeviceOrientationEvent {
   webkitCompassAccuracy?: number | undefined;
   webkitCompassHeading?: number | undefined;
-  requestPermission?: () => Promise<'granted' | 'denied'>;
+  requestPermission?: () => Promise<"granted" | "denied">;
 }
 
 export interface DeviceOrientationEventRes {
@@ -41,7 +41,7 @@ export interface GeoState {
 
 // TODO, verify there should be a better type
 export interface PovGeometry {
-  type: 'Point';
+  type: "Point";
   coordinates: GeolibGeoJSONPoint;
 }
 
@@ -55,7 +55,7 @@ export interface PovId {
 }
 
 export interface FenceGeometry {
-  type: 'Polygon';
+  type: "Polygon";
   coordinates: Array<Array<GeolibGeoJSONPoint>>;
 }
 

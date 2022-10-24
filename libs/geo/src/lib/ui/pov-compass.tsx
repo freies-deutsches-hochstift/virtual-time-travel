@@ -1,21 +1,21 @@
-import { useMemo } from 'react'
-import styled from '@emotion/styled'
-import { OnSelectPov } from '@virtual-time-travel/app-router'
-import { CurrentPov } from '@virtual-time-travel/geo-types'
-import tw from 'twin.macro'
-import PovCompassTicks from './pov-compass-ticks'
+import { useMemo } from "react";
+import styled from "@emotion/styled";
+import { OnSelectPov } from "@virtual-time-travel/app-router";
+import { CurrentPov } from "@virtual-time-travel/geo-types";
+import tw from "twin.macro";
+import PovCompassTicks from "./pov-compass-ticks";
 
 export interface PovCompassProps {
-  pov: CurrentPov
-  onSelectPov?: OnSelectPov
+  pov: CurrentPov;
+  onSelectPov?: OnSelectPov;
 }
 
 export function PovCompass({ pov, onSelectPov }: PovCompassProps) {
-  const { id, inDirectView } = pov
+  const { id, inDirectView } = pov;
 
   const handleSelectPov = () => {
-    if (onSelectPov) onSelectPov(id)
-  }
+    if (onSelectPov) onSelectPov(id);
+  };
 
   return (
     <StyledPovCompass>
@@ -28,10 +28,10 @@ export function PovCompass({ pov, onSelectPov }: PovCompassProps) {
         <PovCompassTicks {...{ pov }} />
       </StyledPovCompassInner>
     </StyledPovCompass>
-  )
+  );
 }
 
-export default PovCompass
+export default PovCompass;
 
 const StyledPovCompass = styled.div(() => [
   tw`
@@ -41,13 +41,12 @@ const StyledPovCompass = styled.div(() => [
       background: var(--ui-pov-compass-bg);
       background-size: cover;
     `,
-])
+]);
 const StyledPovCompassInner = styled.div(() => [
   tw`
       absolute inset-2
     `,
-])
-
+]);
 
 const StyledPovCta = styled.div(() => [
   tw`
@@ -62,4 +61,4 @@ const StyledPovCta = styled.div(() => [
     width: 35vw;
     height: 35vw;
   `,
-])
+]);

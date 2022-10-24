@@ -1,8 +1,8 @@
-import { ReactNode } from 'react'
-import { motion } from 'framer-motion'
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 export interface RouteAnimationProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export const RouteAnimation = ({ children }: RouteAnimationProps) => {
@@ -16,5 +16,5 @@ export const RouteAnimation = ({ children }: RouteAnimationProps) => {
     >
       {children}
     </motion.div>
-  )
-}
+  );
+};

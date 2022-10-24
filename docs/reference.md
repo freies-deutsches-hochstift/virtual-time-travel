@@ -62,12 +62,13 @@ and is packed when building by the core application build script configured in `
 ## Geofence data
 
 ### JSON
+
 ```javascript
 //Note id must be unique. Use camelCase easy to remember name
 fences =  [
   {
-    id:"somePlaza", 
-    title: "some Plaza",  
+    id:"somePlaza",
+    title: "some Plaza",
     geometry": {
       "type": "Polygon",
       "coordinates": [
@@ -81,7 +82,9 @@ fences =  [
     ]
 ]
 ```
+
 ### CSV
+
 ```csv
 ID(String), title(hash), geometry(hash)
 ```
@@ -89,10 +92,11 @@ ID(String), title(hash), geometry(hash)
 ## POV data
 
 ### JSON
+
 ```javascript
 POVs = [
   {
-    id:0, 
+    id:0,
     title: {en:"Point of View",de:""},
     sub_title: {en:"", de:""},
     short_text: {en:"MARKDOWN TEXT", de:""},
@@ -111,13 +115,15 @@ POVs = [
 ```
 
 ### CSV
+
 ```csv
 
 ```
 
-
 ## Project page
+
 Markdown
+
 ## About page
 
 ## Imprint page

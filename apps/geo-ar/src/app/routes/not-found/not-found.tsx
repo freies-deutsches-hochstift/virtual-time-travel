@@ -1,7 +1,7 @@
-import { MainRoutes } from '@virtual-time-travel/app-router';
-import { ActionsGroup, Button, Page } from '@virtual-time-travel/ui';
-import PageContent from '../../page-content/page-content';
-import { RouteAnimation } from '../route-animation';
+import { MainRoutes } from "@virtual-time-travel/app-router";
+import { ActionsGroup, Button, Page } from "@virtual-time-travel/ui";
+import PageContent from "../../page-content/page-content";
+import { RouteAnimation } from "../route-animation";
 
 export function NotFoundRoute() {
   return (
@@ -11,7 +11,7 @@ export function NotFoundRoute() {
           <PageContent {...{ identifier: MainRoutes.NotFound }} />
           <div className="flex-1 flex items-center">
             <ActionsGroup left>
-              <Button inverted>{'Back to homepage'}</Button>
+              <Button inverted>{"Back to homepage"}</Button>
             </ActionsGroup>
           </div>
         </div>

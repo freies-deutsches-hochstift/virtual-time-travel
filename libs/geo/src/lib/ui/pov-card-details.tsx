@@ -1,24 +1,21 @@
-import { EnhancedPov } from '@virtual-time-travel/geo-types'
+import { EnhancedPov } from "@virtual-time-travel/geo-types";
 import {
   Button,
-  Icon, Icons,
+  Icon,
+  Icons,
   Markdown,
   StyledCardDetails,
   StyledCardDetailsContent,
   StyledCardDetailsInner,
-} from '@virtual-time-travel/ui'
+} from "@virtual-time-travel/ui";
 
 export interface PovCardDetailsProps {
-  pov: EnhancedPov
-  onClose: (e: unknown) => void
+  pov: EnhancedPov;
+  onClose: (e: unknown) => void;
 }
 
-export function PovCardDetails({
-  pov,
-  onClose
-}: PovCardDetailsProps) {
-
-  const { contentUrl } = pov
+export function PovCardDetails({ pov, onClose }: PovCardDetailsProps) {
+  const { contentUrl } = pov;
 
   return (
     <StyledCardDetails>
@@ -36,22 +33,22 @@ export function PovCardDetails({
         </Button>
       </StyledCardDetailsInner>
     </StyledCardDetails>
-  )
+  );
 }
 
 interface MissingPovFallbackProps {
-  pov: EnhancedPov
+  pov: EnhancedPov;
 }
 
 function MissingPovFallback({ pov }: MissingPovFallbackProps) {
-  const { coverSrc, localizedTitle } = pov
+  const { coverSrc, localizedTitle } = pov;
 
   return (
     <>
       {!!coverSrc && <img src={coverSrc} alt={localizedTitle} />}
       <h3>{localizedTitle}</h3>
     </>
-  )
+  );
 }
 
-export default PovCardDetails
+export default PovCardDetails;

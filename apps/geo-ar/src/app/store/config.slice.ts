@@ -2,37 +2,37 @@ import {
   createAsyncThunk,
   createSelector,
   createSlice,
-} from '@reduxjs/toolkit';
+} from "@reduxjs/toolkit";
 import {
   AppConfigOptions,
   ConfigDataItems,
   deepMergeConfig,
   defaultAppConfig,
-} from '@virtual-time-travel/app-config';
-import { fetchApi } from '@virtual-time-travel/fetch-api';
-import { RootState } from '../../main';
-import { getLocalesState } from './locales.slice';
+} from "@virtual-time-travel/app-config";
+import { fetchApi } from "@virtual-time-travel/fetch-api";
+import { RootState } from "../../main";
+import { getLocalesState } from "./locales.slice";
 
-export const CONFIG_FEATURE_KEY = 'config';
+export const CONFIG_FEATURE_KEY = "config";
 
 export interface ConfigState {
-  loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
+  loadingStatus: "not loaded" | "loading" | "loaded" | "error";
   error: string | null;
   appConfig: AppConfigOptions;
 }
 
 export const initialConfigState: ConfigState = {
-  loadingStatus: 'not loaded',
+  loadingStatus: "not loaded",
   error: null,
   appConfig: defaultAppConfig,
 };
 
 export const fetchConfig = createAsyncThunk(
-  'config/fetchConfig',
+  "config/fetchConfig",
   async (_, thunkAPI) => {
-    const { data } = await fetchApi({ url: '/assets/config.csv', type: 'csv' });
+    const { data } = await fetchApi({ url: "/assets/config.csv", type: "csv" });
     return data?.[0] as AppConfigOptions;
-  }
+  },
 );
 
 export const configSlice = createSlice({
@@ -41,19 +41,19 @@ export const configSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchConfig.pending, (state) => {
-      state.loadingStatus = 'loading';
+      state.loadingStatus = "loading";
       state.error = null;
     });
 
     builder.addCase(fetchConfig.fulfilled, (state, action) => {
-      state.loadingStatus = 'loaded';
+      state.loadingStatus = "loaded";
       state.appConfig = deepMergeConfig(state.appConfig, action.payload);
       state.error = null;
     });
 
     builder.addCase(fetchConfig.rejected, (state) => {
-      state.loadingStatus = 'error';
-      state.error = 'Could not fetch appConfig';
+      state.loadingStatus = "error";
+      state.error = "Could not fetch appConfig";
     });
   },
 });
@@ -67,12 +67,12 @@ export const getConfigState = (rootState: RootState): ConfigState =>
 
 export const selectHasConfig = createSelector(
   getConfigState,
-  ({ loadingStatus }) => loadingStatus === 'loaded'
+  ({ loadingStatus }) => loadingStatus === "loaded",
 );
 
 export const selectConfig = createSelector(
   getConfigState,
-  ({ appConfig }) => appConfig
+  ({ appConfig }) => appConfig,
 );
 
 export const getLocalizedConfig = createSelector(
@@ -82,7 +82,7 @@ export const getLocalizedConfig = createSelector(
       appConfig,
       currentLocale,
     };
-  }
+  },
 );
 
 export const getPovsConfig = createSelector(
@@ -91,9 +91,9 @@ export const getPovsConfig = createSelector(
     const config = appConfig[ConfigDataItems.POVS];
     return {
       ...config,
-      contentUrl: [config.contentUrl, currentLocale].join('/'),
+      contentUrl: [config.contentUrl, currentLocale].join("/"),
     };
-  }
+  },
 );
 
 export const getPagesConfig = createSelector(
@@ -102,7 +102,7 @@ export const getPagesConfig = createSelector(
     const config = appConfig[ConfigDataItems.PAGES];
     return {
       ...config,
-      contentUrl: [config.contentUrl, currentLocale].join('/'),
+      contentUrl: [config.contentUrl, currentLocale].join("/"),
     };
-  }
+  },
 );
