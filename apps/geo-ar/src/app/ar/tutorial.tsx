@@ -5,11 +5,12 @@ import { Dialog } from "@virtual-time-travel/ui";
 import { useDialogByKey } from "../hooks/use-dialog-by-key";
 
 export function ArTutorial() {
-  const [showTutorial, setShowTutorial] = useState<boolean>(true);
+  const [showTutorial, setShowTutorial] = useState<boolean>(getDefaultState());
   const arTutorialDialog = useDialogByKey(DialogsContentsIds.ArTutorial);
 
   const onClose = useCallback(() => {
     setShowTutorial(false);
+    localStorage.setItem("ar-tutorial", "false");
   }, []);
 
   return (
@@ -22,3 +23,9 @@ export function ArTutorial() {
 }
 
 export default ArTutorial;
+
+function getDefaultState() {
+  const lsEntry = localStorage.getItem("ar-tutorial");
+  if (!lsEntry) return true;
+  return JSON.parse(lsEntry);
+}

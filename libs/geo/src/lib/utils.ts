@@ -11,7 +11,7 @@ import * as geolib from "geolib";
 export const geolocationDefaultOptions: LocationOptions = {
   enableHighAccuracy: true,
   timeout: 30000,
-  maximumAge: 5000,
+  maximumAge: 0,
 };
 
 export const geolocationErrors = [PermissionStatus.Denied];
