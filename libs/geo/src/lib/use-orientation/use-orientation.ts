@@ -19,10 +19,6 @@ const IS_IOS =
   navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
   navigator.userAgent.match(/AppleWebKit/);
 
-const ORIENTATION_EVENT = IS_IOS
-  ? "deviceorientation"
-  : ("deviceorientationabsolute" as unknown as keyof WindowEventMap);
-
 export function useOrientation(
   onChange: (event: DeviceOrientationEventRes) => void,
   onRequestComplete?: (res: DeviceResponsePermission) => void,
@@ -41,16 +37,16 @@ export function useOrientation(
   );
 
   const requestOrientation = useCallback(() => {
-    // if unsupported browser
-    if (!window.ondeviceorientationabsolute && !!window.ondeviceorientation) {
-      if (onRequestComplete) {
-        onRequestComplete({
-          status: PermissionStatus.Unavailable,
-          error: null,
-        });
-        return;
-      }
-    }
+    // // if unsupported browser
+    // if (!window.ondeviceorientation) {
+    //   if (onRequestComplete) {
+    //     onRequestComplete({
+    //       status: PermissionStatus.Unavailable,
+    //       error: null,
+    //     });
+    //     return;
+    //   }
+    // }
 
     // if android (does not need request permissions)
     if (!IS_IOS && onRequestComplete) {
@@ -90,9 +86,9 @@ export function useOrientation(
 
   useEffect(() => {
     if (permissionStatus === PermissionStatus.Denied) return;
-    window.addEventListener(ORIENTATION_EVENT, handleOrientation);
+    window.addEventListener("deviceorientation", handleOrientation);
     return () => {
-      window.removeEventListener(ORIENTATION_EVENT, handleOrientation);
+      window.removeEventListener("deviceorientation", handleOrientation);
     };
   }, [permissionStatus, handleOrientation]);
 

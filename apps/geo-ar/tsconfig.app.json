@@ -27,7 +27,6 @@
     "assets/layout/icons/qr.svg",
     "assets/layout/icons/menu.svg",
     "assets/layout/icons/list.svg",
-    "assets/layout/icons/explore.svg",
-    "../../libs/geo/types.d.ts"
+    "assets/layout/icons/explore.svg"
   ]
 }
