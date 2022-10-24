@@ -4,7 +4,7 @@ import { DialogsContentsIds } from "@virtual-time-travel/app-config";
 import { Fence } from "@virtual-time-travel/geo";
 import { Dialog } from "@virtual-time-travel/ui";
 import tw from "twin.macro";
-import { useDialogByKey } from "../hooks/useDialogByKey";
+import { useDialogByKey } from "../hooks/use-dialog-by-key";
 import { selectCurrentGeoFence } from "../store/geo.slice";
 import { ArOverlay } from "./overlay/overlay";
 

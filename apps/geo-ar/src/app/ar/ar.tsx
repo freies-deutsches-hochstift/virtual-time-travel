@@ -4,7 +4,7 @@ import { DialogsContentsIds } from "@virtual-time-travel/app-config";
 import { WithDevicePermissions } from "@virtual-time-travel/ui";
 import tw from "twin.macro";
 import Camera from "../camera/camera";
-import { useDialogByKey } from "../hooks/useDialogByKey";
+import { useDialogByKey } from "../hooks/use-dialog-by-key";
 import {
   selectHasArPermissions,
   selectHasCameraPermission,

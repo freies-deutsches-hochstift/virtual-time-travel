@@ -12,7 +12,7 @@ import {
   DeviceResponsePermission,
 } from "@virtual-time-travel/util-device";
 import ArUi from "../ar-ui/ar-ui";
-import { useDialogByKey } from "../hooks/useDialogByKey";
+import { useDialogByKey } from "../hooks/use-dialog-by-key";
 import { deviceActions, selectGeoPermissions } from "../store/device.slice";
 import { geoActions } from "../store/geo.slice";
 import ArTutorial from "./tutorial";

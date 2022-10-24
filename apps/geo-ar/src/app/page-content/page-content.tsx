@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { Markdown } from "@virtual-time-travel/ui";
-import { usePageByIdentifier } from "../hooks/usePageByIdentifier";
+import { usePageByIdentifier } from "../hooks/use-page-by-identifier";
 
 interface PageContentProps {
   identifier: string;

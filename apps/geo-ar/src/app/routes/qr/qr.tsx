@@ -6,7 +6,7 @@ import { SetInvalidQr, useQrData } from "@virtual-time-travel/app-router";
 import { Dialog } from "@virtual-time-travel/ui";
 import tw from "twin.macro";
 import Camera from "../../camera/camera";
-import { useDialogByKey } from "../../hooks/useDialogByKey";
+import { useDialogByKey } from "../../hooks/use-dialog-by-key";
 import { selectCurrentPov } from "../../store/povs.slice";
 import { selectQrRoute } from "../../store/router";
 import { RouteAnimation } from "../route-animation";

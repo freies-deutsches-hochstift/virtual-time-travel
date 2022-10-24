@@ -10,7 +10,7 @@ import {
 import { PovCardDetails } from "@virtual-time-travel/geo";
 import { EnhancedPov } from "@virtual-time-travel/geo-types";
 import { Dialog } from "@virtual-time-travel/ui";
-import { useDialogByKey } from "../hooks/useDialogByKey";
+import { useDialogByKey } from "../hooks/use-dialog-by-key";
 import { povsActions, selectCurrentPov } from "../store/povs.slice";
 
 export function PovDetails() {

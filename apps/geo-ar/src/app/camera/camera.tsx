@@ -10,7 +10,7 @@ import {
   DeviceResponsePermission,
   PermissionStatus,
 } from "@virtual-time-travel/util-device";
-import { useDialogByKey } from "../hooks/useDialogByKey";
+import { useDialogByKey } from "../hooks/use-dialog-by-key";
 import { deviceActions, selectCameraPermission } from "../store/device.slice";
 
 export interface CameraProps {

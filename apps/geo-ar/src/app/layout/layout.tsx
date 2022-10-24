@@ -6,7 +6,7 @@ import { LocalizedRoute } from "@virtual-time-travel/app-router";
 import { Dialog, Icons, MainNav, MainNavButton } from "@virtual-time-travel/ui";
 import tw from "twin.macro";
 import useResizeObserver from "use-resize-observer";
-import { useDialogByKey } from "../hooks/useDialogByKey";
+import { useDialogByKey } from "../hooks/use-dialog-by-key";
 import PovDetails from "../povs/details";
 import { selectMainRoutes } from "../store/router";
 

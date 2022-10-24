@@ -4,7 +4,7 @@ import { MainRoutes } from "@virtual-time-travel/app-router";
 import { PovsMap } from "@virtual-time-travel/geo";
 import { Page, StyledPageDivider, SwitchView } from "@virtual-time-travel/ui";
 import { RootState } from "../../../main";
-import { usePageByIdentifier } from "../../hooks/usePageByIdentifier";
+import { usePageByIdentifier } from "../../hooks/use-page-by-identifier";
 import PageContent from "../../page-content/page-content";
 import { PovsList } from "../../povs/list";
 import { useLabels } from "../../store/locales.slice";

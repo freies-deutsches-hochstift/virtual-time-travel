@@ -13,7 +13,7 @@ import {
   StyledMenuMain,
   StyledSubMenu,
 } from "@virtual-time-travel/ui";
-import { usePageBySlug } from "../../hooks/usePageBySlug";
+import { usePageBySlug } from "../../hooks/use-page-by-slug";
 import LanguagesMenu from "../../languages-menu/languages-menu";
 import { selectCurrentLocaleSlug } from "../../store/locales.slice";
 import { EnhancedPageEntry } from "../../store/pages.slice";
