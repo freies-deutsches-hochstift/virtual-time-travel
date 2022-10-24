@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { HashRouter } from "react-router-dom";
 import { Loading } from "@virtual-time-travel/loading";
-import { AnimatePresence } from "framer-motion";
 import { useStateData } from "./hooks/use-state-data";
 import Layout from "./layout/layout";
 import { AppRoutes } from "./routes/routes";
@@ -16,9 +15,7 @@ export function App() {
   return (
     <HashRouter>
       <Layout>
-        <AnimatePresence mode="wait">
-          <AppRoutes />
-        </AnimatePresence>
+        <AppRoutes />
       </Layout>
     </HashRouter>
   );

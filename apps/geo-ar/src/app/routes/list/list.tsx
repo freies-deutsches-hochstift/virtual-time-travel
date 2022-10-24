@@ -8,7 +8,6 @@ import { usePageByIdentifier } from "../../hooks/use-page-by-identifier";
 import PageContent from "../../page-content/page-content";
 import { PovsList } from "../../povs/list";
 import { useLabels } from "../../store/locales.slice";
-import { RouteAnimation } from "../route-animation";
 
 export function ListRoute() {
   const selectLabel = useMemo(useLabels, []);
@@ -22,21 +21,19 @@ export function ListRoute() {
   const listPage = usePageByIdentifier(MainRoutes.List);
 
   return (
-    <RouteAnimation>
-      <SwitchView
-        primaryLabel={switchList}
-        primaryView={
-          <Page>
-            <PageContent {...{ identifier: MainRoutes.List }} />
-            <StyledPageDivider>
-              <PovsList />
-            </StyledPageDivider>
-          </Page>
-        }
-        secondaryLabel={switchMap}
-        secondaryView={<PovsMap contentUrl={listPage?.contentUrl} />}
-      />
-    </RouteAnimation>
+    <SwitchView
+      primaryLabel={switchList}
+      primaryView={
+        <Page>
+          <PageContent {...{ identifier: MainRoutes.List }} />
+          <StyledPageDivider>
+            <PovsList />
+          </StyledPageDivider>
+        </Page>
+      }
+      secondaryLabel={switchMap}
+      secondaryView={<PovsMap contentUrl={listPage?.contentUrl} />}
+    />
   );
 }
 

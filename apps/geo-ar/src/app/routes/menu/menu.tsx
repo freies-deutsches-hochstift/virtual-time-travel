@@ -2,6 +2,7 @@
 import { useSelector } from "react-redux";
 import {
   MainRoutes,
+  RouteAnimation,
   useNestedRoute,
   useSubpageLink,
 } from "@virtual-time-travel/app-router";
@@ -18,7 +19,6 @@ import LanguagesMenu from "../../languages-menu/languages-menu";
 import { selectCurrentLocaleSlug } from "../../store/locales.slice";
 import { EnhancedPageEntry } from "../../store/pages.slice";
 import { selectLocaleRoute } from "../../store/router";
-import { RouteAnimation } from "../route-animation";
 
 export function MenuRoute() {
   const homeRoute = useSelector(selectLocaleRoute);

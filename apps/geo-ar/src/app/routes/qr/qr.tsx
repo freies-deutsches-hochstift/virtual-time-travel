@@ -9,7 +9,6 @@ import Camera from "../../camera/camera";
 import { useDialogByKey } from "../../hooks/use-dialog-by-key";
 import { selectCurrentPov } from "../../store/povs.slice";
 import { selectQrRoute } from "../../store/router";
-import { RouteAnimation } from "../route-animation";
 
 export function QrRoute() {
   const currentPov = useSelector(selectCurrentPov);
@@ -29,14 +28,12 @@ export function QrRoute() {
   }, [currentPov, onResetQrReader]);
 
   return (
-    <RouteAnimation>
-      <StyledQr>
-        {invalidQr && (
-          <Dialog {...invalidQrContentDialog} onConfirm={onResetQrReader} />
-        )}
-        <Camera {...{ onDecodeQr: onDecodeQr }} />
-      </StyledQr>
-    </RouteAnimation>
+    <StyledQr>
+      {invalidQr && (
+        <Dialog {...invalidQrContentDialog} onConfirm={onResetQrReader} />
+      )}
+      <Camera {...{ onDecodeQr: onDecodeQr }} />
+    </StyledQr>
   );
 }
 

@@ -1,3 +1,4 @@
+export * from "./lib/route-animation/route-animation";
 export * from "./lib/use-nested-route/use-nested-route";
 export * from "./lib/use-onclose-pov/use-onclose-pov";
 export * from "./lib/use-onselect-pov/use-onselect-pov";

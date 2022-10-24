@@ -7,7 +7,6 @@ import { RootState } from "../../../main";
 import PageContent from "../../page-content/page-content";
 import { useLabels } from "../../store/locales.slice";
 import { selectAllRoutes } from "../../store/router";
-import { RouteAnimation } from "../route-animation";
 
 export function HomeRoute() {
   const routes = useSelector(selectAllRoutes);
@@ -22,18 +21,16 @@ export function HomeRoute() {
 
   return (
     <Link to={redirectLink}>
-      <RouteAnimation>
-        <Page withLogo>
-          <div className="flex flex-col min-h-full">
-            <PageContent {...{ identifier: MainRoutes.Home }} />
-            <div className="flex-1 flex items-center">
-              <ActionsGroup left>
-                <Button inverted>{startLabel}</Button>
-              </ActionsGroup>
-            </div>
+      <Page withLogo>
+        <div className="flex flex-col min-h-full">
+          <PageContent {...{ identifier: MainRoutes.Home }} />
+          <div className="flex-1 flex items-center">
+            <ActionsGroup left>
+              <Button inverted>{startLabel}</Button>
+            </ActionsGroup>
           </div>
-        </Page>
-      </RouteAnimation>
+        </div>
+      </Page>
     </Link>
   );
 }

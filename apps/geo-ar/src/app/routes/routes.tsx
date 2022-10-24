@@ -2,7 +2,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { getRoutePath, MainRoutes } from "@virtual-time-travel/app-router";
+import {
+  getRoutePath,
+  MainRoutes,
+  RouteAnimation,
+} from "@virtual-time-travel/app-router";
+import { AnimatePresence } from "framer-motion";
 import { localesActions, selectAvailLocales } from "../store/locales.slice";
 import { selectAllRoutes } from "../store/router";
 import NotFoundRoute from "./not-found/not-found";
@@ -11,7 +16,7 @@ import * as views from "./views";
 export const AppRoutes = () => {
   const routes = useSelector(selectAllRoutes);
   return (
-    <>
+    <AnimatePresence mode="wait">
       <RedirectRouter />
       <Routes>
         {routes.map((route) => {
@@ -19,12 +24,22 @@ export const AppRoutes = () => {
           const RouteComponent = views[routeKey as keyof typeof views]
             .default as unknown as React.ElementType;
           return (
-            <Route key={path} {...{ path, element: <RouteComponent /> }} />
+            <Route
+              key={path}
+              {...{
+                path,
+                element: (
+                  <RouteAnimation key={path}>
+                    <RouteComponent />
+                  </RouteAnimation>
+                ),
+              }}
+            />
           );
         })}
         <Route path={"*"} element={<NotFoundRoute />} />
       </Routes>
-    </>
+    </AnimatePresence>
   );
 };
 
