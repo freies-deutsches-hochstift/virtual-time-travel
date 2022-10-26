@@ -1,14 +1,12 @@
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 import ArDeviceOrientationHelper from "./device-orientation-helper/device-orientation-helper";
-import ArFence from "./fence/fence";
 import { ArOverlay } from "./overlay/overlay";
 import ArTutorial from "./tutorial/tutorial";
 
 export function ArUi() {
   return (
     <StyledArUi>
-      <ArFence />
       <ArOverlay />
       <ArTutorial />
       <ArDeviceOrientationHelper />
