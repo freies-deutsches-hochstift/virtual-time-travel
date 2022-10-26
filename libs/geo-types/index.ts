@@ -40,9 +40,8 @@ export interface GeoState {
   orientation: StateOrientation;
 }
 
-// TODO, verify there should be a better type
 export interface PovGeometry {
-  type: "Point";
+  type: string;
   coordinates: GeolibGeoJSONPoint;
 }
 
