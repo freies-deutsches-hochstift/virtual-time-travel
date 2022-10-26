@@ -34,11 +34,8 @@ export const requestPermission = async (
 ): Promise<CameraResponsePermission> => {
   try {
     const stream = await navigator.mediaDevices.getUserMedia(captureOptions);
-
     const devices = await navigator.mediaDevices.enumerateDevices();
     const deviceId = devices.find((d) => d.kind === "videoinput")?.deviceId;
-
-    console.log(captureOptions?.video);
 
     return {
       status: PermissionStatus.Granted,

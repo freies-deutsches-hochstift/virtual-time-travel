@@ -28,3 +28,7 @@ export interface DevicePermission extends DeviceResponsePermission {
 export function utilDevice(): string {
   return "util-device";
 }
+
+export const IS_IOS =
+  navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
+  navigator.userAgent.match(/AppleWebKit/);

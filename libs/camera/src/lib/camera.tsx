@@ -1,5 +1,6 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { WithDevicePermissionDialog } from "@virtual-time-travel/ui";
+import { IS_IOS } from "@virtual-time-travel/util-device";
 import { CameraStream } from "./camera-stream/camera-stream";
 import { QrReader } from "./qr-reader/qr-reader";
 import {
@@ -53,10 +54,22 @@ export const Camera = memo((props: CameraProps) => {
     const fixedWidth = width > height ? height : width;
     const fixedHeight = width > height ? width : height;
 
+    /**
+     * boundingBox is necessary only in ios in case of updated camera permissions
+     */
+    const boundingBox = IS_IOS && { width: fixedWidth, height: fixedHeight };
+
+    /**
+     * because we can not block device rotation (app not native)
+     * we fix portrait and aspect ratio from the first render
+     * this is mostly necessary for qr-reader box interpolation
+     */
+
     setCaptureOptions({
       audio: false,
       video: {
         facingMode: "environment",
+        ...boundingBox,
         aspectRatio: fixedHeight / fixedWidth,
       },
     });

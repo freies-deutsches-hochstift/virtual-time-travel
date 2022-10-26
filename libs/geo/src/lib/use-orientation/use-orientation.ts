@@ -10,14 +10,11 @@ import {
 } from "@virtual-time-travel/geo-types";
 import {
   DeviceResponsePermission,
+  IS_IOS,
   PermissionStatus,
 } from "@virtual-time-travel/util-device";
 import { geolocation } from "../utils";
 import useThrottle from "./use-throttle";
-
-const IS_IOS =
-  navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
-  navigator.userAgent.match(/AppleWebKit/);
 
 export function useOrientation(
   onChange: (event: DeviceOrientationEventRes) => void,
