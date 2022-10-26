@@ -20,7 +20,7 @@ export function ArDeviceOrientationHelper() {
     if (!orientation) return false;
     const { beta } = orientation;
 
-    return !(beta > 60 && beta < 110);
+    return !(beta > 50 && beta < 120);
   }, [orientation]);
 
   if (!canDisplayDialog) return <></>;

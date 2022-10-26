@@ -22,11 +22,13 @@ export interface DeviceOrientationEventRes {
   beta: number;
   gamma: number;
   compassHeading: number;
+  usesRealCompass: boolean;
 }
 
 export interface DeviceLocationEventRes {
   coordinates: GeolibGeoJSONPoint;
   accuracy: number;
+  timestamp: number;
 }
 
 export type StatePosition = DeviceLocationEventRes | null;

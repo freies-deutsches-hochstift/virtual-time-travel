@@ -11,7 +11,6 @@ export function Ar() {
    * and we want to display them one at the time
    */
   const hasCameraPermission = useSelector(selectHasCameraPermission);
-
   return (
     <StyledAr>
       {hasCameraPermission && <GeoWrapper />}

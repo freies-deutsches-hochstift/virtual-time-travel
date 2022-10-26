@@ -1,5 +1,5 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { geolocation } from "@virtual-time-travel/geo";
+import { geolocation, refineLocation } from "@virtual-time-travel/geo";
 import {
   CurrentGeoFence,
   GeoState,
@@ -27,7 +27,9 @@ export const geoSlice = createSlice({
       action: PayloadAction<StatePosition | null>,
     ) {
       const { payload } = action;
-      console.log(JSON.stringify(payload));
+      // alert(JSON.stringify(payload));
+      if (state.position && payload)
+        state.position = refineLocation(state.position, payload, 500);
       state.position = payload;
     },
 
@@ -36,7 +38,21 @@ export const geoSlice = createSlice({
       action: PayloadAction<StateOrientation | null>,
     ) {
       const { payload } = action;
-      state.orientation = payload;
+
+      if (payload?.usesRealCompass || !state.orientation) {
+        state.orientation = payload;
+        return;
+      } else {
+        if (
+          state.orientation?.compassHeading &&
+          payload?.compassHeading &&
+          Math.abs(
+            payload?.compassHeading - state.orientation?.compassHeading,
+          ) > 5
+        ) {
+          state.orientation = payload;
+        }
+      }
     },
   },
 });
