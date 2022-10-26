@@ -191,10 +191,7 @@ const getCurrentFence = (
     (fence) =>
       !!fence.geometry.coordinates.find(
         (geometry) =>
-          !!geolocation.isPointInPolygon(
-            getCurrentPosition(position),
-            geometry,
-          ),
+          !!geolib.isPointInPolygon(getCurrentPosition(position), geometry),
       ),
   );
 };
@@ -217,12 +214,12 @@ const getEnhancedPovs = (
     if (normalizedBearingViewportOrientation < 0)
       normalizedBearingViewportOrientation += 360;
 
-    const distance = geolocation.getDistance(
+    const distance = geolib.getDistance(
       getCurrentPosition(position),
-      geolocation.getLongLat(pov.geometry.coordinates),
+      getLongLat(pov.geometry.coordinates),
     );
 
-    const bearingDistance = geolocation.getBearingDistance(
+    const bearingDistance = getBearingDistance(
       position.coordinates,
       pov.geometry.coordinates,
     );
