@@ -11,6 +11,9 @@ interface QrReaderProps {
 }
 
 export const QrReader = memo(({ device, onDecodeQr }: QrReaderProps) => {
+  const { videoConstraints } = device;
+  const { width, height } = videoConstraints;
+
   useEffect(() => {
     const { deviceId, videoConstraints } = device;
     if (!deviceId || !onDecodeQr) return;
@@ -37,7 +40,10 @@ export const QrReader = memo(({ device, onDecodeQr }: QrReaderProps) => {
 
   return (
     <div className="absolute z-top inset-0">
-      <div id={qrcodeRegionId} className="w-full" />
+      <div
+        id={qrcodeRegionId}
+        style={{ width: width as number, height: height as number }}
+      />
     </div>
   );
 });

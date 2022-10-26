@@ -17,7 +17,6 @@ export interface RequestConstraintsOptions {
 }
 
 export interface CameraProps {
-  captureOptions?: RequestConstraintsOptions;
   onRequestCameraComplete?: (res: DeviceResponsePermission) => void;
   requestCameraDialog: DialogProps;
   devicePermissionsStatus: Array<PermissionStatus>;
@@ -30,29 +29,20 @@ export interface CameraResponsePermission extends DeviceResponsePermission {
   error: unknown;
 }
 
-export const defaultConstraints: RequestConstraintsOptions = {
-  audio: false,
-  video: {
-    facingMode: "environment",
-    width: window.innerWidth,
-    height: window.innerHeight,
-    aspectRatio: window.innerHeight / window.innerWidth,
-  },
-};
-
 export const requestPermission = async (
-  captureOptions?: RequestConstraintsOptions,
+  captureOptions: RequestConstraintsOptions,
 ): Promise<CameraResponsePermission> => {
   try {
-    const constraints = captureOptions || defaultConstraints;
-    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    const stream = await navigator.mediaDevices.getUserMedia(captureOptions);
 
     const devices = await navigator.mediaDevices.enumerateDevices();
     const deviceId = devices.find((d) => d.kind === "videoinput")?.deviceId;
 
+    console.log(captureOptions?.video);
+
     return {
       status: PermissionStatus.Granted,
-      device: { stream, deviceId, videoConstraints: constraints?.video },
+      device: { stream, deviceId, videoConstraints: captureOptions?.video },
       error: null,
     };
   } catch (error) {
