@@ -17,6 +17,7 @@ export interface PovsOverlayProps {
   currentGeoFence: CurrentGeoFence | null;
   orientation: StateOrientation;
   onSelectPov?: OnSelectPov;
+  closestInViewPov?: CurrentPov;
   feeds: LocalizedFieldGroup;
 }
 
@@ -43,6 +44,7 @@ export function PovsOverlay({
   currentGeoFence,
   orientation,
   onSelectPov,
+  closestInViewPov,
   feeds,
 }: PovsOverlayProps) {
   const { povs } = currentGeoFence || {};
@@ -56,15 +58,6 @@ export function PovsOverlay({
   const compassPosition = useMemo(
     () => centerStartPosition - compassHeading * compassScaleFactor,
     [centerStartPosition, compassHeading],
-  );
-
-  const closestInViewPov = useMemo(
-    () =>
-      povs
-        ?.filter((p) => p.inView)
-        .sort((a, b) => (a?.distance || 99999) - (b?.distance || 99999))
-        .pop(),
-    [povs],
   );
 
   // eslint-disable-next-line react/jsx-no-useless-fragment

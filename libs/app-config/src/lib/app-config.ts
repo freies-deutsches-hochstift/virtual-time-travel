@@ -43,6 +43,8 @@ export interface AppConfigOptions extends DataItems {
   DISABLE_EXPLORE: boolean;
   INVIEW_THRESHOLD_ANGLE: number;
   INVIEW_THRESHOLD_DISTANCE: number;
+  LOOK_AROUND_MIN_DISTANCE: number;
+  GET_CLOSER_MIN_DISTANCE: number;
 }
 
 const defaultDataItems: {
@@ -69,6 +71,8 @@ export const defaultAppConfig = {
   DISABLE_EXPLORE: false,
   INVIEW_THRESHOLD_ANGLE: 20,
   INVIEW_THRESHOLD_DISTANCE: 100,
+  LOOK_AROUND_MIN_DISTANCE: 100,
+  GET_CLOSER_MIN_DISTANCE: 100,
 };
 
 export function deepMergeConfig(

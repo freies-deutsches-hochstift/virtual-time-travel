@@ -74,66 +74,55 @@ export const selectOrientation = createSelector(
   ({ orientation }) => orientation,
 );
 
-export const selectCurrentGeoFence = createSelector(
-  [getGeoState, getFencesState, selectAllPovs, getConfigState],
-  (
-    { position, orientation },
-    { entries: fences },
-    povs,
-    { appConfig: { INVIEW_THRESHOLD_ANGLE, INVIEW_THRESHOLD_DISTANCE } },
-  ): CurrentGeoFence | null => {
-    if (!position) return null;
+export const selectCurrentBaseGeoFence = createSelector(
+  [getGeoState, getFencesState],
+  ({ position }, { entries: fences }) => {
+    if (!position || !fences) return null;
+    return geolocation.getCurrentFence(fences, position);
+  },
+);
 
-    const currentPosition = geolocation.getLongLat(position.coordinates);
+export const selectCurrentBaseGeoFenceWithPovs = createSelector(
+  [selectCurrentBaseGeoFence, selectAllPovs],
+  (fence, povs) => {
+    if (!fence) return null;
 
-    const currentFence = fences?.find(
-      (fence) =>
-        !!fence.geometry.coordinates.find(
-          (geometry) =>
-            !!geolocation.isPointInPolygon(currentPosition, geometry),
-        ),
+    const povsInFence = (povs || []).filter(
+      (pov) =>
+        pov.fence === fence?.id && pov.geometry?.coordinates?.length === 2,
     );
 
-    const currentPovs = (povs || [])
-      .filter(
-        (pov) =>
-          pov.fence === currentFence?.id &&
-          pov.geometry?.coordinates?.length === 2,
-      )
-      .map((pov) => {
-        // TODO, clean this up into libs method!
-        const bearingViewportOrientation =
-          (orientation?.compassHeading || 0) - (pov.orientation || 0);
+    return { fence, povs: povsInFence };
+  },
+);
 
-        let normalizedBearingViewportOrientation = bearingViewportOrientation;
+export const selectCurrentGeoFence = createSelector(
+  [getGeoState, selectCurrentBaseGeoFenceWithPovs, getConfigState],
+  (
+    geoState,
+    currentFence,
+    { appConfig: { INVIEW_THRESHOLD_ANGLE, INVIEW_THRESHOLD_DISTANCE } },
+  ): CurrentGeoFence | null => {
+    if (!currentFence) return null;
 
-        if (normalizedBearingViewportOrientation < 0)
-          normalizedBearingViewportOrientation += 360;
+    const { fence, povs } = currentFence;
 
-        const distance = geolocation.getDistance(
-          currentPosition,
-          geolocation.getLongLat(pov.geometry.coordinates),
-        );
-
-        const bearingDistance = geolocation.getBearingDistance(
-          position.coordinates,
-          pov.geometry.coordinates,
-        );
-
-        return {
-          ...pov,
-          distance,
-          bearingDistance,
-          bearingViewportOrientation: normalizedBearingViewportOrientation,
-          inView: distance < INVIEW_THRESHOLD_DISTANCE,
-          inDirectView:
-            Math.abs(bearingViewportOrientation) < INVIEW_THRESHOLD_ANGLE,
-        };
-      });
+    const enhancedPovs = geolocation.getEnhancedPovs(
+      geoState,
+      povs,
+      INVIEW_THRESHOLD_ANGLE,
+      INVIEW_THRESHOLD_DISTANCE,
+    );
 
     return {
-      fence: currentFence,
-      povs: currentPovs,
+      fence,
+      povs: enhancedPovs,
     };
   },
+);
+
+export const selectClosestPov = createSelector(
+  selectCurrentGeoFence,
+  (fence) =>
+    (fence && geolocation.getClosestPovInView(fence.povs)) || undefined,
 );
