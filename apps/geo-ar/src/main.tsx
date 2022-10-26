@@ -1,51 +1,55 @@
-import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
-
-import App from './app/app';
-
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { configureStore } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
-import { SpatialExample } from '@virtual-time-travel/spatial';
-
-import { GENERAL_FEATURE_KEY, generalReducer } from './app/state/general.slice';
-import { GEO_FEATURE_KEY, geoReducer } from './app/state/geo.slice';
-import { CameraExample } from '@virtual-time-travel/camera';
-import { APIExample, DBExample } from '@virtual-time-travel/data';
-import { QrRouterExample } from '@virtual-time-travel/qrrouter';
-import { CsvToJSONExample } from '@virtual-time-travel/csvtojson';
+// TODO
+// import { StrictMode } from 'react';
+// Effects firing twice in <React.StrictMode /> was added in React 18.
+import * as ReactDOM from "react-dom/client";
+import { Provider, useDispatch } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import "./registerServiceWorker.js";
+import App from "./app/app";
+import { CONFIG_FEATURE_KEY, configReducer } from "./app/store/config.slice";
+import { DEVICE_FEATURE_KEY, deviceReducer } from "./app/store/device.slice";
+import { FENCES_FEATURE_KEY, fencesReducer } from "./app/store/fences.slice";
+import { GENERAL_FEATURE_KEY, generalReducer } from "./app/store/general.slice";
+import { GEO_FEATURE_KEY, geoReducer } from "./app/store/geo.slice";
+import { LOCALES_FEATURE_KEY, localesReducer } from "./app/store/locales.slice";
+import { PAGES_FEATURE_KEY, pagesReducer } from "./app/store/pages.slice";
+import { POVS_FEATURE_KEY, povsReducer } from "./app/store/povs.slice";
+import WithAppConfig from "./app/with-app-config";
+import "./styles/global.css";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 
 const store = configureStore({
   reducer: {
+    [CONFIG_FEATURE_KEY]: configReducer,
+    [LOCALES_FEATURE_KEY]: localesReducer,
+    [PAGES_FEATURE_KEY]: pagesReducer,
+    [FENCES_FEATURE_KEY]: fencesReducer,
+    [POVS_FEATURE_KEY]: povsReducer,
+    [DEVICE_FEATURE_KEY]: deviceReducer,
     [GEO_FEATURE_KEY]: geoReducer,
     [GENERAL_FEATURE_KEY]: generalReducer,
   },
-  // Additional middleware can be passed to this array
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-  devTools: process.env['NODE_ENV'] !== 'production',
-  // Optional Redux store enhancers
+  devTools: process.env["NODE_ENV"] !== "production",
   enhancers: [],
 });
+
+/**
+ * Define redux types
+ * https://redux-toolkit.js.org/tutorials/typescript#define-root-state-and-dispatch-types
+ */
+
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
 
 root.render(
   <Provider store={store}>
-    <StrictMode>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/spatialexample" element={<SpatialExample />} />
-          <Route path="/cameraexample" element={<CameraExample />} />
-          <Route path="/apiexample" element={<APIExample />} />
-          <Route path="/dbexample" element={<DBExample />} />
-          <Route path="/csvtojsonexample" element={<CsvToJSONExample />} />
-          <Route path="/qrrouterexample" element={<QrRouterExample />} />
-        </Routes>
-      </BrowserRouter>
-    </StrictMode>
-  </Provider>
+    <WithAppConfig>
+      <App />
+    </WithAppConfig>
+  </Provider>,
 );

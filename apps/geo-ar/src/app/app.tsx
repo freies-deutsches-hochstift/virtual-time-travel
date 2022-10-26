@@ -1,42 +1,23 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import './app.scss';
-import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { HashRouter } from "react-router-dom";
+import { Loading } from "@virtual-time-travel/loading";
+import { useStateData } from "./hooks/use-state-data";
+import Layout from "./layout/layout";
+import { AppRoutes } from "./routes/routes";
+import { selectAppIsReady } from "./store/general.slice";
 
 export function App() {
-  return (
-    <>
-      <h1>
-        Welcome geo-ar{' '}
-        <span role="img" aria-label="Thumb-up">
-          👍
-        </span>
-      </h1>
-      <div className="import">Imported Libs from local workspace:</div>
-      <ul>
-        <li className="lib">
-          <Link to="/cameraexample">Camera Library</Link>
-        </li>
-        <li className="lib">
-          <Link to="/apiexample">API Library</Link>
-        </li>
-        <li className="lib">
-          <Link to="/dbexample">Database Library</Link>
-        </li>
-        <li className="lib">
-          <Link to="/spatialexample">Spatial Geolocation Library</Link>
-        </li>
-        <li className="lib">
-          <Link to="/csvtojsonexample">CSV to JSON Library</Link>
-        </li>
-      </ul>
+  const appIsReady = useSelector(selectAppIsReady);
 
-      <div className="redux">Redux slices (@see redux dev tool):</div>
-      <ul>
-        <li className="slice">general</li>
-        <li className="slice">geo</li>
-      </ul>
-      <br />
-    </>
+  useStateData();
+  if (!appIsReady) return <Loading />;
+
+  return (
+    <HashRouter>
+      <Layout>
+        <AppRoutes />
+      </Layout>
+    </HashRouter>
   );
 }
 

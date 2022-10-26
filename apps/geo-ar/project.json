@@ -2,14 +2,56 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/geo-ar/src",
   "projectType": "application",
+  "tailwind-preset": "libs/tailwind-preset",
   "targets": {
     "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["pre-build"],
+      "options": {
+        "commands": [
+          "npx workbox-cli generateSW ./apps/geo-ar/workbox-config.js"
+        ],
+        "parallel": false
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "geo-ar:pre-build",
+        "hmr": true,
+        "webpackConfig": "webpackConfig.js"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "geo-ar:pre-build:development"
+        },
+        "production": {
+          "buildTarget": "geo-ar:pre-build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/geo-ar/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/geo-ar"],
+      "options": {
+        "jestConfig": "apps/geo-ar/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "pre-build": {
       "executor": "@nrwl/web:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
-        "webpackConfig": "webpackConfig.js",
         "outputPath": "dist/apps/geo-ar",
         "index": "apps/geo-ar/src/index.html",
         "baseHref": "/",
@@ -17,17 +59,18 @@
         "polyfills": "apps/geo-ar/src/polyfills.ts",
         "tsConfig": "apps/geo-ar/tsconfig.app.json",
         "assets": [
-          "apps/geo-ar/src/favicon.ico",
-          "apps/geo-ar/src/assets",
           {
-            "input": "apps/geo-ar/assets/items",
-            "glob": "*.csv",
-            "output": "./items"
-          }
+            "input": "apps/geo-ar/assets/",
+            "glob": "**/*",
+            "output": "./assets"
+          },
+          "apps/geo-ar/src/robots.txt",
+          "apps/geo-ar/src/manifest.json"
         ],
-        "styles": ["apps/geo-ar/src/styles.scss"],
+        "styles": [],
         "scripts": [],
-        "crossOrigin": "anonymous"
+        "webpackConfig": "webpackConfig.js",
+        "postcssConfig": "apps/geo-ar/postcss.config.js"
       },
       "configurations": {
         "development": {
@@ -50,39 +93,6 @@
           "extractLicenses": true,
           "vendorChunk": false
         }
-      }
-    },
-    "serve": {
-      "executor": "@nrwl/web:dev-server",
-      "defaultConfiguration": "development",
-      "options": {
-        "buildTarget": "geo-ar:build",
-        "hmr": true,
-        "webpackConfig": "webpackConfig.js"
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "geo-ar:build:development"
-        },
-        "production": {
-          "buildTarget": "geo-ar:build:production",
-          "hmr": false
-        }
-      }
-    },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/geo-ar/**/*.{ts,tsx,js,jsx}"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/geo-ar"],
-      "options": {
-        "jestConfig": "apps/geo-ar/jest.config.ts",
-        "passWithNoTests": true
       }
     }
   },
