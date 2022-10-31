@@ -1,8 +1,8 @@
-import { useOnSelectPov } from "@virtual-time-travel/app-router";
-import PovCompass from "libs/geo/src/lib/ui/pov-compass";
+/* eslint-disable react/jsx-no-useless-fragment */
 import { useSelector } from "react-redux";
+import { useOnSelectPov } from "@virtual-time-travel/app-router";
+import { PovCompass } from "@virtual-time-travel/geo";
 import { useLabelGroup } from "../../../hooks/use-label";
-
 import {
   selectClosestPov,
   selectCompassHeading,

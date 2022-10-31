@@ -1,7 +1,6 @@
-import PovsOverlayFeeds from "libs/geo/src/lib/ui/povs-overlay-feeds";
 import { useSelector } from "react-redux";
+import { PovsOverlayFeeds } from "@virtual-time-travel/geo";
 import { useLabelGroup } from "../../../hooks/use-label";
-
 import {
   selectClosestPov,
   selectCurrentGeoFence,

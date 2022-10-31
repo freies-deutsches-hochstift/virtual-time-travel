@@ -31,7 +31,7 @@ md.use(linkAttributesPlugin, {
  * Use the same principle as in fenced block for nested things - add more : for outer block start/end.
  */
 
-md.use(mdContainerPlugin, "splash"); // use to tweak
+md.use(mdContainerPlugin, "splash");
 md.use(mdContainerPlugin, "card");
 md.use(mdContainerPlugin, "background");
 md.use(mdContainerPlugin, "slide");
