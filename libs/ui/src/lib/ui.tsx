@@ -19,10 +19,12 @@ export const StyledCard = styled.div([
 
 export const StyledCardContent = styled.div([
   tw`
-    flex-1
+    flex-1 p-2
   `,
   `
-    > h3 {
+    h3 {
+      font-size: 1.1rem;
+      line-height: 1.4em;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;  
