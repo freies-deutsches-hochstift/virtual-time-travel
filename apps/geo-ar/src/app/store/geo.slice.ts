@@ -6,7 +6,6 @@ import {
   StateOrientation,
   StatePosition,
 } from "@virtual-time-travel/geo-types";
-import { IS_IOS } from "@virtual-time-travel/util-device";
 import { RootState } from "../../main";
 import { getConfigState } from "./config.slice";
 import { getFencesState } from "./fences.slice";
@@ -39,18 +38,7 @@ export const geoSlice = createSlice({
       action: PayloadAction<StateOrientation | null>,
     ) {
       const { payload } = action;
-
-      const nextHeading = payload?.compassHeading || 0;
-      if (IS_IOS || !state.orientation) {
-        state.orientation = payload;
-        return;
-      } else {
-        console.log(Math.abs(state.orientation.compassHeading - nextHeading));
-
-        if (Math.abs(state.orientation.compassHeading - nextHeading) > 5) {
-          state.orientation = payload;
-        }
-      }
+      state.orientation = payload;
     },
   },
 });

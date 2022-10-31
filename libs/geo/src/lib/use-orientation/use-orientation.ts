@@ -36,6 +36,7 @@ export function useOrientation(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (event: any): any => {
       // console.debug('DeviceOrientationEvent::Changed', event);
+      console.log(event);
       onChange(geolocation.getOrientationEventRes(event));
 
       // setOrientation(geolocation.getOrientationEventRes(event));
