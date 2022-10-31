@@ -12,7 +12,7 @@ type StyledButtonStyleProps = {
 };
 
 export interface ButtonProps extends StyledButtonStyleProps {
-  children: ReactNode;
+  children?: ReactNode;
   onClick?: (event?: unknown) => unknown | undefined;
 }
 

@@ -1,12 +1,11 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 import { StyledSubMenu } from "../menu";
 import Scrollable from "../scrollable/scrollable";
 import PageLogo from "./page-logo";
 
-export interface PageProps {
-  children: ReactNode;
+export interface PageProps extends PropsWithChildren {
   withLogo?: boolean;
 }
 

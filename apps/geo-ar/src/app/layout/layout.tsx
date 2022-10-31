@@ -1,4 +1,4 @@
-import { ReactNode, useMemo } from "react";
+import { PropsWithChildren, useMemo } from "react";
 import { useSelector } from "react-redux";
 import styled from "@emotion/styled";
 import { DialogsContentsIds } from "@virtual-time-travel/app-config";
@@ -10,12 +10,7 @@ import { useDialogByKey } from "../hooks/use-dialog-by-key";
 import PovDetails from "../povs/details";
 import { selectMainRoutes } from "../store/router";
 
-export interface LayoutProps {
-  children: ReactNode;
-}
-
-export function Layout(props: LayoutProps) {
-  const { children } = props;
+export function Layout({ children }: PropsWithChildren) {
   const mainRoutes = useSelector(selectMainRoutes);
   const { ref, height, width } = useResizeObserver();
   const forcePortraitDialog = useDialogByKey(DialogsContentsIds.ForcePortrait);

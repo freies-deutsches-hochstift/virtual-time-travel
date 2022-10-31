@@ -1,12 +1,8 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 import Icon from "../icon";
-
-export interface MainNavProps {
-  children: ReactNode;
-}
 
 type MainNavButtonStyleProps = {
   active?: boolean;
@@ -44,9 +40,7 @@ const StyledMainNavInner = styled.nav([
   `,
 ]);
 
-export function MainNav(props: MainNavProps) {
-  const { children } = props;
-
+export function MainNav({ children }: PropsWithChildren) {
   return (
     <StyledMainNav>
       <StyledMainNavInner>{children}</StyledMainNavInner>
