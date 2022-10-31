@@ -1,7 +1,5 @@
 # Virtual Time Travel
 
-Translated with www.DeepL.com/Translator (free version)
-
 ## Funding
 The museum4punkt0 project is funded by the Federal Government Commissioner for Culture and the Media on the basis of a resolution of the German Bundestag.
 
