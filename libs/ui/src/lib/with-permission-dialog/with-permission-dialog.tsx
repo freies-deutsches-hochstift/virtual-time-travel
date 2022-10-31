@@ -5,16 +5,15 @@
  * permission request to the user interaction (to avoid browser security policy)
  */
 
-import { ReactNode, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useMemo, useState } from "react";
 import { PermissionStatus } from "@virtual-time-travel/util-device";
 import Dialog, { DialogProps } from "../dialog/dialog";
 
-export interface WithDevicePermissionDialogProps {
+export interface WithDevicePermissionDialogProps extends PropsWithChildren {
   onConfirm: (event?: unknown) => unknown;
   onCancel?: (event?: unknown) => unknown;
   dialog: DialogProps;
   devicePermissionsStatus: Array<PermissionStatus>;
-  children?: ReactNode;
 }
 
 export function WithDevicePermissionDialog({
@@ -29,25 +28,29 @@ export function WithDevicePermissionDialog({
       .length === devicePermissionsStatus.length,
   );
 
+  const ready = useMemo(
+    () =>
+      devicePermissionsStatus.find((s) => s !== PermissionStatus.Unknown) ||
+      hasAlreadyPermissions,
+    [devicePermissionsStatus, hasAlreadyPermissions],
+  );
+
   useEffect(() => {
     if (hasAlreadyPermissions) onConfirm();
   }, [hasAlreadyPermissions, onConfirm]);
 
-  if (
-    devicePermissionsStatus.find((s) => s !== PermissionStatus.Unknown) ||
-    hasAlreadyPermissions
-  )
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    return <>{children}</>;
-
   return (
-    <Dialog
-      {...{
-        onCancel,
-        onConfirm,
-        disabledAfterClick: true,
-        ...dialog,
-      }}
-    />
+    <>
+      {ready && children}
+      <Dialog
+        {...{
+          onCancel,
+          onConfirm,
+          disabledAfterClick: true,
+          show: !ready,
+          ...dialog,
+        }}
+      />
+    </>
   );
 }

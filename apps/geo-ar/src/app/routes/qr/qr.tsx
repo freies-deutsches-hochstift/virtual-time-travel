@@ -29,9 +29,14 @@ export function QrRoute() {
 
   return (
     <StyledQr>
-      {invalidQr && (
-        <Dialog {...invalidQrContentDialog} onConfirm={onResetQrReader} />
-      )}
+      <Dialog
+        {...{
+          ...invalidQrContentDialog,
+          show: invalidQr,
+          onConfirm: onResetQrReader,
+        }}
+      />
+
       <Camera {...{ onDecodeQr: onDecodeQr }} />
     </StyledQr>
   );

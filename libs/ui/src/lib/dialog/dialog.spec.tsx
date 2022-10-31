@@ -6,6 +6,7 @@ describe("Dialog", () => {
     const { baseElement } = render(
       <Dialog
         {...{
+          show: true,
           onConfirm: () => console.log("Dialog onConfirm"),
           onCancel: () => console.log("Dialog onCancel"),
           contentUrl: "/assets/items/dialogs/locales/de/request-camera.md",

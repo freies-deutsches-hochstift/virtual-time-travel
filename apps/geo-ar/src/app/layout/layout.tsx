@@ -31,11 +31,13 @@ export function Layout(props: LayoutProps) {
         <>
           {children}
           <PovDetails />
-          {forcePortrait && (
-            <div className="pointer-events-none">
-              <Dialog {...forcePortraitDialog} />
-            </div>
-          )}
+
+          <Dialog
+            {...{
+              ...forcePortraitDialog,
+              show: forcePortrait,
+            }}
+          />
         </>
       </StyledMain>
 

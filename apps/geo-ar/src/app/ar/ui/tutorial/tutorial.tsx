@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-useless-fragment */
 import { useCallback, useState } from "react";
 import { DialogsContentsIds } from "@virtual-time-travel/app-config";
 import { Dialog } from "@virtual-time-travel/ui";
@@ -14,11 +13,14 @@ export function ArTutorial() {
   }, []);
 
   return (
-    <>
-      {showTutorial && (
-        <Dialog {...arTutorialDialog} onClose={onClose} onConfirm={onClose} />
-      )}
-    </>
+    <Dialog
+      {...{
+        ...arTutorialDialog,
+        show: showTutorial,
+        onClose,
+        onConfirm: onClose,
+      }}
+    />
   );
 }
 

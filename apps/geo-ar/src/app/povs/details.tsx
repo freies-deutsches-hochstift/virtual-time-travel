@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { DialogsContentsIds } from "@virtual-time-travel/app-config";
@@ -11,7 +11,11 @@ import { PovCardDetails } from "@virtual-time-travel/geo";
 import { EnhancedPov } from "@virtual-time-travel/geo-types";
 import { Dialog } from "@virtual-time-travel/ui";
 import { useDialogByKey } from "../hooks/use-dialog-by-key";
-import { povsActions, selectCurrentPov } from "../store/povs.slice";
+import {
+  POV_NOT_FOUND,
+  povsActions,
+  selectCurrentPov,
+} from "../store/povs.slice";
 
 export function PovDetails() {
   const location = useLocation();
@@ -45,10 +49,23 @@ export function PovCardDetailsWrapper({
     DialogsContentsIds.PovNotFound,
   );
 
-  if (typeof pov === "string")
-    return <Dialog {...{ onConfirm: onClose, ...povNotFoundContentDialog }} />;
+  const povNotFound = useMemo(
+    () => typeof pov === "string" && pov === POV_NOT_FOUND,
+    [pov],
+  );
 
-  return <PovCardDetails {...{ pov, onClose }} />;
+  return (
+    <>
+      {typeof pov !== "string" && <PovCardDetails {...{ pov, onClose }} />}
+      <Dialog
+        {...{
+          onConfirm: onClose,
+          show: povNotFound,
+          ...povNotFoundContentDialog,
+        }}
+      />
+    </>
+  );
 }
 
 export default PovDetails;

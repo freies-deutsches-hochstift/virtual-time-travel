@@ -23,8 +23,7 @@ export function ArDeviceOrientationHelper() {
     return !(beta > 50 && beta < 120);
   }, [orientation]);
 
-  if (!canDisplayDialog) return <></>;
-  return <>{showDialog && <Dialog {...dialog} />}</>;
+  return <Dialog {...{ ...dialog, show: canDisplayDialog && showDialog }} />;
 }
 
 export default ArDeviceOrientationHelper;

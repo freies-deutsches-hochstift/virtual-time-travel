@@ -7,7 +7,7 @@ import { selectIsInGeoFence } from "../../../store/geo.slice";
 export function ArFence() {
   const isInGeofence = useSelector(selectIsInGeoFence);
   const outOfGeofenceDialog = useDialogByKey(DialogsContentsIds.OutOfGeoFence);
-  return <> {!isInGeofence && <Dialog {...outOfGeofenceDialog} />}</>;
+  return <Dialog {...{ ...outOfGeofenceDialog, show: !isInGeofence }} />;
 }
 
 export default ArFence;
