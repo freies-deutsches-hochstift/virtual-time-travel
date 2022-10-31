@@ -6,6 +6,7 @@ import {
   StateOrientation,
   StatePosition,
 } from "@virtual-time-travel/geo-types";
+import { IS_IOS } from "@virtual-time-travel/util-device";
 import { RootState } from "../../main";
 import { getConfigState } from "./config.slice";
 import { getFencesState } from "./fences.slice";
@@ -39,17 +40,14 @@ export const geoSlice = createSlice({
     ) {
       const { payload } = action;
 
-      if (payload?.usesRealCompass || !state.orientation) {
+      const nextHeading = payload?.compassHeading || 0;
+      if (IS_IOS || !state.orientation) {
         state.orientation = payload;
         return;
       } else {
-        if (
-          state.orientation?.compassHeading &&
-          payload?.compassHeading &&
-          Math.abs(
-            payload?.compassHeading - state.orientation?.compassHeading,
-          ) > 5
-        ) {
+        console.log(Math.abs(state.orientation.compassHeading - nextHeading));
+
+        if (Math.abs(state.orientation.compassHeading - nextHeading) > 5) {
           state.orientation = payload;
         }
       }
@@ -74,11 +72,24 @@ export const selectOrientation = createSelector(
   ({ orientation }) => orientation,
 );
 
+export const selectCompassHeading = createSelector(
+  getGeoState,
+  ({ orientation }) => orientation?.compassHeading,
+);
+
 export const selectCurrentBaseGeoFence = createSelector(
-  [getGeoState, getFencesState],
-  ({ position }, { entries: fences }) => {
+  [selectPosition, getFencesState],
+  (position, { entries: fences }) => {
     if (!position || !fences) return null;
     return geolocation.getCurrentFence(fences, position);
+  },
+);
+
+export const selectIsInGeoFence = createSelector(
+  [selectCurrentBaseGeoFence, selectPosition],
+  (currentfence, position) => {
+    if (!position?.coordinates.length) return true;
+    return !!currentfence;
   },
 );
 

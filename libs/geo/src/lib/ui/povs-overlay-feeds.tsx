@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { useMemo } from "react";
+import { uid } from "react-uid";
 import styled from "@emotion/styled";
 import { CurrentGeoFence, CurrentPov } from "@virtual-time-travel/geo-types";
 import { LocalizedFieldGroup } from "@virtual-time-travel/localization";
-import tw from "twin.macro";
 import { AnimatePresence, motion } from "framer-motion";
-import { uid } from "react-uid";
+import tw from "twin.macro";
 
 export interface PovsOverlayFeedsProps {
   currentGeoFence: CurrentGeoFence | null;

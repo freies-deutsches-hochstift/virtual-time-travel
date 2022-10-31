@@ -8,7 +8,6 @@ import {
   GeoState,
   LocationOptions,
   PovId,
-  StatePosition,
 } from "@virtual-time-travel/geo-types";
 import { PermissionStatus } from "@virtual-time-travel/util-device";
 import * as geolib from "geolib";
@@ -87,15 +86,16 @@ const getBearingDeltaUnit = (startBearing: number, endBearing: number) => {
 const getOrientationEventRes = (event: DeviceOrientationEventExtended) => {
   const { alpha, beta, gamma, webkitCompassHeading } = event;
   const anyAlpha = alpha || 0;
+  const anyBeta = beta || 0;
+  const anyGamma = gamma || 0;
+  // if (!webkitCompassHeading) anyAlpha -= 270;
 
   return {
-    alpha: anyAlpha?.toFixed(0) || 0,
+    alpha: anyAlpha?.toFixed(0),
     beta: beta?.toFixed(0) || 0,
     gamma: gamma?.toFixed(0) || 0,
     compassHeading: (
-      webkitCompassHeading ||
-      Math.abs(anyAlpha - 360) ||
-      0
+      webkitCompassHeading || compassHeading(anyAlpha, anyBeta, anyGamma)
     ).toFixed(0),
     /**
      * if the device has no compass or webkitCompassHeading is missing
@@ -234,6 +234,37 @@ const getEnhancedPovs = (
     };
   });
 };
+
+const degtorad = Math.PI / 180; // Degree-to-Radian conversion
+
+function compassHeading(alpha: number, beta: number, gamma: number) {
+  const _x = beta ? beta * degtorad : 0; // beta value
+  const _y = gamma ? gamma * degtorad : 0; // gamma value
+  const _z = alpha ? alpha * degtorad : 0; // alpha value
+
+  const cX = Math.cos(_x);
+  const cY = Math.cos(_y);
+  const cZ = Math.cos(_z);
+  const sX = Math.sin(_x);
+  const sY = Math.sin(_y);
+  const sZ = Math.sin(_z);
+
+  // Calculate Vx and Vy components
+  const Vx = -cZ * sY - sZ * sX * cY;
+  const Vy = -sZ * sY + cZ * sX * cY;
+
+  // Calculate compass heading
+  let compassHeading = Math.atan(Vx / Vy);
+
+  // Convert compass heading to use whole unit circle
+  if (Vy < 0) {
+    compassHeading += Math.PI;
+  } else if (Vx < 0) {
+    compassHeading += 2 * Math.PI;
+  }
+
+  return compassHeading * (180 / Math.PI); // Compass Heading (in degrees)
+}
 
 export const geolocation = {
   requestGeolocationPermission,

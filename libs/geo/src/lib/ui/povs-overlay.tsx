@@ -1,24 +1,15 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { OnSelectPov } from "@virtual-time-travel/app-router";
-import {
-  CurrentGeoFence,
-  CurrentPov,
-  StateOrientation,
-} from "@virtual-time-travel/geo-types";
-import { LocalizedFieldGroup } from "@virtual-time-travel/localization";
+import { CurrentGeoFence, CurrentPov } from "@virtual-time-travel/geo-types";
 import tw from "twin.macro";
 import useResizeObserver from "use-resize-observer";
-import PovCompass from "./pov-compass";
 import { PovMarker } from "./pov-marker";
-import PovsOverlayFeeds from "./povs-overlay-feeds";
 
 export interface PovsOverlayProps {
   currentGeoFence: CurrentGeoFence | null;
-  orientation: StateOrientation;
+  compassHeading: number;
   onSelectPov?: OnSelectPov;
-  closestInViewPov?: CurrentPov;
-  feeds: LocalizedFieldGroup;
 }
 
 interface PovsProps {
@@ -42,13 +33,10 @@ const sectorsKeys = Array.from({ length: sectors }, (x, i) => `${i}_key`);
 
 export function PovsOverlay({
   currentGeoFence,
-  orientation,
+  compassHeading,
   onSelectPov,
-  closestInViewPov,
-  feeds,
 }: PovsOverlayProps) {
   const { povs } = currentGeoFence || {};
-  const { compassHeading = 0 } = orientation || {};
   const { ref: ctnRef, width: ctnWidth = 0 } = useResizeObserver();
 
   const centerStartPosition = useMemo(
@@ -65,16 +53,11 @@ export function PovsOverlay({
 
   return (
     <StyledPovsOverlay ref={ctnRef}>
-      <PovsOverlayFeeds {...{ currentGeoFence, closestInViewPov, feeds }} />
-      {!!closestInViewPov && (
-        <PovCompass
-          {...{ pov: closestInViewPov, onSelectPov, compassHeading, feeds }}
-        />
-      )}
       <StyledPovsWrapper
         style={{
           width: wrapperWidth,
           transform: `translateX(${compassPosition}px)`,
+          willChange: "transform",
         }}
       >
         {sectorsKeys.map((k) => (
