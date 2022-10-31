@@ -3,6 +3,16 @@
     "nrwl.angular-console",
     "esbenp.prettier-vscode",
     "firsttris.vscode-jest-runner",
-    "dbaeumer.vscode-eslint"
+    "dbaeumer.vscode-eslint",
+    "donjayamanne.git-extension-pack",
+    "serhioromano.vscode-gitflow",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    "codezombiech.gitignore",
+    "dsznajder.es7-react-js-snippets",
+    "ecmel.vscode-html-css",
+    "yzhang.markdown-all-in-one",
+    "ziyasal.vscode-open-in-github",
+    "Gruntfuggly.todo-tree"
   ]
 }

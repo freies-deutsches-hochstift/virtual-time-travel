@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  scrollbar-width: 10px;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+html {
+  font-size: clamp(16px, 3vw, 20px);
+}
+
+body {
+  @apply font-body text-primary;
+  /* TODO: HOW THE BG SHOULD BE COMPOSED style or img or both ? */
+  background: var(--primary-gradient);
+  font-size: 1em;
+  line-height: 1.65em;
+}
+
+/* TODO  these are just generic values */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-headline;
+}
+
+img,
+video {
+  display: block;
+  width: 100%;
+}

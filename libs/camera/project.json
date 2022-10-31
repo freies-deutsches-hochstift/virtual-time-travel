@@ -2,22 +2,13 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/camera/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
-    "build": {
-      "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/camera",
-        "main": "libs/camera/src/index.ts",
-        "tsConfig": "libs/camera/tsconfig.lib.json",
-        "assets": ["libs/camera/*.md"]
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/camera/**/*.ts"]
+        "lintFilePatterns": ["libs/camera/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
@@ -28,6 +19,5 @@
         "passWithNoTests": true
       }
     }
-  },
-  "tags": []
+  }
 }

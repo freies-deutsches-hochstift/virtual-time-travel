@@ -1,15 +1,10 @@
 /* eslint-disable */
 export default {
-  displayName: 'camera',
-  preset: '../../jest.preset.js',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-    },
-  },
+  displayName: "camera",
+  preset: "../../jest.preset.js",
   transform: {
-    '^.+\\.[tj]sx?$': 'ts-jest',
+    "^.+\\.[tj]sx?$": "babel-jest",
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/camera',
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
+  coverageDirectory: "../../coverage/libs/camera",
 };

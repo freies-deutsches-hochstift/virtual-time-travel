@@ -1,7 +1,7 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "plugins": ["@nrwl/nx", "simple-import-sort"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -18,7 +18,35 @@
               }
             ]
           }
-        ]
+        ],
+
+        "simple-import-sort/imports": [
+          "warn",
+          {
+            "groups": [
+              [
+                // Packages. `react` related packages come first.
+                "^react",
+                "^@?\\w",
+                "^root?\\w",
+                // Internal packages.
+                "^(components|modules|utils)(/.*|$)",
+                // Side effect imports.
+                "^\\u0000",
+                // Parent imports. Put `..` last.
+                "^\\.\\.(?!/?$)",
+                "^\\.\\./?$",
+                // Other relative imports. Put same-folder imports and `.` last.
+                "^\\./(?=.*/)(?!/?$)",
+                "^\\.(?!/?$)",
+                "^\\./?$",
+                // Style imports.
+                "^.+\\.s?css$"
+              ]
+            ]
+          }
+        ],
+        "simple-import-sort/exports": "warn"
       }
     },
     {

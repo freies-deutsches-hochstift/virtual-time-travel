@@ -2,12 +2,19 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "app-config": "libs/app-config",
+    "app-router": "libs/app-router",
     "camera": "libs/camera",
-    "data": "libs/data",
+    "fetch-api": "libs/fetch-api",
+    "geo": "libs/geo",
     "geo-ar": "apps/geo-ar",
     "geo-ar-e2e": "apps/geo-ar-e2e",
-    "location-geo": "libs/location-geo",
-    "location-orientation": "libs/location-orientation",
-    "location-qr": "libs/location-qr"
+    "geo-types": "libs/geo-types",
+    "loading": "libs/loading",
+    "localization": "libs/localization",
+    "markdown": "libs/markdown",
+    "tailwind-preset": "libs/tailwind-preset",
+    "ui": "libs/ui",
+    "util-device": "libs/util-device"
   }
 }

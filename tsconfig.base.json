@@ -15,13 +15,17 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@virtual-time-travel/app-config": ["libs/app-config/src/index.ts"],
+      "@virtual-time-travel/app-router": ["libs/app-router/src/index.ts"],
       "@virtual-time-travel/camera": ["libs/camera/src/index.ts"],
-      "@virtual-time-travel/data": ["libs/data/src/index.ts"],
-      "@virtual-time-travel/location-geo": ["libs/location-geo/src/index.ts"],
-      "@virtual-time-travel/location-orientation": [
-        "libs/location-orientation/src/index.ts"
-      ],
-      "@virtual-time-travel/location-qr": ["libs/location-qr/src/index.ts"]
+      "@virtual-time-travel/fetch-api": ["libs/fetch-api/src/index.ts"],
+      "@virtual-time-travel/geo": ["libs/geo/src/index.ts"],
+      "@virtual-time-travel/geo-types": ["libs/geo-types/index.ts"],
+      "@virtual-time-travel/loading": ["libs/loading/src/index.ts"],
+      "@virtual-time-travel/localization": ["libs/localization/src/index.ts"],
+      "@virtual-time-travel/markdown": ["libs/markdown/src/index.ts"],
+      "@virtual-time-travel/ui": ["libs/ui/src/index.ts"],
+      "@virtual-time-travel/util-device": ["libs/util-device/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
