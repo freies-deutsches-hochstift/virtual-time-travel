@@ -12,9 +12,11 @@ import {
   PermissionStatus,
 } from "@virtual-time-travel/util-device";
 import {
-  geolocation,
+  clearGeolocationRequest,
   geolocationDefaultOptions,
+  getPositionEventRes,
   handleGeolocationError,
+  requestGeolocationPermission,
 } from "../utils";
 /**
  * to avoid re-renders we do not want to return position and request status directly from the hook
@@ -44,7 +46,7 @@ export function useLocation(
         requested.current = true;
       }
 
-      onChange(geolocation.getPositionEventRes(pos) as DeviceLocationEventRes);
+      onChange(getPositionEventRes(pos) as DeviceLocationEventRes);
     },
     [onRequestComplete, onChange],
   );
@@ -68,11 +70,7 @@ export function useLocation(
         });
     }
 
-    const wId = geolocation.requestGeolocationPermission(
-      options,
-      onSuccess,
-      onError,
-    );
+    const wId = requestGeolocationPermission(options, onSuccess, onError);
     console.debug("Watching geolocation id", wId, "with options: ", options);
     setWatchId(wId);
   }, [onSuccess, onError, onRequestComplete, options]);
@@ -80,7 +78,7 @@ export function useLocation(
   useEffect(() => {
     return () => {
       if (watchId) {
-        geolocation.clearGeolocationRequest(watchId);
+        clearGeolocationRequest(watchId);
         console.debug("Stop Watching geolocation id", watchId);
       }
     };

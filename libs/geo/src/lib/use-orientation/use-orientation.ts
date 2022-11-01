@@ -13,7 +13,7 @@ import {
   IS_IOS,
   PermissionStatus,
 } from "@virtual-time-travel/util-device";
-import { geolocation } from "../utils";
+import { getOrientationEventRes } from "../utils";
 
 export function useOrientation(
   onChange: (event: DeviceOrientationEventRes) => void,
@@ -25,7 +25,7 @@ export function useOrientation(
 
   const handleOrientation = useCallback(
     (event: DeviceOrientationEvent) => {
-      onChange(geolocation.getOrientationEventRes(event));
+      onChange(getOrientationEventRes(event));
     },
     [onChange],
   );

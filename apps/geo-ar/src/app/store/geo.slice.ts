@@ -1,5 +1,10 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { geolocation, refineLocation } from "@virtual-time-travel/geo";
+import {
+  getClosestPovInView,
+  getCurrentFence,
+  getEnhancedPovs,
+  refineLocation,
+} from "@virtual-time-travel/geo";
 import {
   CurrentGeoFence,
   GeoState,
@@ -69,7 +74,7 @@ export const selectCurrentBaseGeoFence = createSelector(
   [selectPosition, getFencesState],
   (position, { entries: fences }) => {
     if (!position || !fences) return null;
-    return geolocation.getCurrentFence(fences, position);
+    return getCurrentFence(fences, position);
   },
 );
 
@@ -106,7 +111,7 @@ export const selectCurrentGeoFence = createSelector(
 
     const { fence, povs } = currentFence;
 
-    const enhancedPovs = geolocation.getEnhancedPovs(
+    const enhancedPovs = getEnhancedPovs(
       geoState,
       povs,
       INVIEW_THRESHOLD_ANGLE,
@@ -122,6 +127,5 @@ export const selectCurrentGeoFence = createSelector(
 
 export const selectClosestPov = createSelector(
   selectCurrentGeoFence,
-  (fence) =>
-    (fence && geolocation.getClosestPovInView(fence.povs)) || undefined,
+  (fence) => (fence && getClosestPovInView(fence.povs)) || undefined,
 );
