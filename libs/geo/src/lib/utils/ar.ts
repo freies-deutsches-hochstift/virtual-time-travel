@@ -39,26 +39,17 @@ export const getClosestPovInView = (povs: Array<CurrentPov>) =>
     .pop();
 
 /**
- * extends avail povs with ar infos depending by current position and device orientation
+ * extends avail povs with ar infos depending by current position
  */
 
-export const getEnhancedPovs = (
-  geoState: GeoState,
+export const getEnhancedPovsByCurrentLocation = (
+  position: GeoState["position"],
   povs: Array<PovId>,
   inViewThresholdDistance: number,
-  inViewThresholdAngle: number,
 ) => {
-  const { position, compassHeading } = geoState;
   if (!position) return [];
 
   return (povs || []).map((pov) => {
-    const bearingViewportOrientation = compassHeading - (pov.orientation || 0);
-
-    let normalizedBearingViewportOrientation = bearingViewportOrientation;
-
-    if (normalizedBearingViewportOrientation < 0)
-      normalizedBearingViewportOrientation += 360;
-
     const distance = getDistance(
       getCurrentPosition(position),
       getLongLat(pov.geometry.coordinates),
@@ -73,10 +64,33 @@ export const getEnhancedPovs = (
       ...pov,
       distance,
       bearingDistance,
-      bearingViewportOrientation: normalizedBearingViewportOrientation,
       inView: distance < inViewThresholdDistance,
-      inDirectView: Math.abs(bearingViewportOrientation) < inViewThresholdAngle,
     };
+  });
+};
+
+/**
+ * extends avail povs by currentLocation with ar infos depending by compassHeader
+ */
+
+export const getEnhancedPovsWithBearing = (
+  compassHeading: GeoState["compassHeading"],
+  povs: Array<PovId>,
+  inViewThresholdAngle: number,
+) => {
+  return (povs || []).map((pov) => {
+    const bearingViewportOrientation = compassHeading - (pov.orientation || 0);
+
+    let normalizedBearingViewportOrientation = bearingViewportOrientation;
+
+    if (normalizedBearingViewportOrientation < 0)
+      normalizedBearingViewportOrientation += 360;
+
+    return {
+      ...pov,
+      bearingViewportOrientation: normalizedBearingViewportOrientation,
+      inDirectView: Math.abs(bearingViewportOrientation) < inViewThresholdAngle,
+    } as CurrentPov;
   });
 };
 

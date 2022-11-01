@@ -3,12 +3,13 @@ import {
   getArStatusFeed,
   getClosestPovInView,
   getCurrentFence,
-  getEnhancedPovs,
+  getEnhancedPovsByCurrentLocation,
+  getEnhancedPovsWithBearing,
   refineLocation,
 } from "@virtual-time-travel/geo";
 import {
-  CompassHeading,
   CurrentGeoFence,
+  CurrentGeoFenceByLocation,
   DeviceOrientationEventRes,
   GeoState,
   StatePosition,
@@ -97,21 +98,44 @@ export const selectCurrentBaseGeoFenceWithPovs = createSelector(
   },
 );
 
-export const selectCurrentGeoFence = createSelector(
-  [getGeoState, selectCurrentBaseGeoFenceWithPovs, getConfigState],
+export const selectCurrentLocationGeoFence = createSelector(
+  [selectPosition, selectCurrentBaseGeoFenceWithPovs, getConfigState],
   (
-    geoState,
+    position,
     currentFence,
-    { appConfig: { INVIEW_THRESHOLD_ANGLE, INVIEW_THRESHOLD_DISTANCE } },
+    { appConfig: { INVIEW_THRESHOLD_ANGLE } },
+  ): CurrentGeoFenceByLocation | null => {
+    if (!currentFence) return null;
+
+    const { fence, povs } = currentFence;
+
+    const enhancedPovs = getEnhancedPovsByCurrentLocation(
+      position,
+      povs,
+      INVIEW_THRESHOLD_ANGLE,
+    );
+
+    return {
+      fence,
+      povs: enhancedPovs,
+    };
+  },
+);
+
+export const selectCurrentGeoFenceWithBearing = createSelector(
+  [selectCompassHeading, selectCurrentLocationGeoFence, getConfigState],
+  (
+    compassHeading,
+    currentFence,
+    { appConfig: { INVIEW_THRESHOLD_DISTANCE } },
   ): CurrentGeoFence | null => {
     if (!currentFence) return null;
 
     const { fence, povs } = currentFence;
 
-    const enhancedPovs = getEnhancedPovs(
-      geoState,
+    const enhancedPovs = getEnhancedPovsWithBearing(
+      compassHeading,
       povs,
-      INVIEW_THRESHOLD_ANGLE,
       INVIEW_THRESHOLD_DISTANCE,
     );
 
@@ -123,7 +147,7 @@ export const selectCurrentGeoFence = createSelector(
 );
 
 export const selectClosestPov = createSelector(
-  selectCurrentGeoFence,
+  selectCurrentGeoFenceWithBearing,
   (fence) => (fence && getClosestPovInView(fence.povs)) || undefined,
 );
 
@@ -133,7 +157,12 @@ export const selectHasClosestPov = createSelector(
 );
 
 export const selectArCurrentFeed = createSelector(
-  [selectCurrentGeoFence, selectClosestPov, getConfigState, selectLabels],
+  [
+    selectCurrentGeoFenceWithBearing,
+    selectClosestPov,
+    getConfigState,
+    selectLabels,
+  ],
   (
     currentFence,
     closestInViewPov,

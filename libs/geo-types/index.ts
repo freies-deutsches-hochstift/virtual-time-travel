@@ -69,11 +69,14 @@ export interface FenceId {
   geometry: FenceGeometry;
 }
 
-export interface CurrentPov extends PovId {
+export interface CurrentPovByLocation extends PovId {
   distance: number | null;
   bearingDistance: number | null;
-  bearingViewportOrientation: number;
   inView: boolean;
+}
+
+export interface CurrentPov extends CurrentPovByLocation {
+  bearingViewportOrientation: number;
   inDirectView: boolean;
 }
 
@@ -81,6 +84,11 @@ export interface EnhancedPov extends PovId {
   coverSrc: string | null;
   localizedTitle?: string;
   contentUrl: string;
+}
+
+export interface CurrentGeoFenceByLocation {
+  fence: FenceId | undefined;
+  povs: Array<CurrentPovByLocation>;
 }
 
 export interface CurrentGeoFence {

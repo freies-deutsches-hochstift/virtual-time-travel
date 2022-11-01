@@ -1,19 +1,22 @@
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import styled from "@emotion/styled";
 import { OnSelectPov } from "@virtual-time-travel/app-router";
-import { CurrentGeoFence, CurrentPov } from "@virtual-time-travel/geo-types";
+import {
+  CurrentGeoFenceByLocation,
+  CurrentPovByLocation,
+} from "@virtual-time-travel/geo-types";
 import tw from "twin.macro";
 import useResizeObserver from "use-resize-observer";
 import { PovMarker } from "./pov-marker";
 
 export interface PovsOverlayProps {
-  currentGeoFence: CurrentGeoFence | null;
+  currentGeoFence: CurrentGeoFenceByLocation | null;
   compassHeading: number;
   onSelectPov?: OnSelectPov;
 }
 
 interface PovsProps {
-  povs: Array<CurrentPov>;
+  povs: Array<CurrentPovByLocation>;
   onSelectPov?: OnSelectPov;
 }
 
@@ -60,15 +63,23 @@ export function PovsOverlay({
           willChange: "transform",
         }}
       >
-        {sectorsKeys.map((k) => (
-          <Povs {...{ povs, onSelectPov }} key={k} />
-        ))}
+        <SectorsPovs {...{ povs, onSelectPov }} />
       </StyledPovsWrapper>
     </StyledPovsOverlay>
   );
 }
 
 export default PovsOverlay;
+
+const SectorsPovs = memo(({ povs, onSelectPov }: PovsProps) => {
+  return (
+    <>
+      {sectorsKeys.map((k) => (
+        <Povs {...{ povs, onSelectPov }} key={k} />
+      ))}
+    </>
+  );
+});
 
 function Povs({ povs, onSelectPov }: PovsProps) {
   return (

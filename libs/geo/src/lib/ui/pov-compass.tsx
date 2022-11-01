@@ -44,6 +44,7 @@ export function PovCompass({ pov, onSelectPov, feeds }: PovCompassProps) {
             </motion.div>
           )}
         </AnimatePresence>
+
         <PovCompassTicks {...{ pov }} />
       </StyledPovCompassInner>
     </StyledPovCompass>

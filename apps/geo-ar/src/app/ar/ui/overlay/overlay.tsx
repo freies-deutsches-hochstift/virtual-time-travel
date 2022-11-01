@@ -3,11 +3,11 @@ import { useOnSelectPov } from "@virtual-time-travel/app-router";
 import { PovsOverlay } from "@virtual-time-travel/geo";
 import {
   selectCompassHeading,
-  selectCurrentGeoFence,
+  selectCurrentLocationGeoFence,
 } from "../../../store/geo.slice";
 
 export function ArOverlay() {
-  const currentGeoFence = useSelector(selectCurrentGeoFence);
+  const currentGeoFence = useSelector(selectCurrentLocationGeoFence);
   const compassHeading = useSelector(selectCompassHeading);
   const onSelectPov = useOnSelectPov();
 
