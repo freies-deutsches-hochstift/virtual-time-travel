@@ -151,6 +151,12 @@ export const selectClosestPov = createSelector(
   (fence) => (fence && getClosestPovInView(fence.povs)) || undefined,
 );
 
+/**
+ * closest pov attributes are strictly depending by the location and compassHeading
+ * to avoid re-renderings we just want to return what is strictly needed
+ * depending by the usecase
+ **/
+
 export const selectHasClosestPov = createSelector(
   selectClosestPov,
   (closestPov) => !!closestPov,
@@ -164,6 +170,16 @@ export const selectIsClosestPovInView = createSelector(
 export const selectIsClosestPovInDirectView = createSelector(
   selectClosestPov,
   (closestPov) => !!closestPov?.inDirectView,
+);
+
+export const selectInDirectViewPovId = createSelector(
+  selectClosestPov,
+  (closestPov) => (closestPov?.inDirectView ? closestPov.id : undefined),
+);
+
+export const selectClosestPovInViewCompassBearing = createSelector(
+  selectClosestPov,
+  (closestPov) => (closestPov ? closestPov.bearingViewportOrientation : 0),
 );
 
 export const selectArCurrentFeed = createSelector(
