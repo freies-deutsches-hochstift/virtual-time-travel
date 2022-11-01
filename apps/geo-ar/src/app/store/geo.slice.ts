@@ -1,5 +1,6 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  getArStatusFeed,
   getClosestPovInView,
   getCurrentFence,
   getEnhancedPovs,
@@ -11,9 +12,11 @@ import {
   StateOrientation,
   StatePosition,
 } from "@virtual-time-travel/geo-types";
+import { LocalizedFieldGroup } from "@virtual-time-travel/localization";
 import { RootState } from "../../main";
 import { getConfigState } from "./config.slice";
 import { getFencesState } from "./fences.slice";
+import { selectLabels } from "./locales.slice";
 import { selectAllPovs } from "./povs.slice";
 
 export const GEO_FEATURE_KEY = "geo";
@@ -128,4 +131,26 @@ export const selectCurrentGeoFence = createSelector(
 export const selectClosestPov = createSelector(
   selectCurrentGeoFence,
   (fence) => (fence && getClosestPovInView(fence.povs)) || undefined,
+);
+
+export const selectArCurrentFeed = createSelector(
+  [selectCurrentGeoFence, selectClosestPov, getConfigState, selectLabels],
+  (
+    currentFence,
+    closestInViewPov,
+    { appConfig: { LOOK_AROUND_MIN_DISTANCE, GET_CLOSER_MIN_DISTANCE } },
+    labels,
+  ) => {
+    if (!currentFence?.povs || !currentFence?.povs.length) return null;
+    const feeds = (labels?.["geo-feeds"] ||
+      {}) as unknown as LocalizedFieldGroup;
+
+    return getArStatusFeed(
+      feeds,
+      LOOK_AROUND_MIN_DISTANCE,
+      GET_CLOSER_MIN_DISTANCE,
+      currentFence?.povs,
+      closestInViewPov,
+    );
+  },
 );

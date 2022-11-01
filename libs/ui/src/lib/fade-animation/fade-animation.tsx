@@ -14,6 +14,7 @@ export const FadeAnimation = ({ children, ...rest }: FadeAnimationProps) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
       {...rest}
+      style={{ willChange: "opacity" }}
     >
       {children}
     </motion.div>
