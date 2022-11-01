@@ -19,6 +19,7 @@ export interface DialogProps {
   onConfirm?: (event: unknown) => unknown;
   onCancel?: (event: unknown) => unknown;
   onClose?: (event: unknown) => unknown;
+  skippable?: boolean;
   disabledAfterClick?: true;
 }
 
@@ -28,9 +29,10 @@ export function Dialog({
   onCancel,
   onConfirm,
   onClose,
+  skippable,
   labels = {},
 }: DialogProps) {
-  const { confirm, cancel } = labels;
+  const { confirm, cancel, skip } = labels;
 
   const withConfirm = useMemo(
     () => typeof onConfirm === "function",
@@ -56,7 +58,11 @@ export function Dialog({
           <StyledDialogInner>
             {withClose && (
               <StyledCloseBtn onClick={onClose}>
-                <Icon type={Icons.Close} />
+                {skippable ? (
+                  skip
+                ) : (
+                  <Icon className="w-4 h-4" type={Icons.Close} />
+                )}
               </StyledCloseBtn>
             )}
 
@@ -143,7 +149,6 @@ const StyledDialogInner = styled.div([
 ]);
 
 const StyledCloseBtn = styled.div(tw`
-  w-4 h-4
   absolute z-max
   top-2 right-2
 `);

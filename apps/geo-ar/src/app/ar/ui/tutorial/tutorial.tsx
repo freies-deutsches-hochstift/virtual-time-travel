@@ -32,6 +32,7 @@ export function ArTutorial() {
         {...{
           ...arTutorialDialog,
           show: showTutorial,
+          skippable: true,
           onClose,
           onConfirm: onClose,
         }}

@@ -1,4 +1,9 @@
-import { ElementType, ReactNode, useMemo } from "react";
+import {
+  ComponentPropsWithoutRef,
+  ElementType,
+  ReactNode,
+  useMemo,
+} from "react";
 
 import ArrowIcon from "/assets/layout/icons/arrow.svg";
 import CloseIcon from "/assets/layout/icons/close.svg";
@@ -12,7 +17,7 @@ interface IconTypes {
   [key: string]: ReactNode;
 }
 
-export interface IconProps {
+export interface IconProps extends ComponentPropsWithoutRef<"svg"> {
   type: string;
 }
 
@@ -37,10 +42,10 @@ const iconTypes: IconTypes = {
 };
 
 export function Icon(props: IconProps) {
-  const { type } = props;
+  const { type, ...rest } = props;
   const IconType = useMemo(() => iconTypes[type], [type]) as ElementType;
 
-  return <IconType />;
+  return <IconType {...rest} />;
 }
 
 export default Icon;
