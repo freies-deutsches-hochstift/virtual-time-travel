@@ -1,15 +1,11 @@
-import { ReactNode, useCallback } from "react";
+import { PropsWithChildren, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useData } from "@virtual-time-travel/fetch-api";
 import { Loading } from "@virtual-time-travel/loading";
 import { useAppDispatch } from "../main";
 import { fetchConfig, selectHasConfig } from "./store/config.slice";
 
-interface WithAppConfigProps {
-  children: ReactNode;
-}
-
-export function WithAppConfig({ children }: WithAppConfigProps) {
+export function WithAppConfig({ children }: PropsWithChildren) {
   const dispatch = useAppDispatch();
 
   const hasConfig = useSelector(selectHasConfig);

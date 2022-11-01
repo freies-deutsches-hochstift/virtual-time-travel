@@ -1,6 +1,6 @@
 <!-- docs/_sidebar.md -->
 
-- [Introduction](README.md)
+- [Introduction](/)
 - [Getting started](getting-started.md)
 - [Guide](guide.md)
 - [Customization](customization.md)

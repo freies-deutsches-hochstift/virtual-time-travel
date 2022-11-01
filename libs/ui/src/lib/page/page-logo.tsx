@@ -1,5 +1,6 @@
-import Logo from "/assets/layout/app-logo.svg";
 import tw from "twin.macro";
+
+import Logo from "/assets/layout/app-logo.svg";
 
 /**
  * app dependent logos can have different sizes/positions

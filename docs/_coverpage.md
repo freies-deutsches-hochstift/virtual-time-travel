@@ -11,4 +11,4 @@
 - Configuration and content via CSV and markdown files
 
 [GitHub](https://github.com/freies-deutsches-hochstift/virtual-time-travel)
-[Get Started](#README)
+[Get Started](#virtual-time-travel)

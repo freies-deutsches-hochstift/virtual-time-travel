@@ -1,13 +1,9 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { PropsWithChildren, useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 import useResizeObserver from "use-resize-observer";
 
-export interface ScrollableProps {
-  children: ReactNode;
-}
-
-export const Scrollable = ({ children }: ScrollableProps) => {
+export const Scrollable = ({ children }: PropsWithChildren) => {
   const ctnRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { height = 0 } = useResizeObserver<HTMLDivElement>({

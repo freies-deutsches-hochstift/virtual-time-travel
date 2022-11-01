@@ -1,11 +1,11 @@
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import styled from "@emotion/styled";
 import { OnSelectPov } from "@virtual-time-travel/app-router";
-import { CurrentPov } from "@virtual-time-travel/geo-types";
+import { CurrentPovByLocation } from "@virtual-time-travel/geo-types";
 import tw from "twin.macro";
 
 export interface PovMarkerProps {
-  pov: CurrentPov;
+  pov: CurrentPovByLocation;
   compassScaleFactor: number;
   onSelectPov?: OnSelectPov;
 }
@@ -34,7 +34,7 @@ export function PovMarker({
   }, [bearingDistance, compassScaleFactor]);
 
   const showMeterDistance = useMemo(
-    () => distance && distance < 180,
+    () => !!(distance && distance < 180),
     [distance],
   );
 
@@ -48,6 +48,20 @@ export function PovMarker({
   return (
     <StyledPovMarker {...{ left, inView }}>
       <StyledPovWave {...{ scale, inView }} />
+      <PovMarkerInner {...{ handleSelectPov, showMeterDistance, distance }} />
+    </StyledPovMarker>
+  );
+}
+
+interface PovMarkerInnerProps {
+  handleSelectPov: () => void;
+  showMeterDistance: boolean;
+  distance: number | null;
+}
+
+const PovMarkerInner = memo(
+  ({ handleSelectPov, showMeterDistance, distance }: PovMarkerInnerProps) => {
+    return (
       <StyledPovInner onClick={handleSelectPov}>
         <StyledPovDistance>
           <svg viewBox="0 0 13 10" fill="none">
@@ -60,9 +74,9 @@ export function PovMarker({
           {showMeterDistance && `${distance}m`}
         </StyledPovDistance>
       </StyledPovInner>
-    </StyledPovMarker>
-  );
-}
+    );
+  },
+);
 
 export default PovMarker;
 
@@ -79,16 +93,14 @@ const StyledPovMarker = styled.div(({ left, inView }: StyledPovMarkerProps) => [
     will-change: transform;
   `,
   left && `transform: translate(${left}px, 0);`,
-  inView &&
-    `
-      display: none;
-    `,
+  inView && `display: none;`,
 ]);
 
 const StyledPovInner = styled.div([
   tw`
     absolute top-ui-pov w-ui-pov h-ui-pov bg-ui-pov rounded-full
     flex items-center justify-center
+    
   `,
   `
     transform: translate(-50%, -50%);

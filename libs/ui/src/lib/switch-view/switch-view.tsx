@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { ReactNode, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import tw from "twin.macro";
+import FadeAnimation from "../fade-animation/fade-animation";
 import Toggle from "../toggle/toggle";
 
 export interface SwitchViewProps {
@@ -38,7 +40,12 @@ export function SwitchView({
   return (
     <>
       <AnimatePresence mode="wait">
-        <SwitchAnimation key={switchView}>{view}</SwitchAnimation>
+        <FadeAnimation
+          css={tw`w-full h-full flex justify-center relative`}
+          key={switchView}
+        >
+          {view}
+        </FadeAnimation>
       </AnimatePresence>
       <div className="absolute z-top right-2 bottom-2">
         <Toggle
@@ -55,21 +62,3 @@ export function SwitchView({
 }
 
 export default SwitchView;
-
-interface SwitchAnimationProps {
-  children: ReactNode;
-}
-
-const SwitchAnimation = ({ children }: SwitchAnimationProps) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="w-full h-full flex justify-center relative"
-    >
-      {children}
-    </motion.div>
-  );
-};

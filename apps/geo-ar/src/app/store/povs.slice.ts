@@ -21,6 +21,8 @@ import { getLocalesState } from "./locales.slice";
 
 export const POVS_FEATURE_KEY = ConfigDataItems.POVS;
 
+export const POV_NOT_FOUND = "::404::";
+
 export interface PovsState {
   loadingStatus: "not loaded" | "loading" | "loaded" | "error";
   error: string | null;
@@ -95,13 +97,16 @@ export const selectCurrentPov = createSelector(
   ({ currentId }, povs) => {
     if (!currentId || !povs?.length) return null;
     return (
-      povs?.find((p) => p.id.toString() === currentId.toString()) || "::404::"
+      povs?.find((p) => p.id.toString() === currentId.toString()) ||
+      POV_NOT_FOUND
     );
   },
 );
 
 export const usePovFromId = () => {
   return createSelector([selectAllPovs, (_, povId) => povId], (povs, povId) => {
-    return povs?.find((p) => p.id.toString() === povId.toString()) || "::404::";
+    return (
+      povs?.find((p) => p.id.toString() === povId.toString()) || POV_NOT_FOUND
+    );
   });
 };

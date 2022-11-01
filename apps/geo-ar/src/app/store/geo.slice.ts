@@ -1,21 +1,31 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { geolocation, refineLocation } from "@virtual-time-travel/geo";
+import {
+  getArStatusFeed,
+  getClosestPovInView,
+  getCurrentFence,
+  getEnhancedPovsByCurrentLocation,
+  getEnhancedPovsWithBearing,
+  refineLocation,
+} from "@virtual-time-travel/geo";
 import {
   CurrentGeoFence,
+  CurrentGeoFenceByLocation,
+  DeviceOrientationEventRes,
   GeoState,
-  StateOrientation,
   StatePosition,
 } from "@virtual-time-travel/geo-types";
+import { LocalizedFieldGroup } from "@virtual-time-travel/localization";
 import { RootState } from "../../main";
 import { getConfigState } from "./config.slice";
 import { getFencesState } from "./fences.slice";
+import { selectLabels } from "./locales.slice";
 import { selectAllPovs } from "./povs.slice";
 
 export const GEO_FEATURE_KEY = "geo";
 
 export const initialGeoState: GeoState = {
   position: null,
-  orientation: null,
+  compassHeading: 0,
 };
 
 export const geoSlice = createSlice({
@@ -27,7 +37,6 @@ export const geoSlice = createSlice({
       action: PayloadAction<StatePosition | null>,
     ) {
       const { payload } = action;
-      // alert(JSON.stringify(payload));
       if (state.position && payload)
         state.position = refineLocation(state.position, payload, 500);
       state.position = payload;
@@ -35,10 +44,9 @@ export const geoSlice = createSlice({
 
     updateOrientation(
       state: GeoState,
-      action: PayloadAction<StateOrientation | null>,
+      action: PayloadAction<DeviceOrientationEventRes>,
     ) {
-      const { payload } = action;
-      state.orientation = payload;
+      state.compassHeading = action.payload.compassHeading;
     },
   },
 });
@@ -55,21 +63,16 @@ export const selectPosition = createSelector(
   ({ position }) => position,
 );
 
-export const selectOrientation = createSelector(
-  getGeoState,
-  ({ orientation }) => orientation,
-);
-
 export const selectCompassHeading = createSelector(
   getGeoState,
-  ({ orientation }) => orientation?.compassHeading,
+  ({ compassHeading }) => compassHeading,
 );
 
 export const selectCurrentBaseGeoFence = createSelector(
   [selectPosition, getFencesState],
   (position, { entries: fences }) => {
     if (!position || !fences) return null;
-    return geolocation.getCurrentFence(fences, position);
+    return getCurrentFence(fences, position);
   },
 );
 
@@ -95,21 +98,44 @@ export const selectCurrentBaseGeoFenceWithPovs = createSelector(
   },
 );
 
-export const selectCurrentGeoFence = createSelector(
-  [getGeoState, selectCurrentBaseGeoFenceWithPovs, getConfigState],
+export const selectCurrentLocationGeoFence = createSelector(
+  [selectPosition, selectCurrentBaseGeoFenceWithPovs, getConfigState],
   (
-    geoState,
+    position,
     currentFence,
-    { appConfig: { INVIEW_THRESHOLD_ANGLE, INVIEW_THRESHOLD_DISTANCE } },
+    { appConfig: { INVIEW_THRESHOLD_ANGLE } },
+  ): CurrentGeoFenceByLocation | null => {
+    if (!currentFence) return null;
+
+    const { fence, povs } = currentFence;
+
+    const enhancedPovs = getEnhancedPovsByCurrentLocation(
+      position,
+      povs,
+      INVIEW_THRESHOLD_ANGLE,
+    );
+
+    return {
+      fence,
+      povs: enhancedPovs,
+    };
+  },
+);
+
+export const selectCurrentGeoFenceWithBearing = createSelector(
+  [selectCompassHeading, selectCurrentLocationGeoFence, getConfigState],
+  (
+    compassHeading,
+    currentFence,
+    { appConfig: { INVIEW_THRESHOLD_DISTANCE } },
   ): CurrentGeoFence | null => {
     if (!currentFence) return null;
 
     const { fence, povs } = currentFence;
 
-    const enhancedPovs = geolocation.getEnhancedPovs(
-      geoState,
+    const enhancedPovs = getEnhancedPovsWithBearing(
+      compassHeading,
       povs,
-      INVIEW_THRESHOLD_ANGLE,
       INVIEW_THRESHOLD_DISTANCE,
     );
 
@@ -121,7 +147,67 @@ export const selectCurrentGeoFence = createSelector(
 );
 
 export const selectClosestPov = createSelector(
-  selectCurrentGeoFence,
-  (fence) =>
-    (fence && geolocation.getClosestPovInView(fence.povs)) || undefined,
+  selectCurrentGeoFenceWithBearing,
+  (fence) => (fence && getClosestPovInView(fence.povs)) || undefined,
+);
+
+/**
+ * closest pov attributes are strictly depending by the location and compassHeading
+ * to avoid re-renderings we just want to return what is strictly needed
+ * depending by the usecase
+ **/
+
+export const selectHasClosestPov = createSelector(
+  selectClosestPov,
+  (closestPov) => !!closestPov,
+);
+
+export const selectIsClosestPovInView = createSelector(
+  selectClosestPov,
+  (closestPov) => !!closestPov?.inView,
+);
+
+export const selectIsClosestPovInDirectView = createSelector(
+  selectClosestPov,
+  (closestPov) => !!closestPov?.inDirectView,
+);
+
+export const selectInDirectViewPovId = createSelector(
+  selectClosestPov,
+  (closestPov) => (closestPov?.inDirectView ? closestPov.id : undefined),
+);
+
+export const selectClosestPovInViewCompassBearing = createSelector(
+  selectClosestPov,
+  (closestPov) => (closestPov ? closestPov.bearingViewportOrientation : 0),
+);
+
+export const selectArCurrentFeed = createSelector(
+  [
+    selectCurrentGeoFenceWithBearing,
+    selectIsClosestPovInView,
+    selectIsClosestPovInDirectView,
+    getConfigState,
+    selectLabels,
+  ],
+  (
+    currentFence,
+    isClosestPovInView,
+    isClosestPovInDirectView,
+    { appConfig: { LOOK_AROUND_MIN_DISTANCE, GET_CLOSER_MIN_DISTANCE } },
+    labels,
+  ) => {
+    if (!currentFence?.povs || !currentFence?.povs.length) return null;
+    const feeds = (labels?.["geo-feeds"] ||
+      {}) as unknown as LocalizedFieldGroup;
+
+    return getArStatusFeed(
+      feeds,
+      LOOK_AROUND_MIN_DISTANCE,
+      GET_CLOSER_MIN_DISTANCE,
+      currentFence?.povs,
+      isClosestPovInView,
+      isClosestPovInDirectView,
+    );
+  },
 );

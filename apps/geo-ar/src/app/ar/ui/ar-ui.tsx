@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import tw from "twin.macro";
+import ArCompass from "./compass/compass";
+import ArFeeds from "./feeds/feeds";
 import ArFence from "./fence/fence";
-// import ArDeviceOrientationHelper from "./device-orientation-helper/device-orientation-helper";
 import { ArOverlay } from "./overlay/overlay";
 import ArTutorial from "./tutorial/tutorial";
 
@@ -10,8 +11,9 @@ export function ArUi() {
     <StyledArUi>
       <ArOverlay />
       <ArFence />
+      <ArCompass />
+      <ArFeeds />
       <ArTutorial />
-      {/* <ArDeviceOrientationHelper /> */}
     </StyledArUi>
   );
 }

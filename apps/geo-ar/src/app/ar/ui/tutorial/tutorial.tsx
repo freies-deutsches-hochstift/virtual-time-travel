@@ -1,23 +1,42 @@
-/* eslint-disable react/jsx-no-useless-fragment */
 import { useCallback, useState } from "react";
+import { useSelector } from "react-redux";
 import { DialogsContentsIds } from "@virtual-time-travel/app-config";
-import { Dialog } from "@virtual-time-travel/ui";
+import { Button, Dialog, Icon, Icons } from "@virtual-time-travel/ui";
 import { useDialogByKey } from "../../../hooks/use-dialog-by-key";
+import { selectHasClosestPov } from "../../../store/geo.slice";
 
 export function ArTutorial() {
   const [showTutorial, setShowTutorial] = useState<boolean>(getDefaultState());
   const arTutorialDialog = useDialogByKey(DialogsContentsIds.ArTutorial);
+  const closestInViewPov = useSelector(selectHasClosestPov);
 
   const onClose = useCallback(() => {
     setShowTutorial(false);
     localStorage.setItem("ar-tutorial", "false");
   }, []);
 
+  const reShowTutorial = useCallback(() => {
+    setShowTutorial(true);
+  }, []);
+
   return (
     <>
-      {showTutorial && (
-        <Dialog {...arTutorialDialog} onClose={onClose} onConfirm={onClose} />
+      {!closestInViewPov && !showTutorial && (
+        <div className="absolute bottom-4 right-4 z-max">
+          <Button onlyIcon onClick={reShowTutorial}>
+            <Icon type={Icons.Info} />
+          </Button>
+        </div>
       )}
+      <Dialog
+        {...{
+          ...arTutorialDialog,
+          show: showTutorial,
+          skippable: true,
+          onClose,
+          onConfirm: onClose,
+        }}
+      />
     </>
   );
 }

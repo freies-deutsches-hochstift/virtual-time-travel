@@ -3,13 +3,12 @@
  * is rejected or is not avail
  */
 
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import Dialog, { DialogProps } from "../dialog/dialog";
 
-export interface WithDevicePermissionsProps {
+export interface WithDevicePermissionsProps extends PropsWithChildren {
   hasAllPermissions: boolean;
   dialog: DialogProps;
-  children: ReactNode;
   onConfirm: () => void;
 }
 
@@ -19,7 +18,10 @@ export function WithDevicePermissions({
   children,
   onConfirm,
 }: WithDevicePermissionsProps) {
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (hasAllPermissions) return <>{children}</>;
-  return <Dialog {...{ ...dialog, onConfirm }} />;
+  return (
+    <>
+      {hasAllPermissions && children}
+      <Dialog {...{ ...dialog, show: !hasAllPermissions, onConfirm }} />
+    </>
+  );
 }
