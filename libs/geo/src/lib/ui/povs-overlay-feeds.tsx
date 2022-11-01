@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { uid } from "react-uid";
 import styled from "@emotion/styled";
 import { AnimatePresence, motion } from "framer-motion";
@@ -7,7 +8,7 @@ export interface PovsOverlayFeedsProps {
   feed: string | null;
 }
 
-export function PovsOverlayFeeds({ feed }: PovsOverlayFeedsProps) {
+export const PovsOverlayFeeds = memo(({ feed }: PovsOverlayFeedsProps) => {
   return (
     <AnimatePresence initial={false} mode="wait">
       {!!feed && (
@@ -25,7 +26,7 @@ export function PovsOverlayFeeds({ feed }: PovsOverlayFeedsProps) {
       )}
     </AnimatePresence>
   );
-}
+});
 
 export default PovsOverlayFeeds;
 

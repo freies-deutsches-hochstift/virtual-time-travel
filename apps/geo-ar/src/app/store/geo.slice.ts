@@ -156,16 +156,28 @@ export const selectHasClosestPov = createSelector(
   (closestPov) => !!closestPov,
 );
 
+export const selectIsClosestPovInView = createSelector(
+  selectClosestPov,
+  (closestPov) => !!closestPov?.inView,
+);
+
+export const selectIsClosestPovInDirectView = createSelector(
+  selectClosestPov,
+  (closestPov) => !!closestPov?.inDirectView,
+);
+
 export const selectArCurrentFeed = createSelector(
   [
     selectCurrentGeoFenceWithBearing,
-    selectClosestPov,
+    selectIsClosestPovInView,
+    selectIsClosestPovInDirectView,
     getConfigState,
     selectLabels,
   ],
   (
     currentFence,
-    closestInViewPov,
+    isClosestPovInView,
+    isClosestPovInDirectView,
     { appConfig: { LOOK_AROUND_MIN_DISTANCE, GET_CLOSER_MIN_DISTANCE } },
     labels,
   ) => {
@@ -178,7 +190,8 @@ export const selectArCurrentFeed = createSelector(
       LOOK_AROUND_MIN_DISTANCE,
       GET_CLOSER_MIN_DISTANCE,
       currentFence?.povs,
-      closestInViewPov,
+      isClosestPovInView,
+      isClosestPovInDirectView,
     );
   },
 );

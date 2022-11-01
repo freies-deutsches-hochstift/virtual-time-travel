@@ -99,7 +99,8 @@ export const getArStatusFeed = (
   lookAroundMinDistance: number,
   getCloserMinDistance: number,
   currentPovs: Array<CurrentPov>,
-  currentClosestPov?: CurrentPov,
+  isClosestPovInView: boolean,
+  isClosestPovInDirectView: boolean,
 ) => {
   const showLookAroundFeed = !currentPovs.find(
     (p) => (p.distance || 9999) < lookAroundMinDistance,
@@ -108,21 +109,17 @@ export const getArStatusFeed = (
     (p) => (p.distance || 9999) < getCloserMinDistance,
   );
 
-  const findAngleFeed = currentClosestPov?.inView;
-
-  const foundItFeed = currentClosestPov?.inDirectView;
-
   if (showLookAroundFeed)
     return (
       feeds["look_around"] || "Missing label::: labels.geo-feeds.look_around"
     );
 
-  if (getCloserFeed && !findAngleFeed)
+  if (getCloserFeed && !isClosestPovInView)
     return (
       feeds["get_closer"] || "Missing label::: labels.geo-feeds.get_closer"
     );
 
-  if (findAngleFeed && !foundItFeed)
+  if (isClosestPovInView && !isClosestPovInDirectView)
     return feeds["find_pov"] || "Missing label::: labels.geo-feeds.find_pov";
   return null;
 };
