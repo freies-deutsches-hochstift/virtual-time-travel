@@ -133,6 +133,11 @@ export const selectClosestPov = createSelector(
   (fence) => (fence && getClosestPovInView(fence.povs)) || undefined,
 );
 
+export const selectHasClosestPov = createSelector(
+  selectClosestPov,
+  (closestPov) => !!closestPov,
+);
+
 export const selectArCurrentFeed = createSelector(
   [selectCurrentGeoFence, selectClosestPov, getConfigState, selectLabels],
   (

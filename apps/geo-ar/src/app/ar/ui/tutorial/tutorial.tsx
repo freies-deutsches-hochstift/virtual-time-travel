@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 import { DialogsContentsIds } from "@virtual-time-travel/app-config";
 import { Button, Dialog, Icon, Icons } from "@virtual-time-travel/ui";
 import { useDialogByKey } from "../../../hooks/use-dialog-by-key";
-import { selectClosestPov } from "../../../store/geo.slice";
+import { selectHasClosestPov } from "../../../store/geo.slice";
 
 export function ArTutorial() {
   const [showTutorial, setShowTutorial] = useState<boolean>(getDefaultState());
   const arTutorialDialog = useDialogByKey(DialogsContentsIds.ArTutorial);
-  const closestInViewPov = useSelector(selectClosestPov);
+  const closestInViewPov = useSelector(selectHasClosestPov);
 
   const onClose = useCallback(() => {
     setShowTutorial(false);

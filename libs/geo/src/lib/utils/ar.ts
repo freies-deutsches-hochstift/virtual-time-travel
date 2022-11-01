@@ -1,7 +1,6 @@
 import {
   CurrentPov,
   DeviceLocationEventRes,
-  EnhancedPov,
   FenceId,
   GeoState,
   PovId,
