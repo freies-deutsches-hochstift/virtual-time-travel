@@ -48,12 +48,11 @@ export const getEnhancedPovs = (
   inViewThresholdDistance: number,
   inViewThresholdAngle: number,
 ) => {
-  const { position, orientation } = geoState;
+  const { position, compassHeading } = geoState;
   if (!position) return [];
 
   return (povs || []).map((pov) => {
-    const bearingViewportOrientation =
-      (orientation?.compassHeading || 0) - (pov.orientation || 0);
+    const bearingViewportOrientation = compassHeading - (pov.orientation || 0);
 
     let normalizedBearingViewportOrientation = bearingViewportOrientation;
 

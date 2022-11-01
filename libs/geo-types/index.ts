@@ -17,12 +17,17 @@ export interface DeviceOrientationEventExtended extends DeviceOrientationEvent {
   requestPermission?: () => Promise<"granted" | "denied">;
 }
 
+export type CompassHeading = number;
+
+export interface OrientationEuler {
+  alpha?: number;
+  beta?: number;
+  gamma?: number;
+}
+
 export interface DeviceOrientationEventRes {
-  alpha: number;
-  beta: number;
-  gamma: number;
+  orientationEuler: OrientationEuler;
   compassHeading: number;
-  usesRealCompass: boolean;
 }
 
 export interface DeviceLocationEventRes {
@@ -33,11 +38,10 @@ export interface DeviceLocationEventRes {
 
 export type StatePosition = DeviceLocationEventRes | null;
 
-export type StateOrientation = DeviceOrientationEventRes | null;
-
 export interface GeoState {
   position: StatePosition;
-  orientation: StateOrientation;
+  orientationEuler?: OrientationEuler;
+  compassHeading: CompassHeading;
 }
 
 export interface PovGeometry {

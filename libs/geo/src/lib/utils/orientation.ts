@@ -1,6 +1,5 @@
 /**
- * type DeviceOrientationEvent is not serializable
- * therefore we need to convert it in order to be fully usable
+ * sending only interpolated compassHeading
  */
 
 import {
@@ -13,17 +12,10 @@ export const getOrientationEventRes = (
   event: DeviceOrientationEventExtended,
 ) => {
   const { alpha, beta, gamma, webkitCompassHeading } = event;
-  const anyAlpha = alpha || 0;
-  const anyBeta = beta || 0;
-  const anyGamma = gamma || 0;
-
   return {
-    alpha: anyAlpha.toFixed(0),
-    beta: anyBeta.toFixed(0),
-    gamma: anyGamma.toFixed(0),
-    compassHeading: (
+    orientationEuler: { alpha, beta, gamma },
+    compassHeading:
       webkitCompassHeading ||
-      compassHeadingFromEuler(anyAlpha, anyBeta, anyGamma)
-    ).toFixed(0),
-  } as unknown as DeviceOrientationEventRes;
+      compassHeadingFromEuler(alpha || 0, beta || 0, gamma || 0),
+  } as DeviceOrientationEventRes;
 };

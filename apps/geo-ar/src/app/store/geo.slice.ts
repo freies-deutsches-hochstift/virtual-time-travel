@@ -7,9 +7,10 @@ import {
   refineLocation,
 } from "@virtual-time-travel/geo";
 import {
+  CompassHeading,
   CurrentGeoFence,
+  DeviceOrientationEventRes,
   GeoState,
-  StateOrientation,
   StatePosition,
 } from "@virtual-time-travel/geo-types";
 import { LocalizedFieldGroup } from "@virtual-time-travel/localization";
@@ -23,7 +24,7 @@ export const GEO_FEATURE_KEY = "geo";
 
 export const initialGeoState: GeoState = {
   position: null,
-  orientation: null,
+  compassHeading: 0,
 };
 
 export const geoSlice = createSlice({
@@ -35,7 +36,6 @@ export const geoSlice = createSlice({
       action: PayloadAction<StatePosition | null>,
     ) {
       const { payload } = action;
-      // alert(JSON.stringify(payload));
       if (state.position && payload)
         state.position = refineLocation(state.position, payload, 500);
       state.position = payload;
@@ -43,10 +43,9 @@ export const geoSlice = createSlice({
 
     updateOrientation(
       state: GeoState,
-      action: PayloadAction<StateOrientation | null>,
+      action: PayloadAction<DeviceOrientationEventRes>,
     ) {
-      const { payload } = action;
-      state.orientation = payload;
+      state.compassHeading = action.payload.compassHeading;
     },
   },
 });
@@ -63,14 +62,9 @@ export const selectPosition = createSelector(
   ({ position }) => position,
 );
 
-export const selectOrientation = createSelector(
-  getGeoState,
-  ({ orientation }) => orientation,
-);
-
 export const selectCompassHeading = createSelector(
   getGeoState,
-  ({ orientation }) => orientation?.compassHeading,
+  ({ compassHeading }) => compassHeading,
 );
 
 export const selectCurrentBaseGeoFence = createSelector(
