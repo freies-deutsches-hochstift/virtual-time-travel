@@ -4,6 +4,7 @@ import tw from "twin.macro";
 
 type StyledButtonStyleProps = {
   rounded?: boolean;
+  onlyIcon?: boolean;
   secondary?: boolean;
   disabled?: boolean;
   highlight?: boolean;
@@ -24,6 +25,7 @@ export function Button(props: ButtonProps) {
     disabled,
     highlight,
     rounded,
+    onlyIcon,
     inverted,
     disabledAfterClick,
   } = props;
@@ -39,6 +41,7 @@ export function Button(props: ButtonProps) {
       onClick={handleClick}
       {...{
         rounded,
+        onlyIcon,
         secondary,
         highlight,
         disabled: disabled || triggered,
@@ -53,6 +56,7 @@ export function Button(props: ButtonProps) {
 const StyledButton = styled.span(
   ({
     rounded = true,
+    onlyIcon,
     secondary,
     highlight,
     disabled,
@@ -71,7 +75,8 @@ const StyledButton = styled.span(
       width: auto;
     }
   `,
-    rounded && tw`rounded-ui-button`,
+    rounded && !onlyIcon && tw`rounded-ui-button`,
+    onlyIcon && tw`rounded-full w-12 h-12 p-2`,
     inverted && tw`bg-ui-button-primary text-ui-button-primary-bg`,
     secondary && tw`text-ui-button-secondary bg-ui-button-secondary-bg`,
     secondary &&
