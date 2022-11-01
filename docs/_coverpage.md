@@ -1,11 +1,14 @@
 ![Geo AR](./assets/images/logo.png)
 
-> A Simple AR-App based on geo location and compass .
+# Virtual Time Travel Geo-Ar  <small>0.5</small>
+
+> A Simple AR-App based on geo location and compass.
 
 - Simple
-- Serverless applicaton - only https server needet.
-- React Componets
-- Configuration and Content via JSON/CSV
+- Client applicaton only - no server app necessary.
+- Runs on any webhosting. 
+- React componets
+- Configuration and content via CSV and markdown files
 
-[GitHub](/)
-[Get Started](#what-is-geo-ar)
+[GitHub](https://github.com/freies-deutsches-hochstift/virtual-time-travel)
+[Get Started](#README)
