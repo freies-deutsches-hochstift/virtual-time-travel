@@ -103,7 +103,6 @@ const sharedTheme = {
 
       width: {
         ui: {
-          dialog: "90%",
           pov: {
             DEFAULT: "var(--ui-pov-size)",
             wave: "var(--ui-pov-wave-size)",
@@ -124,7 +123,6 @@ const sharedTheme = {
 
       height: {
         ui: {
-          dialog: "95%",
           nav: "var(--ui-nav-size)",
           pov: {
             DEFAULT: "var(--ui-pov-size)",

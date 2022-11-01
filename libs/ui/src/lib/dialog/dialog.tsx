@@ -101,7 +101,7 @@ const StyledDialogBlanket = styled.div([
 const StyledDialogInner = styled.div([
   tw`
     text-ui-dialog-primary
-    w-ui-dialog h-ui-dialog max-w-ui-dialog
+    w-5/6 h-5/6 max-w-ui-dialog
     bg-ui-dialog-bg
     rounded-ui-dialog
     relative
