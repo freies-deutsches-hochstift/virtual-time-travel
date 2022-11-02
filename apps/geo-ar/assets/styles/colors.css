@@ -1,0 +1,15 @@
+:root {
+  --primary: #fff;
+  --primary-a: #94a3d8;
+  --primary-b: rgb(17, 23, 44);
+
+  --primary-gradient: linear-gradient(var(--primary-b), var(--primary-b));
+
+  --secondary-light: #bdb2f6;
+  --secondary: #fff;
+  --secondary-dark: #7b61ff;
+
+  --highlight-text: #fff;
+  --highlight: rgb(255, 122, 0);
+  --highlight-a: rgba(255, 122, 0, 0.6);
+}
