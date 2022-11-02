@@ -158,8 +158,8 @@ export const StyledMarkdownContent = styled.div(() => [
     }
     
     h3 {
-      font-size: 1rem;
-      line-height: 1.6em;
+      font-size: 1.1rem;
+      line-height: 1.25em;
       margin: 0 0 1rem 0;
     }
 

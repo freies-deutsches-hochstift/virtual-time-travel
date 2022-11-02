@@ -24,7 +24,7 @@ export const StyledCardContent = styled.div([
   `
     h3 {
       font-size: 1.1rem;
-      line-height: 1.4em;
+      line-height: 1.25em;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;  

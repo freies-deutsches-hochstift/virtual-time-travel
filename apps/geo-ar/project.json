@@ -53,7 +53,7 @@
       "options": {
         "compiler": "babel",
         "outputPath": "dist/apps/geo-ar",
-        "index": "apps/geo-ar/src/index.html",
+        "index": "apps/geo-ar/assets/index.html",
         "baseHref": "/",
         "main": "apps/geo-ar/src/main.tsx",
         "polyfills": "apps/geo-ar/src/polyfills.ts",
@@ -64,8 +64,7 @@
             "glob": "**/*",
             "output": "./assets"
           },
-          "apps/geo-ar/src/robots.txt",
-          "apps/geo-ar/src/manifest.json"
+          "apps/geo-ar/src/robots.txt"
         ],
         "styles": [],
         "scripts": [],
