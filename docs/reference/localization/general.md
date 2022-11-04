@@ -1,6 +1,6 @@
 Before you start to add your content you should define which languages it should use.
 
-You can setup one or multiple locales here: **/assets/items/locales/index.csv**\
+You can setup one or multiple locales here: **/assets/items/locales/index.csv**
 
 **Default values**
 

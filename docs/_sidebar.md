@@ -4,7 +4,16 @@
 
 - [Getting started](getting_started/index.md)
 
-- [Customization](customization/index.md)
+- Customization
+
+  - [Create your app](customization/your_app.md)
+  - [App Config](customization/app_config.md)
+  - [App Localization](customization/localization.md)
+  - [App Contents](customization/contents.md)
+  - [Appearance](customization/appearance.md)
+  - [App-icons & Metadata](customization/meta.md)
+  - [Layout assets](customization/layout.md)
+
 - [Deployment](deployment/index.md)
 
 - Reference
@@ -19,7 +28,6 @@
 
   - [Local setup](development/index.md)
   - [Linting and formatting](development/linting_and_formatting.md)
-  - [Styling](development/styling.md)
   - [Documentation](development/documentation.md)
   - [HTTPS using Ngrok](development/enable_hmr_for_ngrok.md)
   - [HTTPS using mkcert & dnsmasq](development/locally_trusted_development_certificates.md)
