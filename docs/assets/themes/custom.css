@@ -1,0 +1,8 @@
+.button {
+  padding: 4px 15px 3px;
+  background: var(--theme-color);
+  color: white!important;
+  display: inline-block;
+  border-radius: 20px;
+  text-decoration: none;
+}
