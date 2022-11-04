@@ -2,8 +2,8 @@
 
 # local content
 /apps/geo-ar/assets/**/*.csv
-/apps/geo-ar/assets/**/medias
-/apps/geo-ar/assets/**/locales
+/apps/geo-ar/assets/**/medias/**
+/apps/geo-ar/assets/**/locales/**
 
 # compiled output
 /dist
