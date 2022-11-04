@@ -1,0 +1,61 @@
+:root {
+  --primary: #fff;
+  --primary-a: #94a3d8;
+  --primary-b: rgb(17, 23, 44);
+
+  --primary-gradient: linear-gradient(var(--primary-b), var(--primary-b));
+
+  --secondary-a: #bdb2f6;
+  --secondary: #fff;
+  --secondary-b: #7b61ff;
+
+  --highlight-text: #fff;
+  --highlight: rgb(255, 122, 0);
+  --highlight-a: rgba(255, 122, 0, 0.6);
+
+  /* libs/Ui/MainNav */
+  --ui-nav-bg: var(--primary-b);
+  --ui-nav-link: var(--primary-a);
+  --ui-nav-link-active: var(--primary);
+
+  /* libs/Ui/Dialog */
+  --ui-dialog-overlay: rgba(17, 23, 44, 0.8);
+  --ui-dialog-bg: var(--primary);
+
+  --ui-dialog-primary: #111c4e;
+  --ui-dialog-primary-v2: #0a1232;
+
+  /* libs/Ui/Button */
+  --ui-button-primary: var(--primary);
+  --ui-button-primary-bg: var(--primary-b);
+
+  --ui-button-secondary: var(--secondary);
+  --ui-button-secondary-bg: var(--secondary-b);
+
+  --ui-button-highlight: var(--highlight-text);
+  --ui-button-highlight-bg: var(--highlight);
+
+  --ui-button-disabled: rgba(255, 255, 255, 0.5);
+  --ui-button-disabled-bg: rgba(0, 0, 0, 0.5);
+
+  /* libs/Ui/Geo */
+  --ui-pov-primary: var(--highlight);
+  --ui-pov-waves: radial-gradient(var(--highlight-a), rgba(0, 0, 0, 0));
+
+  --ui-pov-compass-primary: var(--primary);
+  --ui-pov-compass-primary-text: var(--primary-b);
+  --ui-pov-compass-highlight: var(--highlight);
+  --ui-pov-compass-highlight-text: var(--highlight-text);
+
+  --ui-pov-compass-cta: var(--highlight);
+  --ui-pov-compass-cta-text: var(--highlight-text);
+
+  /* libs/Ui/Cards */
+  --ui-cards-bg: var(--primary);
+  --ui-cards-border: thin solid var(--primary);
+  --ui-cards-text: var(--primary-b);
+
+  --ui-card-placeholder: var(--secondary-a);
+  --ui-card-details-bg: var(--primary);
+  --ui-card-details-text: var(--primary-b);
+}

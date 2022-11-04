@@ -56,9 +56,9 @@
 
   --primary-gradient: linear-gradient(var(--primary-b), var(--primary-a));
 
-  --secondary-light: #bdb2f6;
+  --secondary-a: #bdb2f6;
   --secondary: #fff;
-  --secondary-dark: #7b61ff;
+  --secondary-b: #7b61ff;
 
   --highlight: rgb(255, 122, 0);
 
@@ -95,7 +95,7 @@
   --ui-button-primary-bg: var(--primary-b);
 
   --ui-button-secondary: var(--secondary);
-  --ui-button-secondary-bg: var(--secondary-dark);
+  --ui-button-secondary-bg: var(--secondary-b);
 
   --ui-button-disabled: rgba(255, 255, 255, 0.5);
   --ui-button-disabled-bg: rgba(0, 0, 0, 0.5);

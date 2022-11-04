@@ -12,9 +12,9 @@ const sharedTheme = {
         b: "var(--primary-b)",
       },
       secondary: {
-        light: "var(--secondary-light)",
+        light: "var(--secondary-a)",
         DEFAULT: "var(--secondary)",
-        dark: "var(--secondary-dark)",
+        dark: "var(--secondary-b)",
       },
 
       /* libs/Ui */
@@ -35,10 +35,6 @@ const sharedTheme = {
           primary: {
             DEFAULT: "var(--ui-dialog-primary)",
             v2: "var(--ui-dialog-primary-v2)",
-          },
-          secondary: {
-            DEFAULT: "var(--ui-dialog-secondary)",
-            v2: "var(--ui-dialog-secondary-v2)",
           },
         },
 
@@ -82,13 +78,12 @@ const sharedTheme = {
         cards: {
           DEFAULT: "var(--ui-cards-text)",
           bg: "var(--ui-cards-bg)",
-          highlight: {
-            DEFAULT: "var(--ui-cards-highlight)",
-            a: "var(--ui-cards-highlight-a)",
-          },
           details: {
             DEFAULT: "var(--ui-card-details-text)",
             bg: "var(--ui-card-details-bg)",
+          },
+          placeholder: {
+            DEFAULT: "var(--ui-card-placeholder)",
           },
         },
       },

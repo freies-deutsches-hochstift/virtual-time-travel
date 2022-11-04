@@ -1,0 +1,92 @@
+:root {
+  --app-max-width: 640px;
+
+  --bottom-mask-size: 10vh;
+  --top-mask-size: 5vh;
+  --page-scrollmask: linear-gradient(
+    to bottom,
+    transparent 0,
+    black var(--top-mask-size, 0),
+    black calc(100% - var(--bottom-mask-size, 0)),
+    transparent 100%
+  );
+
+  --page-scrollmask-bottom: linear-gradient(
+    to bottom,
+    black calc(100% - var(--bottom-mask-size, 0)),
+    transparent 100%
+  );
+
+  /* libs/Ui/MainNav */
+  --ui-nav-size: 3.5rem;
+  --ui-nav-padding: 0.5rem 0;
+  --ui-nav-links-gap: 1rem;
+
+  /* libs/Ui/Dialog */
+  --ui-dialog-max-width: 480px;
+  --ui-dialog-padding: 1rem;
+
+  --ui-dialog-filter: drop-shadow(0 0.5rem 0.5rem rgb(0 0 0 / 0.4));
+  --ui-dialog-radius: 0.3rem;
+
+  /* libs/Ui/Button */
+  --ui-button-radius: 0.2rem;
+  --ui-button-filter: none;
+
+  /* libs/Ui/Geo */
+  --ui-pov-size: clamp(1rem, 5vw, 2rem);
+  --ui-pov-wave-size: 110vw;
+
+  --ui-pov-compass-bg: url("/assets/layout/poi-inview.png") center center
+    no-repeat;
+
+  --ui-pov-compass-tick-height: 2.5vh;
+  --ui-pov-compass-tickmarker-height: calc(
+    var(--ui-pov-compass-tick-height) * 3
+  );
+  --ui-pov-compass-tick-width: 3px;
+  --ui-pov-compass-tickmarker-width: calc(var(--ui-pov-compass-tick-width) * 3);
+
+  --ui-pov-compass-tick-inset: -(calc(var(--ui-pov-compass-tick-width) / 2));
+  --ui-pov-compass-tickmarker-inset: -(calc(var(--ui-pov-compass-tick-width)));
+
+  --ui-pov-compass-cta-size: 35vw;
+
+  /* libs/Ui/Cards */
+  --ui-cards-filter: drop-shadow(0 0.5rem 0.5rem rgb(0 0 0 / 0.4));
+  --ui-toggle-size: 2rem;
+
+  --ui-map-mask: linear-gradient(
+    to bottom,
+    black 0,
+    transparent var(--top-mask-size, 0),
+    transparent calc(100% - var(--bottom-mask-size, 0)),
+    black 100%
+  );
+}
+
+/**
+* app dependent logos can have different sizes/positions
+* see libs/ui/src/lib/page/page-logo.tsx 
+*/
+
+.page-logo {
+  height: 5vh;
+  display: flex;
+  justify-content: end;
+}
+
+.page-logo svg {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+/**
+* custom markdown containers
+* libs/markdown/src/lib/parse-content.ts
+*/
+
+html body .splash h1 {
+  font-size: 60px;
+}
