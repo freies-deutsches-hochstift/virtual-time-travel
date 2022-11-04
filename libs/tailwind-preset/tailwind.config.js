@@ -78,13 +78,12 @@ const sharedTheme = {
         cards: {
           DEFAULT: "var(--ui-cards-text)",
           bg: "var(--ui-cards-bg)",
-          highlight: {
-            DEFAULT: "var(--ui-cards-highlight)",
-            a: "var(--ui-cards-highlight-a)",
-          },
           details: {
             DEFAULT: "var(--ui-card-details-text)",
             bg: "var(--ui-card-details-bg)",
+          },
+          placeholder: {
+            DEFAULT: "var(--ui-card-placeholder)",
           },
         },
       },

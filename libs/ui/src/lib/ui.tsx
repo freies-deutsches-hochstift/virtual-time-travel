@@ -36,7 +36,7 @@ export const StyledCardContent = styled.div([
 
 export const StyledCardCover = styled.div([
   tw`
-    w-1/3 bg-ui-cards-highlight-a
+    w-1/3 bg-ui-cards-placeholder
   `,
   `
     aspect-ratio: 1/1;

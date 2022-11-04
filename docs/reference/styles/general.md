@@ -61,7 +61,7 @@ Primarily the app uses 3 colors "primary", "secondary" and "highlight" with a fe
 As default, these main colors are reused within the different app components.\
 With this setup, it should be sufficient to replace only the values listed above to change the basic look and feel of your app.
 
-This is usually a common best practice, but if needed each component value can be replaced with any desired one.
+This is usually a common best practice, but if needed each set value can be replaced with any desired one.
 
 | Main navigation      |                                    |
 | -------------------- | ---------------------------------- |
@@ -86,26 +86,30 @@ This is usually a common best practice, but if needed each component value can b
 | --ui-button-disabled     | disabled button text color        |
 | --ui-button-disabled-bg  | disabled button background color  |
 
-| Ar - Geo                        |                                   |
-| ------------------------------- | --------------------------------- |
-| --ui-pov-primary                | POV marker background color       |
-| --ui-pov-waves                  | POV marker waves background color |
-| --ui-pov-compass-primary        | -                                 |
-| --ui-pov-compass-primary-text   | -                                 |
-| --ui-pov-compass-highlight      | -                                 |
-| --ui-pov-compass-highlight-text | -                                 |
-| --ui-pov-compass-cta            | -                                 |
-| --ui-pov-compass-cta-text       | -                                 |
+| Ar - Geo                        |                                          |
+| ------------------------------- | ---------------------------------------- |
+| --ui-pov-primary                | POV marker background color              |
+| --ui-pov-waves                  | POV marker waves background color        |
+| --ui-pov-compass-primary        | compass ticks background color           |
+| --ui-pov-compass-primary-text   | compass ticks text color                 |
+| --ui-pov-compass-highlight      | compass marker tick background color     |
+| --ui-pov-compass-highlight-text | compass marker tick text color           |
+| --ui-pov-compass-cta            | compass open POV button background color |
+| --ui-pov-compass-cta-text       | compass open POV button text color       |
 
-| Cards (POVs list and details) |     |
-| ----------------------------- | --- |
-| --ui-cards-bg                 | -   |
-| --ui-cards-border             | -   |
-| --ui-cards-text               | -   |
-| --ui-cards-highlight          | -   |
-| --ui-cards-highlight-a        | -   |
-| --ui-card-details-bg          | -   |
-| --ui-card-details-text        | -   |
+| Cards (POVs list and details) |                                         |
+| ----------------------------- | --------------------------------------- |
+| --ui-cards-bg                 | compact card background color           |
+| --ui-cards-border             | compact card border definition          |
+| --ui-cards-text               | compact card text color                 |
+| --ui-card-placeholder         | card placeholder image background color |
+| --ui-card-details-bg          | popup card background color             |
+| --ui-card-details-text        | popup card text color                   |
 
-- **theme.css** \
-  Add
+### Extras
+
+More advanced settings can be found in:
+
+- **/assets/styles/theme.css**
+
+In this file, it is possible to change layout intrinsic attributes like sizes/radius/masks.

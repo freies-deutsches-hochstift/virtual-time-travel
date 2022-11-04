@@ -54,9 +54,8 @@
   --ui-cards-bg: var(--primary);
   --ui-cards-border: thin solid var(--primary);
   --ui-cards-text: var(--primary-b);
-  --ui-cards-highlight: var(--highlight);
-  --ui-cards-highlight-a: var(--highlight-a);
 
+  --ui-card-placeholder: var(--secondary-a);
   --ui-card-details-bg: var(--primary);
   --ui-card-details-text: var(--primary-b);
 }
