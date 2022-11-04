@@ -11,8 +11,8 @@
   - [App Localization](customization/localization.md)
   - [App Contents](customization/contents.md)
   - [Appearance](customization/appearance.md)
-  - [App-icons & Metadata](customization/meta.md)
   - [Layout assets](customization/layout.md)
+  - [Metadata & App-icons](customization/meta.md)
 
 - [Deployment](deployment/index.md)
 

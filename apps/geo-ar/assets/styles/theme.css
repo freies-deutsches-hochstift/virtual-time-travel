@@ -37,7 +37,7 @@
   --ui-pov-size: clamp(1rem, 5vw, 2rem);
   --ui-pov-wave-size: 110vw;
 
-  --ui-pov-compass-bg: url("/assets/layout/poi_inview.png") center center
+  --ui-pov-compass-bg: url("/assets/layout/poi-inview.png") center center
     no-repeat;
 
   --ui-pov-compass-tick-height: 2.5vh;
