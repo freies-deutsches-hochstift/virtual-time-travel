@@ -74,6 +74,10 @@ const StyledButton = styled.span(
       height: 1.4em;
       width: auto;
     }
+    transition: transform .3s;
+    &:active {
+      transform: scale(.5);
+    }
   `,
     rounded && !onlyIcon && tw`rounded-ui-button`,
     onlyIcon && tw`rounded-full w-12 h-12 p-2`,
