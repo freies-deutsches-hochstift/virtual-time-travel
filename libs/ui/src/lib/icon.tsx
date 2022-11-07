@@ -1,23 +1,12 @@
-import {
-  ComponentPropsWithoutRef,
-  ElementType,
-  ReactNode,
-  useMemo,
-} from "react";
-
-import ArrowIcon from "/assets/layout/icons/arrow.svg";
-import CloseIcon from "/assets/layout/icons/close.svg";
-import ArIcon from "/assets/layout/icons/explore.svg";
-import InfoIcon from "/assets/layout/icons/info.svg";
-import ListIcon from "/assets/layout/icons/list.svg";
-import MenuIcon from "/assets/layout/icons/menu.svg";
-import QrIcon from "/assets/layout/icons/qr.svg";
+import { ComponentPropsWithoutRef, useMemo } from "react";
+import styled from "@emotion/styled";
+import tw from "twin.macro";
 
 interface IconTypes {
-  [key: string]: ReactNode;
+  [key: string]: string;
 }
 
-export interface IconProps extends ComponentPropsWithoutRef<"svg"> {
+export interface IconProps extends ComponentPropsWithoutRef<"div"> {
   type: string;
 }
 
@@ -32,20 +21,42 @@ export enum Icons {
 }
 
 const iconTypes: IconTypes = {
-  [Icons.Arrow]: ArrowIcon,
-  [Icons.Close]: CloseIcon,
-  [Icons.Explore]: ArIcon,
-  [Icons.List]: ListIcon,
-  [Icons.Menu]: MenuIcon,
-  [Icons.Qr]: QrIcon,
-  [Icons.Info]: InfoIcon,
+  [Icons.Arrow]: "/assets/layout/icons/arrow.svg",
+  [Icons.Close]: "/assets/layout/icons/close.svg",
+  [Icons.Explore]: "/assets/layout/icons/explore.svg",
+  [Icons.List]: "/assets/layout/icons/list.svg",
+  [Icons.Menu]: "/assets/layout/icons/menu.svg",
+  [Icons.Qr]: "/assets/layout/icons/qr.svg",
+  [Icons.Info]: "/assets/layout/icons/info.svg",
 };
 
 export function Icon(props: IconProps) {
   const { type, ...rest } = props;
-  const IconType = useMemo(() => iconTypes[type], [type]) as ElementType;
+  const IconType = useMemo(() => iconTypes[type], [type]);
 
-  return <IconType {...rest} />;
+  return <StyledIcon maskUrl={IconType} {...rest} />;
 }
+
+export interface StyledIconrops {
+  maskUrl: string;
+}
+
+export const StyledIcon = styled.div(({ maskUrl }: StyledIconrops) => [
+  tw`
+    w-full h-full
+  `,
+
+  `
+    background: currentColor;
+    -webkit-mask-image: url(${maskUrl});
+    mask-image: url(${maskUrl});
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+  `,
+]);
 
 export default Icon;

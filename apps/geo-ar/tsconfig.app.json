@@ -19,14 +19,5 @@
     "**/*.spec.jsx",
     "**/*.test.jsx"
   ],
-  "include": [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.ts",
-    "**/*.tsx",
-    "assets/layout/icons/qr.svg",
-    "assets/layout/icons/menu.svg",
-    "assets/layout/icons/list.svg",
-    "assets/layout/icons/explore.svg"
-  ]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }

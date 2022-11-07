@@ -7,9 +7,9 @@ export const MenuBackLink = ({ label, linkTo }: MenuLinkProps) => {
   return (
     <NavLink to={linkTo}>
       <StyledMenuLink main css={tw`pb-8`}>
-        <span css={tw`self-start`}>
+        <div css={tw`self-start`}>
           <Icon type={Icons.Arrow} />
-        </span>
+        </div>
         {label}
       </StyledMenuLink>
     </NavLink>

@@ -36,6 +36,12 @@ const StyledMainNavInner = styled.nav([
       display: block;
       height: 100%;
       aspect-ratio: 1 / 1;
+      padding: 1.5%;
+      transition: transform .3s;
+
+      &:active {
+        transform: scale(.5);
+      }
     }
   `,
 ]);
@@ -54,14 +60,6 @@ const StyledMainNavLink = styled.span((props: MainNavButtonStyleProps) => [
     text-ui-nav-link 
     flex items-center justify-center
     cursor-pointer
-  `,
-  `
-    & > svg {
-      display: block;
-      width: 75%;
-      pointer-events: none;
-      user-select: none;
-    }
   `,
   props.active && tw`text-ui-nav-link-active`,
   props.disabled && tw`opacity-50 pointer-events-none`,

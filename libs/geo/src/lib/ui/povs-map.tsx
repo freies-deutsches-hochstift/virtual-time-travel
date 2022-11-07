@@ -7,8 +7,9 @@ import styled from "@emotion/styled";
 import { Markdown, StyledMarkdown, StyledPage } from "@virtual-time-travel/ui";
 import tw from "twin.macro";
 
-import map from "/assets/layout/map-povs.jpg";
-import povs from "/assets/layout/map-povs-overlay.png";
+// do not import, so that the medias can be directly replaced in the build folder
+const mapMedia = "/assets/layout/map-povs.jpg";
+const povsOverlayMedia = "/assets/layout/map-povs-overlay.png";
 
 export interface PovsMapProps {
   contentUrl?: string;
@@ -17,9 +18,9 @@ export interface PovsMapProps {
 export const PovsMap = ({ contentUrl }: PovsMapProps) => {
   return (
     <StyledMapCtn>
-      <StyledMapLayer src={map} />
+      <StyledMapLayer src={mapMedia} />
       <StyledMapOverlay />
-      <StyledMapLayer src={povs} />
+      <StyledMapLayer src={povsOverlayMedia} />
       {!!contentUrl && (
         <StyledMapContent>
           <Markdown contentUrl={contentUrl} />
@@ -29,7 +30,9 @@ export const PovsMap = ({ contentUrl }: PovsMapProps) => {
   );
 };
 
-const StyledMapCtn = styled.div(() => [tw`w-full h-full relative`]);
+const StyledMapCtn = styled.div(() => [
+  tw`w-full h-full relative flex items-center justify-center`,
+]);
 
 const StyledMapLayer = styled.img(() => [
   tw`absolute inset-0 w-full h-full object-cover`,
@@ -40,7 +43,7 @@ const StyledMapOverlay = styled.div(() => [
   "background: var(--primary-gradient);",
 ]);
 const StyledMapContent = styled(StyledPage)(() => [
-  tw`absolute inset-0 w-full h-full`,
+  tw``,
   `
     &::before {
       content: '';

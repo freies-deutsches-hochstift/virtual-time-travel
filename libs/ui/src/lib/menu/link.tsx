@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
+import { StyledIcon } from "../icon";
 
 export interface MenuLinkProps {
   label: string;
@@ -31,9 +32,9 @@ export const StyledMenuLink = styled.span(({ main }: StyledMenuLinkProps) => [
     text-underline-offset: .4em;
   `,
 
-  `svg, img {
+  `${StyledIcon} {
     height: 1.1em;
-    width: auto;
+    width: 1.1em;
     margin: .1em 0 0 0;
   }`,
 ]);
