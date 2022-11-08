@@ -106,6 +106,13 @@ This is usually a common best practice, but if needed each set value can be repl
 | --ui-card-details-bg          | popup card background color             |
 | --ui-card-details-text        | popup card text color                   |
 
+### Markdown
+
+- **/assets/styles/markdown.css**
+
+In this file, it is possible to change/define Markdown custom container styles.\
+See also [How to markdown](/reference/markdown/index.md).
+
 ### Extras
 
 More advanced settings can be found in:
