@@ -37,6 +37,7 @@ const defaultCustomContainers = [
   "background",
   "slide",
   "caption",
+  "app-logo",
 ];
 
 export interface FetchMarkdownRes {

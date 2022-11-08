@@ -3,16 +3,10 @@ import styled from "@emotion/styled";
 import tw from "twin.macro";
 import { StyledSubMenu } from "../menu";
 import Scrollable from "../scrollable/scrollable";
-import PageLogo from "./page-logo";
 
-export interface PageProps extends PropsWithChildren {
-  withLogo?: boolean;
-}
-
-export const Page = ({ children, withLogo }: PageProps) => {
+export const Page = ({ children }: PropsWithChildren) => {
   return (
     <StyledPage>
-      {withLogo && <PageLogo />}
       <Scrollable>{children}</Scrollable>
     </StyledPage>
   );

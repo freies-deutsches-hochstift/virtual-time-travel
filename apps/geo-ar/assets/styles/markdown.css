@@ -3,16 +3,23 @@
 * see libs/ui/src/lib/page/page-logo.tsx 
 */
 
-.page-logo {
-  height: 5vh;
+.app-logo {
   display: flex;
   justify-content: end;
+  pointer-events: none;
 }
 
-.page-logo svg {
-  display: block;
+.app-logo p {
+  height: 6vh;
+  margin: 0;
+  padding: 0;
+}
+
+.app-logo img {
   height: 100%;
   width: auto;
+  margin: 0;
+  padding: 0;
 }
 
 /**

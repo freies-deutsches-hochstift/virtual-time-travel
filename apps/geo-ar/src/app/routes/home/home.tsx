@@ -13,7 +13,7 @@ export function HomeRoute() {
 
   return (
     <Link to={link}>
-      <Page withLogo>
+      <Page>
         <div className="flex flex-col min-h-full">
           <PageContent {...{ identifier: MainRoutes.Home }} />
           <div className="flex-1 flex items-center">

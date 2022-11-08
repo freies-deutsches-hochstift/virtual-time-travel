@@ -13,8 +13,9 @@ App default custom containers:
 - **card** _wrapper around POV page contents_
 - **slide** _contents splitting into slides (card or page)_
 - **background** _extra background element relative to a parent element_
+- **app-logo** _page logo wrapper_
 
-The style of these containers can be added/replaced in **assets/styles/markdown.css**
+The style of these containers can be added/replaced in **assets/styles/markdown.css**.
 
 ## Define a container
 
