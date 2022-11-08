@@ -1,7 +1,14 @@
 import { PropsWithChildren } from "react";
 import { motion } from "framer-motion";
 
-export const RouteAnimation = ({ children }: PropsWithChildren) => {
+interface RouteAnimationProps extends PropsWithChildren {
+  routeKey?: string;
+}
+
+export const RouteAnimation = ({
+  children,
+  routeKey = "",
+}: RouteAnimationProps) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -9,6 +16,7 @@ export const RouteAnimation = ({ children }: PropsWithChildren) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
       className="w-full h-full flex justify-center relative"
+      data-route={routeKey}
     >
       {children}
     </motion.div>

@@ -1,4 +1,4 @@
-::: splash
+::: home
 
 # Welcome<br/>to<br/>ETA<br/>Hoffmann!
 

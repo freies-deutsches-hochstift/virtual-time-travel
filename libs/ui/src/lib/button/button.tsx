@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useState } from "react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
+import { StyledIcon } from "../icon";
 
 type StyledButtonStyleProps = {
   rounded?: boolean;
@@ -70,9 +71,9 @@ const StyledButton = styled.span(
   `,
     `
     filter: var(--ui-button-filter);
-    svg {
+    ${StyledIcon} {
       height: 1.4em;
-      width: auto;
+      width: 1.4em;
     }
     transition: transform .3s;
     &:active {

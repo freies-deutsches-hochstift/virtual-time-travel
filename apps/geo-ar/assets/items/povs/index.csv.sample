@@ -1,2 +1,2 @@
-"id","fence","cover","title.de","title.en","orientation","geometry.type","geometry.coordinates"
-1,1,1.jpg,"DRM","DRM",10,"Point","[8.67731489889593,50.111175669006855]"
+"id","fence","cover","title.de","orientation","geometry.type","geometry.coordinates"
+1,1,"https://picsum.photos/640/580","GeoAr Beispiel POV",10,"Point","[8.67731489889593,50.111175669006855]"

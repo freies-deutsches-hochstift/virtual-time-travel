@@ -202,15 +202,15 @@ export const StyledMarkdownContent = styled.div(() => [
       pointer-events: none;
     }
 
-    .card {
-      padding: 1.5rem;
-    }
-
     .slide {
       position: relative;
       min-height: 100%;
     }
-
+    
+    .card {
+      padding: 1.5rem;
+    }
+    
     .background,
     .background > p,
     .background > p > img {
@@ -222,15 +222,17 @@ export const StyledMarkdownContent = styled.div(() => [
       margin: 0;
       padding: 0;
     }
-
+    
     .background {
       inset: -1rem;
+      pointer-events: none;
     }
-
+    
     .background > p > img {
       object-fit: cover;
       object-position: top center;
       max-height: none;
     }
+
   `,
 ]);

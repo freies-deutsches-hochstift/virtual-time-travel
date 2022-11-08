@@ -20,10 +20,10 @@ md.use(linkAttributesPlugin, {
 
 /**
  * layout composition and nesting
- * to spyce up the layout a little and to give more freedome
- * we currently have avail some predifined containers
+ * to spice up the layout a little and to give more freedom
+ * we currently have avail some predefined containers
  * each container will result in a div with the same className
- * the containers then can be easily styled/overwritten in theme.css
+ * the containers then can be easily styled/overwritten in markdown.css
  *
  * the only special case is 'slide' which is used to split the content into multiple slides
  *
@@ -31,18 +31,46 @@ md.use(linkAttributesPlugin, {
  * Use the same principle as in fenced block for nested things - add more : for outer block start/end.
  */
 
-md.use(mdContainerPlugin, "splash");
-md.use(mdContainerPlugin, "card");
-md.use(mdContainerPlugin, "background");
-md.use(mdContainerPlugin, "slide");
+const defaultCustomContainers = [
+  "home",
+  "card",
+  "background",
+  "slide",
+  "caption",
+];
 
 export interface FetchMarkdownRes {
   contents?: Array<string> | null;
 }
 
+export interface MarkdownConfig {
+  containers: Array<string>;
+}
+
 export async function getParsedFileContentById(
   contentUrl: string,
 ): Promise<FetchMarkdownRes> {
+  let configContainers = [] as MarkdownConfig["containers"];
+
+  try {
+    const markdownConfig = await fetch("/assets/markdown.json");
+
+    if (markdownConfig.ok) {
+      const markdownConfigData = await markdownConfig.json();
+      configContainers = markdownConfigData.containers || [];
+    } else {
+      console.debug("Markdown:::Missing custom Markdown config");
+    }
+  } catch (error) {
+    console.debug("Markdown:::Missing custom Markdown config", error);
+  }
+
+  const customContainers = [...defaultCustomContainers, ...configContainers];
+
+  console.debug("Markdown:::custom containers", customContainers);
+
+  customContainers.forEach((ctn) => md.use(mdContainerPlugin, ctn));
+
   const response = await fetch(contentUrl);
   const data = await response.text();
 

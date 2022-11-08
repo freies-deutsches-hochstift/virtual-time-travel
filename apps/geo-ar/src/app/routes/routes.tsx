@@ -31,7 +31,7 @@ export const AppRoutes = () => {
                 {...{
                   path,
                   element: (
-                    <RouteAnimation key={uid(route)}>
+                    <RouteAnimation key={uid(route)} routeKey={routeKey}>
                       <RouteComponent />
                     </RouteAnimation>
                   ),
