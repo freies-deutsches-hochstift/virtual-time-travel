@@ -22,7 +22,7 @@ export function PovCardDetails({ pov, onClose }: PovCardDetailsProps) {
       {!!pov && (
         <FadeAnimation
           key={pov?.id}
-          css={tw`absolute inset-0 z-top flex items-center justify-center`}
+          css={tw`absolute inset-0 z-max flex items-center justify-center`}
         >
           <PovCardDetailsInner {...{ pov, onClose }} />
         </FadeAnimation>
