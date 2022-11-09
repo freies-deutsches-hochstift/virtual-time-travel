@@ -17,7 +17,7 @@ Because usually GPS signal is not 100% precise, a good practice is to add a bit 
   Unique value within the pages fences
 
 - **title**: _string_ \
-  Verbose fence identification, not directly used in the app but usefull during content editing
+  Verbose fence identification, not directly used in the app but useful during content editing
 
 - **geometry**: _geometry_
 

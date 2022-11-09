@@ -16,7 +16,7 @@ The povs config file is stored under **/assets/items/povs/index.csv**.
   Unique value within the pages fences
 
 - **fence**: _string_ \
-  Verbose fence identification, not directly used in the app but usefull during content editing
+  Verbose fence identification, not directly used in the app but useful during content editing
 
 - **cover**: _string_ \
   Cover image asset path, it can be a local file stored in the relative **povs/medias** folder or an external url.\
