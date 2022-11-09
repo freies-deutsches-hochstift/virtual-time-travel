@@ -1,14 +1,16 @@
-## Download and setup
+# Download and setup
 
-You can choose to use directly the **pre-build application** (recommended for end-users ):
+You can choose to use directly the **pre-build application** (recommended for end-users ) or to run and build your application from scratch.
+
+### Pre-build application
+
+The pre-build distribution is a standalone application ready to be used and customized with your data and design.
 
 [Download Pre-build application](/ ":target=_blank :class=button")
 
-and then add your content and design
-
 [Customization Guide](customization/your_app.md ":class=button")
 
----
+### Build your own
 
 The source code of this application is also available on [GitHub](https://github.com/freies-deutsches-hochstift/virtual-time-travel).
 
