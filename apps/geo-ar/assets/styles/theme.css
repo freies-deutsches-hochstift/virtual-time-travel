@@ -64,29 +64,3 @@
     black 100%
   );
 }
-
-/**
-* app dependent logos can have different sizes/positions
-* see libs/ui/src/lib/page/page-logo.tsx 
-*/
-
-.page-logo {
-  height: 5vh;
-  display: flex;
-  justify-content: end;
-}
-
-.page-logo svg {
-  display: block;
-  height: 100%;
-  width: auto;
-}
-
-/**
-* custom markdown containers
-* libs/markdown/src/lib/parse-content.ts
-*/
-
-html body .splash h1 {
-  font-size: 60px;
-}

@@ -19,10 +19,8 @@ export function PovRoute() {
     navigate("/");
   };
 
-  if (!pov) return <></>;
-
   return (
-    <div className="fixed inset-0">
+    <div className="fixed inset-0 z-max">
       <PovCardDetailsWrapper {...{ pov, onClose }} />
     </div>
   );

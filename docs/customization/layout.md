@@ -34,10 +34,8 @@ The POVs markers should be center centered and their bounding box should have an
 
 The Map background will be automatically tinted/merged with the application background.
 
-### How to replace an svg icon
+### How to replace an SVG icon
 
 To avoid unnecessary style tweaks, we hardly recommend using the same size and format of the given icons.
 
 The app is responsive, therefore the icons should not have set any inline height or width.
-
-As good practice, the fill of the inner elements should be set to "currentColor".

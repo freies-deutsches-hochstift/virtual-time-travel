@@ -28,7 +28,7 @@ Dialogs by default have avail the common labels:
 - labels.skip
 - labels.cancel
 
-But these can be customized per dialog by adding a column in your csv file with the rule:
+These can be customized per dialog by adding a column in your csv file with the rule:
 
 - label.dialog-identifier.confirm
 - label.dialog-identifier.next

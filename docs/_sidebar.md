@@ -14,6 +14,8 @@
   - [Layout assets](customization/layout.md)
   - [Metadata & App-icons](customization/meta.md)
 
+- [Generate QrCodes](qr/index.md)
+
 - [Deployment](deployment/index.md)
 
 - Reference

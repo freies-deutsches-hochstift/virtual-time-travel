@@ -35,6 +35,7 @@ export function Toggle({
 export const StyledToggle = styled.div(() => [
   tw`
       min-w-ui-toggle h-ui-toggle rounded-full bg-primary-a 
+      flex items-center
     `,
 ]);
 

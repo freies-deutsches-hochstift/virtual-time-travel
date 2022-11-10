@@ -1,9 +1,9 @@
 /**
  * csv to json converter
  * delimiter "," + use quotes
- * csv keys can be plain values or hieretical string representations
+ * csv keys can be plain values or hierarchical string representations
  * eg: the key "object.key.subkey" will be interpreted as { object: { key: { subkey: <somevalue> } } }
- * hieretical strings are commonly used in this project for localized fields or povs/fences coordinates
+ * hierarchical strings are commonly used in this project for localized fields or povs/fences coordinates
  */
 
 import merge from "ts-deepmerge";

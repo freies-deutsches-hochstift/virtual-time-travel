@@ -33,7 +33,7 @@ export function MenuRoute() {
 
   return (
     <RouteAnimation key={currentPage}>
-      <Page withLogo={!isSubroute}>
+      <Page>
         {isSubroute && (
           <MenuBackLink
             {...{ label: title || identifier, linkTo: basePathname }}

@@ -31,13 +31,11 @@ export function PovDetails() {
     dispatch(povsActions.setCurrentId(povId as string));
   }, [location, dispatch]);
 
-  if (!pov) return <></>;
-
   return <PovCardDetailsWrapper {...{ pov, onClose }} />;
 }
 
 interface PovCardDetailsWrapperProps {
-  pov: EnhancedPov | string;
+  pov: EnhancedPov | string | null;
   onClose: (e: unknown) => void;
 }
 
@@ -56,7 +54,13 @@ export function PovCardDetailsWrapper({
 
   return (
     <>
-      {typeof pov !== "string" && <PovCardDetails {...{ pov, onClose }} />}
+      <PovCardDetails
+        {...{
+          pov: typeof pov !== "string" ? pov : null,
+          onClose,
+        }}
+      />
+
       <Dialog
         {...{
           onConfirm: onClose,

@@ -1,0 +1,39 @@
+/**
+* app dependent logos can have different sizes/positions
+* see libs/ui/src/lib/page/page-logo.tsx 
+*/
+
+.app-logo {
+  display: flex;
+  justify-content: end;
+  pointer-events: none;
+}
+
+.app-logo p {
+  height: 6vh;
+  margin: 0;
+  padding: 0;
+}
+
+.app-logo img {
+  height: 100%;
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+* custom markdown containers
+* libs/markdown/src/lib/parse-content.ts
+*/
+
+html body .home h1 {
+  font-size: 60px;
+}
+
+.caption {
+  font-size: 0.8em;
+  line-height: 1.2em;
+  padding: 0 0.5rem;
+  opacity: 0.8;
+}
