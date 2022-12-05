@@ -206,11 +206,7 @@ export const StyledMarkdownContent = styled.div(() => [
       position: relative;
       min-height: 100%;
     }
-    
-    .card {
-      padding: 1.5rem;
-    }
-    
+
     .background,
     .background > p,
     .background > p > img {

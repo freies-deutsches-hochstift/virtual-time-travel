@@ -33,7 +33,6 @@ md.use(linkAttributesPlugin, {
 
 const defaultCustomContainers = [
   "home",
-  "card",
   "background",
   "slide",
   "caption",
