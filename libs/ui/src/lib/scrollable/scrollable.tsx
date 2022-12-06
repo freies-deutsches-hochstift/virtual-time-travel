@@ -12,11 +12,20 @@ export const Scrollable = ({ children }: PropsWithChildren) => {
 
   const [isScrollable, setIsScrollable] = useState<boolean>(false);
   const [isScrollTop, setIsScrollTop] = useState<boolean>(false);
+  const [useMask, setUseMask] = useState<boolean>(true);
 
   const handleScroll = () => {
     if (!ctnRef.current || !isScrollable) return;
 
     setIsScrollTop(ctnRef.current.scrollTop === 0);
+  };
+
+  const showMask = () => {
+    setUseMask(true);
+  };
+
+  const hideMask = () => {
+    setUseMask(false);
   };
 
   useEffect(() => {
@@ -28,10 +37,19 @@ export const Scrollable = ({ children }: PropsWithChildren) => {
     setIsScrollTop(canScroll);
   }, [height]);
 
+  useEffect(() => {
+    window.addEventListener("setZoom", hideMask);
+    window.addEventListener("unsetZoom", showMask);
+    return () => {
+      window.removeEventListener("setZoom", hideMask);
+      window.removeEventListener("unsetZoom", showMask);
+    };
+  }, []);
+
   return (
     <StyledScrollableCtn
       ref={ctnRef}
-      {...{ isScrollable, isScrollTop }}
+      {...{ isScrollable, isScrollTop, useMask }}
       onScroll={handleScroll}
     >
       <StyledScrollable ref={scrollRef} {...{ isScrollable }}>
@@ -44,10 +62,11 @@ export const Scrollable = ({ children }: PropsWithChildren) => {
 export interface StyledScrollableCtnProps {
   isScrollTop?: boolean;
   isScrollable?: boolean;
+  useMask?: boolean;
 }
 
 export const StyledScrollableCtn = styled.div(
-  ({ isScrollTop, isScrollable }: StyledScrollableCtnProps) => [
+  ({ isScrollTop, isScrollable, useMask }: StyledScrollableCtnProps) => [
     tw`
       w-full h-full flex flex-col flex-nowrap
       overflow-y-auto
@@ -55,6 +74,7 @@ export const StyledScrollableCtn = styled.div(
 
     isScrollable && `mask-image: var(--page-scrollmask);`,
     isScrollTop && `mask-image: var(--page-scrollmask-bottom);`,
+    !useMask && `mask-image: none; overflow: hidden;`,
   ],
 );
 

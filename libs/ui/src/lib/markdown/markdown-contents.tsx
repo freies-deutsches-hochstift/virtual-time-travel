@@ -32,6 +32,9 @@ export interface MarkdownContentsProps {
   imgZoom?: boolean;
 }
 
+const setZoom = new Event("setZoom", { bubbles: true });
+const unsetZoom = new Event("unsetZoom", { bubbles: true });
+
 const slideshowVariants = {
   enter: (direction: number) => {
     return {
@@ -110,6 +113,7 @@ export function MarkdownContents({
             src: targetImg.src,
             title: targetImg.alt || targetImg.title || "",
           });
+        window.dispatchEvent(setZoom);
       }
     },
     [imgZoom],
@@ -117,6 +121,7 @@ export function MarkdownContents({
 
   const closeZoom = useCallback(() => {
     setZoomSrc(null);
+    window.dispatchEvent(unsetZoom);
   }, []);
 
   return (
@@ -206,8 +211,9 @@ export const StyledMarkdown = styled(motion.div)(() => [
 ]);
 
 export const StyledImageZoom = styled(motion.div)(() => [
-  tw`fixed z-50 inset-0 overflow-auto`,
+  tw`fixed z-50 top-0 left-0 right-0 overflow-auto`,
   `
+    bottom: var(--ui-nav-size);
     > img {
       width: auto;
       max-width: none;
