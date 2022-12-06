@@ -71,7 +71,7 @@
           },
           "apps/geo-ar/src/manifest.json",
           "apps/geo-ar/src/robots.txt",
-          "apps/geo-ar/src/workbox-config.js"
+          "apps/geo-ar/src/workbox-standalone-config.js"
         ]
       },
       "configurations": {
@@ -117,7 +117,7 @@
             },
             "apps/geo-ar/src/manifest.json",
             "apps/geo-ar/src/robots.txt",
-            "apps/geo-ar/src/workbox-config.js"
+            "apps/geo-ar/src/workbox-standalone-config.js"
           ]
         }
       }
