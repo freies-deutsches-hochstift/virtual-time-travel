@@ -65,6 +65,18 @@ export const StyledCardDetailsContent = styled.div(() => [
     ${StyledMarkdownContent}  {
       padding: 1.5rem;
     }
+    
+    ${StyledMarkdownContent} h1 {
+      font-size: 1.8rem;
+      line-height: 1.25em;
+      margin: 0 0 2rem 0;
+    }
+
+    ${StyledMarkdownContent} h2 {
+      font-size: 1.8rem;
+      line-height: 1.25em;
+      margin: 0 0 2rem 0;
+    }
 
     ${StyledMarkdownContent} .as-figure {
       width: calc(100% + 3rem);
