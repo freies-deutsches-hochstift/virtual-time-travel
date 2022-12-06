@@ -18,6 +18,31 @@ md.use(linkAttributesPlugin, {
   },
 });
 
+md.renderer.rules.image = (tokens, idx, options, env, slf) => {
+  const token = tokens[idx];
+  if (!token.attrs) token.attrs = [];
+
+  if (token.children) {
+    token.attrs[token.attrIndex("alt")][1] = slf.renderInlineAsText(
+      token.children,
+      options,
+      env,
+    );
+  }
+
+  const caption = token.attrs?.[token.attrIndex("title")]?.[1];
+  const imgRenderer = `<span class="as-figure">${slf.renderToken(
+    tokens,
+    idx,
+    options,
+  )} <span class="as-figure__zoom"><span></span></span></span>`;
+  const captionRenderer = caption
+    ? `<span class="as-figcaption">${caption}</span>`
+    : "";
+
+  return `${imgRenderer}${captionRenderer}`;
+};
+
 /**
  * layout composition and nesting
  * to spice up the layout a little and to give more freedom
@@ -31,13 +56,7 @@ md.use(linkAttributesPlugin, {
  * Use the same principle as in fenced block for nested things - add more : for outer block start/end.
  */
 
-const defaultCustomContainers = [
-  "home",
-  "background",
-  "slide",
-  "caption",
-  "app-logo",
-];
+const defaultCustomContainers = ["home", "background", "slide", "app-logo"];
 
 export interface FetchMarkdownRes {
   contents?: Array<string> | null;

@@ -10,6 +10,7 @@ type StyledButtonStyleProps = {
   disabled?: boolean;
   highlight?: boolean;
   inverted?: boolean;
+  squared?: boolean;
   disabledAfterClick?: boolean;
 };
 
@@ -28,6 +29,7 @@ export function Button(props: ButtonProps) {
     rounded,
     onlyIcon,
     inverted,
+    squared,
     disabledAfterClick,
   } = props;
   const [triggered, setTriggered] = useState(false);
@@ -47,6 +49,7 @@ export function Button(props: ButtonProps) {
         highlight,
         disabled: disabled || triggered,
         inverted,
+        squared,
       }}
     >
       {children}
@@ -62,6 +65,7 @@ const StyledButton = styled.span(
     highlight,
     disabled,
     inverted,
+    squared,
   }: StyledButtonStyleProps) => [
     tw`
     py-2 px-4
@@ -93,6 +97,7 @@ const StyledButton = styled.span(
       tw`bg-ui-button-highlight text-ui-button-highlight-bg`,
     disabled &&
       tw`text-ui-button-disabled bg-ui-button-disabled-bg pointer-events-none`,
+    squared && tw`rounded-sm  w-8 h-8 p-1`,
   ],
 );
 

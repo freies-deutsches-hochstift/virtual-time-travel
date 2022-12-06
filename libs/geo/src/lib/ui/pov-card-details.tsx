@@ -49,6 +49,7 @@ function PovCardDetailsInner({ pov, onClose }: PovCardDetailsInnerProps) {
             asSlideshow
             contentUrl={contentUrl}
             fallbackComponent={<MissingPovFallback {...{ pov }} />}
+            imgZoom={true}
           />
         </Scrollable>
       </StyledCardDetailsContent>

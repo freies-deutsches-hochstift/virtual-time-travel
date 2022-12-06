@@ -66,7 +66,7 @@ export const StyledCardDetailsContent = styled.div(() => [
       padding: 1.5rem;
     }
 
-    ${StyledMarkdownContent} img {
+    ${StyledMarkdownContent} .as-figure {
       width: calc(100% + 3rem);
       max-width: calc(100% + 3rem);
       margin: 0 -1.5rem;
