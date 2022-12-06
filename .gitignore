@@ -1,9 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # local content
-/apps/geo-ar/assets/**/*.csv
-/apps/geo-ar/assets/items/*/medias/**
-/apps/geo-ar/assets/items/*/locales/**
+/apps/geo-ar/assets
 
 # compiled output
 /dist

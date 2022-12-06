@@ -9,11 +9,12 @@
       "dependsOn": ["pre-build"],
       "options": {
         "commands": [
-          "npx workbox-cli generateSW ./apps/geo-ar/workbox-config.js"
+          "npx workbox-cli generateSW ./apps/geo-ar/src/workbox-config.js"
         ],
         "parallel": false
       }
     },
+
     "serve": {
       "executor": "@nrwl/web:dev-server",
       "defaultConfiguration": "development",
@@ -58,6 +59,10 @@
         "main": "apps/geo-ar/src/main.tsx",
         "polyfills": "apps/geo-ar/src/polyfills.ts",
         "tsConfig": "apps/geo-ar/tsconfig.app.json",
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "webpackConfig.js",
+        "postcssConfig": "apps/geo-ar/postcss.config.js",
         "assets": [
           {
             "input": "apps/geo-ar/assets/",
@@ -65,12 +70,9 @@
             "output": "./assets"
           },
           "apps/geo-ar/src/manifest.json",
-          "apps/geo-ar/src/robots.txt"
-        ],
-        "styles": [],
-        "scripts": [],
-        "webpackConfig": "webpackConfig.js",
-        "postcssConfig": "apps/geo-ar/postcss.config.js"
+          "apps/geo-ar/src/robots.txt",
+          "apps/geo-ar/src/workbox-config.js"
+        ]
       },
       "configurations": {
         "development": {
@@ -92,6 +94,31 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false
+        },
+
+        "package": {
+          "fileReplacements": [
+            {
+              "replace": "apps/geo-ar/src/environments/environment.ts",
+              "with": "apps/geo-ar/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "assets": [
+            {
+              "input": "apps/geo-ar/assets-templates/",
+              "glob": "**/*",
+              "output": "./assets"
+            },
+            "apps/geo-ar/src/manifest.json",
+            "apps/geo-ar/src/robots.txt",
+            "apps/geo-ar/src/workbox-config.js"
+          ]
         }
       }
     }
