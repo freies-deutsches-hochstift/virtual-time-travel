@@ -4,8 +4,6 @@
 
 The pages config file is stored under **/assets/items/pages/index.csv** and it contains the setup of all pages used by the app.
 
-(If you are running the project as dev, first duplicate and rename **/assets/items/pages/index.sample** into **/assets/items/pages/index.csv**.)
-
 The app is composed by mandatory pages and optional/free pages
 
 **Mandatory pages**\

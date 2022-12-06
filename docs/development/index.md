@@ -31,10 +31,27 @@ This is a monorepo project generated with [Nx](https://nx.dev).
 npm i
 ```
 
+- Duplicate the directory **apps/geo-ar/assets-templates** and rename it into **assets**.\
+  The directory "assets-templates" contains config and contents samples and it is used to create the pre-build standalone package so it should stay untouched.
+
 - Run development server
 
 ```
 nx serve
 ```
 
-Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Navigate to <http://localhost:4200/>. The app will automatically reload if you change any of the source files.
+
+### Build the application
+
+To build the application with your contents run:
+
+```
+yarn build
+```
+
+To build the application with sample contents run:
+
+```
+yarn package
+```

@@ -4,8 +4,6 @@
 
 The povs config file is stored under **/assets/items/povs/index.csv**.
 
-(If you are running the project as dev, first duplicate and rename **/assets/items/povs/index.sample** into **/assets/items/povs/index.csv**.)
-
 **Example config**
 
 | id  | fence | cover | title | orientation | geometry.type | geometry.coordinates                  |
