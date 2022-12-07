@@ -2,7 +2,7 @@
 
 #### Config
 
-The povs config file is stored under **/assets/items/povs/index.csv**.
+?> :page_facing_up: **/assets/items/povs/index.csv**
 
 **Example config**
 
@@ -26,6 +26,8 @@ The povs config file is stored under **/assets/items/povs/index.csv**.
 
 - **orientation**: _number_ \
   Compass degree angle that the user should orient to in order to see the wanted prospective of the point of interested.
+
+  ?> **north** 0, **east** 90, **south** 180, **west** 260
 
 - **geometry**: _geometry_
 
@@ -51,4 +53,4 @@ The content of each pov is collected under the relative **locales** subfolder.\
 The **locales** subfolder should contain your markdown files scoped by language code (which is also the language slug set in your locales/index.csv).\
 The content filename \*.md should be identical to the "**page identifier**" specified in the pages config csv.
 
-See also [Localization](/reference/localization/index.md) and [How to markdown](/reference/markdown/index.md)
+> See also [Localization](/reference/localization/index.md) and [How to markdown](/reference/markdown/index.md)

@@ -1,12 +1,13 @@
 <!-- docs/_sidebar.md -->
 
-- [Introduction](/)
+- Getting started
 
-- [Getting started](getting_started/index.md)
+  - [Introduction](/)
+  - [Create your app ](getting_started/index.md)
 
 - Customization
 
-  - [Create your app](customization/your_app.md)
+  - [The file structure](customization/file_structure.md)
   - [App Config](customization/app_config.md)
   - [App Localization](customization/localization.md)
   - [App Contents](customization/contents.md)

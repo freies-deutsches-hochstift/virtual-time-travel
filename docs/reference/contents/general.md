@@ -2,10 +2,10 @@ All contents by default are stored under **/assets/items**:
 
 The major content types are:
 
-- **Pages**
-- **POVs**
-- **Fences**
-- **Dialogs**
+- [Pages](#pages)
+- [POVs](#povs)
+- [Fences](#fences)
+- [Dialogs](#dialogs)
 
 ### Generic content structure
 
@@ -22,8 +22,10 @@ The **medias** folder hosts all static assets used in the markdown files.\
 
 **Filenames:**
 
-- Don't start or end your filename with a space, period, hyphen, or underline.
-- Keep your filenames to a reasonable length and be sure they are under 31 characters.
-- Most operating systems are case sensitive; always use lowercase.
-- Avoid using spaces; use a hyphen or underscore instead.
-- Avoid using special characters eg: #/§$%& öäüß ...
+!> consider following hints when choosing file names!
+
+- Don't **start** or **end** your filename **with a space, period, hyphen, or underline**.
+- Keep your filenames to a **reasonable length** and be sure they are under 31 characters.
+- Most operating systems are case sensitive; **always use lowercase**.
+- **Avoid using spaces**. Use a hyphen or underscore instead.
+- **Avoid** using **special characters** eg: #/§$%& öäüß ...

@@ -2,15 +2,6 @@
   box-sizing: border-box;
 }
 
-.button {
-  padding: 4px 15px 3px;
-  background: var(--theme-color);
-  color: white!important;
-  display: inline-block;
-  border-radius: 20px;
-  text-decoration: none;
-}
-
 .sidebar .app-name-link img {
   height: 70%;
   width: 70%;
@@ -24,14 +15,36 @@
   margin-top: 12px;
   gap: 30px;
 }
-.cover-main ul li strong {
+
+.markdown-section blockquote {
+  background-color: rgba(255, 180, 0, 0.1);
+  color: rgba(205, 120, 0, 1);
+  line-height: 1.6rem;
+  word-spacing: 0.05rem;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.markdown-section blockquote p {
+  padding: 1rem;
+  color: rgba(205, 120, 0, 1);
+  font-weight: 400;
+}
+
+.markdown-section blockquote p strong {
+  color: rgba(205, 120, 0, 1);
+}
+
+.cover-main ul li strong,
+.markdown-section a {
   position: relative;
   z-index: 1;
 }
 
-.cover-main ul li strong::before {
+.cover-main ul li strong::before,
+.markdown-section a::before {
   /* Highlight color */
-  background-color: rgba(255,180,0,.9);
+  background-color: rgba(255, 180, 0, 0.9);
 
   content: "";
   position: absolute;
@@ -41,5 +54,66 @@
   left: -2px;
   bottom: 0;
   z-index: -1;
-  transform: rotate(-1.8deg)
+  transform: rotate(-1.8deg);
+}
+
+.markdown-section a {
+  color: rgba(205, 120, 0, 1);
+  text-decoration: none;
+}
+
+.markdown-section a:hover {
+  color: rgb(20, 120, 72);
+  text-decoration: none !important;
+  transition: color 300ms ease-out 100ms;
+}
+
+.markdown-section a::before {
+  background-color: rgba(255, 180, 0, 0.2);
+  transition: background-color 300ms ease-out 100ms;
+}
+
+.markdown-section a:hover::before {
+  background-color: rgba(0, 180, 180, 0.3);
+}
+
+.markdown-section .button {
+  padding: 4px 15px 3px;
+  background: var(--theme-color);
+  color: white;
+  display: inline-block;
+  border-radius: 20px;
+  text-decoration: none;
+}
+.markdown-section .button::before,
+.markdown-section h1 a::before,
+.markdown-section h2 a::before,
+.markdown-section h3 a::before,
+.markdown-section h4 a::before {
+  position: relative;
+  background-color: none;
+}
+.markdown-section .button:hover {
+  color: rgb(20, 120, 72);
+  background-color: rgba(0, 180, 180, 0.3);
+  transition: color 500ms ease-out 100ms;
+  transition: background-color 300ms ease-out 100ms;
+}
+
+.markdown-section .warn,
+.markdown-section .warn strong {
+  color: rgb(20, 120, 72);
+}
+
+.markdown-section .tip,
+.markdown-section .tip strong {
+  color: rgb(142, 27, 27);
+  background-color: rgba(255, 0, 0, 0.05) !important;
+}
+
+.markdown-section .my-container,
+.markdown-section .wrapper-container,
+.markdown-section .child-container {
+  border: 1px dashed rgba(255, 180, 0, 0.9);
+  padding: 1em;
 }

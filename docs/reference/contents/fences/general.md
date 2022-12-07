@@ -1,9 +1,12 @@
 ### Fences
 
-The fences config file is stored under **/assets/items/fences/index.csv**.
+?> :page_facing_up: **/assets/items/fences/index.csv**
 
-There is no limit on the amount of fences that can be added to the config file. \
-Because usually GPS signal is not 100% precise, a good practice is to add a bit of padding around the intrested area polygon and to avoid intersecting fences.
+> In advanced development mode (build from sourcecode) remember to copy the **/assets/items/fences/index.sample** into **/assets/items/fences/index.csv**
+
+There is no limit on the amount of fences that can be added to the config file.
+
+!> Because usually GPS signal is not 100% precise, a good practice is to add a bit of padding around the intrested area polygon and to avoid intersecting fences. Also remember to turn on the **high accuracy mode** for GSP.
 
 **Example config**
 

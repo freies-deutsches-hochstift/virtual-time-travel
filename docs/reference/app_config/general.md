@@ -18,11 +18,11 @@
 
   If set to **true** the QrReader tab (and feature) will be hidden from the main menu.
 
-- **INVIEW_THRESHOLD_DISTANCE**: _number_
+- **INVIEW_THRESHOLD_DISTANCE** \*: _number_
 
   How many meters the user needs to be from a "point of view" for it to be activated in navigation mode.
 
-- **INVIEW_THRESHOLD_ANGLE**: _number_
+- **INVIEW_THRESHOLD_ANGLE** \*: _number_
 
   How many degrees the user can be oriented towards a "point of view" for it to be considered in direct view.
 
@@ -34,6 +34,6 @@
 
   How many meters the user needs to be to a "point of view" for it to be considered close enough.
 
-Because the **GPS signal** is never 100% accurate and it can differ by factors\
-**INVIEW_THRESHOLD_DISTANCE, INVIEW_THRESHOLD_ANGLE, LOOK_AROUND_MIN_DISTANCE,GET_CLOSER_MIN_DISTANCE**\
-should not be set too low (eg: under 20 meters)
+> The **GPS signal** is never 100% accurate and it can differ by factors \
+> INVIEW_THRESHOLD_DISTANCE, INVIEW_THRESHOLD_ANGLE, LOOK_AROUND_MIN_DISTANCE GET_CLOSER_MIN_DISTANCE \
+> should not be set too low: :exclamation:**not less than 20m**

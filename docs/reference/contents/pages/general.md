@@ -2,7 +2,9 @@
 
 #### Config
 
-The pages config file is stored under **/assets/items/pages/index.csv** and it contains the setup of all pages used by the app.
+?> :page_facing_up: **/assets/items/pages/index.csv**
+
+The pages config file contains the setup of all pages used by the app.
 
 The app is composed by mandatory pages and optional/free pages
 
@@ -68,4 +70,4 @@ The content of each page is collected under the relative **locales** subfolder.\
 The **locales** subfolder should contain your markdown files scoped by language code (which is also the language slug set in your locales/index.csv).\
 The content filename \*.md should be identical to the "**page identifier**" specified in the pages config csv.
 
-See also [Localization](/reference/localization/index.md) and [How to markdown](/reference/markdown/index.md)
+> See also [Localization](/reference/localization/index.md) and [How to markdown](/reference/markdown/index.md)

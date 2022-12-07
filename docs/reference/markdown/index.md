@@ -19,7 +19,7 @@ The style of these containers can be added/replaced in **assets/styles/markdown.
 
 **Known as code block** [read more](http://spec.commonmark.org/0.25/#fenced-code-blocks)
 
-In this app, a container **code fence** is a sequence of at least three consecutive **colon** characters (:).
+In this app, a container **code block** is a sequence of at least three consecutive **colon** characters (:).
 
 eg:
 
@@ -38,7 +38,13 @@ will be parsed into
 </div>
 ```
 
-The container can contain any inner markdown.
+and results in
+
+<div class="my-container">
+  <p>this is my custom container</p>
+</div>
+
+The container can contain any inner markdown. The styling is defied by the custom class name, in this example _my-container_
 
 ## Nested containers
 
@@ -71,6 +77,16 @@ will be parsed into
   </div>
 </div>
 ```
+
+and results in
+
+<div class="wrapper-container">
+  <h1>Lorem ipsum h1</h1>
+  <div class="child-container">
+    <h2>Lorem ipsum h2</h2>
+    <p>Lorem ipsum text</p>
+  </div>
+</div>
 
 ### App examples - Slides and POV Card Detail
 

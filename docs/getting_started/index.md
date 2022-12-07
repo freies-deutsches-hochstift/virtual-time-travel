@@ -1,18 +1,22 @@
-# Download and setup
+# Create your onw App
 
-You can choose to use directly the **pre-build application** (recommended for end-users ) or to run and build your application from scratch.
+## Simple: Prebuild application
 
-### Pre-build application
+?> Simple setup and customization. **No programming knowledge** required.
 
-The pre-build distribution is a standalone application ready to be used and customized with your data and design.
+1. Download the prebuild App [Virtual Time Travel Geo-AR v0.9.1](https://github.com/freies-deutsches-hochstift/virtual-time-travel/releases/tag/v0.9.1)
+2. Extract the archive
+3. [Upload the archive contents onto your server](/deployment/index.md)
+4. Start to add your content and customize the application.
 
-[Download Pre-build application](/ ":target=_blank :class=button")
+\
+[Next: Customization](customization/file_structure.md ":class=button")
 
-[Customization Guide](customization/your_app.md ":class=button")
+## Advanced: Build your application from source code
 
-### Build your own
+The source code of this application is also available on [GitHub](https://github.com/freies-deutsches-hochstift/virtual-time-travel ":class=link").
 
-The source code of this application is also available on [GitHub](https://github.com/freies-deutsches-hochstift/virtual-time-travel).
+?> As a developer, you could also run and build this project directly on your local machine. \
+Start with the development guide.
 
-As a developer, you could also run and build this project directly on your local machine. \
-In this case, you might want to start with the [development guide](development/index.md) first.
+[Next: development guide](development/index.md ":class=button").

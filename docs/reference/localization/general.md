@@ -1,8 +1,8 @@
-Before you start to add your content you should define which languages it should use.
+?> :page_facing_up: **assets/items/locales/index.csv**
 
-You can setup one or multiple locales here: **/assets/items/locales/index.csv**
+Before you start to add your content you should define the available application lanugages. The default language is **DE**. You can add multiple languages.
 
-**Default values**
+### Default values
 
 | slug | default | labels.start | labels.confirm | labels.cancel | labels.skip | labels.next | labels.switch-map | labels.switch-list | labels.go-home        | labels.out-of-geofence.confirm | labels.ar-tutorial.confirm | labels.ar-unavailable.confirm | labels.camera-unavailable.confirm | labels.geo-feeds.look_around         | labels.geo-feeds.get_closer                                       | labels.geo-feeds.find_pov                                                              | labels.geo-feeds.view_pov |
 | ---- | ------- | ------------ | -------------- | ------------- | ----------- | ----------- | ----------------- | ------------------ | --------------------- | ------------------------------ | -------------------------- | ----------------------------- | --------------------------------- | ------------------------------------ | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------- |

@@ -15,7 +15,7 @@ For more information see CSS custom properties on [Mdn Documentation](https://de
 
 ### Fonts
 
-- **/assets/styles/fonts.css**
+?> :page_facing_up: **/assets/styles/fonts.css**
 
 By default, the app uses 2 font families "dm_serif" for the headlines and "noto_sans" for the text.
 
@@ -37,7 +37,7 @@ in **/assets/styles/fonts.css**
 
 ### Colors
 
-- **/assets/styles/colors.css**
+?> :page_facing_up: **/assets/styles/colors.css**
 
 Primarily the app uses 3 colors "primary", "secondary" and "highlight" with a few declinations.
 
@@ -108,7 +108,7 @@ This is usually a common best practice, but if needed each set value can be repl
 
 ### Markdown
 
-- **/assets/styles/markdown.css**
+?> :page_facing_up: **/assets/styles/markdown.css**
 
 In this file, it is possible to change/define Markdown custom container styles.\
 See also [How to markdown](/reference/markdown/index.md).
@@ -117,6 +117,6 @@ See also [How to markdown](/reference/markdown/index.md).
 
 More advanced settings can be found in:
 
-- **/assets/styles/theme.css**
+?> :page_facing_up: **/assets/styles/theme.css**
 
 In this file, it is possible to change layout intrinsic attributes like sizes/radius/masks.

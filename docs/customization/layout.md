@@ -2,7 +2,7 @@
 
 All layout assets can be found in:
 
-- **/assets/layout/**
+?> :page_facing_up: **/assets/layout/**
 
 These assets are **mandatory** in the app and they can only be replaced with files with the same name and extension.
 
@@ -20,6 +20,8 @@ These assets are **mandatory** in the app and they can only be replaced with fil
 - poi-inview.png - _explore in view overlay effect_
 
 ### How to replace POVs static map
+
+?> :page_facing_up: **/assets/layout/map-povs.jpg, /assets/layout/map-povs-overlay.png**
 
 The POVs static map is composed of 2 layers:
 

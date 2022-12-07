@@ -1,4 +1,4 @@
-# Localization
+# Localization (internationalization)
 
 [filename](/general.md ":include")
 
