@@ -18,6 +18,8 @@ export enum Icons {
   Menu = "menu",
   Qr = "qr",
   Info = "info",
+  ZoomIn = "zoomIn",
+  ZoomOut = "zoomOut",
 }
 
 const iconTypes: IconTypes = {
@@ -28,6 +30,8 @@ const iconTypes: IconTypes = {
   [Icons.Menu]: "/assets/layout/icons/menu.svg",
   [Icons.Qr]: "/assets/layout/icons/qr.svg",
   [Icons.Info]: "/assets/layout/icons/info.svg",
+  [Icons.ZoomIn]: "/assets/layout/icons/zoom-in.svg",
+  [Icons.ZoomOut]: "/assets/layout/icons/zoom-out.svg",
 };
 
 export function Icon(props: IconProps) {

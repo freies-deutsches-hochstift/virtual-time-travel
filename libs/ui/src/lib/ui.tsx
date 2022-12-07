@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import tw from "twin.macro";
+import { StyledMarkdownContent } from "./markdown";
 
 export const StyledCards = styled.div(tw`
   flex flex-col gap-2
@@ -59,5 +60,32 @@ export const StyledCardDetailsInner = styled.div(() => [
 export const StyledCardDetailsContent = styled.div(() => [
   tw`
       w-full h-full overflow-hidden relative
-    `,
+  `,
+  ` 
+    ${StyledMarkdownContent}  {
+      padding: 1.5rem;
+    }
+    
+    ${StyledMarkdownContent} h1 {
+      font-size: 1.8rem;
+      line-height: 1.25em;
+      margin: 0 0 2rem 0;
+    }
+
+    ${StyledMarkdownContent} h2 {
+      font-size: 1.8rem;
+      line-height: 1.25em;
+      margin: 0 0 2rem 0;
+    }
+
+    ${StyledMarkdownContent} .as-figure {
+      width: calc(100% + 3rem);
+      max-width: calc(100% + 3rem);
+      margin: 0 -1.5rem;
+    }
+
+    ${StyledMarkdownContent} p {
+      margin: 0 0 1.5rem 0;
+    }
+  `,
 ]);

@@ -9,8 +9,6 @@ Custom containers, currently are parsed as wrappers DIVs with the relative custo
 App default custom containers:
 
 - **home** _wrapper around homepage contents_
-- **caption** _image caption wrapper_
-- **card** _wrapper around POV page contents_
 - **slide** _contents splitting into slides (card or page)_
 - **background** _extra background element relative to a parent element_
 - **app-logo** _page logo wrapper_
@@ -75,6 +73,14 @@ will be parsed into
 ```
 
 ### App examples - Slides and POV Card Detail
+
+Images use common markdown syntax:
+
+```
+!["alt"]("src local or remote" "title")
+```
+
+If used the title will be rendered as a caption underneath the image.
 
 Any content can possibly be rendered as a slideshow by using the **slide** custom container.
 

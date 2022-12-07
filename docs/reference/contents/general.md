@@ -19,3 +19,11 @@ All content types follow this structure:
 The **locales** folder hosts all content markdown entries scoped by language code.\
 The **medias** folder hosts all static assets used in the markdown files.\
 **index.csv** represents the content config.
+
+**Filenames:**
+
+- Don't start or end your filename with a space, period, hyphen, or underline.
+- Keep your filenames to a reasonable length and be sure they are under 31 characters.
+- Most operating systems are case sensitive; always use lowercase.
+- Avoid using spaces; use a hyphen or underscore instead.
+- Avoid using special characters eg: #/§$%& öäüß ...

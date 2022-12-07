@@ -5,6 +5,7 @@ import {
   Icon,
   Icons,
   Markdown,
+  Scrollable,
   StyledCardDetailsContent,
   StyledCardDetailsInner,
 } from "@virtual-time-travel/ui";
@@ -43,11 +44,14 @@ function PovCardDetailsInner({ pov, onClose }: PovCardDetailsInnerProps) {
   return (
     <StyledCardDetailsInner>
       <StyledCardDetailsContent>
-        <Markdown
-          asSlideshow
-          contentUrl={contentUrl}
-          fallbackComponent={<MissingPovFallback {...{ pov }} />}
-        />
+        <Scrollable>
+          <Markdown
+            asSlideshow
+            contentUrl={contentUrl}
+            fallbackComponent={<MissingPovFallback {...{ pov }} />}
+            imgZoom={true}
+          />
+        </Scrollable>
       </StyledCardDetailsContent>
 
       <Button highlight {...{ onClick: onClose, rounded: false }}>

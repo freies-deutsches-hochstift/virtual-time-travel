@@ -11,6 +11,7 @@ export interface MarkdownProps {
   fallbackComponent?: ReactNode;
   actions?: ReactNode;
   labels?: { [key: string]: string };
+  imgZoom?: boolean;
 }
 
 export function Markdown({
@@ -19,6 +20,7 @@ export function Markdown({
   fallbackComponent,
   actions,
   labels,
+  imgZoom,
 }: MarkdownProps) {
   const loadContent = useCallback(
     () => getParsedFileContentById(contentUrl),
@@ -33,7 +35,13 @@ export function Markdown({
         if (data?.contents?.length) {
           return (
             <MarkdownContents
-              {...{ contents: data?.contents, asSlideshow, actions, labels }}
+              {...{
+                contents: data?.contents,
+                asSlideshow,
+                actions,
+                labels,
+                imgZoom,
+              }}
             />
           );
         } else {
