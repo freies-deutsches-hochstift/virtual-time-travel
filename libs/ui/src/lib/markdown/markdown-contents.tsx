@@ -237,15 +237,20 @@ export const StyledMarkdownContent = styled.div(
     }
     
     h2 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       line-height: 1.25em;
       margin: 0 0 2rem 0;
     }
     
     h3 {
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       line-height: 1.25em;
-      margin: 0 0 1rem 0;
+      margin: 0 0 1.5rem 0;
+    }
+
+    p + h3,
+    p + h2 {
+      margin-top: 2rem;
     }
 
     h4, h5, h6, p {

@@ -1,7 +1,6 @@
 import { PropsWithChildren } from "react";
 import styled from "@emotion/styled";
 import tw from "twin.macro";
-import { StyledSubMenu } from "../menu";
 import Scrollable from "../scrollable/scrollable";
 
 export const Page = ({ children }: PropsWithChildren) => {
@@ -19,11 +18,6 @@ export const StyledPage = styled.div(() => [
       max-w-app
       flex flex-col
     `,
-  `
-    * + ${StyledSubMenu} {
-      padding-top: 2.5em;
-    }
-  `,
 ]);
 
 export const StyledPageGroup = styled.div(tw`

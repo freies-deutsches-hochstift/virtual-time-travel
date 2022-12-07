@@ -1,1 +1,3 @@
-Nulla quis lorem ut libero malesuada feugiat. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor lectus nibh. Nulla porttitor accumsan tincidunt.
+To find any point-of-view in your area, the application requires camera and location permissions.
+
+### What to do if
