@@ -18,7 +18,6 @@ export function Layout({ children }: PropsWithChildren) {
       <StyledMain>
         <>
           {!forcePortrait && children}
-          <PovDetails />
 
           <Dialog
             {...{
@@ -26,6 +25,8 @@ export function Layout({ children }: PropsWithChildren) {
               show: forcePortrait,
             }}
           />
+
+          <PovDetails />
         </>
       </StyledMain>
 
