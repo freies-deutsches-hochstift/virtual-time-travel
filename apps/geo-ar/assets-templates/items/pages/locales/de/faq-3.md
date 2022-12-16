@@ -23,12 +23,11 @@ On Android you can improve your location’s accuracy by:
 
 - On your Android phone open the Google Maps app
 - If your location quality is low you should see a button 'Accuracy low tap to improve'.
-- Click on calibration and follow the instructions provided by google.
+- Click on calibration and follow the instructions provided by Google.
 - Restart your phone
 
 If the procedure above does not solve the problem try to:
 
 - Delete your browser cache and history.
-- Restart your phone
-- Close and re-open your browser.
+- Close and re-open your browser and or restart your phone
 - Refresh the website.

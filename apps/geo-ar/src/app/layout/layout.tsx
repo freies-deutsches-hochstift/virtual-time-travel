@@ -1,30 +1,23 @@
 import { PropsWithChildren, useMemo } from "react";
 import { useSelector } from "react-redux";
 import styled from "@emotion/styled";
-import { DialogsContentsIds } from "@virtual-time-travel/app-config";
 import { LocalizedRoute } from "@virtual-time-travel/app-router";
 import { Dialog, Icons, MainNav, MainNavButton } from "@virtual-time-travel/ui";
 import tw from "twin.macro";
-import useResizeObserver from "use-resize-observer";
-import { useDialogByKey } from "../hooks/use-dialog-by-key";
+import useForcePortrait from "../hooks/use-force-portrait";
 import PovDetails from "../povs/details";
 import { selectMainRoutes } from "../store/router";
 
 export function Layout({ children }: PropsWithChildren) {
   const mainRoutes = useSelector(selectMainRoutes);
-  const { ref, height, width } = useResizeObserver();
-  const forcePortraitDialog = useDialogByKey(DialogsContentsIds.ForcePortrait);
 
-  const forcePortrait = useMemo(
-    () => (!!width && !!height ? width > height : false),
-    [width, height],
-  );
+  const { ref, forcePortrait, forcePortraitDialog } = useForcePortrait();
 
   return (
     <StyledLayout ref={ref}>
       <StyledMain>
         <>
-          {children}
+          {!forcePortrait && children}
           <PovDetails />
 
           <Dialog
