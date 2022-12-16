@@ -33,11 +33,6 @@ export function PovMarker({
     return (bearingDistance * compassScaleFactor).toFixed(1);
   }, [bearingDistance, compassScaleFactor]);
 
-  const showMeterDistance = useMemo(
-    () => !!(distance && distance < 180),
-    [distance],
-  );
-
   const handleSelectPov = () => {
     if (onSelectPov) onSelectPov(id);
   };
@@ -48,35 +43,27 @@ export function PovMarker({
   return (
     <StyledPovMarker {...{ left, inView }}>
       <StyledPovWave {...{ scale, inView }} />
-      <PovMarkerInner {...{ handleSelectPov, showMeterDistance, distance }} />
+      <PovMarkerInner {...{ handleSelectPov }} />
     </StyledPovMarker>
   );
 }
 
 interface PovMarkerInnerProps {
   handleSelectPov: () => void;
-  showMeterDistance: boolean;
-  distance: number | null;
 }
 
-const PovMarkerInner = memo(
-  ({ handleSelectPov, showMeterDistance, distance }: PovMarkerInnerProps) => {
-    return (
-      <StyledPovInner onClick={handleSelectPov}>
-        <StyledPovDistance>
-          <svg viewBox="0 0 13 10" fill="none">
-            <path
-              d="M4.43182 2H7.97727L13 10H0L4.43182 2Z"
-              fill="currentColor"
-            />
-            <path d="M6.20455 0L13 3H0L6.20455 0Z" fill="currentColor" />
-          </svg>
-          {showMeterDistance && `${distance}m`}
-        </StyledPovDistance>
-      </StyledPovInner>
-    );
-  },
-);
+const PovMarkerInner = memo(({ handleSelectPov }: PovMarkerInnerProps) => {
+  return (
+    <StyledPovInner onClick={handleSelectPov}>
+      <StyledPovDistance>
+        <svg viewBox="0 0 13 10" fill="none">
+          <path d="M4.43182 2H7.97727L13 10H0L4.43182 2Z" fill="currentColor" />
+          <path d="M6.20455 0L13 3H0L6.20455 0Z" fill="currentColor" />
+        </svg>
+      </StyledPovDistance>
+    </StyledPovInner>
+  );
+});
 
 export default PovMarker;
 
@@ -116,6 +103,8 @@ const StyledPovDistance = styled.div([
     & svg {
       height: .9em;
       width: auto;
+      transform: scale(1.4);
+      transform-origin: top center;
     }
   `,
 ]);
