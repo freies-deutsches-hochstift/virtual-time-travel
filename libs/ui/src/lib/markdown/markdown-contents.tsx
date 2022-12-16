@@ -169,7 +169,7 @@ export function MarkdownContents({
             transition={{ duration: 0.5 }}
             style={{ willChange: "opacity" }}
           >
-            <div className="fixed top-2 right-2">
+            <div className="fixed top-2 right-2 landscape:right-20">
               <Button onlyIcon inverted squared onClick={closeZoom}>
                 <Icon type={Icons.ZoomOut} />
               </Button>
@@ -211,13 +211,20 @@ export const StyledMarkdown = styled(motion.div)(() => [
 ]);
 
 export const StyledImageZoom = styled(motion.div)(() => [
-  tw`fixed z-50 top-0 left-0 right-0 overflow-auto`,
+  tw`fixed z-50 top-0 left-0 right-0 overflow-auto bg-primary
+    landscape:bottom-0
+    landscape:right-16
+  `,
   `
     bottom: var(--ui-nav-size);
     > img {
-      width: auto;
-      max-width: none;
-      height: 100%;
+      margin: auto;
+
+      @media (orientation: portrait) {
+        width: auto;
+        max-width: none;
+        height: 100%;
+      }
     }
   `,
 ]);

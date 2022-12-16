@@ -61,11 +61,13 @@ function MainNavLink({ route }: MainNavLinkProps) {
 const StyledLayout = styled.div(tw`
     w-full h-full
     flex flex-col
+    landscape:flex-row
 `);
 
 const StyledMain = styled.main(tw`
     w-full flex-1 overflow-hidden
     flex justify-center relative
+    landscape:h-full
 `);
 
 export default Layout;

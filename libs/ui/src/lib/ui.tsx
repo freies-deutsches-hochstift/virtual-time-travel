@@ -37,11 +37,15 @@ export const StyledCardContent = styled.div([
 
 export const StyledCardCover = styled.div([
   tw`
-    w-1/3 bg-ui-cards-placeholder
+    bg-ui-cards-placeholder relative
+    w-28 h-28
+    landscape:h-24
+    landscape:w-40
   `,
   `
-    aspect-ratio: 1/1;
     & img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -54,6 +58,13 @@ export const StyledCardDetailsInner = styled.div(() => [
       w-full max-w-app h-full
       bg-ui-cards-details-bg text-ui-cards-details
       flex flex-col
+      landscape:flex-row
+    `,
+
+  `
+    @media (orientation: landscape) {
+      padding-left: env(safe-area-inset-left, 0)
+    }
     `,
 ]);
 

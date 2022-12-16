@@ -20,6 +20,9 @@ const StyledMainNav = styled.nav(tw`
   bg-ui-nav-bg
   text-ui-nav-link
   flex items-center justify-center
+  landscape:w-16
+  landscape:h-full 
+  
 `);
 
 const StyledMainNavInner = styled.nav([
@@ -30,15 +33,17 @@ const StyledMainNavInner = styled.nav([
     flex items-center justify-between gap-ui-nav
     w-11/12
     max-w-app
+    landscape:flex-col
+    landscape:w-full
+    [&>a]:portrait:h-full
+    [&>a]:landscape:h-8
   `,
   `
     & > a {
       display: block;
-      height: 100%;
       aspect-ratio: 1 / 1;
       padding: 1.5%;
       transition: transform .3s;
-
       &:active {
         transform: scale(.5);
       }
